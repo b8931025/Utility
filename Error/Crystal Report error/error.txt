@@ -1,0 +1,27 @@
+目前Crystal Report版本是10.2.3600.0
+要安裝以下套件
+1) .net 2.0  ps:從IIS上安裝 .net 3.5就包含 2.0
+2)cr_net_2005_x86
+3) sql server native client driver
+還要用tls 1.0連線
+
+
+<<沒裝sql server native client driver的錯誤>>
+登入失敗。 細目: Error Code: 0x Source: ADODB.Connection Description: 找不到提供者。它可能未被正確安裝。 
+檔案 C:\Windows\TEMP\rpt_EMRMS_0900 {4E89C1AC-C216-4A11-A08C-079FFCA27A30}.rpt 錯誤: 無法連接: 登入參數錯誤。
+
+<<沒開啟tls 1.0的錯誤>>
+登入失敗。 細目: ADO Error Code: 0x Source: Microsoft SQL Server Native Client 11.0 Description: 
+建立 SQL Server 的連接時發生網路相關或執行個體特定錯誤。
+找不到伺服器或是無法存取。檢查執行個體名稱是否正確以及 SQL Server 執行個體是否設定為允許遠端連接。
+如需詳細資訊，請參閱《SQL Server 線上叢書》。 SQL State: 08001 Native Error: 登入失敗。 
+細目: ADO Error Code: 0x Source: Microsoft SQL Server Native Client 11.0 Description: SSL 
+提供者: 用戶端和伺服器無法溝通，因為它們沒有公用的演算法。 SQL State: 08001 Native Error: 
+登入失敗。 
+細目: ADO Error Code: 0x Source: Microsoft SQL Server Native Client 11.0 Description: 
+用戶端無法建立連線 SQL State: 08001 Native Error: 登入失敗。 
+細目: ADO Error Code: 0x Source: Microsoft SQL Server Native Client 11.0 Description: 
+用戶端不支援加密。 SQL State: 08001 Native Error: 登入失敗。 
+細目: ADO Error Code: 0x Source: Microsoft SQL Server Native Client 11.0 Description: 
+無效的連線字串屬性 SQL State: 01S00 檔案 C:\Windows\TEMP\rpt_EMRMS_0900 {6056AC53-C3E7-4F86-86CE-F2A9F835FE5C}.rpt 
+錯誤: 無法連接: 登入參數錯誤。
