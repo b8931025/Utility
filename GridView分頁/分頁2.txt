@@ -1,0 +1,226 @@
+﻿aspx
+					    <asp:GridView id="GridView1" style="Z-INDEX: 101; LEFT: 0px; TOP: 0px" runat="server" Width="" CssClass="Grid" DataSource="<%# dv_exh %>" AutoGenerateColumns="False" ShowHeaderWhenEmpty="true"
+                          AllowPaging="true" OnDataBound="GridView1_DataBound">  <!--分頁設定-->
+					    <RowStyle CssClass="Grid_Detail"></RowStyle>
+					    <HeaderStyle CssClass="Grid_Head"></HeaderStyle>
+					    <FooterStyle CssClass="Grid_Footer"></FooterStyle>
+					    <Columns>
+						    <asp:TemplateField HeaderText="序號">
+							    <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
+							    <ItemStyle HorizontalAlign="Center"></ItemStyle>
+							    <ItemTemplate>
+                       <asp:Label ID="dwG_SeqNo" runat="server" Text='<%#Container.DataItemIndex + 1 %>' CommandName="Select" CausesValidation="False"></asp:Label>
+							    </ItemTemplate>
+						    </asp:TemplateField>
+						    <asp:BoundField DataField="unit" SortExpression="unit" HeaderText="單位" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="name" SortExpression="name" HeaderText="姓名" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="otime" SortExpression="otime" HeaderText="操作時間" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="no" SortExpression="no" HeaderText="流水批號" ItemStyle-HorizontalAlign="Center" ItemStyle-cssclass="hiddencol" HeaderStyle-CssClass="hiddencol" ></asp:BoundField>
+						    <asp:BoundField DataField="ip" SortExpression="ip" HeaderText="IP" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="status_name" SortExpression="status" HeaderText="狀態" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="id" SortExpression="id" HeaderText="身分證末4碼" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="memo" SortExpression="memo" HeaderText="備註" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+					    </Columns>
+
+					    <!--分頁 begin-->
+                    <PagerSettings Position="TopAndBottom" FirstPageText="首頁" LastPageText="末頁" NextPageText="下一頁" PageButtonCount="5" PreviousPageText="上一頁" />
+                    <PagerStyle CssClass="PagerCss" BorderColor="White"/>
+                    <PagerTemplate>
+                        <div class="pagination digg"  style="width:100%">
+                            <ul style="text-align:left">
+                                <li runat="server" id="liPrePage1" class="disabled">上一頁</li>
+                                <li runat="server" id="liPrePage2">
+                                    <asp:LinkButton ID="lnkPrePage" runat="server" CommandName="Prev" CausesValidation="False" OnClick="GridView1_PageIndexChanging">上一頁</asp:LinkButton>
+                                </li>
+                                <li runat="server">
+                                    <asp:LinkButton runat="server" ID="lbtnPage1" Text="1" OnClick="GridView1_PageIndexChanging"></asp:LinkButton></li>
+                                <li runat="server">
+                                    <asp:LinkButton runat="server" ID="lbtnPage2" Text="2" OnClick="GridView1_PageIndexChanging"></asp:LinkButton></li>
+                                <li runat="server">
+                                    <asp:LinkButton runat="server" ID="lbtnPage3" Text="3" OnClick="GridView1_PageIndexChanging"></asp:LinkButton></li>
+                                <li runat="server">
+                                    <asp:LinkButton runat="server" ID="lbtnPage4" Text="4" OnClick="GridView1_PageIndexChanging"></asp:LinkButton></li>
+                                <li runat="server">
+                                    <asp:LinkButton runat="server" ID="lbtnPage5" Text="5" OnClick="GridView1_PageIndexChanging"></asp:LinkButton></li>
+                                <li runat="server" id="liNextPage1" class="disabled">下一頁</li>
+                                <li runat="server" id="liNextPage2">
+                                    <asp:LinkButton ID="lnkNextPage" runat="server" CommandName="Next" CausesValidation="False" OnClick="GridView1_PageIndexChanging">下一頁</asp:LinkButton>
+                                </li>
+                                <li>每頁顯示：
+                                    <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
+                                        <asp:ListItem Selected="True" Value="10"> 10 </asp:ListItem>
+                                        <asp:ListItem Value="30"> 30 </asp:ListItem>
+                                        <asp:ListItem Value="50"> 50 </asp:ListItem>
+                                        <asp:ListItem Value="100"> 100 </asp:ListItem>
+                                    </asp:DropDownList>
+                                    筆
+                                    跳至：
+                                    <asp:DropDownList ID="ddlPages" runat="server" AutoPostBack="True" OnSelectedIndexChanged="GridView1_PageIndexChanging">
+                                    </asp:DropDownList>
+                                    頁｜資料總筆數：<asp:Literal ID="lblTotalRecord" runat="server"></asp:Literal>｜總頁數：<asp:Literal ID="lblTotalPage" runat="server"></asp:Literal>
+                                </li>
+                            </ul>
+                        </div>
+                    </PagerTemplate>
+					    <!--分頁 end-->
+					                        
+				    </asp:GridView>
+				    
+Code C#
+        //跳頁
+        protected void GridView1_PageIndexChanging(object sender, EventArgs e)
+        {
+            if (sender.GetType() == typeof(DropDownList))
+            {
+                GridView1.PageIndex = int.Parse(((DropDownList)sender).SelectedValue) - 1;
+            }
+            else if (sender.GetType() == typeof(LinkButton))
+            {
+                LinkButton lbtn = (LinkButton)sender;
+                if (lbtn.Text == "下一頁")
+                {
+                    GridView1.PageIndex += 1;
+                }
+                else if (lbtn.Text == "上一頁")
+                {
+                    GridView1.PageIndex -= 1;
+                }
+                else
+                {
+                    GridView1.PageIndex = int.Parse(lbtn.Text.Trim()) - 1;
+                }
+            }
+            get_data("");
+        }
+
+        //每頁顯示筆數
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView1.PageSize = int.Parse(((DropDownList)sender).SelectedValue);
+            get_data("");
+        }
+
+        protected void GridView1_DataBound(object sender, EventArgs e)
+        {
+            GridView gv = (GridView)sender;
+            int totalPage = gv.PageCount; //總頁數
+            int currentPage = gv.PageIndex + 1; //當前頁次
+
+            GridViewRow[] rows = { gv.BottomPagerRow, gv.TopPagerRow };
+            foreach (GridViewRow row in rows)
+            {
+                if (row != null) {
+                    row.FindControl("liPrePage1").Visible = currentPage == 1;
+                    row.FindControl("liPrePage2").Visible = currentPage != 1;
+                    row.FindControl("liNextPage1").Visible = currentPage == totalPage;
+                    row.FindControl("liNextPage2").Visible = currentPage != totalPage;
+
+                    //調整分頁
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        if (i > totalPage)
+                        {
+                            row.FindControl("lbtnPage" + i.ToString()).Parent.Visible = false;
+                        }
+                        else if (currentPage > 5)
+                        {
+                            ((LinkButton)row.FindControl("lbtnPage" + i.ToString())).Text = (currentPage - (5 - i)).ToString();
+                        }
+                        else
+                        {
+                            ((LinkButton)row.FindControl("lbtnPage" + i.ToString())).Text = i.ToString();
+                        }
+                    }
+
+                    //跳頁選單
+                    DropDownList ddlPages = (DropDownList)row.FindControl("ddlPages");
+                    ddlPages.Items.Clear();
+                    for (int page = 1; page <= totalPage; page++)
+                    {
+                        ddlPages.Items.Add(page.ToString());
+                    }
+                    ddlPages.SelectedValue = currentPage.ToString();
+
+                    //跳頁選單
+                    ((DropDownList)row.FindControl("ddlPageSize")).SelectedValue = gv.PageSize.ToString();
+
+                    //總頁數
+                    ((Literal)row.FindControl("lblTotalPage")).Text = gv.PageCount.ToString();
+
+                    //總筆數
+                    DataView dv = (DataView)gv.DataSource;
+                    ((Literal)row.FindControl("lblTotalRecord")).Text = dv.Count.ToString();
+                }
+            }
+        }
+        
+Code VB
+    '跳頁
+    Protected Sub gvList_PageIndexChanging(sender As Object, e As EventArgs)
+        If TypeOf (sender) Is DropDownList Then
+            GridView1.PageIndex = CType(sender, DropDownList).SelectedValue - 1
+        ElseIf TypeOf (sender) Is LinkButton Then
+            Dim lbtn As LinkButton = CType(sender, LinkButton)
+            If lbtn.Text = "下一頁" Then
+                GridView1.PageIndex = GridView1.PageIndex + 1
+            ElseIf lbtn.Text = "上一頁" Then
+                GridView1.PageIndex = GridView1.PageIndex - 1
+            Else
+                GridView1.PageIndex = Int32.Parse(lbtn.Text) - 1
+            End If
+        End If
+        showGridView() 'DataBind
+    End Sub
+
+    '每頁顯示筆數
+    Protected Sub ddlPageSize_SelectedIndexChanged(sender As Object, e As EventArgs)
+        GridView1.PageSize = CType(sender, DropDownList).SelectedValue
+        showGridView() 'DataBind
+    End Sub
+
+    Protected Sub GridView1_DataBound(sender As Object, e As EventArgs)
+        Dim gv As GridView = CType(sender, GridView)
+        Dim totalPage As Integer = gv.PageCount     '總頁數
+        Dim currentPage As Integer = gv.PageIndex + 1   '當前頁次
+
+        Dim rows As GridViewRow() = {gv.BottomPagerRow, gv.TopPagerRow}
+        For Each row As GridViewRow In rows
+            If Not IsNothing(row) Then
+                row.FindControl("liPrePage1").Visible = currentPage = 1
+                row.FindControl("liPrePage2").Visible = currentPage <> 1
+                row.FindControl("liNextPage1").Visible = currentPage = totalPage
+                row.FindControl("liNextPage2").Visible = currentPage <> totalPage
+
+                '調整分頁
+                For i As Integer = 1 To 5
+                    If i > totalPage Then
+                        row.FindControl("lbtnPage" & i).Parent.Visible = False
+                    ElseIf currentPage > 5 Then
+                        CType(row.FindControl("lbtnPage" & i), LinkButton).Text = currentPage - (5 - i)
+                    Else
+                        CType(row.FindControl("lbtnPage" & i), LinkButton).Text = i
+                    End If
+
+                    If CType(row.FindControl("lbtnPage" & i), LinkButton).Text = currentPage Then CType(row.FindControl("lbtnPage" & i), LinkButton).CssClass = "current"
+                Next
+
+                '跳頁選單
+                Dim ddlPages As DropDownList = CType(row.FindControl("ddlPages"), DropDownList)
+                ddlPages.Items.Clear()
+                For page As Integer = 1 To totalPage
+                    ddlPages.Items.Add(page.ToString)
+                Next
+                ddlPages.SelectedValue = currentPage
+
+                '跳頁選單
+                CType(row.FindControl("ddlPageSize"), DropDownList).SelectedValue = gv.PageSize
+
+                '總頁數
+                CType(row.FindControl("lblTotalPage"), Literal).Text = gv.PageCount
+
+                '總筆數
+                Dim dv As DataView = CType(gv.DataSource, DataView)
+                CType(row.FindControl("lblTotalRecord"), Literal).Text = dv.Count
+            End If
+        Next
+    End Sub

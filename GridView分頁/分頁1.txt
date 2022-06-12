@@ -1,0 +1,99 @@
+﻿aspx
+				    <asp:GridView id="GridView1" style="Z-INDEX: 101; LEFT: 0px; TOP: 0px" runat="server" Width="" CssClass="Grid" DataSource="<%# dv_exh %>" AutoGenerateColumns="False"  ShowHeaderWhenEmpty="true"
+                        AllowPaging="true" PageSize="20" OnPageIndexChanging="GridView1_PageIndexChanging"> <!--分頁設定-->
+					    <RowStyle CssClass="Grid_Detail"></RowStyle>
+					    <HeaderStyle CssClass="Grid_Head"></HeaderStyle>
+					    <FooterStyle CssClass="Grid_Footer"></FooterStyle>
+					    <Columns>
+						    <asp:TemplateField HeaderText="序號">
+							    <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
+							    <ItemStyle HorizontalAlign="Center"></ItemStyle>
+							    <ItemTemplate>
+							    	<asp:Label ID="dwG_SeqNo" runat="server" Text='<%#Container.DataItemIndex + 1 %>' CommandName="Select" CausesValidation="False"></asp:Label>
+							    </ItemTemplate>
+						    </asp:TemplateField>
+						    <asp:BoundField DataField="unit" SortExpression="unit" HeaderText="單位" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="name" SortExpression="name" HeaderText="姓名" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="otime" SortExpression="otime" HeaderText="操作時間" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="no" SortExpression="no" HeaderText="流水批號" ItemStyle-HorizontalAlign="Center" ItemStyle-cssclass="hiddencol" HeaderStyle-CssClass="hiddencol" ></asp:BoundField>
+						    <asp:BoundField DataField="ip" SortExpression="ip" HeaderText="IP" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="status_name" SortExpression="status" HeaderText="狀態" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="id" SortExpression="id" HeaderText="身分證末4碼" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+						    <asp:BoundField DataField="memo" SortExpression="memo" HeaderText="備註" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
+					    </Columns>
+					    
+					    <!--分頁 begin-->
+					    <PagerTemplate>
+                  <table>
+                      <tr>
+                          <td style="text-align: right">第&nbsp;<asp:Label ID="lblPageIndex" runat="server" Text="<%#GridView1.PageIndex + 1 %>" ForeColor="Blue"></asp:Label>&nbsp;頁，
+                                      共&nbsp;<asp:Label ID="lblPageCount" runat="server" Text="<%# GridView1.PageCount %>" ForeColor="Blue"></asp:Label>&nbsp;頁，
+                                      <asp:LinkButton ID="btnFirst" runat="server" CausesValidation="False" CommandArgument="First" CommandName="Page" Text="第一頁"></asp:LinkButton>&nbsp;&nbsp;
+                                      <asp:LinkButton ID="btnPrev" runat="server" CausesValidation="False" CommandArgument="Prev" CommandName="Page" Text="上一頁"></asp:LinkButton>&nbsp;&nbsp;
+                                      <asp:LinkButton ID="btnNext" runat="server" CausesValidation="False" CommandArgument="Next" CommandName="Page" Text="下一頁"></asp:LinkButton>&nbsp;&nbsp;
+                                      <asp:LinkButton ID="btnLast" runat="server" CausesValidation="False" CommandArgument="Last" CommandName="Page" Text="最後一頁"></asp:LinkButton>&nbsp;&nbsp;
+                                      <asp:TextBox ID="txtNewPageIndex" runat="server" Text="<%# GridView1.PageIndex + 1%>" Width="120px"></asp:TextBox>
+                              <asp:LinkButton ID="btnGo" runat="server" CausesValidation="False" CommandArgument="-1" CommandName="Page" Text="GO"></asp:LinkButton>
+                          </td>
+                      </tr>
+                  </table>
+					    </PagerTemplate>
+					    <!--分頁 end-->
+					    
+				    </asp:GridView>
+				    
+Code C#
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView gvw = (GridView)sender;
+            if (e.NewPageIndex < 0)
+            {
+                TextBox pageNum = (TextBox)gvw.BottomPagerRow.FindControl("txtNewPageIndex");
+                int Pa = 0;
+
+                if (!int.TryParse(pageNum.Text.Trim(), out Pa)) {
+                    //throw new Exception("數字格式錯誤");
+                    pageNum.Text = "1";
+                    return;
+                }
+
+                if (Pa <= 0)
+                    gvw.PageIndex = 0;
+                else
+                    gvw.PageIndex = Pa - 1;
+            }
+            else
+            {
+                gvw.PageIndex = e.NewPageIndex;
+            }
+
+            get_data("");//Binding();
+        }				    
+        
+Code VB
+    Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs)
+        Dim gvw As GridView = CType(sender, GridView)
+
+        If e.NewPageIndex < 0 Then
+            Dim pageNum As TextBox = CType(gvw.BottomPagerRow.FindControl("txtNewPageIndex"), TextBox)
+            Dim Pa As Integer = 0
+
+            If Not IsNumeric(pageNum.Text.Trim) Then
+                '數字格式錯誤
+                pageNum.Text = "1"
+                Return
+            End If
+
+            Pa = CInt(pageNum.Text.Trim)
+
+            If Pa <= 0 Then
+                gvw.PageIndex = 0
+            Else
+                gvw.PageIndex = Pa - 1
+            End If
+        Else
+            gvw.PageIndex = e.NewPageIndex
+        End If
+
+        showGridView() ' Binding
+    End Sub        
