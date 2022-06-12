@@ -1,0 +1,5 @@
+select text 
+from user_source
+where type='PROCEDURE' --PROCEDURE/FUNCION
+and name='CAS_TPE2MPN_PUBOTHER' --name of procedure/function
+order by line

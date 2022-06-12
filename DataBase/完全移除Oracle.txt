@@ -1,0 +1,12 @@
+將Oracle完全移除
+
+1、於服務中停止所有Oracle服務。
+2、開始－＞程序－＞Oracle - OraHome81－＞Oracle Installation Products－＞Universal Installer移除所有Oracle產品
+3、執行regedit，選擇HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE，按del鍵刪除。
+4、執行regedit，選擇HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Oracle****，只要是Oracle開頭的，按del鍵刪除。
+5、重新啟動
+6、刪除Program Files目錄下的Oracle目錄
+7、刪除與Oracle有關的文件，選擇Oracle所在的目錄C:\Oracle，刪除這個目錄
+8、並從Windows 2000目錄（一般為C:\WINNT）下刪除以下文件ORACLE.INI、oradim80.INI  only Win2000
+9、WIN.INI文件中若有[ORACLE]的標記段，刪除該段  only Win2000
+10、從桌面上刪除所有有關Oracle的圖示

@@ -1,0 +1,37 @@
+一個中文字有2個byte所以要char(2)或nchar(2)才能存放
+10進位轉成對照big5或unicode的字元，要轉成binary(16進位)，再轉char/nchar；直接用10進位轉char/nchar只會變成阿拉伯字串
+
+
+16進位和10進位轉換
+--16==>10
+select cast(0xABA2 as int);
+--10==>16
+select cast(51284 as binary(2));
+
+中文和16進位轉換
+--中文==>16
+select CAST('哈' AS binary(2));
+--中文(unicode)==>16
+select CAST(N'哈' AS binary(2));
+
+--16==>中文
+select cast(0xABA2 as char(2));
+--16==>中文(unicode)
+select cast(0xC854 as nchar(1));
+
+中文和10進位轉換 (10先轉16再轉char)
+--10進位轉中文  
+  SELECT cast(cast(63959 as binary(2)) as char(2));
+--10進位轉中文 (Unicode)  
+  SELECT cast(cast(16944 as binary(2)) as nchar(1));
+
+--中文轉10進位
+  SELECT cast(CAST('哈' AS binary(2)) as int)
+--中文轉10進位 (Unicode) 
+  SELECT cast(CAST(N'あ' AS varbinary(2)) as int)
+
+
+造字編碼範圍  16進位 => 10進位
+0x8140-0xA0FE => 33088 ~ 41214
+0xC6A1-0xC8FE => 50849 ~ 51454
+0xF9D6-0xFEFE => 63958 ~ 65278

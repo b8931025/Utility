@@ -1,0 +1,4 @@
+select h.*,h.rowid
+from HASP_PRJ_EXCHANGE h
+where 1=1
+and iofficer LIKE 'KKAB%\%%' escape '\' /*§â[\%]¸õ²æ±¼*/;

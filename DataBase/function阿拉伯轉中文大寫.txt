@@ -1,0 +1,115 @@
+﻿CREATE OR REPLACE FUNCTION TO_UPPER_NUM 
+(  
+  P_NUM   IN NUMBER DEFAULT NULL,  
+  P_ROUND NUMBER    DEFAULT 2,    --輸出要保留的小數位數 
+  P_MONTH NUMBER    DEFAULT 1     --輸出不為月份或者日時,當此參數輸入不為1時,返回值為大寫(非漢字)數字  
+)  
+  RETURN  NVARCHAR2  
+IS  
+   /**
+   *阿拉伯數字轉化為大寫漢字的函數
+   *输入参数转换前的数字,要保留的小数位数(4舍5入可以不输入,默认为小数点后2位)
+   *輸出參數為轉化後的大寫數字
+   *支持小數點和負數，但數字整數部分不能超過16位
+   *支持轉換月份和日期，如選擇TO_UPPER_NUM（'31'，'3'，'2'）FROM DUAL
+   * - 日期例子（年份的轉換見另一個函數）
+   *選擇TO_UPPER_YEAR（TO_CHAR（SYSDATE，'YYYY'））||'年'||
+   * TO_UPPER_NUM（TO_CHAR（SYSDATE，“MM”），'2'，'2'）||'月'||
+   * TO_UPPER_NUM（TO_CHAR（SYSDATE，“DD”），'2'，'2'）||'日'
+   * FROM DUAL;
+   * - 貨幣例子（截取小數點後兩位，四捨五入）
+   *選擇TO_UPPER_NUM（1234.564）FROM DUAL;
+   */
+   RESULT      NVARCHAR2(100) := ''; --返回大寫漢字字符串 
+   NUM_ROUND   NVARCHAR2(100) := TO_CHAR(ABS(ROUND(P_NUM, P_ROUND))); --轉換數字為小數點後p_round位的字符(正數)
+   NUM_LEFT    NVARCHAR2(100);       --小數點左邊的數字 
+   NUM_RIGHT   NVARCHAR2(100);       --小數點右邊的數字 
+   STR1        NCHAR(10) := '零壹貳叁肆伍陸柒捌玖';             --數字大寫
+   STR2        NCHAR(16) := '點拾佰仟萬拾佰仟億拾佰仟萬拾佰仟'; --數字位數(從低至高) 
+   STR3        NCHAR(10) := '０一二三四五六七八九';             --月份數字大寫
+   STR4        NCHAR(16) := '點十佰仟萬拾佰仟億拾佰仟萬拾佰仟'; --數字位數(從低至高) 
+   NUM_PRE     NUMBER(1) := 1;       --前一位上的數字
+   NUM_CURRENT NUMBER(1);            --當前位上的數字 
+   NUM_COUNT   NUMBER := 0;          --當前數字位數 
+BEGIN  
+  --轉換數字為NULL時，返回NULL
+  IF P_NUM IS NULL THEN  
+    RETURN NULL;  
+  END IF;  
+  --如果要轉換月份或者日時,則替換臨時變量 
+  IF P_MONTH <> 1 THEN  
+    STR1 := STR3;  
+    STR2 := STR4;  
+  END IF;  
+  --取得小數點左邊的數字  
+  SELECT TO_CHAR(NVL(SUBSTR(TO_CHAR(NUM_ROUND),  
+                            1,  
+                            DECODE(INSTR(TO_CHAR(NUM_ROUND), '.'),  
+                                   0,  
+                                   LENGTH(NUM_ROUND),  
+                                   INSTR(TO_CHAR(NUM_ROUND), '.') - 1)),  
+                     0))  
+    INTO NUM_LEFT  
+    FROM DUAL;  
+  --取得小數點右邊的數字
+  SELECT SUBSTR(TO_CHAR(NUM_ROUND),  
+                DECODE(INSTR(TO_CHAR(NUM_ROUND), '.'),  
+                       0,  
+                       LENGTH(NUM_ROUND) + 1,  
+                       INSTR(TO_CHAR(NUM_ROUND), '.') + 1),  
+                P_ROUND)  
+    INTO NUM_RIGHT  
+    FROM DUAL;  
+  --數字整數部分超過16位時.採用從低至高的算法，先處理小數點左邊的數字
+  IF LENGTH(NUM_LEFT) > 16 THEN  
+    RETURN '**********';  
+  END IF;  
+  FOR I IN REVERSE 1 .. LENGTH(NUM_LEFT) LOOP  
+    --(從低至高)
+    NUM_CURRENT := TO_NUMBER(SUBSTR(NUM_LEFT, I, 1)); --當前位上的數字
+    NUM_COUNT   := NUM_COUNT + 1;                     --當前數字位數
+    --當前位上數字不為0按正常處理
+    IF NUM_CURRENT > 0 THEN  
+    --如果轉換數字最高位是十位,轉換後不需要前面的壹,如月份12轉換後為拾貳,則
+      IF NUM_CURRENT = 1 AND P_MONTH <> 1 AND NUM_COUNT = 2 THEN  
+        RESULT :=  SUBSTR(STR2, NUM_COUNT, 1) || RESULT;  
+        STR1 := STR3;  
+      ELSE  
+        RESULT := SUBSTR(STR1, NUM_CURRENT + 1, 1)  
+                ||SUBSTR(STR2, NUM_COUNT, 1)  
+                || RESULT;  
+      END IF;  
+    ELSE  
+      --當前位上數字為0時 
+      IF MOD(NUM_COUNT - 1, 4) = 0 THEN  
+        --當前位是點、萬或億時
+        RESULT  := SUBSTR(STR2, NUM_COUNT, 1) || RESULT;  
+        NUM_PRE := 0; --點、萬,億前不准加零
+      END IF;  
+      IF NUM_PRE > 0 OR LENGTH(NUM_LEFT) = 1 THEN  
+        --上一位數字不為0或只有個位時
+        RESULT := SUBSTR(STR1, NUM_CURRENT + 1, 1) || RESULT;  
+      END IF;  
+    END IF;  
+    NUM_PRE := NUM_CURRENT;  
+  END LOOP;  
+  --再處理小數點右邊的數字  
+  IF LENGTH(NUM_RIGHT) > 0 THEN  
+    FOR I IN 1 .. LENGTH(NUM_RIGHT) LOOP  
+      --(從高至低) 
+      NUM_CURRENT := TO_NUMBER(SUBSTR(NUM_RIGHT, I, 1)); --當前位上的數字
+      RESULT      := RESULT || SUBSTR(STR1, NUM_CURRENT + 1, 1);  
+    END LOOP;  
+  ELSE  
+    RESULT := REPLACE(RESULT, '點', '');                 --無小數時去掉點
+  END IF;  
+  --轉換數字是負數時
+  IF P_NUM < 0 THEN  
+    RESULT := '負' || RESULT;  
+  END IF;  
+  RETURN RESULT;  
+EXCEPTION  
+  WHEN OTHERS THEN  
+    DBMS_OUTPUT.PUT_LINE(SQLERRM);  
+    RETURN '';  
+END;  

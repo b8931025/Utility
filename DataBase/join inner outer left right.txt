@@ -1,0 +1,6 @@
+﻿那麼下面每行的兩個語句都是完全等效的:
+
+A LEFT JOIN B            A LEFT OUTER JOIN B
+A RIGHT JOIN B           A RIGHT OUTER JOIN B
+A FULL JOIN B            A FULL OUTER JOIN B
+A INNER JOIN B           A JOIN B

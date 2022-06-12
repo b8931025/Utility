@@ -1,0 +1,1 @@
+select chr(13) || chr(10) from dual ;

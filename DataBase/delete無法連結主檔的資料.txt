@@ -1,0 +1,5 @@
+﻿exm01為主檔，exh01為明細
+
+
+delete a from exh01 a 
+where not exists (select * from exm01 b where b.m01_cerw = a.m01_cerw and b.m01_cerno = a.m01_cerno );

@@ -1,0 +1,6 @@
+﻿declare @D datetime = (select getDate());
+SELECT convert(varchar,@D,111) --yyyy/mm/dd
+, convert(varchar,@D,23)   --yyyy-mm-dd
+, convert(varchar,@D,112 )  --yyyymmdd
+, convert(varchar,@D,120 )  --yyyy-mm-dd hh:mm:ss 24H
+, left(convert(varchar,@D,112),6) --yyyymm

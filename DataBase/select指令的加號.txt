@@ -1,0 +1,17 @@
+LEFT JOIN
+select a.id,b.id
+   form a ,b 
+   where  a.id=b.id(+);
+   
+select a.id,b.id
+   form a left join b 
+   on  a.id=b.id;
+   
+RIGHT JOIN   
+select a.id,b.id
+   form a ,b 
+   where  a.id(+)=b.id;
+   
+select a.id,b.id
+   form a right join b 
+   on  a.id=b.id;   

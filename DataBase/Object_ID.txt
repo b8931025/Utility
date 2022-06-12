@@ -1,0 +1,4 @@
+¤@¯ëtable
+if OBJECT_ID('ext30') is not null drop table ext30;
+¼È¦stable
+if OBJECT_ID('tempdb..#ext30') is not null drop table #ext30;

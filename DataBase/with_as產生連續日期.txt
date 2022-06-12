@@ -1,0 +1,12 @@
+﻿產生一個遞增的連續日期
+declare @bgn date = '2022/5/1';
+declare @end date = '2022/5/31';
+
+with cte as (
+select @bgn dt
+union all
+select dateadd(dd,1,dt) dt
+from cte
+where dt < @end
+)
+select * from cte 

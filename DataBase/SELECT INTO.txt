@@ -1,0 +1,9 @@
+﻿1.INSERT INTO SELECT語法
+  語法為：Insert into Table2(field1,field2,...) select value1,value2,... from Table1
+  要求目標表Table2必須存在，由於目標表Table2已經存在，所以我們除了插入源表Table1的字段外，才可   以插入常量。
+
+2.SELECT INTO FROM語法
+  語法為：SELECT vale1, value2 into Table2 from Table1
+  要求目標表Table2不存在，因為在插入時會自動創建表Table2，並將Table1中指定字段數據復制到            
+  Table2中。
+   

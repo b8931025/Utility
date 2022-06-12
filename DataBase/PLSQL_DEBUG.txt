@@ -1,0 +1,34 @@
+一、定位你的procedure
+1。在屏幕左邊的對象瀏覽器中展開procedure
+2。找到你的procedure
+
+二、打開測試窗口
+1。在你的procedure上點擊右鍵
+2。在彈出的菜單中選擇test
+3。 PL/SQL Devoloper就會打開一個測試窗口並自動生成一個調用塊
+4。在測試窗口的下方輸入你的procedure的入口參數
+
+三、打開編輯窗口
+1。在你的procedure上點擊右鍵
+2。在彈出的菜單中選擇edit
+3。 PL/SQL Devoloper就會打開編輯窗口
+4。在需要的地方設置斷點
+
+四、開始調試
+1。回到調試窗口
+2。打開debug菜單，你就會看見start項已經可以用了，點擊它
+3。接下來就可以用調試窗口上的按鈕進行單步跟?
+
+所有的參數，不管是數字類型，還是字符類型，均不要加引號
+PL/SQL Developer中，存儲過程無法調試的問題解決辦法
+
+在Oracle10中新建了一個用戶，然後編寫存儲過程在PL/SQL Developer中調試，提示
+
+ORA-0131: Insufficient privileges.
+Note: Debugging requires the DEBUG CONNECT SESSION system privilege.
+
+用管理員帳號登錄後，執行
+
+grant Debug Connect Session to sky_test;
+
+命令後，再進行調試，一切OK。

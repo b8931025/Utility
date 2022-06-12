@@ -1,0 +1,2 @@
+char如果設char(10)值為abc就會自動補空白補到滿足10為止
+varchar不會

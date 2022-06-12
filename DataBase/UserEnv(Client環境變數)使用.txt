@@ -1,0 +1,18 @@
+UserEnv Function
+
+Parameter 		Explanation 
+CLIENT_INFO 	Returns user session information stored using the DBMS_APPLICATION_INFO package 
+ENTRYID 			Available auditing entry identifier 
+INSTANCE 			The identifier number of the current instance 
+ISDBA 				傳回使用者是否有DBA權限
+LANG 					傳回所使用語言在ISO的簡寫
+LANGUAGE 			傳回所使用語言、地區和字集。格式如下:語言_地區.字集
+SESSIONID 		傳回SESSION ID
+TERMINAL 			The OS identifier of the current session 
+
+select userenv('LANGUAGE') from dual;
+TRADITIONAL CHINESE_TAIWAN.ZHT16MSWIN950
+
+select userenv('SESSIONID') from dual;
+4484
+

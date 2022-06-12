@@ -1,0 +1,5 @@
+﻿declare @var varchar(90) = 'Red,Yellow,Grey';
+select * from Table where column in (select [value] from string_split(@var,','));
+
+select compatibility_level from sys.databases where name = 'dbname';
+alter database dbname set compatibility_level = 130;

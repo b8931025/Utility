@@ -1,0 +1,9 @@
+        有時會從datareader或DataBinder.Eval(_Container_DataItem, "Field_Name") 去取得一欄位的資料，做String的處理
+        但如果該欄為null，就會傳回一個DBNull的物件，而不是String
+        這時，就要先用 is DBNull.Value或isDBNUll()來判斷是否為DBNull
+        
+        If (DataBinder.Eval(_Container_DataItem, "CONAMT")) Is DBNull.Value Then '判斷該欄位是否為空(DBNull)
+            
+        Else
+            
+        End If

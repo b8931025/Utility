@@ -1,0 +1,56 @@
+如何在Windows下更好管理Oracle9i服務
+
+Oracle的主程式是OracleServiceORCL 服務（其中ORCL 是SID），該服務沒開，資料庫就無法運作。通常是預設為自動開啟。
+如果主要是訪問一個遠程數據庫，那麼可以把啟動類型由自動改為手動。
+
+OracleOraHome92TNSListener 服務用於提供遠端連接（無論是通過另外一台主機還是在本地通過 SQL*Net 網絡協議都屬於遠程訪問）。
+                           不用這個服務就可以訪問本地數據庫。
+OracleOraHome92ClientCache 服務用於連接遠端資料庫。如果用不會去存取本機以外的資料庫，那關掉也沒差。
+
+
+(以下都是非必要的服務).....
+OracleOraHome92HTTPServer 服務（OraHome92 是Oracle Home 的名稱）是在安裝Oracle 時自動安裝的Apache 服務器。一般情況下我們只用它來訪問Oracle Apache 目錄下的Web 頁面，比如說JSP 或者modplsql 頁面。
+OracleMTSRecoveryService 允許數據庫充當一個微軟事務服務器、COM/COM+對像和分佈式環境下的事務的資源管理器。
+
+有四個服務是Oracle 企業管理器所必須的（Oracle Enterprise Manager），這個服務分別為：
+OracleOraHome92Agent（智能代理），該服務監視數據庫和企業管理器請求，缺省啟動類型為自動。
+OracleOraHome92SNMPPeerEncapsulator 
+OracleOraHome92SNMPPeerMasterAgent，處理安全網絡管理協議服務。
+OracleOraHome92PagingServer 通過一個使用調製解調器的數字傳呼機或者電子郵件發出警告。
+
+
+只要有Administrator權限，就可以用net start/stop 啟動或停止一個服務。
+在Windows XP 中，可以通過在控制面板的服務中改變想要禁用的服務（OracleOraHome...）的啟動類型（Startup Type）參數，
+雙擊某個服務查看其屬性，然後將啟動類型屬性從自動改為手動。
+
+1.保存一個匹次檔(.bat)自動地裝載這些文件。
+2.將Oracle 服務設為手動避免在Windows 啟動時啟動。
+
+REM "dbstart.cmd"
+@echo off
+set ORAHOME="OraHome92"
+set ORASID="ORCL"
+net start OracleService%ORASID%
+REM net start Oracle%ORAHOME%HTTPServer
+REM net start Oracle%ORAHOME%TNSListener
+REM net start Oracle%ORAHOME%ClientCache
+REM net start Oracle%ORAHOME%Agent
+REM net start Oracle%ORAHOME%SNMPPeerEncapsulator
+REM net start Oracle%ORAHOME%SNMPPeerMasterAgent
+REM net start Oracle%ORAHOME%PagingServer
+REM net start OracleMTSRecoverService
+
+REM "dbshut.cmd"
+@echo off
+set ORAHOME="OraHome92"
+set ORASID="ORCL"
+net stop OracleService%ORASID%
+REM net stop Oracle%ORAHOME%HTTPServer
+REM net stop Oracle%ORAHOME%TNSListener
+REM net stop Oracle%ORAHOME%ClientCache
+REM net stop Oracle%ORAHOME%Agent
+REM net stop Oracle%ORAHOME%SNMPPeerEncapsulator
+REM net stop Oracle%ORAHOME%SNMPPeerMasterAgent
+REM net stop Oracle%ORAHOME%PagingServer
+REM net stop OracleMTSRecoverService
+　　 

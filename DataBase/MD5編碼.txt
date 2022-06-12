@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION MD5(passwd IN VARCHAR2)
+RETURN VARCHAR2
+IS
+retval varchar2(32);
+/*
+功能:取得傳入字串的MD5編碼
+1、DBMS_OBFUSCATION_TOOLKIT.MD5
+DBMS_OBFUSCATION_TOOLKIT.MD5是MD5編碼的數據包函數
+但偶在使用select DBMS_OBFUSCATION_TOOLKIT.MD5(input_string =>'abc') a from Dual時，
+卻有錯誤提示，看來該函數只能直接在程序包中調用，不能直接應用於SELECT語句。
+　　
+2、Utl_Raw.Cast_To_Raw
+DBMS_OBFUSCATION_TOOLKIT.MD5返回的字串，是RAW類型，要正確顯示，需要經過Utl_Raw.Cast_To_Raw轉換
+*/
+BEGIN
+if passwd is null then 
+  retval := md5(' '); 
+else
+  retval := utl_raw.cast_to_raw(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => passwd)) ;  
+end if;
+RETURN retval;
+END;

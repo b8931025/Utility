@@ -1,0 +1,36 @@
+可從以下取得下列資訊:
+D:\oracle\ora92\Apache\Apache\setupinfo.txt
+-----------------------------------------
+下列是可以存取 HTTP 伺服器的 URL:
+
+http://A522024:7778
+https://A522024:4443
+
+Help information
+imp help=Y
+
+Oracle Server
+id:BOTELOANPG
+pw:BOTELOANPG
+server_IP:10.1.9.40
+server_Name:bot41
+
+
+D:\oracle\ora92\network\admin\tnsnames.ora 可以設定如下
+ELTEST40=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 10.1.9.40)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME  = NEWBOT)
+      (SERVER = DEDICATED)
+    )
+  ) 
+
+syntax:sqlplus ID/PW@DATABASE
+example:
+sqlplus boteloanpg/boteloanpg@ELTEST40
+sqlplus willy/123456@willy
+sqlpluse boteloanpg/boteloanpg@newbot.tbot3.com.tw
+

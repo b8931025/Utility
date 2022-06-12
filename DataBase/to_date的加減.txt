@@ -1,0 +1,41 @@
++ 1 day
+select to_date('02-22-2008 10:30:30','mm-dd-yyyy hh24:mi:ss') today, 
+to_date('02-22-2008 10:30:30','mm-dd-yyyy hh24:mi:ss')+1 next_day 
+from dual;
+
++ 1 hour.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss')+ 1/24 next_hour
+from dual;
+
++ 1 minute.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss')+ 1/(24*60) next_min
+from dual;
+
++ 1 second.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss')+ 1/(24*60*60) next_sec
+from dual;
+
+- 1 day.
+select to_date('02-22-2008 10:30:30','mm-dd-yyyy hh24:mi:ss') today,
+to_date('02-22-2008 10:30:30','mm-dd-yyyy hh24:mi:ss') - 1 prev_day
+from dual;
+
+- 1 hour.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') - 1/24 prev_hour
+from dual;
+
+- 1 minute.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') - 1/(24*60) prev_min
+from dual;
+
+- 1 second.
+select to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') today,
+to_date('02-22-08 10:30:30','mm-dd-yy hh24:mi:ss') - 1/(24*60*60) prev_sec
+from dual;
+
+ 

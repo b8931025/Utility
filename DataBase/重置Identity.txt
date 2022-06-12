@@ -1,0 +1,31 @@
+﻿下面的命令可更改identity(Sequence)
+
+TableName:表格名稱
+CurrentValue:現有的值
+DBCC CHECKIDENT( TableName, RESEED, CurrentValue)
+
+下一個insert的Identity就是CurrentValue+1
+
+
+取得目前identify 
+select IDENT_CURRENT('TableName')
+
+
+insert想要的identify  範例
+
+--調整exm14_seq
+declare @NowValue int = (select IDENT_CURRENT('exm14')) ; --先保留原來的indentify
+declare @insValue int = 56637;--欲insert的值
+declare @m14_seq int = 56638;--insert select 的id
+
+set @insValue = @insValue -1;--欲insert的值-1
+DBCC CHECKIDENT('exm14', RESEED, @insValue);
+insert into exm14(m14_account,m14_id,m14_cname,m14_tel,m14_addr,m14_email,m14_type,m14_amt,m14_pdate,m14_from,m14_result,m14_cflag,m14_cuser,m14_cdate,m14_creason,m14_in_dt,m14_flag,m14_ip) 
+select m14_account,m14_id,m14_cname,m14_tel,m14_addr,m14_email,m14_type,m14_amt,m14_pdate,m14_from,'999999',m14_cflag,m14_cuser,m14_cdate,m14_creason,m14_in_dt,m14_flag,m14_ip from exm14 
+where m14_seq = @m14_seq;
+DBCC CHECKIDENT('exm14', RESEED, @NowValue);--回復原來的identify
+
+insert前要先確認該identity是否已存在
+
+
+select * from exm14 with (nolock) where m14_seq between 30300 and 30400;

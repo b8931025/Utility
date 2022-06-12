@@ -1,0 +1,26 @@
+以下這段sql會出現錯誤:ORA-03133 通訊通道上出現EOF 
+只有在VMWare架設的DB才會出現，但是把count(1)改成 「*」 或者不用Union All就不會這樣。主要是count(1)和Union All一起
+就會出現該錯誤
+
+select count(1)
+  from (SELECT *
+          from (SELECT casemain.*
+                  FROM view_QRY_ENHO casemain, ap_flow_log_temp
+                 where (AP_FLOW_LOG_TEMP.caseid = casemain.caseid)
+                   and (NVL(chkflag, '0') = '1' or NVL(chkflag, '0') = '2' or
+                       NVL(chkflag, '0') = '6')
+                   and TO_NUMBER(NVL2(TRANSLATE(ap_flow_log_temp.stepno,
+                                                '\1234567890',
+                                                '\'),
+                                      '0',
+                                      ap_flow_log_temp.stepno)) > 2000
+                   AND casemain.brtohodate is not null
+                UNION All
+                SELECT casemain.*
+                  FROM view_QRY_ENHO casemain
+                 WHERE (NVL(chkflag, '0') = '5' or NVL(chkflag, '0') = '3')
+                   AND casemain.brtohodate is not null) a
+         where TO_DATE(to_char(a.resigncrdate, 'yyyymm'), 'yyyymm') BETWEEN
+               TO_DATE('200701', 'yyyymm') AND TO_DATE('200909', 'yyyymm'));
+
+

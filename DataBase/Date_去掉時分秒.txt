@@ -1,0 +1,2 @@
+﻿declare @D datetime = (select getDate());
+SELECT DATEADD(dd,0,DATEDIFF(dd,0,@D))

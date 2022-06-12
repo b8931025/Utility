@@ -1,0 +1,36 @@
+Sequence的currval是與session相關的
+事實上Oracle好像不提供currval
+說只提供nextval
+當你連上sqlplus時
+直接下select sequencename.currval from dual;
+會出現下列的錯誤：
+ERROR 在行 1:
+ORA-08002: 尚未在這個階段作業中定義序列 SEQUENCENAME.CURRVAL
+
+必須先執行select sequencename.nextval from dual;後
+再執行select sequencename.currval from dual;
+才能獲得currval的值
+
+程式(以delphi為例)
+假設有TABLEA 和 TABLEB 的共用相同的KEY
+在TABLEA時先直接INSERT SEQUENCENAME.NEXTVAL
+acmd.commandtext:='insert into TABLEA(FPKNO, FVALUE) Values(SEQUENCENAME.NEXTVAL, :FVALUE)';
+acmd.Parameters.ParamValues['FVALUE']:= aFVALUE;
+acmd.execute;
+
+再取得CURRVAL
+aq.Close;
+aq.SQL.Clear;
+aq.SQL.Text:= 'SELECT SEQUENCENAME.CURRVAL FROM DUAL';
+aq.Open;
+aq.First;
+while not aq.Eof do begin
+aFPKNO:= trim(aq.fields[0].asstring);
+aq.next;
+end;
+
+再TABLEB時INSERT CURRVAL取得的值
+acmd.commandtext:='insert into TABLEB(FPKNO, FVALUE) Values(:FPKNO, :FVALUE)';
+acmd.Parameters.ParamValues['FPKNO']:= aFPKNO;
+acmd.Parameters.ParamValues['FVALUE']:= aFVALUE;
+acmd.execute;

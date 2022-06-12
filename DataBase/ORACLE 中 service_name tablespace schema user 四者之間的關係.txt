@@ -1,0 +1,65 @@
+ ORACLE 中 service_name tablespace schema user 四者之間的關係 
+以下內容為網上蒐集整理後的內容，既做為自己的備忘錄，也希望能為初學者解疑！ 
+
+說的不好的地方請大家指正！ 
+
+
+首先簡單總結一下： 
+1. service name 服務名（其實揍是：數據庫名），裝 ORACLE 時肯定要指定的一個名字 
+2. tablespace 表空間，數據庫對象的磁片存儲位置 
+3. schema 方案，數據庫對象的邏輯分類 
+4. user 用戶，等同於 schema 
+5. service name > tablespace > schema(user) 
+
+
+詳細說明： 
+schema 為數據庫對象的集合，為了區分各個集合，我們需要給這個集合起個名字，這些名字就是我們在企業管理器的 schema 下看到的許多類似用戶名的節點，這些類似用戶名的節點其實就是一個schema，schema 裏麵包含了各種對象如：tables，views，sequences，stored procedures，synonyms，indexes，clusters，and database links。 
+
+一個用戶（user）一般對應一個 schema，該用戶的 schema 名等於用戶名，並作為該用戶缺省的 schema。這也就是我們在企業管理器的 schema 下看到 schema 名都為數據庫用戶名的原因。Oracle 數據庫中不能新創建一個 schema，要想創建一個 schema，只能通過創建一個 user 的方法解決（Oracle 中雖然有 create schema 語句，但是它並不是用來創建一個 schema 的），在創建一個 user 的同時為這個 user 創建一個與用戶名同名的 schem 並作為該用戶的缺省 shcema。即 schema 的個數同 user 的個數相同，而且 schema 名字同 user 名字一一對應並且相同，所有我們可以稱 schema 為 user 的別名，雖然這樣說並不準確，但是更容易理解一些。 
+
+一個 user 有一個缺省的 schema，其 schema 名就等於用戶名，當然一個 user 還可以使用其他的 schema。如果我們訪問一個表時，沒有指明該表屬於哪一個 schema 中的，系統就會自動給我們在表上加上缺省的 sheman 名。比如我們在訪問數據庫時，訪問 scott 用戶下的 emp 表，通過select * from emp; 其實，這 sql 語句的完整寫法為 select * from scott.emp。在數據庫中一個對象的完整名稱為 schema.object，而不屬 user.object。類似如果我們在創建對象時不指定該對象的 schema，在該對象的 schema 為 user 的缺省 schema。這就像一個 user 有一個缺省的 tablespace，但是該 user 還可以使用其他的 tablespace，如果我們在創建對象時不指定 tablespace，則對象存儲在缺省 tablespace 中，要想讓對象存儲在其他 tablespace 中，我們需要在創建對象時指定該對象的 tablespace。 
+
+舉例如下： 
+SQL> Grant dba to scott 
+SQL> create table test(name char(10)); 
+Table created. 
+
+SQL> create table system.test(name char(10)); 
+Table created. 
+
+SQL> insert into test values('scott'); 
+1 row created. 
+
+SQL> insert into system.test values('system'); 
+1 row created. 
+
+SQL> commit; 
+Commit complete. 
+
+SQL> conn system/manager 
+Connected. 
+
+SQL> select * from test; 
+NAME 
+---------- 
+system 
+
+SQL> ALTER SESSION SET CURRENT_SCHEMA = scott; --改變用戶缺省schema名 
+Session altered. 
+
+SQL> select * from test; 
+NAME 
+---------- 
+scott 
+
+SQL> select owner ,table_name from dba_tables where table_name=upper('test'); 
+OWNER TABLE_NAME 
+------------------------------ ------------------------------ 
+SCOTT TEST 
+SYSTEM TEST 
+
+--上面這個查詢就是將 schema 作為 user 的別名的依據。實際上在使用上，shcema 與 user 完全一樣，沒有什麼區別，在出現 schema 名的地方也可以出現 user 名。 
+
+schema 和 user 一般是一致的，建立一個 user 後即可得到一個 schema，如：HR 用戶建立後便有 HR 方案，接下來建立表、索引等數據庫對象時，要指定其屬於哪個 schema，也要指定其存放在哪個 tablespace 裏。 
+也可以這樣理解，schema 是數據庫對象的邏輯歸屬和分類，而 tablespace 是數據庫對象的物理和實際存放位置。
+ 

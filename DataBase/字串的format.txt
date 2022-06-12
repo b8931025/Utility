@@ -1,0 +1,55 @@
+﻿oracle的輸出字串的格式化可以用TO_CHAR來作
+
+語法：TO_CHAR ( n [, fmt [, 'nlsparam']] )
+
+該函數將NUMBER類型的n按數值格式fmt轉換成VARCHAR2類型的值。
+'nlsparams'指定由數值格式的元素返回的字符,包括: 
+．小數點字符 
+．組分隔符 
+．本地錢幣符號 
+．國際錢幣符號 
+
+變元的形式為： 
+
+'NLS_NUMERIC_CHARACTERS="dg" NLS_CURRENCY="tcxt" NLS_ISO_CURRENCY=territory' 
+
+其中d為小數點字符,g為組分隔符。 
+
+例 :TO_CHAR (17145,'L099G999','NLS_NUMERIC_CHARACTERS=".," NLS_CURRENCY="NUD"')=NUD017,145
+
+to_char(1210.73, '$9,999.00') would return '$1,210.73' 
+
+數字
+/* 
+	千分位
+  FM ：除空格   
+  FM9,999,999.0099：允許小數點左邊最大正數為7位，小數點右邊最少2位，最多4位，且在第5位進行四捨五入，加千分位
+*/  
+Select TO_CHAR(123456.0233,'FM9,999,999.0099') FROM DUAL
+
+/*100.12 ---> '######' 當n大於fmt，就會出現*/  
+Select TO_CHAR(100.12,'0.999') FROM DUAL 
+
+/*1.0123--->'1.0123'*/ 
+Select TO_CHAR(1.0123) FROM DUAL 
+
+/*123--->'123'*/ 
+Select TO_CHAR(123) FROM DUAL
+
+/*0.123 ---> '.123' */ 
+SELEC TO_CHAR(0.123) FROM DUAL
+
+/*0.123 ---> ' 0.123' */  
+Select TO_CHAR(0.123,'0.999') FROM DUAL 
+
+/*1.12 ---> ' 1.120' */  
+Select TO_CHAR(1.12,'0.999') FROM DUAL
+
+日期
+to_char(sysdate, 'DAY'); would return '星期二'
+to_char(sysdate, 'yyyy/mm/dd'); would return '2003/07/09' 
+to_char(sysdate, 'Month DD, YYYY'); would return 'July 09, 2003' 
+to_char(sysdate, 'FMMonth DD, YYYY'); would return 'July 9, 2003' 
+to_char(sysdate, 'MON DDth, YYYY'); would return 'JUL 09TH, 2003' 
+to_char(sysdate, 'FMMON DDth, YYYY'); would return 'JUL 9TH, 2003' 
+to_char(sysdate, 'FMMon ddth, YYYY'); would return 'Jul 9th, 2003' 

@@ -1,0 +1,3 @@
+
+ROWID	是oracle中每筆資料在硬碟中的實體位置，select時，如果沒有用order，就會依照ROWID的順序出來
+ROWNUM是oracle輸出資料時，對每一筆資料產生的行號

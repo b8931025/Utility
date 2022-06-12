@@ -1,0 +1,13 @@
+create VIEW v_exc04
+AS
+SELECT Round(Rand()*1000,0) SEQ,'蘋果' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'芭樂' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'香蕉' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'草莓' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'西瓜' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'鳳梨' CNAME UNION ALL
+SELECT Round(Rand()*1000,0) SEQ,'柳丁' CNAME 
+
+
+--隨機取得其中一個
+select top 1 CNAME from v_exc04 order by SEQ;

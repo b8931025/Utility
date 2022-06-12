@@ -1,0 +1,8 @@
+PL/SQL
+set define off
+
+or 
+&用chr(38)取代
+or
+&用&&取代
+

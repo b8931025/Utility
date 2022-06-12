@@ -1,0 +1,101 @@
+※該問題是System.Data.OracleClient的bug，主要是left join時，被join的table的某欄位，是null
+造成在某種情況下才會有的bug，要避免此問題，只要用nvl排除dbnull就可以
+
+【茶包射手專欄】OracleClient LEFT JOIN時出現ORA-01405
+小熊子的KB-當 ADO.NET 與 Oracle 問題集錦裡有個Tip，
+使用System.Data.OracleClient會產生ORA-01405: fetched column value is NULL，
+改用Oracle.DataAccess.Client就正常。
+
+對這個問題做了點深入的研究，原本會產生錯誤的程式很龐雜，我將程式碼簡化但仍保有可產生ORA-01405的地步。
+
+
+using System;
+using System.IO;
+using System.Threading;
+using System.Data;
+using System.Data.OracleClient;
+//REFDLL System.Data.OracleClient;System.Data;System.Xml
+ 
+public class CSharpLab
+{
+    public static void Test()
+    {
+        using (OracleConnection cn = new OracleConnection("Data Source=...."))
+        {
+            string strSQL =
+@"SELECT p.DRKCORPID, q.DRKQuoteTIMEFROM DRKPRODUCT p LEFT JOIN DRKQuote qON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'";
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+";
+            OracleCommand cmd = new OracleCommand(strSQL, cn);
+        
+            
+            cn.Open();
+            try {
+                OracleDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                Console.WriteLine(dr["DRKCORPID"]);
+            } catch (Exception ex) {
+                Console.WriteLine(ex.ToString());
+            }
+            cn.Close();
+        }
+    }
+}
+
+程式產生的錯誤訊息是: 
+
+System.Data.OracleClient.OracleException: ORA-01405: fetched column value is NULL 
+
+   at System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   at System.Data.OracleClient.OracleDataReader.ReadInternal()
+   at System.Data.OracleClient.OracleDataReader.Read()
+   at CSharpLab.Test() 
+
+大致推斷的原因是這個LEFT JOIN在某些情況下，q.DRKQuoteTIME可能為NULL。我發現調整SQL的語法，會產生不同的結果，於是做了一連串有趣的測試。 
+
+多查詢兩個欄位(DRKPRODNAME, DRKProdType)，執行成功。 
+
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME
+,p.DRKPRODNAME, p.DRKprodtype 
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+
+將多查詢的兩個欄位移去，發生錯誤。 
+
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+
+限定前2731筆，執行成功。 
+
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+WHERE ROWNUM < 2731 
+
+多SELECT SYSDATE，發生錯誤。 
+
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME, SYSDATE
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+WHERE ROWNUM < 2731
+
+去除SYSDATE，但限定改為前2732筆，執行成功。 
+
+SELECT 
+p.DRKCORPID, q.DRKQuoteTIME
+FROM DRKPRODUCT p LEFT JOIN DRKQuote q
+ON q.DRKPRODID=p.DRKPRODID AND p.DRKCORPID='6666'
+WHERE ROWNUM < 2732
+
+由這些線索看來，感覺上是查詢結果剛好組合成某種狀況時才會出錯，但其形成要件深藏在OracleClient元件中是個謎，但我認為這可歸究為元件的Bug!
+
+要克服這個問題，除了改用ODP.NET之外，在可能產生NULL的欄位上加上NVL保護，例如: NVL(q.DRKQuoteTIME, '0000')，也不失為一個好的解決方法。(試了一下，若真的希望傳回NULL，可以寫成有點好笑的NVL(q.DRKQuoteTIME, NULL)，也可避開這個Bug)
+

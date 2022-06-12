@@ -1,0 +1,9 @@
+/*在firx_px_obj裡的NPROP，有些字串會有多餘的全形空白*/
+select * from (
+select p.ipolicy,p.dplyissu,p.iplyseq,o.NPROP,INSTR(o.NPROP, '　', -1, 1) as INSTR
+from pubm_pn_main p
+left join firm_pn_obj o on o.oid_pubm_pn_main = p.oid
+where p.iinscls='F'
+and p.dplyissu > sysdate - 100  /*簽單日在100天之內*/
+and o.NPROP is not null) x 
+where INSTR(x.NPROP, '　', -1, 1) = length(x.NPROP);

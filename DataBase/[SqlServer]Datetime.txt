@@ -1,0 +1,77 @@
+<<datetime to string>>
+
+CONVERT(char(11),getdate(),120)+CONVERT(char(12),getdate(),114)  ex:2010-08-23 13:36:35:223
+select replace(replace(replace(CONVERT(varchar, getdate(), 120 ),’-',”),’ ‘,”),’:',”) 20040912110608
+SELECT convert(varchar, getdate(), 100) - mon dd yyyy hh:mmAM (or PM) ex:Oct  2 2008 11:01AM     
+SELECT convert(varchar, getdate(), 101) - mm/dd/yyyy - 10/02/2008                  
+SELECT convert(varchar, getdate(), 102) - yyyy.mm.dd - 2008.10.02           
+SELECT convert(varchar, getdate(), 103) - dd/mm/yyyy
+SELECT convert(varchar, getdate(), 104) - dd.mm.yyyy
+SELECT convert(varchar, getdate(), 105) - dd-mm-yyyy
+SELECT convert(varchar, getdate(), 106) - dd mon yyyy
+SELECT convert(varchar, getdate(), 107) - mon dd, yyyy
+SELECT convert(varchar, getdate(), 108) - hh:mm:ss
+SELECT convert(varchar, getdate(), 109) - mon dd yyyy hh:mm:ss:mmmAM (or PM) ex:Oct  2 2008 11:02:44:013AM   
+SELECT convert(varchar, getdate(), 110) - mm-dd-yyyy
+SELECT convert(varchar, getdate(), 111) - yyyy/mm/dd
+SELECT convert(varchar, getdate(), 112) - yyyymmdd
+SELECT convert(varchar, getdate(), 113) - dd mon yyyy hh:mm:ss:mmm ex:02 Oct 2008 11:02:07:577   
+SELECT convert(varchar, getdate(), 114) - hh:mm:ss:mmm(24h)
+SELECT convert(varchar, getdate(), 120) - yyyy-mm-dd hh:mm:ss(24h)
+SELECT convert(varchar, getdate(), 121) - yyyy-mm-dd hh:mm:ss.mmm
+SELECT convert(varchar, getdate(), 126) - yyyy-mm-ddThh:mm:ss.mmm ex:2008-10-02T10:52:47.513
+
+<<string to datetime>>
+SELECT convert(datetime, '20161023') --yyyymmdd
+SELECT convert(datetime, '2016/10/23', 111) -- yyyy/mm/dd
+SELECT convert(datetime, '2016-10-23 20:44:11',20) -- yyyy-mm-dd hh:mm:ss(24h)                       
+SELECT convert(datetime, 'Oct 23 2012 11:01AM', 100) -- mon dd yyyy hh:mmAM (or PM)
+SELECT convert(datetime, 'Oct 23 2012 11:01AM') -- 2012-10-23 11:01:00.000
+SELECT convert(datetime, 'Oct 23 12 11:01AM', 0) -- mon dd yy hh:mmAM (or PM)
+SELECT convert(datetime, 'Oct 23 12 11:01AM') -- 2012-10-23 11:01:00.000
+SELECT convert(datetime, '10/23/2016', 101) -- mm/dd/yyyy
+SELECT convert(datetime, '2016.10.23', 102) -- yyyy.mm.dd ANSI date with century
+SELECT convert(datetime, '23/10/2016', 103) -- dd/mm/yyyy
+SELECT convert(datetime, '23.10.2016', 104) -- dd.mm.yyyy
+SELECT convert(datetime, '23-10-2016', 105) -- dd-mm-yyyy
+SELECT convert(datetime, '23 OCT 2016', 106) -- dd mon yyyy
+SELECT convert(datetime, 'Oct 23, 2016', 107) -- mon dd, yyyy
+SELECT convert(datetime, '20:10:44', 108) -- hh:mm:ss
+SELECT convert(datetime, 'Oct 23 2016 11:02:44:013AM', 109)
+SELECT convert(datetime, '10-23-2016', 110) -- mm-dd-yyyy
+SELECT convert(datetime, '20161023', 112) -- ISO yyyymmdd
+SELECT convert(datetime, '23 Oct 2016 11:02:07:577', 113) -- dd mon yyyy hh:mm:ss:mmm
+SELECT convert(datetime, '20:10:25:300', 114) -- hh:mm:ss:mmm(24h)
+SELECT convert(datetime, '2016-10-23 20:44:11', 120) -- yyyy-mm-dd hh:mm:ss(24h)
+SELECT convert(datetime, '2016-10-23 20:44:11.500', 121) -- yyyy-mm-dd hh:mm:ss.mmm
+SELECT convert(datetime, '2008-10-23T18:52:47.513', 126) -- yyyy-mm-ddThh:mm:ss(.mmm)
+SELECT convert(datetime, N'23 ???? 1429  6:52:47:513PM', 130) -- Islamic/Hijri date
+SELECT convert(datetime, '23/10/1429  6:52:47:513PM',    131) -- Islamic/Hijri date
+SELECT convert(datetime, STUFF(STUFF('31012016',3,0,'-'),6,0,'-'), 105)
+SELECT convert(datetime, 'Oct 23 16 11:02:44AM') -- Default
+SELECT convert(datetime, '10/23/16', 1) -- mm/dd/yy U.S.
+SELECT convert(datetime, '16.10.23', 2) -- yy.mm.dd ANSI
+SELECT convert(datetime, '23/10/16', 3) -- dd/mm/yy UK/FR
+SELECT convert(datetime, '23.10.16', 4) -- dd.mm.yy German
+SELECT convert(datetime, '23-10-16', 5) -- dd-mm-yy Italian
+SELECT convert(datetime, '23 OCT 16', 6) -- dd mon yy non-det.
+SELECT convert(datetime, 'Oct 23, 16', 7) -- mon dd, yy non-det.
+SELECT convert(datetime, '20:10:44', 8) -- hh:mm:ss
+SELECT convert(datetime, 'Oct 23 16 11:02:44:013AM', 9) -- Default with msec
+SELECT convert(datetime, '10-23-16', 10) -- mm-dd-yy U.S.
+SELECT convert(datetime, '16/10/23', 11) -- yy/mm/dd Japan
+SELECT convert(datetime, '161023', 12) -- yymmdd ISO
+SELECT convert(datetime, '23 Oct 16 11:02:07:577', 13) -- dd mon yy hh:mm:ss:mmm EU dflt
+SELECT convert(datetime, '20:10:25:300', 14) -- hh:mm:ss:mmm(24h)
+SELECT convert(datetime, '2016-10-23 20:44:11.500', 21)-- yyyy-mm-dd hh:mm:ss.mmm ODBC
+
+
+民國年轉換 
+SELECT FORMAT(Dt, 'd', 'en-US')  '美國'
+     , FORMAT(Dt, 'd', 'zh-TW')  '台灣-1'
+     , FORMAT(Dt, 'D', 'zh-TW')  '台灣-2'
+     , STUFF(FORMAT(Dt, 'D' , 'zh-TW'), 1, 4,  YEAR(Dt)-1911)  '民國-1'
+     , STUFF(CONVERT(VARCHAR(10), Dt, 120), 1, 4,  YEAR(Dt)-1911) '民國-2'
+     , STUFF(CONVERT(VARCHAR(10), Dt, 112), 1, 4,  YEAR(Dt)-1911) '民國-3'
+FROM (SELECT CAST('2004/02/29' AS datetime) Dt) A
+
