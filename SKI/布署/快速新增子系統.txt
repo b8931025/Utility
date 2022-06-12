@@ -1,0 +1,11 @@
+\\tnetap1\c$\SKERP\BBS copy to 
+C:\SKERP\BBS\
+
+
+\\tnetap1\c$\Inetpub\wwwroot\SKERP\BBSWeb copy to 
+C:\Inetpub\wwwroot\SKERP\BBSWeb
+
+Open C:\SKERP\BBS\BBS.sln  ª©¥»§ó·s
+
+Rebuilding
+

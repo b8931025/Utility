@@ -1,0 +1,10 @@
+[DeletedRowInaccessibleException]無法經由資料列存取已刪除的資料列資訊。
+
+Dim dt As System.Data.DataTable = Me.dtSeriesStandardFeature.GetChanges()
+
+If dt.Rows(x).RowState = DataRowState.Deleted Then
+
+           MsgBox(dt.Rows(x).Item("fname", DataRowVersion.Original))
+Else
+             MsgBox(dt.Rows(x).Item("fname"))
+EndIf

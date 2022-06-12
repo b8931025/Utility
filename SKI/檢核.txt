@@ -1,0 +1,113 @@
+徐建斌:
+
+CMN7XX收據管理全省上線後，發現user資料輸錯的問題很多，postback檢查會增加主機負擔，
+因此加強表單資料輸入local端的檢核，可有效防呆又可減少PostBack次數，
+夥伴有其他的做法也請提供給我參考，謝謝!!
+
+重要：MaxLength一定要設，使用者會超出你的想像，版面許可的話最好加上字數限制說明
+
+1.      PUBControl 提供的功能，可限定輸入數字或轉大、小寫：
+甲、Aspx 最上面加上： <%@ Register TagPrefix="cc2" Namespace="PUBControl" Assembly="PUBControl" %>
+乙、表單最後加上 
+<CC2:SETCONTROLSTYLE id="ucUpperOnly" runat="server" MyTextStyle="ToUpper" SetStyleControls="txtIAPP_Q;txtIPOLICY;txtIENDORS;txtIOFFICER;txtIAGENT;txtKCURR" MyInputStyle="All"></CC2:SETCONTROLSTYLE>  
+MyTextStyle="ToUpper"代表轉大寫，
+MyInputStyle="NumberOnly" 限定只能輸入數字(小數點也不能輸入) 還有LetterOnly;NumberLetterOnly;All
+MyTextStyle="ToUpper|ToLower|None"
+SetStyleControls=後面接textbox的id。
+請注意此方式有可能會讓你程式加上的Ajax驅動失效(keypress)
+
+2.      requiredfieldvalidator：必要欄位，沒有輸入不能submit
+例如：<asp:requiredfieldvalidator id="Requiredfieldvalidator9" runat="server" ErrorMessage="台幣保費需輸入" Display="Dynamic" ControlToValidate="txtMPRN_PRM">*</asp:requiredfieldvalidator> 藍字部份改為必輸textbox的id
+此方式會在所有postback時驅動，若表單有其他功能會post back，就不是很適用
+
+3.      comparevalidator：格式檢核
+<asp:comparevalidator id="Comparevalidator1" runat="server" Type="Integer" Operator="DataTypeCheck" ControlToValidate="txtINUM" 
+Display="Dynamic" ErrorMessage="原收據流水號必須為整數"></asp:comparevalidator> integer限定只能輸入整數(小數點也不能輸入)
+type有很多，請多加利用~
+
+4.      Style="ime-mode:disabled"：輸入法失效
+(但還是可以用複製貼上輸入，所以還是要另外檢核)，用於連續輸入很有用，user不需切換輸入法
+可直接在aspx的textbox加，或者在aspx.vb 批次加，程式加的語法為：obj.Style.Add("ime-mode", "disabled")，
+以下是我的範例 (加在Page_PreRender)：
+
+     ''以下欄位禁用輸入法
+
+     Dim aryTextBox As TextBox() = {txtIPOLICY, txtIENDORS, txtTEDR_BGN, txtTEDR_END, txtMSKT_PRM, txtMSKF_PRM, txtPEXCG}
+     For Each obj As TextBox In aryTextBox
+          obj.Style.Add("ime-mode", "disabled")
+     Next
+或是     
+ <style type="text/css">
+ .noChina {ime-mode:disabled;}
+ </style>      
+set class="nochina"
+
+5.
+UTF.LimitTextBoxInputLengthInByte(txtacon, 50)
+     
+以上在CMN705幾乎全部都有用到，可直接參考該程式
+
+<asp:RegularExpressionValidator 
+id="RegularExpressionValidatorQCOINS_NM" 
+runat="server" 
+Display="Dynamic" 
+ControlToValidate="txtTmpQcoins_NM"
+ErrorMessage="[比例]範圍為1~100" 
+ValidationExpression="^[0-9]{1,3}(\.[0-9]{1,2})?$"></asp:RegularExpressionValidator>
+
+
+	<asp:RangeValidator ID="rnv1" Runat="server"
+	ControlToValidate="txtPCOMM_NT"
+	Type="Double"
+	Display="Dynamic"
+	MaximumValue="49"
+	MinimumValue="-1"
+	ErrorMessage="不可大於49" >
+	</asp:RangeValidator>
+	
+	
+function JHshINTText()只能輸入Integer
+{
+	if (!(((window.event.keyCode >= 48) && (window.event.keyCode <= 57)) || (window.event.keyCode == 13) || (window.event.keyCode == 45)))
+		window.event.keyCode = 0;
+}
+
+function JHshDECText()只能輸入Decimal
+{
+	if (!(((window.event.keyCode >= 48) && (window.event.keyCode <= 57)) || (window.event.keyCode == 13) || (window.event.keyCode == 46) || (window.event.keyCode == 45)))
+		window.event.keyCode = 0;
+}		
+			
+			
+自動轉大寫
+ onblur="this.value=this.value.toUpperCase();"			
+ UTF.AppendUniqueAttributeValue(cboQIuseType, "onBlur", "this.value=this.value.toUpperCase();")
+
+ 
+日期必需輸入 IsRequiredField="True"
+<uc1:ucrocdate id="ucDate" runat="server" Visible="True" Enabled="True" IsRequiredField="True"
+							IsRocDate="True"></uc1:ucrocdate> 
+							
+將combobox設UpperOnly
+in aspx
+<cc1:combobox id="cboQIusePurp" runat="server" AutoValidate="False" Size="10"></cc1:combobox>
+
+<%@ Register TagPrefix="cc2" Namespace="PUBControl" Assembly="PUBControl" %>
+<CC2:SetControlStyle id="ucUpperOnly" runat="server" MyTextStyle="ToUpper" SetStyleControls=";" MyInputStyle="All"></CC2:SetControlStyle>	
+
+in aspx.vb
+Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
+    MyBase.BasePreRender()
+    UTF.AppendUniqueAttributeValue(cboQIusePurp, "onKeyPress", "_ToUpper(this);")
+End Sub			
+
+ucDate和ucRocDate加檢核的方法
+in aspx.vb        
+        Dim txt As TextBox = CType(ucHappen.FindControl("txtDate"), TextBox)
+        rfvHappen.ControlToValidate = txt.UniqueID
+        
+in aspx
+			<uc1:ucrocdate id="ucHappen" runat="server" isrocdate="true"></uc1:ucrocdate>
+			<asp:TextBox ID="txtNone" Runat="server" Visible="False" >萬物皆有存在的意義</asp:TextBox>
+			<asp:requiredfieldvalidator id="rfvHappen" ErrorMessage="出險日期--必須輸入" text="" Display="None"
+						 ControlToValidate="txtNone" EnableClientScript="True"  Runat="server"></asp:requiredfieldvalidator>						

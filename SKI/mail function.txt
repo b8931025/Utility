@@ -1,0 +1,62 @@
+方法一
+  '寄件人
+  Dim Str_From As String = "SKERP<skerp@skinsurance.com.tw>"
+  '收件人
+  Dim Str_To As String = "<" & userEmail & ">"
+  '主旨
+  Dim Str_Subject As String = "日結收據自動註銷錯誤，保單號：" & args(0)
+  '內容
+  Dim Str_Body As String = ex.ToString
+  '寄件人
+  Dim Str_From As String = "SKERP<skerp@skinsurance.com.tw>"
+  '收件人
+  Dim Str_To As String = "<ski100232@skinsurance.com.tw>"
+  Me.InvokeCommonService("PUBService.bsCMNSendMail", Str_Subject, Str_Body, Str_From, Str_To, "")
+      
+附加檔時要注意 
+平台產生的檔案，如果被附加到郵件，就會移到PathID=7那個目錄，所以如果要將產生的檔案結果傳給Web，就要將beFSreports中的PathID改成7           
+SendMail(FileService.GetPathByID(PathID) & "\" & sFileName)
+CType(result, beFSReports).ReportItems(0).PathID = FileService.GetPathID("7")  '寄完郵件後，會將資料備份到 CatLog="7"
+          
+            
+方法二
+Me.InvokeCommonService("PUBService.bsCMNNotify", _
+  "BRK_IT", _         ------->Notify通知設定碼(萬用代碼檔CMNP_COMMONCODE.TYPE=CMN_Notify)
+  "Y", _                    ------->-是否自動發mail或簡訊
+  "N", _                    ------->Mail是否壓縮(預設不加密)  Y：壓縮加密 N：不壓縮 C：壓縮不加密
+  "", _                       ------->Mail壓縮檔密碼
+  MailAttachment, _ ------->Mail附件
+  "通路-新光銀040-" & Today.AddDays(-1).ToString("yyyy/MM/dd") & "轉出資料", _   ------->Mail主旨
+  GetMailBody(Today.AddDays(-1).ToString("yyyy/MM/dd")), _       ------->Mail內容
+  ""   ------>簡訊內容
+)
+ 
+----------------------------------------------------
+說明
+======================================================================================================
+'[ 共用取得Mail通知人Services ]
+'可取得自定的Mail或簡訊通知對象
+'可自動發Mail或簡訊
+'可用於批次作業或特殊事件
+ 
+'[ 參數 ]
+'args(0):Notify通知設定碼(萬用代碼檔CMNP_COMMONCODE.TYPE=CMN_Notify)
+'args(1):自動發Mail或簡訊開啟Y/N (Y:Services依Notify類別自動發送Mail或簡訊，N:只回傳Notify通知設定碼所設定的人員Mail或簡訊)
+'args(2):Mail是否壓縮(預設不加密)  Y：壓縮加密 N：不壓縮 C：壓縮不加密 
+'args(3):Mail壓縮檔密碼
+'args(4):自定Mail Attachment附件 
+'args(5):自定Mail Subject主旨
+'args(6):自定Mail Body內文
+'args(7):自定簡訊 PhoneMessage內文
+ 
+'[ Mail主旨內文及簡訊套用順序 ]
+'注意:如要在同row中，設定多筆mail或簡訊請用,號分隔
+'(優先)Table有設定萬用代碼檔CMNP_COMMONCODE擴充欄一(Mail主旨)  擴充欄二(Mail內文)  擴充欄三(簡訊內文) *設第一筆即可
+'(次先)Services傳參數args(5)~args(7)
+'未設定:一律預設值
+ 
+'[ 如用Table設定主旨內文，請用內文替代關鍵字處理(避免IE警告安全性) ]
+'BR:     <BR> 換行
+'ADATE:  yyyy/mm/dd 系統日期
+            
+      

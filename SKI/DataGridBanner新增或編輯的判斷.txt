@@ -1,0 +1,5 @@
+            If Not BaseIsAnyDataGridEditing() Then '直接按「新增項目」
+                Me.BaseDoNewItem(dgdHistory, Nothing)
+            Else '按「編輯」再按「新增項目」
+            
+            End If

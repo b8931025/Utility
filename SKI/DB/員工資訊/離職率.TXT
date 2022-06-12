@@ -1,0 +1,38 @@
+﻿select to_char(a.xdayquit,'yyyy') yyyy,count(1) /*離職人數*/,
+(select  count(1) from PSNV_OFFICER_ALL b where 1=1
+and nvl(xdayquit,to_date('20301231','yyyymmdd')) >= to_date( to_char(a.xdayquit,'yyyy')||'0101','yyyymmdd')
+and donboard <= to_date( to_char(a.xdayquit,'yyyy')||'1231','yyyymmdd')
+)  total /*當年在職人數*/
+from PSNV_OFFICER_ALL a  
+where a.xdayquit is not null
+and a.xdayquit > to_date('20090101','yyyymmdd')
+group by to_char(a.xdayquit,'yyyy')
+order by to_char(a.xdayquit,'yyyy')
+
+2018/4/25 05:55下午
+YYYY CNT TOTAL 
+2018 118 2535 
+
+2018/5/4 02:22下午
+YYYY CNT TOTAL 
+2018 131 2550 
+
+2018/5/17 09:57下午
+YYYY CNT TOTAL 
+2018 143 2570 
+
+2018/6/1 10:43上午
+YYYY CNT TOTAL 
+2018 154 2581 
+
+2018/6/21 03:41下午
+YYYY CNT TOTAL 
+2018 179 2621 
+
+2018/8/17 02:49下午
+YYYY CNT TOTAL 
+2018 235 2691 
+
+2018/11/23 04:40下午
+YYYY CNT TOTAL 
+2018 289 2795 

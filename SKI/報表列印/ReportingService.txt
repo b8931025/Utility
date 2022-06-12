@@ -1,0 +1,23 @@
+在[管理][服務]裡面有個ISNEJobServer，是負責跑報表的程式
+
+程式執行報表時，這個
+ISNEJobConsole.exe
+一定要啟動，並連線，但是程式專案在building時，要關掉，不然有些dll會被鎖住
+
+
+
+ReportService的管理介面(報表管理員)
+http://localhost/Reports/
+
+報表範例
+http://localhost/SKERP/CASWEB/CAS03/CAS303000.ASPX
+
+
+
+報表管理員
+設定資料來原、密碼
+
+Visual Studio
+設定資料來原、密碼
+布署
+

@@ -1,0 +1,105 @@
+Oracle
+ DB:ESKIIRP ID:SKERP_RPP PW:intell00356 (正式機，報表資料庫)
+ DB:ESKIITEST ID:SKERP_RP PW:intell (測試機，報表資料庫)
+ DB:ESKIITEST_tnet14x ID:skerp_db PW:intell (測試機，tnetap146/tnetap147/tnetap148) 192.168.252.3
+ DB:ESKIITEST_tnet16x ID:ibm03_bk PW:intell (測試機，tnetap161/tnetap162) 192.168.252.20  
+ DB:ESKII/ESKIIBK ID:SKERP_DB/SKERP_APD PW:intell
+ DB:ESKII ID:SKPSN_AP PW:intell(人資)
+ DB:ESKIIBK2 ID:SKERP_RP PW:intell (tnetap146財會中心在用，報表資料庫)
+ DB:ESKIIBK2 ID:SKERP_DB PW:intell (tnetap146財會中心在用)
+ DB:ESKIIAPD ID:SKERP_RP PW:intell
+ DB:ESKIIDMZ ID:SKERP_B2B PW:intell
+
+Sql Server 
+Server Name :tnetdb
+ID:NetExpress.sa
+PW:NetExpress.sa
+
+Reporting Service
+NetRSC  (192.168.253.32) (SP3)：Web Report Viewer使用
+NetRS2C (192.168.253.31) (SP4)：JobServer Render PDF檔案使用
+NetRS3C (192.168.253.29) (SP2)
+NetRS4C (192.168.253.28) (SP4)
+NetRSDC (192.168.249.235) 異地備援報表主機
+tnetdb  (192.168.252.5)
+tnetrs/reports (tnetap146財會中心在用)
+172.20.100.17/reports (b2c的報表 正式機) 舊的 6WSAP01(8R2)
+172.20.100.132/Reports(b2b的報表 正式機) 新的 6WSAP02(8R2)
+172.20.100.19/reports 停用(b2c的報表 測試機，資料庫連到ESKIITEST)  id/pw NetExpress.sa/NetExpress.sa
+192.168.252.38/reports 
+192.168.249.235/reports 異地備援報表主機
+192.168.252.30 B2B 報表測試機
+192.168.252.38 B2B 報表測試機
+192.168.252.23 B2B 核心測試機
+125.227.239.162 B2B 核心測試機
+192.168.252.23 B2B Web Ap
+192.168.252.34 B2B Web Ap 對外，vm無法連
+192.168.252.35 B2B Web Ap 對外，vm無法連
+
+http://192.168.252.23/skerp B2B測試機
+※   192.168.252.23/skerp->web service 192.168.252.38/skerp->reporting service 192.168.252.38/reports
+                                                                 |--> oracle ESKIITEST(192.168.252.20)
+
+測試的B2C火險投保程式      
+http://192.168.63.221/carweb/FirRisk.aspx->web service 192.168.252.38/skerp->reporting service 192.168.252.38/reports
+                                                                               |--> oracle ESKIITEST(192.168.252.20)
+                                                                               
+火險B2C測試 
+http://192.168.63.221/carweb/FirY.aspx
+授權信用卡用下面的資料
+卡號 8888880000000003
+有效月年1218
+末3碼 529                                                                               
+                                                              
+                                   
+NetRS2C (192.168.253.31)
+因資料元件更換, 請協助修改DataSource的內容
+連接類型：OLE DB
+連接類型字串DB：Provider=OraOLEDB.Oracle.1;Data Source=ESKII.INTELLISYS.COM.TW
+連接類型字串BK：Provider=OraOLEDB.Oracle.1;Data Source=ESKIIBK.INTELLISYS.COM.TW
+
+[Wifi 密碼]
+2507533511
+0345840311
+
+SSID:SKI_M OR Guest
+密碼:12345
+
+SSID:ski_u
+密碼:03458403
+
+SSID:SKI_P 
+密碼:25075335ssk
+
+訂便當:
+財會
+id:ski12 pw:121212
+
+B2B正式機
+ID:SKI100245
+PW:19811019
+
+通路別 : SKB
+帳號 : SKB1100
+密碼 : Skb97172648
+http://ec.skinsurance.com.tw/skerp/
+
+B2B台新通路帳號(for test)
+通路:K250
+帳號:CSK03
+密碼:Aa000000
+
+B2B台新通路帳號(正式)
+通路:K250
+帳號:CSK01
+密碼:Aa123456
+
+B2C測試帳號
+id:K222180456
+pw:test1234
+
+id:N123883447
+pw:12341234
+
+id:M100000672
+pw:test03458403

@@ -1,0 +1,44 @@
+in aspx
+
+<%@ Register TagPrefix="uc1" TagName="Dialog"  	Src="../../ISNEControl/ucDialog.ascx" %>
+
+簽發員工編號<asp:TextBox id="txtIissue_officer" Runat="server"></asp:TextBox>
+<uc1:dialog id="ucAgent" runat="server" dialogcaption="查詢員工" dialogurl='<%#Me.ResolveUrl("../CMNControl/QueryEmployee.aspx")%>' >
+</uc1:dialog>
+
+簽發員工姓名<asp:Label id="txtIissue_Name" Runat="server"></asp:Label>
+
+in vb 
+Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+	Dim fa As New PUBControl.FormulaAgent
+	ucAgent.DialogUrl = Me.ResolveUrl("../CMNControl/QueryEmployee.aspx")
+	ucAgent.TargetClientID = txtIissue_officer.UniqueID
+	fa.Initial(Me, "CMNService.bsGetFormValue")
+	fa.AddFormula("txtIissue_Name", fa.Function_Lookup("NNAME", "PSNV_OFFICER_ALL", "IOFFICER", "txtIissue_officer"))
+End Sub
+
+
+Userofficer可以找到ad帳號對應員工編號 
+
+BaseService 的屬性 (service.vb)
+    me.userid         "SKI\099042"
+    me.officerid     "092219"
+
+Web的屬性 (aspx.vb)
+    me.ScsOfficerID      "092219"
+    me.ScsOrgID           "0077184"
+    me.ScsOrgName      "台北資訊部程式三科"
+    me.ScsUserID          "SKI\099042"
+    me.ScsUserName     "王耀輝"
+
+
+    Private Function getOfficerName(ByVal IOfficer As Object) As String
+        Dim sb As New SqlStringBuilder
+        Dim result As Object
+        If IsNothing(IOfficer) OrElse IsDBNull(IOfficer) OrElse CStr(IOfficer).Trim = "" Then Return ""
+
+        sb.Append("SELECT NNAME FROM PSNV_OFFICER_ALL WHERE IOFFICER = '" & CStr(IOfficer) & "'")
+
+        Return nvl(Me.DefaultRunner.ExecuteScalar(sb.ToSqlString))
+    End Function   

@@ -1,0 +1,8 @@
+        Dim val As String = NEPage.CfgGetAppSetting("ReportServerUrl")
+        If val Is Nothing Then
+            val = Me.ResolveUrl("/ReportServer")
+        End If
+        
+        'http://RS/ReportServer 
+        
+        "http://netrsc/ReportServer?/CMNReport/CMN906000_0&IREPORT={0}&UNIT_DEPT={1}&IINSCLS={2}&rs:Command=Render&rs:Format=EXCEL"

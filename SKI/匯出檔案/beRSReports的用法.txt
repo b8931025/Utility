@@ -1,0 +1,68 @@
+
+'In Service
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+
+				'方法一，直接以rs:Format設定的格式，詢問使用者是否開啟或另存
+        Dim dsResult As beRSReports = CType(result, beRSReports)
+        Dim drReportItem As beRSReports.ReportItemsRow
+        drReportItem = dsResult.ReportItems.AddReportItemsRow("/FIRReport/ReportName", "不知道在哪顯示的文字")
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, sParamName, sParamValue)
+        '直接匯出 rs:Format=PDF optional
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Format", "PDF")
+        '隱藏參數輸入區塊
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:Parameters", "False")
+        
+        '方法二，顯示Report Viewer，讓使用者選擇匯出格式
+        Dim dsResult As beRSReports = CType(result, beRSReports)
+        Dim drReportItem As beRSReports.ReportItemsRow
+        drReportItem = dsResult.ReportItems.AddReportItemsRow("/FIRReport/ReportName", "不知道在哪顯示的文字")
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, sParamName, sParamValue)
+        '必要的動作，指定Render 指令，免除Reporting Service 偵測的Loading
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Command", "Render")
+        '隱藏參數輸入區塊
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:Parameters", "False")        
+    End Sub
+
+		'以下不變，照copy
+    Protected Overrides ReadOnly Property ResultType() As System.Type
+        Get
+            Return GetType(beRSReports)
+        End Get
+    End Property
+
+'In Web.vb 以下不變，照copy
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitRSReport
+
+                If ti.Committed Then
+
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+
+                        Case JobStatus.Cancel
+
+                        Case Else
+                            RSReportViewer.ViewReport(Me, jobID)
+                    End Select
+
+                End If
+
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select
+    End Sub    

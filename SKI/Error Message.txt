@@ -1,0 +1,53 @@
+in WEB
+   			Me.ProcessException(ex)
+        Me.UIAlertMessage
+        Me.UIAppendMessage 
+        Me.UIAppendError 
+
+        所有的Alert和Error訊息，都存在 me.PageMessage
+        只要有呼叫UIAppendError，UIIsErrorOccurs就會被設為true
+        
+in Service
+				me.AppendServiceMessage(sMessage,bNewLine)
+
+
+跳出訊息框 
+in aspx
+				<span onclick="popupMessage(hidMesg.value);" style=" COLOR:red;">※點一下看說明</span>
+				<input type="hidden" value="Message In Box" id="hidMesg"/>
+				
+設定size:popupMessage(hidMesg.value,screen.width*0.7,screen.height*0.7);
+				
+跳出訊息框和紅色字
+in aspx
+		<script src="../CLMControl/jquery.js" type="text/javascript"></script>	
+		<script type="text/javascript">
+				//show出紅色提示字和跳出對話框提示
+				function showPopupMsg(sMsg){
+					var lblText = $('span[id$="_lblMessage_lblText"]');
+					lblText.text(sMsg);
+					popupMessage(sMsg);
+				}				
+		</script>					
+		
+彈出動態說明(從popupMessage參考過來的)
+	function showMessage(msg,w,h)
+	{
+		window.focus();
+		var winPop = window.createPopup();
+		if(msg==undefined || msg.length<=0) return;
+		if(w==undefined) w=screen.width/3;
+		if(h==undefined) h=screen.height/6;
+		var oBody = winPop.document.body;
+		oBody.style.overflow="auto";
+		oBody.innerHTML="<table width='100%' height='100%' cellpadding='0' cellspacing='0' style='OVERFLOW: auto; BORDER-TOP-STYLE: ridge; BORDER-RIGHT-STYLE: ridge; BORDER-LEFT-STYLE: ridge; BACKGROUND-COLOR: lightyellow; BORDER-BOTTOM-STYLE: ridge'><tr height=100%><td align='center' valign='center' >" + msg + "</td></tr></table>"
+		var x=(window.document.body.offsetWidth - w)/2 + window.screenLeft + window.document.body.offsetLeft;
+		var y=(window.document.body.offsetHeight - h)/2 + window.screenTop + window.document.body.offsetTop;
+		try
+		{
+			winPop.show(x,y,w,h);
+		}
+		catch(e)
+		{	//主視窗在背景時可能會發生快顯被阻攔
+		}
+	}		

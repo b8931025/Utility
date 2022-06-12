@@ -1,0 +1,5 @@
+取得所有業代
+select *
+from PSNV_OFFICER_ALL x
+where 1=1
+and x.iduty = 'A3RY'

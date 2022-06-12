@@ -1,0 +1,67 @@
+※用
+http://IS103/SKERP/會檢核權限
+http://localhost/SKERP/不會
+
+CMN807設定頁面的ApplicationBanner權限
+CMN808設定admin的權限
+
+彈出視窗的權限，是引用父視窗的權限，不用再設定子視窗的操作權限
+
+
+取得使用者權限
+'0無、1基本、5中等、10最高、0禁止
+Dim iScsPermissionLevel_1 as Integer = ScsGetActionPermission(ScsActionType.Add)
+Dim iScsPermissionLevel_2 as Integer = ScsGetActionPermission(ScsActionType.Delete)
+Dim iScsPermissionLevel_3 As Integer = Me.ScsGetActionPermission(ScsActionType.Run)	   '得到執行的授權
+
+建斌：
+測中等，就要用電腦名稱，如 http://sd102/skerp，但是要等權限建好
+這樣就有控管權限
+然後就是你對應到的帳號，本身要有設定權限
+襄理的話基本上都是中等以上
+所以要測基本權限，用localhost
+
+	Protected Overrides Function ScsGetUICommandPermission(ByVal commandName As String) As Integer
+		Dim iPri As Integer
+		iPri = Me.ScsGetActionPermission(ScsActionType.Run)	   '得到執行的授權
+		Select Case commandName
+			Case "Close1"		  '基本授權可執行單筆日結
+				If iPri >= 1 Then
+					Return ScsPermissionLevel.Granted
+				Else
+					Return ScsPermissionLevel.Prohibit
+				End If
+			Case "Close2"		  '中等授權可執行整批日結
+				If iPri >= 5 Then
+					Return ScsPermissionLevel.Granted
+				Else
+					Return ScsPermissionLevel.Prohibit
+				End If
+			Case "Close3"		  '高等授權可執行最後日結
+				If iPri >= 10 Then
+					Return ScsPermissionLevel.Granted
+				Else
+					Return ScsPermissionLevel.Prohibit
+				End If
+			Case "Close5"		  '中等授權可執行多筆日結
+				If iPri >= 5 Then
+					Return ScsPermissionLevel.Granted
+				Else
+					Return ScsPermissionLevel.Prohibit
+				End If
+			Case Else
+				Return MyBase.ScsGetUICommandPermission(commandName)
+		End Select
+	End Function
+	
+	'設定按鈕的權限
+  Protected Overrides Function ScsGetAssociatedAction(ByVal commandName As String) As Integer
+      Select Case commandName
+          Case UICommands.csUpdate, UICommands.csClear
+              Return ScsActionType.Add
+          Case "cmdPremCal", "cmdIQUO", "cmdACH01"
+              Return ScsActionType.Run
+          Case Else
+              Return MyBase.ScsGetAssociatedAction(commandName)
+      End Select
+  End Function	

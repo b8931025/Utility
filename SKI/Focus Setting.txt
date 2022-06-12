@@ -1,0 +1,15 @@
+    Protected Overrides Sub BaseDoQuery()
+    		'查詢之後，設定focus 在txtOID
+        viewstate("_FocusID") = Me.txtOID.ClientID
+        MyBase.BaseDoQuery()
+    End Sub
+
+    Public Overrides ReadOnly Property BaseDefaultFocusControlClientID() As String
+        Get
+            If Not IsNothing(viewstate("_FocusID")) Then
+                Return viewstate("_FocusID").ToString
+            Else
+                Return ""
+            End If
+        End Get
+    End Property

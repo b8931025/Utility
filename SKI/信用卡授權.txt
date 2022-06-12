@@ -1,0 +1,76 @@
+http://netapx/skerp/AoiWeb/AoiControl/AgentQuery.aspx?param0=AOI109000_ATUHSale
+&param1=07                     '分公司
+&param2=4567896465137987       '卡號
+&param3=0520                   '到期日mmyy
+&param4=3318                   '保費
+&param5=P102120482             '持卡人id
+&param6=bsFIRCredAUTH          '程式代號   續期:FIR321000 首期:bsFIRCredAUTH
+&param7=丁黨                   '持卡人姓名(需要 url encode)
+&param8=Y                      '持卡人是否為要被保人
+&param9=00                     'OFF_UNIT_SP(IOFFICER) IISSBRCH
+&paramA=092100                 'imanager
+&paramB=09210000               'iofficer
+&paramC=P102120482             'iins
+&paramD=P102120482             '被保人id
+&paramE=1                      '扣款次數(火險固定是1)
+
+
+'回傳值:String
+'  array(0) = "00"        授權回應結果碼 00:成功/不等於00就是失敗
+'  array(1) = "123456"    授權碼
+'  array(2) = "授權成功"  授權回應結果說明 成功 or 錯誤訊息
+'  array(3) = "0000"      流水號
+'  array(4) = "1"         授權銀行:1.台新銀行 2.新光銀行 3.新光銀行POS機
+
+首期
+pubx_px_cred.iauthcode = 授權碼
+pubx_px_cred.nrmk3 = 流水號
+pubx_px_cred.nrmk2 = 授權銀行
+pubx_px_cred.dauthdate = 授權日
+pubx_px_cred.authtype='S' 授權成功
+pubx_px_cred.a_memo='' 清空錯誤訊息
+
+續期
+update firm_autoply set 
+iauthcode='017121',
+nrmk3='00201609260136',
+nrmk2='2',
+dauthdate=trunc(sysdate),
+fstatus='N',
+a_memo='',
+AUTHTYPE ='S'
+where ipolicy='2304FEP0Z00229'
+續期回押cred
+UPDATE PUBM_PN_CRED A
+   SET IAUTHCODE = (SELECT IAUTHCODE FROM HASM_AUTOPLY B WHERE B.INXTPLY = A.IPOLICY),
+       DAUTHDATE = (SELECT DAUTHDATE FROM HASM_AUTOPLY C WHERE C.INXTPLY = A.IPOLICY),
+       NRMK3 = (SELECT IAUTHID FROM HASM_AUTOPLY D WHERE D.INXTPLY = A.IPOLICY),  
+       IUPDATE='SKI\100245',DUPDATE=sysdate
+ WHERE A.IPOLICY = '0705IRPA000951'
+
+在CMN116要印出的信用卡請款單，需要滿足下列條件
+DPLYISSU=輸入的日期區間
+FPAY=Y
+FSTATUS=N or F
+
+為何險部印出來之後，就不能印第二次了？
+請款成功，是否FSTATUS=Y?
+pubx_px_cred.DPAY有資料，表示財會跟銀行請款，第二天撥款後，DPAY就會有日期
+
+查詢是否已繳費登入
+AOI803000 保批單資料查詢(AOI109打完這邊就查的到)
+AOI315000 信用卡資料查詢 
+
+--清空授權碼
+update firm_autoply set 
+iauthcode='',
+nrmk3='',
+nrmk2='',
+dauthdate=to_date('1912/1/1','yyyy/mm/dd'),
+fstatus='N',
+a_memo='',
+AUTHTYPE=''
+where ipolicy ='2304FEP0Z00229';
+
+
+;

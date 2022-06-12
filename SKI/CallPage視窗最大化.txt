@@ -1,0 +1,17 @@
+ Public Sub CallPage(ByVal pageUrl As String, ByVal dialogTitle As String, ByVal windowFeature As String, ByVal commandName As String, ByVal ParamArray args() As Object)
+ 參數:
+pageUrl: 子視窗網頁位址(必須位於同一應用程式虛擬目錄)
+dialogTitle: 對話框視窗Title
+windowFeature: 視窗特性
+commandName: 傳遞給子視窗網頁的處理命令名稱
+args: 附加參數
+
+
+windowFeature:
+可以自定
+center:yes;resizable:yes;scrollbars:yes;dialogWidth:800px;dialogHeight:600px;
+
+預設是CfgModalPopupWindowFeature="center:yes;resizable:yes;scrollbars:yes;"
+
+最大化
+CfgModalPopupWindowFeature & "dialogWidth:' + screen.availWidth + 'px;dialogHeight:' + screen.availHeight + 'px;"

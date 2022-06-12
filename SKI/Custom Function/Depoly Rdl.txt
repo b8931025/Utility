@@ -1,0 +1,72 @@
+    Public Overrides Function Request(ByVal _Param As System.Data.DataSet) As System.Data.DataSet
+        Try
+            Dim alList As New ArrayList
+            Dim alServ As New ArrayList
+            alList.Add("c:\skerp\fir\firreport\FirReceipt_BCode_PN2.rdl")
+            alServ.Add("tnetdb")
+            alServ.Add("localhost")
+            alServ.Add("netrs4c")
+            depolyRs(alServ, alList)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    Private Sub depolyRs(ByVal alServ As ArrayList, ByVal alList As ArrayList)
+        Dim rs As RSService.ReportingService = New RSService.ReportingService
+        Dim vu As VirtualUser
+        Dim sbOut As New System.Text.StringBuilder
+
+        Try
+            '變更虛擬身分(administrator)
+            vu = VirtualUser.CreateVirtualUserFromConfig(VirtualUser.ConfigKeyFileServiceUser)
+            vu.Impersonate()
+            rs.Credentials = System.Net.CredentialCache.DefaultCredentials
+
+            'http://rs/ReportServer/ReportService.asmx
+            For s As Integer = 0 To alServ.Count - 1
+                rs.Url = "http://" & CStr(alServ.Item(s)) & "/ReportServer/ReportService.asmx"
+                For i As Integer = 0 To alList.Count - 1
+                    sbOut.Append(depolyRdl(rs, CStr(alList.Item(i))))
+                Next
+            Next
+
+        Catch ex As System.IO.IOException
+            Throw ex
+        Finally
+            vu.Dispose()
+        End Try
+
+        Throw New Exception(sbOut.ToString)
+    End Sub
+
+    Private Function depolyRdl(ByRef rs As RSService.ReportingService, _
+    ByVal rdlName As String) As String
+        Dim bData As [Byte]() = Nothing
+        Dim warnings As RSService.Warning() = Nothing
+        Dim sbOut As New System.Text.StringBuilder
+        Dim stream As System.IO.FileStream
+        Dim reportName As String = rdlName.Split("\"c)(rdlName.Split("\"c).Length - 1).Replace(".rdl", "")
+        Dim sProjPath As String = "/" & rdlName.Split("\"c)(3)
+
+        If Not System.IO.File.Exists(rdlName) Then
+            sbOut.Append(rdlName & "該檔案不存在")
+            Return sbOut.ToString
+        End If
+
+        stream = System.IO.File.OpenRead(rdlName)
+        bData = New [Byte](stream.Length) {}
+        stream.Read(bData, 0, CInt(stream.Length))
+        stream.Close()
+
+        warnings = rs.CreateReport(reportName, sProjPath, True, bData, Nothing)
+        If Not IsNothing(warnings) Then
+            For Each w As RSService.Warning In warnings
+                sbOut.Append(w.Message).Append("<br>")
+            Next
+        Else
+            sbOut.Append("Server(" & rs.Url.Split("/"c)(2) & "): " & rdlName & " published successfully with no warnings").Append("<br>")
+        End If
+
+        Return sbOut.ToString
+    End Function

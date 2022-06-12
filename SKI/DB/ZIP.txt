@@ -1,0 +1,2 @@
+ SELECT izipcode,ncity,ncounty 
+ FROM cmnp_zipcode

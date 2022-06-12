@@ -1,0 +1,303 @@
+IntelliSys.NetExpress.Util
+IntelliSys.NetExpress.Web.UTF
+MasterDetailPage
+pop up 帶出
+
+BaseInitDataGridItemRow
+和
+AppCollectDataGridItemData的差別
+
+Ajax.Utility.RegisterTypeForAjax(GetType(CMN603000))  in CMN603000
+
+StateRestore的用法
+Me.CallPage
+Me.LaunchPage
+Me.LaunchPage() 
+
+欄位比對程式
+自動產生空白資料       
+Browser return value
+CMN351000的進階使用
+
+vb .net SyncLock   in bsPubClosePE at 136 line
+
+
+寫一個用IPolicy重算火險保費和地震保費的function
+
+彈出指定檔案視窗Start
+  in FIR907000.aspx.vb
+  
+	Protected Overrides Sub BaseDoImport(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+		''匯入
+		Try
+			If Not sender Is Me Then
+				If Not BaseConfirmImport() Then Return
+				Upload.Show(Me, UICommands.csImport)
+			Else
+				Dim impMethod As String
+				Dim obj As Object = e.CommandArgument
+				Dim fi As beFileInfo = CType(obj, beFileInfo)
+
+				StateMain = doUploadFile(fi.FileInfo(0).ContentData)
+				Me.UIAppendMessage("成功匯入檔案""" & fi.FileInfo(0).ContentSource & """")
+				UIFormIsDirty = True
+			End If
+
+		Catch ex As Exception
+			Me.UIAppendError(ex.Message)
+		End Try
+	End Sub
+彈出指定檔案視窗End
+
+If Radio button was set disabled , Radio's checked would be false in VB even Radio is selected
+
+Reporting Service如何補空白行，如何使用頁碼
+
+判斷全形、半形，造字，big5以外的字
+
+下面這兩個function有何差別？
+    Protected Overrides Function ScsGetUICommandPermission(ByVal commandName As String) As Integer
+        Select Case commandName
+            Case UICommands.csUpdate, UICommands.csClear, UICommands.csCopy
+                Return ScsGetUICommandPermission(UICommands.csRun)
+            Case Else
+                Return MyBase.ScsGetUICommandPermission(commandName)
+        End Select
+    End Function
+
+    Protected Overrides Function ScsGetAssociatedAction(ByVal commandName As String) As Integer
+        Select Case commandName
+            Case UICommands.csUpdate, UICommands.csClear, UICommands.csCopy
+                Return ScsActionType.Add
+            Case "NewPly"
+                Return ScsActionType.Add
+            Case Else
+                Return MyBase.ScsGetAssociatedAction(commandName)
+        End Select
+    End Function
+
+寫一個可以備份保單到測試環境的程式
+算出換匯的匯差
+
+寫一個用iendors,iedrseq當參數，可以撈出所有批由的function
+select p.iedrseq,p.IEDRTYP,r.iedrtyp,o.iedrtyp,a.iedrtyp,m.iedrtyp from pubm_pe_main  p
+LEFT JOIN PUBM_PE_AREA R ON R.OID_PUBM_PE_MAIN = P.OID
+LEFT JOIN PUBM_PE_OBJ o ON o.OID_PUBM_PE_MAIN = P.OID
+LEFT JOIN PUBM_PE_ADDR a ON a.OID_PUBM_PE_MAIN = P.OID
+LEFT JOIN PUBM_PE_PREM m ON m.OID_PUBM_PE_MAIN = P.OID
+where 1=1 and p.iendors='0901FEE0000002';
+CLM102000.aspx.vb Dim fa As New PUBControl.FormulaAgent的用法
+
+bsFirPlyFP '住宅保單(居家綜合保險)列印 是否也要加入第三人責任條款？
+
+用jQuery找出ucRocDate裡面textbox的id
+
+CLM202,CLM207查詢功能整理
+CMN800000 JOBSTATEVIEW作業狀態檢視(SK)  如何用"作業代號"取得結果檔
+
+判斷是否全形
+if LenB(StrConv(myString, vbFromUnicode)) > Len(myString) then
+ '全形
+else
+ '半形
+end if
+
+function 阿拉伯數字轉小寫中文
+clm207 追償時，要檢核支付資料中一定要有負值
+
+FW: ORA-01000: 超過了可開啟的游標之數目上限  我寫的批單日結出現的問題
+From: 曹瑞生
+Sent: Friday, March 23, 2012 2:49 PM
+To: 張翌浚
+Subject: RE: ORA-01000: 超過了可開啟的游標之數目上限
+正式環境 一個session 可以同時開啟300個
+BK 可以開啟700個
+但是我想法是 你不應該同時開了300個cursor卻不關閉，你應該朝開完CLOSE方向去做
+
+寫一個sql function 判斷的Sequence正確性
+排程刪報表檔
+熟悉批單日結
+寫一個sql function取得某單位的某科科長
+CLM502手術項目加Ajax
+FIR306宅平安和一般住宅的混合多筆列印未完成
+
+CMNP_INSTYPE FUNCTION
+        sb.Append("SELECT NVL(NINS_A,' ') AS NINS_A, ICOVER FROM CMNP_INSTYPE")
+        sb.Append("WHERE IINSCLS= '" & args(1).ToString & "'")
+        sb.Append("AND IINSKIND='" & args(2).ToString & "'")
+        sb.Append("AND IINSTYPE='" & args(3).ToString & "'")
+        Me.LoadDataSet(sb.ToSqlString, result, "NINS_A", trans)
+        
+
+FIR202001.aspx.vb
+    <Ajax.AjaxMethod(Ajax.HttpSessionStateRequirement.Read)> _
+    Public Function RequestIEARQUERY(ByVal sArry() As String) As DataSet
+    
+#if DEBUG
+    Console.WriteLine("Hi");
+#endif
+   
+報表表格每月自動刪除超過一個月的資料   
+報表中標的物地址PUBM_PN_ADDR.NREMARK
+全形轉半形，轉五都
+datarow.item() -> datarow()
+檢查所有地址，是否有轉五都，全形轉半形
+growup=false
+
+輸入中文名，列出email的user controll
+excel select column have null and not null
+檢查有哪些job沒有加這一段 InvokeBusinessService("PUBService.bsPubChkJobParam", dsMain) '先檢查是否有相同條件的Job尚未執行或正在執行
+
+下面這些要怎麼用？
+<Ajax.AjaxMethod()>
+<Ajax.AjaxMethod(Ajax.HttpSessionStateRequirement.Read)>
+<Ajax.AjaxMethod(Ajax.HttpSessionStateRequirement.ReadWrite)>
+
+CLM209000 火險理賠日結作業
+
+Dim sCheckBorg As String = Me.InvokeSingleValueService("PUBService.bsFlowGetBorgStatus") 的用法
+
+SingleValue 改成Objec
+New SingleValue
+=BK (optional)
+=TBName()
+=Where()
+=Column()
+=Load()
+  
+FirFunction.isFC()在遇到長期火險，無法正確判斷商業/住宅  
+把變數定義在最上頭的理由是？
+
+Ajax的loading picture  
+保批單的保期起迄，要動態取小時，不可以固定12點  
+
+寫ajax中文名稱查詢email
+
+取得數字的個位數/百位數/千位數
+
+修改平台，計算程式的使用量
+將萬用代碼中的程式控制資料分出，另開table
+
+--pubm_pe_prt FP/FR 的保單號少了兩碼
+select m.ipolicy o,t.ipolicy,t.oid_pubm_pe_main ,t.dprt 
+from pubm_pe_prt t
+inner join pubm_pe_main m on 1=1
+and m.oid = t.oid_pubm_pe_main and m.iinscls='F' and m.iinskind='FC'
+where 1=1
+and t.ipolicy <> m.ipolicy
+and instr(t.ipolicy,'F') > 0
+and t.dprt between to_date('20110101','yyyymmdd') and to_date('20130105','yyyymmdd');
+
+在網頁按密鍵可以跳出該程式的說明
+續保要保書保期起迄時間改動態
+
+居家綜合要保書的批單
+
+秋萍:
+在打批改申請書時，客戶常會打電話來，要核對上一次的資料
+如果可以切換，就會方便一點
+i:
+FIR801_批改申請書_改成可視窗切換
+可以把modual模式改成modualess模式
+
+TFS和CMN817做同步，主機更新作e化
+宅平安報表整合
+批單日後需要再調整，列高不統一，很容易算錯，下次再遇到註銷件，還是會一樣
+
+CLM202 的出險紀錄按鈕，可以設定成，有出險紀錄，就閃爍提醒
+
+singleValue 分大小寫
+
+
+--找出需要擴充的欄位
+select table_name,column_name,char_length 
+from all_tab_columns t
+where t.OWNER='SKERP_DB'
+AND T.TABLE_NAME LIKE '&IINSCLS%'
+and column_name = '&CNAME'
+and t.char_length < 
+(select x.char_length 
+ from all_tab_columns x 
+ where x.TABLE_NAME = '&TNAME'
+ AND X.COLUMN_NAME = '&CNAME');
+ 
+  
+BRK309_京城住火扣款媒體作業 附加無加密碼
+    
+把字串的DCREATE改成Date
+整理系統中所有的statice Utility
+了解所有續保作業
+    
+B2C 需要 pdf 轉換成 gif的功能，並要能輸出多頁
+聲明已閱讀的check    
+CMN906附加檔存入db，然後產生short url
+
+住宅自動續保和非自動續保合併
+
+entity 是否可 引用別的entity中的 table ?
+
+Sequence問題
+select last_number - (select max(OID) from &TBN) as maxOID
+from all_sequences 
+where sequence_name='SEQ_&TBN' ;
+
+了解公司的BBS
+
+找出log工具
+
+FIR801的撈法
+         
+文鼎無法顯示utf8的難字，如果USER使用UTF8的字，去取代造字，PDF中的文鼎字型，就無法顯示該字
+
+傷害險清單的報表table共用同一個，方便調整 
+
+bsFIRCredAUTH 調整
+統編/身份證/居留證/電話/姓名/地址 產生器 vb/javascript/db function
+
+優化 C:\SKERP\FIR\FIRService\bsFIR201001Print.vb
+
+FIR202001加入信用卡到期日檢核
+信用卡授權寄信都要隔好幾天user才收到
+
+PUBControl.SKMsg.Print("BaseOnPageLaunch begin")
+報表布署自動化 
+
+
+保單/收據過長自動調整字型大小
+續保號回押程式 
+FIR303可調整保單號顯示文字
+bsFIRUpdateIPreply沒有回押M_PE
+調整FIR306保經列印的第二個param參數
+新增pdf新版合併程式 
+ach件做批單，看資料面有無問題
+select IPOLICY,COUNT(*)
+  from pubm_pN_ACH
+GROUP BY IPOLICY
+HAVING COUNT(*) > 1  
+
+FIR306 查詢出來的資料，如果不能印的，就顯示特殊顏色，讓該保單號，無法轉入列印清單
+
+產生ach、信用卡、超商繳費測試資料
+寫一個可以由保單到期日，計算信用卡授權日/ach扣款日；由扣款日/授權日查詢會扣哪些資料區間被扣款 
+寫一個可以下載tfs檔案(電子保單)的功能
+程式需可以判斷真正的首期，真正的續期 
+轉出單時，需檢查信用卡授權碼是否過期
+系統連線確認程式、報表、地震基金、存檔
+
+姓名，公司名，id，地名
+指定險種種類，撈出保單號或報價號
+一般住火
+甲式
+全方位居綜
+加值型/閤家安康
+指定經紀代號產生保單號或報價號
+
+住火/居綜/商火保單整合成一個rdl
+信用卡授權用多執行緒
+
+用JavaScript判斷TextBox是否有unicode的字
+
+取得電子保單的功能
+報表訂閱功能(權限如何限制)
+測試資料產生器(通路經辦相關，姓名，公司名，id，地名，web點一下就可以複製)
+

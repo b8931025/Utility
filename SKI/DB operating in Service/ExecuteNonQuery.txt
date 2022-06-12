@@ -1,0 +1,6 @@
+			sb.Reset()
+			sb.Append("DELETE FROM cast_pn_item ")
+            'sb.Append("WHERE oid_pubt_pn_main=").Append(New ParameterInfo("oid", DbType.Decimal, sTNM_OID))
+            sb.Append("WHERE oid_pubt_pn_main=" & sTNM_OID.ToString.Trim)
+            sSql = sb.ToSqlString
+			intRowAffect = DefaultRunner.ExecuteNonQuery(sSql, trans)

@@ -1,0 +1,6 @@
+        Dim dsWeb As beCAS_109 = CType(param, beCAS_109)
+        Dim MainRow As beCAS_109.CASP_DNG2Row = CType(dsWeb.Tables("casp_dng2").Rows(0), beCAS_109.CASP_DNG2Row)
+        If MainRow.RowState <> DataRowState.Deleted Then
+            MainRow.Item("IKEYIN") = UserNow
+            MainRow.Item("DKEYIN") = DateNow
+        End If

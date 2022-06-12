@@ -1,0 +1,16 @@
+    '取得業務員/經紀人名稱
+    Private Function getNameByIAgent(ByVal sIAgent As String) As String
+        Dim NAGENT As String = ""
+        Dim sb As New SqlStringBuilder
+        If sIAgent.Trim.Length = 8 Then
+            '業務員
+            sb.Append(" SELECT OFF_NAME('" & sIAgent & "') FROM DUAL")
+        ElseIf sIAgent.Trim.Length = 6 Then
+            '業務員
+            sb.Append(" SELECT OFF_NAME('" & sIAgent & "00') FROM DUAL")
+        ElseIf sIAgent.Trim.Length = 3 Then
+            '經紀人
+            sb.Append("SELECT NCNAME FROM AOIP_BROKER_AGENT WHERE IBRKAGT  = '" & sIAgent & "'")
+        End If
+        Return GetString(Me.DefaultRunner.ExecuteScalar(sb.ToSqlString, trans))
+    End Function

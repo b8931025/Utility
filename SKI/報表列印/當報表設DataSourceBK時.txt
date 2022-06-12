@@ -1,0 +1,7 @@
+當報表的DataSource設在XXXDataSourceBK，資料是前一日的狀態，要在頁面上提示使用者
+
+				
+				<tr>
+					<td class="tdQueryCaption">注意</td>
+					<td class="tdQueryField"><font color="Red">(本報表為前一日資料狀態，與今日最新狀況落差一天)</font></td>
+				</tr>

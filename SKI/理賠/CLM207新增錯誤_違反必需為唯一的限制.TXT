@@ -1,0 +1,50 @@
+計算書新增時，出現違反必須為唯一的限制條件(SKERP_DB.UK_RINM_LOSS_SHARES)
+是因為該筆有做過批單，而批單沒有把同險號寫入PUBM_PE_OBJ.IRISK_NO和RINM_SHARES.IRISK_NO造成
+PS:一個地址，不同IOBJSEQ有時會有兩個同險號
+D:\work\TODO\歷史存檔\2018\6月\180530_CLM207_計算書新增錯誤
+
+--**************<<pubm_pe_obj>>**************--
+update pubm_pe_obj a set a.irisk_no=
+(select max(x.irisk_no) from pubm_pn_obj x 
+ where x.ipolicy=a.ipolicy 
+ and x.iadrseq=a.iadrseq 
+ and x.iareaseq=a.iareaseq
+ and x.iobjseq=a.iobjseq)
+where a.ipolicy='0005FXP0000198' 
+and a.irisk_no is null ;
+
+--找出錯誤或null的irisk_no
+select * from (
+select a.iadrseq,a.iareaseq,a.iobjseq,a.irisk_no pe
+,(select max(x.irisk_no) from pubm_pn_obj x 
+where x.ipolicy=a.ipolicy 
+and x.iadrseq=a.iadrseq 
+and x.iareaseq=a.iareaseq
+and x.iobjseq=a.iobjseq) pn
+from pubm_pe_obj a
+where a.ipolicy='0005FXP0000198'
+order by a.iadrseq,a.iareaseq
+) y where  nvl(y.pe,' ') <> nvl(y.pn,' ');
+
+--**************<<rinm_shares>>**************--
+update rinm_shares a set a.irisk_no=
+(select max(x.irisk_no) from pubm_pn_obj x 
+ where x.ipolicy=a.ipolicy 
+ and x.iadrseq=a.iadrseq 
+ and x.iareaseq=a.iareaseq
+ and x.iobjseq=a.iobjseq)
+where a.ipolicy='0005FXP0000198' 
+and a.irisk_no is null ;
+
+--找出錯誤或null的irisk_no
+select count(1) from (
+select a.iadrseq,a.iareaseq,a.iobjseq,a.irisk_no pe
+,(select max(x.irisk_no) from pubm_pn_obj x 
+where x.ipolicy=a.ipolicy 
+and x.iadrseq=a.iadrseq 
+and x.iareaseq=a.iareaseq
+and x.iobjseq=a.iobjseq) pn
+from rinm_shares a
+where a.ipolicy='0005FXP0000198'
+order by a.iadrseq,a.iareaseq
+) y where  nvl(y.pe,' ') <> nvl(y.pn,' ');

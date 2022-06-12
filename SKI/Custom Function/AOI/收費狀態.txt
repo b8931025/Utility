@@ -1,0 +1,36 @@
+ '是否未收費
+    Private Function isUncharged(ByVal sIPolicy As String) As Boolean
+        '======================================判斷收費狀態============================================
+        Dim dsParam As New beAOICheckCharge1Q
+        Dim drChkQ As beAOICheckCharge1Q.CHECKCHARGE_QRow = dsParam.CHECKCHARGE_Q.NewCHECKCHARGE_QRow
+        drChkQ.QTYPE = "1" '1 只看保單 2只看批單 3保加批(只要有一件未收，就未收)
+        drChkQ.IPOLICY = sIPolicy
+        drChkQ.IPLYSEQ = 0
+        drChkQ.IENDORSE = ""
+        drChkQ.IEDRSEQ = 0
+        dsParam.CHECKCHARGE_Q.AddCHECKCHARGE_QRow(drChkQ)
+
+        Try
+            Dim dsResultCharge As beAoiCheckCharge1Result = CType(Me.InvokeBusinessService("PUBService.bsAoiCheckCharge1", dsParam), beAoiCheckCharge1Result)
+            If dsResultCharge.CHECKCHARGE_R.Rows.Count > 0 Then
+                Dim sFCondi As String = dsResultCharge.CHECKCHARGE_R.Rows(0)("FCONDITION").ToString
+
+                If sFCondi = "R1" Then
+                    Return False
+                ElseIf sFCondi = "R2" Then
+                    Return False
+                ElseIf sFCondi = "R5" Then
+                    Return False
+                ElseIf sFCondi = "R4" Then 'R4(已收費;未兌)
+                    Return False
+                ElseIf sFCondi = "NR" Then '未收
+                    Return True
+                End If
+            End If
+            '======================================判斷收費狀態 OVER============================================
+        Catch ex As Exception
+            Throw
+        End Try
+
+        Return False
+    End Function

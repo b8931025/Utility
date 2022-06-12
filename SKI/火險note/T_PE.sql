@@ -1,0 +1,75 @@
+select * from pubT_PE_main         where oid = 1003961712;
+select * from PUBT_PE_SHAR         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_CONTENT      where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_RECV         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_TERMID       where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_TERMTXT      where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_MEMO         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_RCHG         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_PRT          where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_ENDORSEMENT  where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_CRED         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_RETURN       where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_OBJ          where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_PREM         where oid_pubT_PE_main = 1003961712;
+select * from FIRT_PE_MAIN         where oid_pubT_PE_main = 1003961712;
+select * from FIRT_PE_OBJ          where oid_pubT_PE_main = 1003961712;
+select * from FIRT_PE_INSTYPE      where oid_pubT_PE_main = 1003961712;
+select * from FIRT_PE_DEDUCT       where oid_pubT_PE_main = 1003961712;
+select * from FIRT_PE_FLT          where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_ADDR         where oid_pubT_PE_main = 1003961712;
+select * from PUBT_PE_AREA         where oid_pubT_PE_main = 1003961712;
+select * from HAST_PE_ISSU         where oid_pubT_PE_main = 1003961712;
+select * from HAST_PE_BENE         where oid_pubT_PE_main = 1003961712;
+
+/*
+SELECT COUNT(*),'PUBT_PE_MAIN       ' AS TNAME FROM PUBT_PE_MAIN         WHERE OID = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_SHAR       ' AS TNAME FROM PUBT_PE_SHAR         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_CONTENT    ' AS TNAME FROM PUBT_PE_CONTENT      WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_RECV       ' AS TNAME FROM PUBT_PE_RECV         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_TERMID     ' AS TNAME FROM PUBT_PE_TERMID       WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_TERMTXT    ' AS TNAME FROM PUBT_PE_TERMTXT      WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_MEMO       ' AS TNAME FROM PUBT_PE_MEMO         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_RCHG       ' AS TNAME FROM PUBT_PE_RCHG         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_PRT        ' AS TNAME FROM PUBT_PE_PRT          WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_ENDORSEMENT' AS TNAME FROM PUBT_PE_ENDORSEMENT  WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_CRED       ' AS TNAME FROM PUBT_PE_CRED         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_RETURN     ' AS TNAME FROM PUBT_PE_RETURN       WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_OBJ        ' AS TNAME FROM PUBT_PE_OBJ          WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_PREM       ' AS TNAME FROM PUBT_PE_PREM         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'FIRT_PE_MAIN       ' AS TNAME FROM FIRT_PE_MAIN         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'FIRT_PE_OBJ        ' AS TNAME FROM FIRT_PE_OBJ          WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'FIRT_PE_INSTYPE    ' AS TNAME FROM FIRT_PE_INSTYPE      WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'FIRT_PE_DEDUCT     ' AS TNAME FROM FIRT_PE_DEDUCT       WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'FIRT_PE_FLT        ' AS TNAME FROM FIRT_PE_FLT          WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_ADDR       ' AS TNAME FROM PUBT_PE_ADDR         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'PUBT_PE_AREA       ' AS TNAME FROM PUBT_PE_AREA         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'HAST_PE_ISSU       ' AS TNAME FROM HAST_PE_ISSU         WHERE OID_PUBT_PE_MAIN = 1003961712 UNION 
+SELECT COUNT(*),'HAST_PE_BENE       ' AS TNAME FROM HAST_PE_BENE         WHERE OID_PUBT_PE_MAIN = 1003961712 ;
+*/
+
+/*
+delete pubT_PE_main         where oid = 1003961712;
+delete PUBT_PE_SHAR         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_CONTENT      where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_RECV         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_TERMID       where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_TERMTXT      where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_MEMO         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_RCHG         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_PRT          where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_ENDORSEMENT  where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_CRED         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_RETURN       where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_OBJ          where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_PREM         where oid_pubT_PE_main = 1003961712;
+delete FIRT_PE_MAIN         where oid_pubT_PE_main = 1003961712;
+delete FIRT_PE_OBJ          where oid_pubT_PE_main = 1003961712;
+delete FIRT_PE_INSTYPE      where oid_pubT_PE_main = 1003961712;
+delete FIRT_PE_DEDUCT       where oid_pubT_PE_main = 1003961712;
+delete FIRT_PE_FLT          where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_ADDR         where oid_pubT_PE_main = 1003961712;
+delete PUBT_PE_AREA         where oid_pubT_PE_main = 1003961712;
+delete HAST_PE_ISSU         where oid_pubT_PE_main = 1003961712;
+delete HAST_PE_BENE         where oid_pubT_PE_main = 1003961712;
+*/

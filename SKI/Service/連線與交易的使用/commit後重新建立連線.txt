@@ -1,0 +1,9 @@
+        trans.Commit() '將之前的update提交後，trans的connection會nothing
+        
+        'commit後如果還要連線資料庫，就要執行下例程式碼
+        conn = DatabaseRunnerFactory.GetRunner(DefaultInstanceName).GetConnection
+        conn.Open()
+        trans = conn.BeginTransaction
+        DefaultRunner.ExecuteNonQuery(sb.ToSqlString, trans) '執行sql
+        trans.Commit() '注意！！commit之後，trans就無法使用
+        

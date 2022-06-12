@@ -1,0 +1,4 @@
+  'Me.LoadDataSet(sb.ToSqlString(), result, trans) '用這一行，撈的出資料
+  Me.LoadDataSet(sb.ToSqlString(), result, "aoim_pay_tmp", trans) '但是用這一行卻撈不到
+  
+有特別指定table name時，才需要

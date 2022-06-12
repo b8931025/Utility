@@ -1,0 +1,5 @@
+/*找不到可顯示共保的測試資料，就將t.fcoins直接改成3，就會顯示
+  但該筆保單，一定要是共保件
+*/
+select t.fcoins ,t.rowid from pubt_pe_main t 
+where t.iendors ='0099FXE0800001';/*FCOINS=2*/

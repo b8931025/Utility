@@ -1,0 +1,25 @@
+雅嵐:2014/4/30 
+分機資訊12樓一直喬不定，人事部說是總機的工作，總機又屬於人事部，所以搞不定
+總機有在維護的最新資料，就只有分機表的excel
+資料庫沒有在維護，如果有分機資料錯誤，就要請分公司寫申請單，請人事處理
+
+SQL2：  通常要取一個人的聯絡電話，都是取科別或通訊處
+SELECT DEPTNAMESHORT,
+       NNAME,
+       UNIT_ITELAREA,/*分公司電話區碼*/
+       UNIT_ITEL,    /*分公司電話*/
+       DEPT_IFAXAREA,/*分公司傳真區碼*/
+       DEPT_IFAX,    /*分公司傳真*/
+       subj_itelarea,/*科別或通訊處電話區碼*/
+       subj_itel,    /*科別或通訊處電話*/
+       subj_ifaxarea,/*科別或通訊處傳真區碼*/
+       subj_ifax     /*科別或通訊處傳真*/  
+  FROM PSNV_OFFICER_TEL
+WHERE IOFFICER in ('100245','079035');
+
+
+SQL2：
+select iofficer, deptnameshort, nname, dept_tel_area, dept_tel, dept_fax_area, dept_fax
+from   psnv_psn_org
+WHERE IOFFICER in ('084043','079035');
+

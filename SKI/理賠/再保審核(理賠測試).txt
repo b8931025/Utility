@@ -1,0 +1,19 @@
+從下面的sql撈出可測試的資料
+select ipolicy from RINM_SHARES  /*正常出單的保單，在RINM_SHARES會有資料*/
+where ipolicy in (
+select p.ipolicy from pubm_pn_main p
+where 1=1
+and p.iinscls='F'
+and p.dplyissu > sysdate - 600 
+and p.dply_end > sysdate /*未過期保單*/
+and p.dclose is not null
+);
+
+CLM202000 預估做完
+RIN302000 預估攤賠資料查詢與調整 
+CLM207000 計算書做完
+RIN305000 實賠攤賠資料查詢與調整 
+CLM209000 火險理賠日結作業 
+
+AOI402000 理賠審核作業 
+AOI403000 理賠彙計作業 

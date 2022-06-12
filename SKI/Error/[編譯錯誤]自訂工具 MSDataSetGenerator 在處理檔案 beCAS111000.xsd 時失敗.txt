@@ -1,0 +1,4 @@
+自訂工具 'MSDataSetGenerator' 在處理檔案 'beCAS111000Query.xsd' 時失敗。
+自訂工具 'MSDataSetGenerator' 在處理檔案 'beCAS111000.xsd' 時失敗。
+
+不要用建置方案，改用重建方案就可

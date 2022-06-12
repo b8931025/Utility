@@ -1,0 +1,18 @@
+問題:
+無法指出的錯誤
+System.Data.OleDb.OleDbException: Unspecified error
+
+  Dim errMsg As String = ""
+  Dim strSql As String = "select * from [CLM207000$] where 地址序號 <> NULL AND 地址區序號 AND 標的物編號 <> NULL AND 標的物代號名稱 <> NULL AND 承保險種代號名稱 <> NULL AND 理賠項目 <> NULL"
+  Dim conn As OleDbConnection = New OleDbConnection(strConnStr)
+  Dim oleCommand As New OleDbCommand(strSql, conn)
+  conn.Open()  '錯誤從這邊發生
+
+http://support.microsoft.com/default.aspx?scid=kb;EN-US;825738
+
+解決:
+	<system.web>
+				<identity impersonate="true"  userName="ski\NetExpress.sa"  password="NetExpress.sa" />
+				上面這行改成下面這行
+				<identity impersonate="true"  />
+	</system.web>

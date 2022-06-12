@@ -1,0 +1,120 @@
+ =======================按鈕初始化=======================
+  
+    Protected Overrides Function BaseGetCommandBarCommands() As UICommand()
+        '自定按鈕
+        Dim cmdP As UICommand = New UICommand(UICommands.csPrint, "未出單收據列印[P]", "", "未出單收據列印", "", "", True, True, True, "P")
+        
+        '設定按鈕的顯示
+        Return New UICommand() {UICommands.cmdNew, UICommands.cmdUpdate, UICommands.cmdDelete, UICommands.cmdQuery, UICommands.cmdClear, cmdP, UICommands.cmdExit}
+    End Function
+
+
+ =======================UICommand Syntax=======================
+ Public Sub New(ByVal commandName As String, ByVal caption As String, ByVal imageUrl As String, ByVal description As String, ByVal commandArgument As String, ByVal confirmMessage As String, ByVal visible As Boolean, ByVal enabled As Boolean, ByVal causesValidation As Boolean, ByVal accessKey As String)
+	commandName: 命令名稱
+	caption: 顯示名稱
+	imageUrl: 影像檔URL
+	description: 註解(會以 ToolTip 方式顯示)
+	commandArgument: 命令引數
+	confirmMessage: 如果需要使用者再次確認，可以利用此參數提供確認訊息
+	visible: 是否顯示
+	enabled: 是否可作用
+	causesValidation: 是否引發Client Validation
+	accessKey: 快捷鍵
+
+ =======================加自定按鈕 =======================
+    Protected Overrides Function BaseGetCommandBarCommands() As UICommand()
+        Dim cmdP As UICommand = New UICommand(UICommands.csPrint, "未出單收據列印[P]", "", "未出單收據列印", "", "", True, True, True, "P")
+        Return New UICommand() {UICommands.cmdClear, cmdP, UICommands.cmdExit}
+        '                                            ^^^^
+    End Function
+    
+    syntax:
+    UICommand(
+    ByVal commandName As String,命令名稱
+    ByVal caption As String, 顯示名稱
+    ByVal imageUrl As String,影像檔URL 
+    ByVal description As String,註解(會以 ToolTip 方式顯示) 
+    ByVal commandArgument As String,命令引數 
+    ByVal confirmMessage As String,如果需要使用者再次確認，可以利用此參數提供確認訊息 
+    ByVal visible As Boolean,是否顯示 
+    ByVal enabled As Boolean,是否可作用 
+    ByVal causesValidation As Boolean,是否引發Client Validation 
+    ByVal accessKey As String 快捷鍵 
+    )
+
+ =======================取得按鈕物件=======================
+ MyBase.StateCommandBar.CommandState.FindByNameArgument(ButtonName, Argument)
+ As IntelliSys.NetExpress.Entity.beCommandState.CommandStateRow
+ 
+ ButtonName:
+ UICommands.csNew
+ UICommands.csQuery
+ UICommands.csUpdate 
+ UICommands.csCancel  
+ ....
+ 
+ Argument:
+ 都設空字串 ""
+ 
+ 相關屬性
+ CommandStateRow.Enabled()
+ CommandStateRow.Visible()
+ CommandStateRow.Caption() 設定顯示文字
+ CommandStateRow.ImageURL() 
+ 
+ =======================控制按鈕的顯示======================= 
+     Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
+        MyBase.BasePreRender()
+        
+        要寫在BasePreRender之後
+        MyBase.StateCommandBar.CommandState.FindByNameArgument(UICommands.csNew, "").Visible = _
+        Not MyBase.StateCommandBar.CommandState.FindByNameArgument(UICommands.csUpdate, "").Visible        
+    End Sub
+    
+ =======================控制按鈕加入JavaScript事件=======================     
+    Protected Overrides Sub RenderChildren(ByVal writer As System.Web.UI.HtmlTextWriter)
+    		'一定要在RenderChildren，Repeater裡面才會有東西
+        '設定畫面上的命令列樣板
+        Dim ApplicationBanner1 As ApplicationBanner = CType(Me.Page.FindControl("ApplicationBanner1"), ApplicationBanner)
+        '設定Cons為命令列樣版內的ButtonRepeater
+        Dim Cons As System.Web.UI.WebControls.Repeater = CType(ApplicationBanner1.CommandBar.FindControl("ButtonsRepeater"), System.Web.UI.WebControls.Repeater)
+        Dim btn As Button
+        For i As Integer = 0 To Cons.Items.Count - 1
+            btn = CType(Cons.Items(i).Controls(1).Controls(0), Button)
+            If btn.CommandName = UICommands.csQuery Then
+                Exit For
+            End If
+        Next
+        '加入JS
+        UTF.AppendUniqueAttributeValue(btn, "onclick", "return CheckQuery(" _
+        & ddlIINKIND.ClientID & "," _
+        & StartDate.TextBox.ClientID & "," & EndDate.TextBox.ClientID & "," _
+        & StartDate1.TextBox.ClientID & "," & EndDate1.TextBox.ClientID & "," _
+        & txtIISSU.ClientID & "," & txtIOFFICER.ClientID & "," _
+        & txtCarNo.ClientID & "," & txtShipName.ClientID & "," _
+        & txtZip.ClientID & "," & txtAddress.ClientID & "," _
+        & txtIPOLICY.ClientID & ");")
+
+        MyBase.RenderChildren(writer)
+    End Sub    
+    
+ =======================自訂義的按鈕名稱需在此授予權限才不會出現權限不足的訊息=======================        
+    Protected Overrides Function ScsGetAssociatedAction(ByVal commandName As String) As Integer
+        Select Case commandName
+            Case "cmdAuditInfo" ' 審核資訊
+                Return ScsActionType.Run
+            Case "cmdAuditYes"
+                Return ScsActionType.Run
+            Case "cmdAuditNo"
+                Return ScsActionType.Run
+            Case "cmdSave2Flow"
+                Return ScsActionType.Add
+            Case "cmdUpdate2Flow"
+                Return ScsActionType.Update
+            Case "Audit", "cmdRINQRY", "cmdGetIpolicy"
+                Return ScsActionType.Run
+            Case Else
+                Return MyBase.ScsGetAssociatedAction(commandName)
+        End Select
+    End Function    

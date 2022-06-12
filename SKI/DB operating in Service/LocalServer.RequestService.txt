@@ -1,0 +1,2 @@
+Dim ds as DataSet = BaseDbAccessService.LocalServer.RequestService(Service, Entity)
+執行Service, 把Entity當成該Service的paramater

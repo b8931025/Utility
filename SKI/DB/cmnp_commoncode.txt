@@ -1,0 +1,18 @@
+
+
+CREATE OR REPLACE FUNCTION CMCode_Name(ctype IN VARCHAR2,ccode IN VARCHAR2)
+   RETURN VARCHAR2
+IS
+   cname   VARCHAR2 (100 char);
+BEGIN
+   SELECT name INTO cname
+    FROM cmnp_commoncode
+    where type = ctype
+    and status=1
+    and code=ccode
+    and rownum=1;    
+   RETURN (cname);
+END ; 
+
+PS:維護要到共用的
+CMN107000 萬用代碼維護

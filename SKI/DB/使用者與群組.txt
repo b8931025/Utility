@@ -1,0 +1,6 @@
+-- sql server
+
+select * from NetExpress.dbo.Roles;
+
+select * from netexpress.dbo.RoleUser where userid='SKI\093104';
+

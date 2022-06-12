@@ -1,0 +1,10 @@
+Encode
+http://rs/ReportServer?%2fFIRReport%2fFIR402000_Main&IREPORT=58DD6794B4FE4630B96CBFEB8E60927F&FLAG=1&rs%3aCommand=Render&rs%3AFormat=PDF
+
+Decode
+http://rs/ReportServer?/FIRReport/FIR201001_Main&IREPORT=C081DF75EC0148C6B33DE2139BF11002&FLAG=1&rs:Command=Render&rs:Format=PDF
+
+
+http://ostermiller.org/calc/encode.html
+
+http://localhost/ReportServer?%2fFIRReport%2fFIR402000_Main&IREPORT=58DD6794B4FE4630B96CBFEB8E60927F&rs%3aCommand=Render&rs%3AFormat=PDF

@@ -1,0 +1,4 @@
+            Dim sType As String = "PROGRAM_ID"
+            Dim ht As Hashtable = PUBEntity.CmnFunction.getCmnCodeSet(InvokeCommonService("PUBService.bsCmnCode", New String() {sType}))
+            Dim sTest As String = PUBEntity.CmnFunction.getCmnCode(ht, "Test")
+            Dim sD1 As String = PUBEntity.CmnFunction.getCmnCode(ht, "NOTE2", "DATA1")

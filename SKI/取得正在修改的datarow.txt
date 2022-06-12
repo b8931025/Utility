@@ -1,0 +1,5 @@
+ Dim dr As DataRow = AppGetDataGridBoundDataView(dg, StateMain).Item(dg.SelectedItem.DataSetIndex).Row
+ 
+ or
+ 
+ Dim drMain As DataRow = BaseGetMainRow(StateMain)

@@ -1,0 +1,15 @@
+in Web
+Dim dsResult As DataSet  = InvokeCommonService(ServiceName , New String() {"arg1", "arg2","arg3"})
+
+
+in Service
+Service¥²»Ý­nÄ~©ÓBaseAppCommonService
+	Protected Overloads Overrides Sub DoRequest(ByVal args() As String, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+		Dim sArg1 As String = args(0)
+		Dim sArg2 As String = args(1)
+		Dim sArg3 As String = args(2)		
+		Dim sb As New SqlStringBuilder				
+		sb.Append("......................SQL...................")
+		LoadDataSet(sb.ToSqlString, result, "TableName", trans)
+	
+	End Sub	

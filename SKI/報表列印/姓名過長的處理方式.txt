@@ -1,0 +1,47 @@
+    Function nvl(ByVal input As Object, Optional ByVal sDefault As String = "") As String
+        If IsNothing(input) OrElse IsDBNull(input) OrElse CStr(input).Trim = "" Then Return sDefault
+        Return CStr(input)
+    End Function
+
+    Function isNull(ByVal input As Object) As Boolean
+        If IsNothing(input) OrElse IsDBNull(input) OrElse input.ToString.Trim = "" Then Return True
+        Return False
+    End Function        
+    
+    Function getNISSU(ByVal sNissu As String, ByVal iMaxBytes As Integer) As String
+        If isNull(sNissu) Then Return ""
+        If System.Text.Encoding.Default.GetByteCount(sNissu) <= iMaxBytes Then Return sNissu
+        Dim sRmk As String = "~(詳保單備註)"
+        Return SubStringByByte(sNissu, iMaxBytes - System.Text.Encoding.Default.GetByteCount(sRmk), False) & sRmk
+        'Return sNissu.Substring(0, iMaxBytes - System.Text.Encoding.Default.GetByteCount(sRmk)) & sRmk
+    End Function
+
+    '用Byte數，去取SubString
+    'bAfter=True 取出第iByteNum位元組後的字串
+    'bAfter=False取出開頭到iByteNum位元組前一個字元的字串
+    Function SubStringByByte(ByVal sSrc As String, ByVal iByteNum As Integer, Optional ByVal bAfter As Boolean = True) As String
+        Dim iByteCount As Integer
+        Dim aryChar As Char()
+
+        If isNull(sSrc) Then Return ""
+        iByteCount = System.Text.Encoding.Default.GetByteCount(sSrc)
+        If iByteCount <= iByteNum Then
+            If bAfter Then Return ""
+            Return sSrc
+        End If
+
+        aryChar = sSrc.ToCharArray
+        For i As Integer = 0 To aryChar.Length - 1
+            iByteNum -= System.Text.Encoding.Default.GetByteCount(aryChar(i))
+            If iByteNum < 0 Then
+                If bAfter Then
+                    '取得index之後的字串
+                    Return sSrc.Substring(i)
+                Else
+                    '取得0到index之前
+                    If (i - 1) < 0 Then Return ""
+                    Return sSrc.Substring(0, i)
+                End If
+            End If
+        Next
+    End Function

@@ -1,0 +1,3 @@
+©I¥s§OªºService            
+            Dim ds_q As beParameters = BaseCommonService.ToParameterDataSet(New String() {"GetPolicyTextEA", iest.Substring(4, 1), iest})
+            Dim ds As DataSet = Me.RequestLocalService("PUBService.bsPubCommonService", ds_q, trans)

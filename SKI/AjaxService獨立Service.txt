@@ -1,0 +1,454 @@
+in vb    
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+            AjaxService.RegisterAjaxService(Me, New String() {"PUBService.bsPubCustomer"})
+		        Dim sScript As String = ""
+		        sScript = "<script language='javascript' src='" & ResolveUrl("../CLMControl/CLMPayment.js") & "'></script>" & Environment.NewLine
+		        Me.Page.RegisterClientScriptBlock("CLMAjax", sScript)            
+    End Sub
+
+    Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
+        UTF.AppendUniqueAttributeValue(btnCustomerGet, "onclick", "GetCustomerAjax('P'," & Me.ddlkclass.ClientID & "," & Me.ucID4ipayment.IdCtl.ClientID & "," & Me.ucID4ipayment.IdSeqCtl.ClientID & "," & Me.cboFINSTYP.ClientID & "," & Me.txtnobj_tc.ClientID & "," & Me.txtiemail.ClientID & "," & txticon_tel.ClientID & "," & Me.txtNissuOtep.ClientID & "," & txtNissuOtel.ClientID & "," & txtNissuOtex.ClientID & "," & txtzipcode.ClientID & "," & txtnpayaddr.ClientID & "," & txtnobj_en.ClientID & "," & txtnch_abv.ClientID & "," & txtnen_abv.ClientID & "," & txtIbank.ClientID & "," & txtNbank.ClientID & "," & txtiaccount.ClientID & "," & Me.ddlSelAccount.ClientID & "," & ddlkpayarea.ClientID & "," & txticon_fax.ClientID & "," & txticon_cel.ClientID & "," & txtnsms_tel.ClientID & ");CheckTxtSetChk(" & txtnsms_tel.ClientID & ", " & chkfSMS.ClientID & ",'Mob2');setTimeout('autocheck()',1000);return false;")
+    End Sub
+    
+in javascript
+function GetCustomerAjax(type,KCLASS, ICUS, ICUS_EXT, KCUS_TP, NCH_FUL, NMAIL, NREG_TEL, NREG_OTEL_AREA, NREG_OTEL, NREG_OTEL_EXT, IREG_ZIP, AREG, NEN_FUL,NCH_ABV,NEN_ABV,IBANK,NBANK,IACCT,ddl,ddlkpayarea,PAY_FAX,PAY_CEL,SMS_CEL)
+{   
+ 	//
+ 	RemoveAllOption(ddl)
+	if (ICUS.value.length == 0) 
+		return;
+	var sParam = new Array(ICUS.value,ICUS_EXT.value,type);
+	//sContext是DOM物件的陣列，不是字串陣列，也不是jQuery物件陣列
+	var sContext = new Array(KCLASS, ICUS, ICUS_EXT, KCUS_TP, NCH_FUL, NMAIL, NREG_TEL, NREG_OTEL_AREA, NREG_OTEL, NREG_OTEL_EXT, IREG_ZIP, AREG, NEN_FUL,NCH_ABV,NEN_ABV,IBANK,NBANK,IACCT,ddl,ddlkpayarea,PAY_FAX,PAY_CEL,SMS_CEL);
+
+	//sParam 是丟給bsPubCustomer的參數
+	//GetCustomerAjaxCallback是bsPubCustomer執行完後，要執行的javascript
+	//其中bsPubCustomer執行完的result，會以res.value.Tables丟給GetCustomerAjaxCallback
+	//而sContext是GetCustomerAjaxCallback的res.context
+	AjaxService_InvokeCommonService('PUBService.bsPubCustomer', sParam, GetCustomerAjaxCallback, sContext);
+}
+
+function GetCustomerAjaxCallback(res)
+{
+	var i, j ,s;
+
+	if (res.error != null) {
+		alert(res.error);
+		return;
+	}
+	var tbl = res.value.Tables[0];//bsPubCustomer執行完的result
+	var cText = res.context;//var sContext
+	var ctl1 = cText[0];
+	var ctl2 = cText[1];
+	var ctl3 = cText[2];
+	var ctl4 = cText[3];
+	var ctl5 = cText[4];
+	var ctl6 = cText[5];
+	var ctl7 = cText[6];
+	var ctl8 = cText[7];
+	var ctl9 = cText[8];
+	var ctl10 = cText[9];
+	var ctl11 = cText[10];
+	var ctl12 = cText[11];
+	var ctl13 = cText[12];	//kemi  090910
+	var ctl14 = cText[13];	//Amanda  091202	中文簡稱
+	var ctl15 = cText[14];	//Amanda  091202	英文簡稱
+	var ctl16 = cText[15];	//Amanda  091203	銀行代碼
+	var ctl17 = cText[16];	//Amanda  091203	銀行名稱
+	var ctl18 = cText[17];	//Amanda  091203	匯款帳號
+	//2011/1/6 Ben 以下為新增欄位
+
+	var ctl19 = cText[18];	//下拉清單
+	//ddlkpayarea	地區代碼(預設為ikeyin的分公司地區)
+	var ctl20 = cText[19];
+	//傳真
+	var ctl21 = cText[20];
+	//行動電話
+	var ctl22 = cText[21];
+	//簡訊
+	var ctl23 = cText[22];
+	var r;
+	if (tbl.Rows.length == 0) {
+	   alert('未搜尋到客戶ID!!!');
+	}
+	else if (tbl.Rows.length == 1)
+	{
+		r = tbl.Rows[0];
+		if (r.KCLASS!=null)
+		{
+		   ctl1.value=r.KCLASS;
+		}
+		if (r.ICUS_EXT!=null)
+		{
+		   ctl3.value=r.ICUS_EXT;
+		}
+		if (r.KCUS_TP!=null)
+		{
+		   ctl4.value=r.KCUS_TP;
+		}
+		if (r.NCH_FUL!=null)
+		{
+		   ctl5.value=r.NCH_FUL;
+		}		
+		if (ctl6!=null)
+		{
+			//改用IEMAIL
+		   if (r.IEMAIL!=null)
+		   {
+		      ctl6.value=r.IEMAIL;
+		   }		
+		   /*	
+		   if (r.NMAIL!=null)
+		   {
+		      ctl6.value=r.NMAIL;
+		   }
+		   */
+		}
+		//改用PAY_TEL
+		if (r.PAY_TEL!=null)
+		{
+			ctl7.value=r.PAY_TEL;
+		}
+		if( r.KCLASS == '1' || r.KCLASS == '3')
+		{
+			//改用PAY_TEL
+			if (r.PAY_TEL!=null)
+			{
+				ctl7.value=r.PAY_TEL;
+			}
+			/*
+			if (r.NREG_TEL!=null)
+			{
+				ctl7.value=r.NREG_TEL;
+			}
+			*/
+		}
+		else
+		{
+	    	if (r.NREG_TEL_AREA!=null)
+			{
+				ctl8.value=r.NREG_TEL_AREA;
+			}
+			if (r.NREG_TEL!=null)
+			{
+				ctl9.value=r.NREG_TEL;
+			}	
+			if (r.NREG_TEL_EXT!=null)
+			{
+				ctl10.value=r.NREG_TEL_EXT;
+			}		
+		}
+		//改用IPAY_ZIP
+		if (r.IPAY_ZIP!=null)
+		{
+		   ctl11.value=r.IPAY_ZIP;
+		}
+		/*
+		if (r.IREG_ZIP!=null)
+		{
+		   ctl11.value=r.IREG_ZIP;
+		}
+		*/
+		//改用APAY_DEL
+		if (r.APAY_DEL!=null)
+		{
+		   ctl12.value=r.APAY_DEL;
+		}
+		/*
+		if (r.AREG!=null)
+		{
+		   ctl12.value=r.AREG;
+		}
+		*/
+		if (r.NEN_FUL != null)	//kemi  090910  英文名
+
+		{
+			ctl13.value = r.NEN_FUL;
+		}
+		if (r.NCH_ABV != null)	//Amanda  091202  中文簡稱
+
+		{
+			ctl14.value = r.NCH_ABV;
+		}
+		if (r.NEN_ABV != null)	//Amanda  091202  英文簡稱
+
+		{
+			ctl15.value = r.NEN_ABV;
+		}				
+		if (r.IBANK != null)	//Amanda  091203  銀行代碼
+
+		{
+			ctl16.value = r.IBANK;
+			//抓銀行名稱
+
+			ctl16.onchange();
+		}	
+		if (r.NBANK != null)	//Amanda  091203  銀行名稱
+
+		{
+			ctl17.value = r.NBANK;
+		}		
+		if (r.IACCT != null)	//Amanda  091203  匯款帳號
+
+		{
+			ctl18.value = r.IACCT;
+		}
+		if (r.NPAY_TIT != null)	//戶名
+
+		{
+			ctl5.value = r.NPAY_TIT;
+		}
+		
+		//1010102 BY 震 修正 手機跟傳真的bug
+		if (r.PAY_FAX != null)	//傳真
+
+		{
+			ctl21.value = r.PAY_FAX;
+		}
+		if (r.PAY_CEL != null)	//手機
+
+		{
+			ctl22.value = r.PAY_CEL;
+		}
+	}	
+	else if (tbl.Rows.length > 1)
+	{
+		//2011/1/5 Ben 改用下拉清單選擇~ ddlSelAccount
+		//將所有資料包成字串放入Value中，分隔符號用底線/
+		CreateOption(ctl19,"","");
+		var chkvar="";
+		var chkflag=0;
+		for(i=0;i<tbl.Rows.length;i++){
+			var str="";
+			var val="";
+			r = tbl.Rows[i];
+			//第一次要帶入客戶名稱
+			if(i==0)
+			{
+				if (r.KCLASS!=null)
+				{
+				ctl1.value=r.KCLASS;
+				}
+				if (r.ICUS_EXT!=null)
+				{
+				ctl3.value=r.ICUS_EXT;
+				}
+				if (r.KCUS_TP!=null)
+				{
+				ctl4.value=r.KCUS_TP;
+				}
+				if (r.NCH_FUL!=null)
+				{
+				ctl5.value=r.NCH_FUL;
+				}		
+				//改用IEMAIL
+				if (r.IEMAIL!=null)
+				{
+					ctl6.value=r.IEMAIL;
+				}
+				/*	
+				if (ctl6!=null)
+				{
+				if (r.NMAIL!=null)
+				{
+					ctl6.value=r.NMAIL;
+				}
+				}
+				*/
+				if( r.KCLASS == '1' || r.KCLASS == '3')
+				{
+					//改用PAY_TEL
+					if (r.PAY_TEL!=null)
+					{
+						ctl7.value=r.PAY_TEL;
+					}
+					/*
+					if (r.NREG_TEL!=null)
+					{
+						ctl7.value=r.NREG_TEL;
+					}
+					*/
+				}
+				else
+				{
+	    			if (r.NREG_TEL_AREA!=null)
+					{
+						ctl8.value=r.NREG_TEL_AREA;
+					}
+					if (r.NREG_TEL!=null)
+					{
+						ctl9.value=r.NREG_TEL;
+					}	
+					if (r.NREG_TEL_EXT!=null)
+					{
+						ctl10.value=r.NREG_TEL_EXT;
+					}		
+				}
+				//改用IPAY_ZIP
+				if (r.IPAY_ZIP!=null)
+				{
+				ctl11.value=r.IPAY_ZIP;
+				}
+				/*
+				if (r.IREG_ZIP!=null)
+				{
+				ctl11.value=r.IREG_ZIP;
+				}
+				*/
+				//改用APAY_DEL
+				if (r.APAY_DEL!=null)
+				{
+				ctl12.value=r.APAY_DEL;
+				}
+				/*
+				if (r.AREG!=null)
+				{
+				ctl12.value=r.AREG;
+				}
+				*/
+				if (r.NEN_FUL != null)	//kemi  090910  英文名
+
+				{
+					ctl13.value = r.NEN_FUL;
+				}
+				if (r.NCH_ABV != null)	//Amanda  091202  中文簡稱
+
+				{
+					ctl14.value = r.NCH_ABV;
+				}
+				if (r.NEN_ABV != null)	//Amanda  091202  英文簡稱
+
+				{
+					ctl15.value = r.NEN_ABV;
+				}				
+			}
+			//其它資料帶入option內，由user選擇
+			str+="地區:";
+			if (r.IPAY_AR!=null){
+				str+=r.IPAY_AR;
+				val+=r.IPAY_AR;
+			} else {
+				str+=" ";
+				val+=r.IPAY_AR;
+			}
+			val+="/";
+			str+="，戶名:";
+			if (r.NPAY_TIT!=null){
+				str+=r.NPAY_TIT;
+				val+=r.NPAY_TIT;
+			} else {
+				str+=r.NCH_FUL;
+				val+=r.NCH_FUL;
+			}
+			val+="/";
+			str+="，行庫:";
+			if (r.IBANK!=null)
+			{
+				str+=r.IBANK;
+				val+=r.IBANK;
+				//if(i==0)ctl5.value = r.NCH_FUL;
+			}
+			else
+			{
+				str+="  ";
+				val+="  ";
+			}
+			val+="/";
+			if (r.NBANK!=null)
+			{
+				str+=r.NBANK;
+				val+=r.NBANK;
+			}
+			val+="/";
+			str+="，帳號:";       //99.12.16新增 097005
+			if (r.IACCT!=null)
+			{
+				str+=r.IACCT;
+				val+=r.IACCT;
+			}
+			else
+			{
+				str+="  ";
+				val+="  ";
+			}
+			//2011/1/17 Ben 新增三欄位
+
+			val+="/";
+			if (r.IEMAIL!=null)
+			{
+				val+=r.IEMAIL;
+			}
+			else
+			{
+				val+="  ";
+			}
+			val+="/";
+			if (r.IPAY_ZIP!=null)
+			{
+				val+=r.IPAY_ZIP;
+			}
+			else
+			{
+				val+="  ";
+			}
+			val+="/";
+			if (r.APAY_DEL!=null)
+			{
+				val+=r.APAY_DEL;
+			}
+			else
+			{
+				val+="  ";
+			}
+			//2011/1/25 Ben 又新增三個
+
+			val+="/";
+			if (r.PAY_TEL!=null)
+			{
+				val+=r.PAY_TEL;
+			}
+			else
+			{
+				val+="  ";
+			}
+			val+="/";
+			if (r.PAY_FAX!=null)
+			{
+				val+=r.PAY_FAX;
+			}
+			else
+			{
+				val+="  ";
+			}
+			val+="/";
+			if (r.PAY_CEL!=null)
+			{
+				val+=r.PAY_CEL;
+			}
+			else
+			{
+				val+="  ";
+			}
+			//CreateOption
+			if(str!=chkvar){
+				CreateOption(ctl19,val,str);
+				//改為依照地區別選擇
+
+				if((r.IPAY_AR==ctl20.value)&&(chkflag==0)){
+					//alert(ctl20.value);
+					ctl19.value=val;
+					ctl19.onchange();
+					chkflag=1;
+				}
+				/*
+				if(i==0){
+					ctl19.value=val;
+					ctl19.onchange();
+				}
+				*/
+			}
+			chkvar = str;
+		}
+	}
+
+}

@@ -1,0 +1,27 @@
+參考 申請排程格式.xlsx 2018/9/13
+
+
+承宇:
+自動跑批參考這支
+RINService.bsRIN208000Excute.vb
+1.寫好跑批的Service
+2.C:\Inetpub\wwwroot\SKERP\Web.config  要設定該Service中的"類別"名稱
+	<TaskServiceList>
+		<add key="RINService.bsRIN205Email" value="再保到期Email作業" />
+		...
+	</TaskServiceList>
+3.到netap4的「TaskEdit 排程工作設定 」加入該設定 PS:正式機跑批次都只設在netap4
+4.連遠瑞到netap4的作業系統，去加排程
+
+
+
+薛一猷:
+以後格式要這樣寫啦~~
+
+名稱：車險理賠出險通知表排程作業
+代號：bsFIR321000BathEXE_R4
+參數：C:\Inetpub\wwwroot\SKERP\bin\ISNETask.exe /si bsFIR321000BathEXE_R4 /ac
+執行時間：每日早上6:50
+
+
+C:\Inetpub\wwwroot\SKERP\bin\ISNETask.exe /si bsFIR321000BathEXE_1 /ac 

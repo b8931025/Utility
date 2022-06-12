@@ -1,0 +1,43 @@
+一般員工eamil
+select iemail 
+from psnv_officer_all t
+where 1=1
+and iofficer = '100245'
+
+以下為目前車險查詢單位主管EMAIL 查詢SQL 提供參考
+
+  Case "GET_UNITHEAD_MAIL" '20120105+查詢單位主管MAIL
+                'args
+                '1. 經辦代號
+                '協理以上主管 則不再查詢單位主管
+                Dim dsChkOrg As New DataSet
+                sb.Reset()
+                sb.Append("SELECT b.* ")
+                sb.Append("FROM cmnp_off_source a, PSNV_ORG3_NEW b ")
+                sb.Append(" WHERE '" & Me.ProgramID & "_" & Me.OfficerID & "' = '" & Me.ProgramID & "_" & Me.OfficerID & "' ")
+                sb.Append("AND a.IMANAGER = b.IOFFICER")
+                sb.Append("AND A.IOFFICER = '" & cf.obj2str(args(1)) & "'")
+                sb.Append("AND b.KORG IN ('0','5','6','7','8')")
+                If sb.Count > 0 Then Me.LoadDataSet(sb.ToSqlString, dsChkOrg, "ChkOrg", trans)
+                If dsChkOrg.Tables(0).Rows.Count = 0 Then
+                    sb.Reset()
+                    sb.Append("SELECT C.NNAME , C.IEMAIL")
+                    sb.Append("FROM cmnp_off_source a, psnv_officer_all b , PSNV_ORG3_NEW C ")
+                    sb.Append(" WHERE '" & Me.ProgramID & "_" & Me.OfficerID & "' = '" & Me.ProgramID & "_" & Me.OfficerID & "' ")
+                    sb.Append("AND a.IMANAGER = b.IOFFICER")
+                    sb.Append("AND A.IOFFICER = '" & cf.obj2str(args(1)) & "'")
+                    '1010217+BY FT+未收費mail排除名單
+                    sb.Append("AND C.IOFFICER NOT IN (SELECT CODE FROM  carp_commoncode d WHERE TYPE='CAR401_BLK_IOFF') ")
+                    sb.Append("AND ((c.korg = '2' AND b.ideptno = c.iunitno)") '單位主管
+                    sb.Append(" OR (c.korg IN ('3', '4') AND b.isubjno = c.iunitno))") '科主管或通訊處主管
+                    If sb.Count > 0 Then Me.LoadDataSet(sb.ToSqlString, result, "GET_UNITHEAD_MAIL", trans)
+                Else
+                    sb.Reset()
+                    sb.Append("SELECT C.NNAME , C.IEMAIL")
+                    sb.Append("FROM PSNV_ORG3_NEW C ")
+                    sb.Append(" WHERE '" & Me.ProgramID & "_" & Me.OfficerID & "' = '" & Me.ProgramID & "_" & Me.OfficerID & "' ")
+                    sb.Append("AND 1=2 ")
+                    If sb.Count > 0 Then Me.LoadDataSet(sb.ToSqlString, result, "GET_UNITHEAD_MAIL", trans)
+                End If
+
+

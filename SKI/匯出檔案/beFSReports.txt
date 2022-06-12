@@ -1,0 +1,43 @@
+    Protected Overrides ReadOnly Property ResultType() As System.Type
+        Get
+            Return GetType(beFSReports)
+        End Get
+    End Property    
+    
+    Protected strName() As String
+    Protected strValue() As String   
+    Protected sIreport As String = ""
+    Protected sReport As String = ""
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+        ''''產生要存入暫存檔的資料，並儲存
+        
+        ReDim strName(1)
+        ReDim strValue(1)
+
+				''''產生Reporting Service要的參數
+        strName(0) = "IREPORT"
+        strValue(0) = sIreport             
+        strName(1) = "FLAG"
+        strValue(1) = "1"
+        sReport = "/FIRReport/FIR201001_Main"
+    End Sub    
+    
+    Public Overrides Sub AfterCommit(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet)
+        Dim oCmn As New CmnFunction
+
+        ' [TimeRay.Tony.20070503] 因為會產生空報表, 所以修改如下 -----------------------
+        Dim bytData() As Byte
+        For i As Integer = 0 To 5       ' 如果 5 次後還是空報表 表示 其結果為空報表.
+            bytData = oCmn.RSWebServiceRenderPDF(sReport, sIREPORT, strName, strValue)
+            If bytData.Length > 3072 Then   ' 小於 1 k 視為空報表.
+                Exit For
+            Else
+                System.Threading.Thread.Sleep(100)
+            End If
+        Next
+        Dim strExtName As String = Now.ToFileTime.ToString & ".pdf"
+        Dim PathID As Integer = FileService.CreateFile(strExtName, bytData, "F")
+        CType(result, beFSReports).ReportItems.AddReportItemsRow(PathID, strExtName, "資料轉入處理", Nothing)
+    End Sub
+    
+            

@@ -1,0 +1,94 @@
+顯示行首的空白
+	Public Shared Function line_separate(ByVal str As String) As System.Collections.ArrayList
+		'列分組
+		'不含 chr(13), chr(10)...包含前置空格
+		'
+		Dim i, len As Integer
+		Dim charARR As Char() = str.ToCharArray()
+		len = charARR.Length
+
+		Dim tmp As String = String.Empty
+		Dim rtn As New System.Collections.ArrayList
+		Dim empty_line_chk As Integer = 0		  '空列控制
+		For i = 0 To len - 1
+			If charARR(i).ToString = vbCrLf _
+			Or charARR(i).ToString = Chr(13) _
+			Or charARR(i).ToString = Chr(10) Then
+				empty_line_chk = empty_line_chk + 1
+				If (tmp <> String.Empty) _
+				Or ((charARR(i).ToString = Chr(13) Or charARR(i).ToString = Chr(10)) And (empty_line_chk > 2)) Then
+					rtn.Add(tmp)
+					empty_line_chk = 0
+				End If
+				tmp = String.Empty
+			Else
+				tmp &= charARR(i).ToString
+				empty_line_chk = 0
+			End If
+		Next
+		If tmp <> String.Empty Then
+			rtn.Add(tmp)
+		End If
+
+		Return rtn
+	End Function
+
+'把字串丟入即可permute_string(String) 
+'C:\SKERP\PUB\PUBService\CMN\TransUtil.vb 裡面的permute_string這一個Function
+Public Function permute_string(ByVal src As String) As String
+	    Dim permuter As String = "ˉ" '不會被清除的空白(不是全形空格)
+	
+	    '1. 分行
+	    Dim arr As System.Collections.ArrayList = line_separate(src)
+	
+	    '2. 置換(只針對前置空格)
+	    For i As Integer = 0 To arr.Count - 1
+	        Dim space As Integer = 0
+	        Dim chk As String = arr.Item(i).ToString
+		Dim tmp As String = String.Empty
+		Dim nDoubleMute As Integer = 0
+		'2009/10/15 Ben 修改
+		''先改為只取代前置空白，身體的空白不管
+		If chk.Length > 1 Then
+			''字串超過1個字才處理
+			If chk.Substring(0, 1) = " " Or chk.Substring(0, 1) = "　" Or chk.Substring(0, 1) = permuter Then
+				''頭是空白才處理，頭是字的話跳過
+				For k As Integer = 0 To chk.Length - 1
+					''先改為只取代前置空白，身體的空白不管
+					If chk.Substring(k, 1) = " " Then						 '半形空格
+						'看到空白先取代為permuter，如果下一個字又是空白，那麼下個字直接刪除就可以了
+						space += 1
+						If nDoubleMute = 1 Then
+							'上一個字已經是半形空白，所以跳過
+							nDoubleMute = 0							   '跳過之後清空
+						Else
+							nDoubleMute = 1
+							tmp = tmp & permuter
+						End If
+					ElseIf chk.Substring(k, 1) = "　" Then						 '全形空格
+						space += 2
+						nDoubleMute = 0							'不是半形空白，將nDoubleMute歸0
+						tmp = tmp & permuter
+					Else
+						nDoubleMute = 0							'不是半形空白，將nDoubleMute歸0
+						''先改為只取代前置空白，身體的空白不管
+						tmp = tmp & chk.Substring(k)							  '取出空白後面所有字
+						''跳出迴圈
+						Exit For
+					End If
+				Next
+				arr.Item(i) = tmp
+			End If
+		End If
+	Next
+	Dim rtn As String = String.Empty
+	For i As Integer = 0 To arr.Count - 1
+		If i <> arr.Count - 1 Then
+			rtn = rtn & CType(arr.Item(i), String) & vbCrLf
+		Else
+			rtn = rtn & CType(arr.Item(i), String)
+		End If
+	Next
+	
+	Return rtn
+End Function

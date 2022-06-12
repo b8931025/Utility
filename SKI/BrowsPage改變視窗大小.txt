@@ -1,0 +1,5 @@
+    Protected Overrides Sub BaseShowBrowseResult()
+        Dim ds As DataSet = StateBrowse
+        Dim objTbl As DataTable = Me.BaseGetBrowseTable(ds)
+        Me.CallPage(Me.CfgControlPathUrl & "/BrowsePage.aspx", BrowsePage.DefaultCaption, CfgModalPopupWindowFeature & "dialogWidth:' + screen.availWidth + 'px;dialogHeight:' + screen.availHeight + 'px;", BrowsePage.DefaultCommandName, objTbl.DataSet, objTbl.TableName, BaseBrowseResultHiddenColumnNames, BaseBrowseResultColumnFormats)
+    End Sub

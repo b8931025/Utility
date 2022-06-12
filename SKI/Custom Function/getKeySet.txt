@@ -1,0 +1,6 @@
+    '審核註記| Y:通過, N:不過 S:送審中, M:送單位主管
+    Public Function getFAUDIT(ByVal obj As Object) As String
+        If IsNothing(obj) OrElse IsDBNull(obj) OrElse obj.ToString.Trim = "" Then Return ""
+        Dim ht As Hashtable = PUBEntity.CmnFunction.getKeySet("Y:通過,N:不過,S:送審中,M:送單位主管")
+        Return ht.Item(obj.ToString)
+    End Function

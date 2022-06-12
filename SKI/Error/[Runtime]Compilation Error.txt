@@ -1,0 +1,10 @@
+原因: 
+DataGridBanner_ascx這個UserControl命名空間產生衝突，可能原因為
+1.	同一個DLL有兩個版本同時存在
+2.	開發程式時給了這個元件不明確的名稱，導致和不同元件的命名衝突
+3.	.Net Framework暫存資料夾裡存留了前一版本的暫存資料有可能導致此問題(通常是這個)
+
+處理方式: 
+1.	IIS停掉
+2.	刪除C:\WINDOWS\Microsoft.NET\Framework\v1.1.4332\Temporary ASP.NET Files\裡的暫存資料
+3.	IIS重新啟動

@@ -1,0 +1,11 @@
+Reporting Services 錯誤
+處理報表時發生錯誤。 (rsProcessingAborted) 取得線上說明
+資料集 'DataSet1' 的查詢執行失敗。 (rsErrorExecutingCommand) 取得線上說明
+ORA-01008: not all variables bound 
+
+
+DataSet1的SQL修改後(加了SEQ_NO)，沒有按更新就存檔，
+造成Select出來的欄位跟rdl檔裡的程式碼Fields(xml中Fields少了SEQ_NO)沒對應
+
+解決辨法:
+DataSet的sql變更後，記得按更新

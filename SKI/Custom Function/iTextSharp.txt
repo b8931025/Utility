@@ -1,0 +1,38 @@
+Imports iTextSharp.text
+Imports iTextSharp.text.pdf
+
+'新建一個pdf
+Dim sPath As String = "d:\work\TODO\test.pdf"
+Dim d As New Document(PageSize.A4)
+PdfWriter.GetInstance(d, New System.IO.FileStream(sPath, FileMode.Create))
+d.Open()
+d.Add(New Paragraph("Hello A4"))
+d.Close()
+
+
+'合併pdf(比PUBService.bsPubFunction.pdfAddPdf(String,String,String)快三倍)
+'sFN1:pdf路徑(首頁開始)
+'sFN2:pdf路徑(併在sFN1之後)
+Public Shared Sub pdfAddPdf(ByVal sFN1 As String, ByVal sFN2 As String)
+    Dim vu As VirtualUser
+    Dim fs1 As System.IO.FileStream
+    Dim fs2 As System.IO.FileStream
+    Dim cp1 As PdfCopyFields
+    Try
+        '變更虛擬身分(administrator)
+        vu = VirtualUser.CreateVirtualUserFromConfig(VirtualUser.ConfigKeyFileServiceUser)
+        vu.Impersonate()
+        fs1 = New System.IO.FileStream(sFN1, FileMode.Open)
+        fs2 = New System.IO.FileStream(sFN2, FileMode.Open)
+        cp1 = New PdfCopyFields(fs1)
+        cp1.AddDocument(New PdfReader(fs1))
+        cp1.AddDocument(New PdfReader(fs2))
+    Catch ex As Exception
+        Throw ex
+    Finally
+        If Not IsNothing(cp1) Then cp1.Close()
+        If Not IsNothing(fs1) Then fs1.Close()
+        If Not IsNothing(fs2) Then fs2.Close()
+        vu.Dispose()
+    End Try
+End Sub

@@ -1,0 +1,7 @@
+IREPORT	報表ID	
+IPOLICY	IPOLICY	
+ICREATE	建立者	
+DCREATE	建立日期	
+ISEQ	排序號	
+TITLE	標題	
+

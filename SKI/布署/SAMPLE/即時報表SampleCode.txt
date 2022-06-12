@@ -1,0 +1,6 @@
+ Dim dsPublicParameters As New beNameValues
+ dsPublicParameters.NameValues.AddNameValuesRow("rc:Parameters", "False")
+ dsPublicParameters.NameValues.AddNameValuesRow("rs:Format", "PDF")
+ dsPublicParameters.NameValues.AddNameValuesRow("SEX", "1")
+ dsPublicParameters.NameValues.AddNameValuesRow("MARRY", "2")
+ RSReportViewer.ViewReport(Me, "/CARReport/CAR401000", Nothing, dsPublicParameters)

@@ -1,0 +1,44 @@
+include c:\inetpub\wwwroot\SKERP\MarWeb\MarControl\GetCustomer.js
+
+in vb onLoad
+		If Not Me.Page.IsClientScriptBlockRegistered("GetCustomer") Then
+			Dim script As String = "<script language='javascript' src='../MarControl/GetCustomer.js'></script>" & Environment.NewLine
+			Me.Page.RegisterClientScriptBlock("GetCustomer", script)
+		End If
+
+or in aspx
+		<script language='javascript' src='../MarControl/GetCustomer.js'></script>
+				        
+   
+in vb Page_Load        
+        Dim strAjxService As String() = {"PUBService.bsPubCustomer"}
+        AjaxService.RegisterAjaxService(Me, strAjxService)
+
+in vb Page_PreRender
+        MyBase.BasePreRender()        
+        ' 查詢被保險人客戶資料
+        UTF.AppendUniqueAttributeValue(GetCustomerC, "onclick", "GetCustomerAjax('C'," & Me.drpFISSUCLS.ClientID & "," & Me.ucidIISSU.IdCtl.ClientID & "," & Me.ucidIISSU.IdSeqCtl.ClientID & "," & Me.drpFISSUTYP.ClientID & "," & Me.txtNISSU.ClientID & "," & Me.txtNissuMail.ClientID & "," & txtNISSU_TEL.ClientID & "," & Me.txtNissuOtep.ClientID & "," & txtNissuOtel.ClientID & "," & txtNissuOtex.ClientID & "," & txtIISSU_ZIP.ClientID & "," & txtAISSU.ClientID & ");return false;")
+
+參數說明
+GetCustomerC 查詢鈕的ID
+drpFISSUCLS.ClientID 統編、身份證字號…的DropDownList的ClientID
+ucidIISSU.IdCtl.ClientID ucID4的ClientID
+drpFISSUTYP.ClientID 身份別的DropDownList的ClientID
+txtNISSU.ClientID 客戶名稱的TextBox的ClientID
+txtNissuMail.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtNissuMail" Width="0px" Runat="server" NAME="txtNissuMail">
+txtNISSU_TEL.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtNISSU_TEL" Width="0px" Runat="server" NAME="txtNISSU_TEL">
+txtNissuOtep.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtNissuOtep" Width="30px" Runat="server" NAME="txtNissuOtep">      
+txtNissuOtel.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtNissuOtel" Width="90px" Runat="server" NAME="txtNissuOtel">
+txtNissuOtex.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtNissuOtex" Width="50px" Runat="server" NAME="txtNissuOtex">
+txtIISSU_ZIP.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtIISSU_ZIP" Width="50px" Runat="server" NAME="txtIISSU_ZIP">
+txtAISSU.ClientID 必需要有一個hidden input在html -> <input type="hidden" id="txtAISSU" Width="0px" Runat="server" NAME="txtAISSU">
+						
+or 簡單的input/output  ※無法輸入5碼郵遞區號，查不到會清空
+fa.AddFormula("lblNcounty", fa.Function_Lookup("NCITY||NCOUNTY", "CMNP_ZIPCODE", "IZIPCODE", "txtzipcode"), True)
+txtzipcode輸入郵遞區號，lblNcounty輸出地區名稱
+
+5碼郵遞區號
+<script src="../FIRUtils/FIRAjax.js"></script>   ※in aspx
+Ajax.Utility.RegisterTypeForAjax(GetType(FIR801012))
+AjaxService.RegisterAjaxService(Me, New String() {"PUBService.bsCMNGetAddressByZipCode"})
+UTF.AppendUniqueAttributeValue(txtIZIPOBJ, "onChange", "GetAddressByZipcode(" & txtIZIPOBJ.ClientID & ", " & txtAOBJ.ClientID & ");")

@@ -1,0 +1,29 @@
+'-----準備輸出的文字字串-----
+Dim sMessage As String = ""
+For Each nr As beCMN901000.strTEMPRow In ds.strTEMP.Rows
+    sMessage += nr("strTmp").ToString
+    sMessage &= vbNewLine    '<---換行
+Next
+
+'-----第一種方法-----
+Dim strFileName As String = "FileName.txt"
+Dim binFileData() As Byte = System.Text.Encoding.Default.GetBytes(sMessage)
+CType(result, beFSReports).ReportItems.AddReportItemsRow(-1, strFileName, "顯示在FSReportViewer上的標題", binFileData)
+
+或
+
+'-----第二種方法-----
+Dim sFileName As String = Now.ToFileTime.ToString & ".txt"
+Dim bytData() As Byte = System.Text.Encoding.Default.GetBytes(sMessage)
+Dim drRpt As DataRow = CType(result, beFSReports).ReportItems.NewRow
+
+drRpt.Item("PathID") = FileService.CreateFile(sFileName, bytData)
+drRpt.Item("FileName") = sFileName
+drRpt.Item("ItemCaption") = "顯示在FSReportViewer上的標題"
+CType(result, beFSReports).ReportItems.Rows.Add(drRpt)
+
+in asp.vb
+Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+		FSReportViewer.ViewReport(Me, jobID, FSReportViewer.ViewType.Download) '在FSReportViewer視窗中，顯示下載項目
+		FSReportViewer.ViewReport(Me, jobID) '直接在視窗中顯示輸出檔內容
+End Sub

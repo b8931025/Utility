@@ -1,0 +1,21 @@
+            Dim strFileName As String = "LNBCHK.txt"  '檔名
+            Dim sbTxt As New System.Text.StringBuilder '檔案內容
+        		Dim binFileData() As Byte
+            
+            
+            '將續保媒體檔存檔
+            binFileData = System.Text.Encoding.Default.GetBytes(sbTxt.ToString)
+            PathID = FileService.CreateFile(strFileName, binFileData, sCatLog)
+            CType(result, beFSReports).ReportItems.AddReportItemsRow(PathID, strFileName, sTitle, binFileData)
+
+            '加密並壓縮
+            If bZIP Then
+                InvokeBusinessService("BRKService.bsPubFileEncryption", result) '壓縮檔的PathID和FileName會附加在result中
+                PathID = CType(result, beFSReports).ReportItems(0).PathID
+                strFileName = CType(result, beFSReports).ReportItems(0).FileName
+            End If
+
+            '寄送email
+            Dim sFilePath as String = FileService.GetPathByID(PathID) & "\" & strFileName
+            Me.InvokeCommonService("PUBService.bsCMNSendMail", sSubject, sBody, sFrom, sTo, sFilePath, "", "", "")
+            

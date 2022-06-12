@@ -1,0 +1,136 @@
+Mar333000.aspx.vb:
+ Private Sub dgTermTxt_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles dgTermTxt.ItemCommand
+        If e.CommandName.Equals("Move") Then '移動順序
+            Dim currentIndex As Integer = dgTermTxt.PageSize * dgTermTxt.CurrentPageIndex + e.Item.ItemIndex
+            Dim finalIndex As Integer
+            Dim changeIndex As Integer
+            Dim dv As DataView
+            Dim dCurrentOID As Decimal
+            Dim dChangeOID As Decimal
+            Dim dtTermid As beMar333000.PUBT_PE_TERMIDDataTable
+            Dim drCurrent As beMar333000.PUBT_PE_TERMIDRow
+            Dim drChange As beMar333000.PUBT_PE_TERMIDRow
+            Dim curItem As Decimal
+            Dim chgItem As Decimal
+
+            If dgTermTxt.EditItemIndex <> -1 Then
+                Me.UIAppendError("資料編輯中，不可進行此操作！")
+                Exit Sub
+            End If
+
+            dv = AppGetDataGridBoundDataView(dgTermTxt, Me.StateMain)
+            finalIndex = dv.Count - 1
+            dCurrentOID = CDec(dv.Item(currentIndex).Row("OID"))
+
+            If e.CommandArgument.ToString.Equals("Up") Then  '上移
+                If currentIndex <= 0 Then
+                    Me.UIAppendError("無法再往上移動")
+                    Exit Sub
+                End If
+                changeIndex = currentIndex - 1
+
+                '如果在頁面的第一筆，並且是多頁，就跳到上一頁
+                If e.Item.ItemIndex = 0 AndAlso dgTermTxt.CurrentPageIndex > 0 Then
+                    dgTermTxt.CurrentPageIndex -= 1
+                End If
+            ElseIf e.CommandArgument.ToString.Equals("Down") Then  '下移
+                If currentIndex >= finalIndex Then
+                    Me.UIAppendError("無法再往下移動")
+                    Exit Sub
+                End If
+                changeIndex = currentIndex + 1
+
+                '如果是在頁面的最後一筆，並且是多頁，就跳到下一頁
+                If e.Item.ItemIndex = (dgTermTxt.Items.Count - 1) AndAlso dgTermTxt.CurrentPageIndex <> (dgTermTxt.PageCount - 1) Then
+                    dgTermTxt.CurrentPageIndex += 1
+                End If
+            End If
+
+            dChangeOID = CDec(dv.Item(changeIndex).Row("OID"))
+
+            'PUBT_PE_TERMID.ITERM互換
+            dtTermid = CType(StateMain.Tables("PUBT_PE_TERMID"), beMar333000.PUBT_PE_TERMIDDataTable)
+            drCurrent = dtTermid.FindByOID(dCurrentOID)
+            drChange = dtTermid.FindByOID(dChangeOID)
+            curItem = drCurrent.ITERM
+            chgItem = drChange.ITERM
+
+            'OID_PUBT_PE_MAIN, ITERM是unique key，所以不能直接swap
+            '暫時先塞入兩個不存在的item避免unique衝突
+            drCurrent.ITERM = 8825252
+            drChange.ITERM = 7979979
+            '再將兩個datarow的item對換
+            drCurrent.ITERM = chgItem
+            drChange.ITERM = curItem
+            '※因為entity有設關聯，所PUBT_PE_TERMID.ITERM改了，PUBT_PE_TERMTXT.ITERM也會跟著改，故不用更改PUBT_PE_TERMTXT.ITERM
+
+            'dgTermTxt重Binding
+            BaseSetChildFormData(dgTermTxt, StateMain)
+        End If
+    End Sub
+
+Mar333000.aspx:
+		<asp:datagrid id="dgTermTxt" runat="server" Width="100%" AutoGenerateColumns="False" AllowSorting="True"
+		AllowPaging="True" CssClass="cssDataGrid">
+		<FooterStyle CssClass="cssDataGridFooter"></FooterStyle>
+		<SelectedItemStyle CssClass="cssDataGridSelectedItem"></SelectedItemStyle>
+		<EditItemStyle CssClass="cssDataGridEditItem"></EditItemStyle>
+		<AlternatingItemStyle CssClass="cssDataGridAlternatingItem"></AlternatingItemStyle>
+		<ItemStyle CssClass="cssDataGridItem"></ItemStyle>
+		<HeaderStyle ForeColor="#CCFFFF" CssClass="cssDataGridHeader"></HeaderStyle>
+		<Columns>
+			<asp:EditCommandColumn ButtonType="LinkButton" UpdateText="更新" HeaderText="編輯條款內容" CancelText="取消" EditText="編輯條款內容">
+				<HeaderStyle Width="2cm"></HeaderStyle>
+			</asp:EditCommandColumn>
+			<asp:ButtonColumn Text="刪除" HeaderText="刪除" CommandName="Delete">
+				<HeaderStyle Width="1cm" HorizontalAlign="Center" ></HeaderStyle>
+				<ItemStyle HorizontalAlign="Center"></ItemStyle> 
+			</asp:ButtonColumn>
+			
+			'重點
+			<asp:TemplateColumn HeaderText="排序" HeaderStyle-HorizontalAlign="Center" >
+				<ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"></ItemStyle>
+				<ItemTemplate>
+					<asp:LinkButton ID="lnkbtnUp" Runat="server" CommandName="Move" CommandArgument="Up">
+					<img src="/SKERP/images/UpPage.GIF"   border="0" height="15px" width="15px" alt="條款次序上移">
+					</asp:LinkButton><br>
+					<asp:LinkButton ID="lnkbtnDown" Runat="server" CommandName="Move" CommandArgument="Down"  >
+					<img src="/SKERP/images/DownPage.GIF" border="0" height="15px" width="15px" alt="條款次序下移">
+					</asp:LinkButton>
+				</ItemTemplate>
+			</asp:TemplateColumn>
+			
+		</Columns>
+		<PagerStyle Visible="False"></PagerStyle>
+	</asp:datagrid>    
+	
+bsMar333001Save:
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+
+            '寫入資料庫
+            Dim UpData As New bsMarSHPGet_SaveDataSet
+
+            'Mar333000的條款，有使用者自定順序功能(修改ITERM)
+            '如果直接update，會產生unique key衝突
+            '所以要先把ITERM加100000000，更新，再減100000000，再更新
+            addPUBT_PE_TERMID_TERM(param, 100000000)
+            UpData.UpdatePUBT_PE_TERMID(param, result, trans)
+            UpData.UpdatePUBT_PE_TERMTXT(param, result, trans)
+            addPUBT_PE_TERMID_TERM(param, -100000000)
+            UpData.UpdatePUBT_PE_TERMID(param, result, trans)
+            UpData.UpdatePUBT_PE_TERMTXT(param, result, trans)
+    End Sub
+
+
+    '將ITERM加入一定的數值
+    Private Sub addPUBT_PE_TERMID_TERM(ByVal param As DataSet, ByVal iAdd As Integer)
+        Dim dt As beMar333000.PUBT_PE_TERMIDDataTable = CType(param, beMar333000).PUBT_PE_TERMID
+
+        For Each dr As beMar333000.PUBT_PE_TERMIDRow In dt.Rows
+            '當dr.RowState = DataRowState.Deleted 時，讀取datarow的資料，會丟出exception, 所以要將邏輯判斷要這樣寫
+            If dr.RowState = DataRowState.Modified OrElse (iAdd < 0 AndAlso dr.ITERM > Math.Abs(iAdd)) Then
+                dr.ITERM += iAdd
+            End If
+        Next
+    End Sub	
+    

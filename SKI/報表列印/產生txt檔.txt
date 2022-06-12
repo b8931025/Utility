@@ -1,0 +1,22 @@
+    '產生txt檔
+    Private Sub createTxt(ByRef result As DataSet, ByRef sb As System.Text.StringBuilder, ByVal sTitle As String)
+        Dim binFileData() As Byte
+        Dim sFileName As String '檔名
+        Dim sCatLog As String = "F"
+        Dim PathID As Integer '存檔路徑ID
+        Try
+            If sb.Length = 0 Then Exit Sub
+
+            '檔名
+            sFileName = Now.ToFileTime & ".txt"
+            '如果存在就刪除
+            FileService.DeleteFile(FileService.GetPathID(sCatLog), sFileName)
+            binFileData = Nothing
+            '產生檔案
+            binFileData = System.Text.Encoding.Default.GetBytes(sb.ToString)
+            PathID = FileService.CreateFile(sFileName, binFileData, sCatLog)
+            CType(result, beFSReports).ReportItems.AddReportItemsRow(PathID, sFileName, sTitle, binFileData)
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub

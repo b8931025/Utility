@@ -1,0 +1,5 @@
+http://imsp.emome.net:8008/imsp/sms/servlet/SubmitSM?account=10267
+&password=10267
+&to_addr=0955344892
+&msg_type=0
+&msg=%bf%cb%b7R%abO%a4%e1%b1z%a6n%a1I%abO%b3%e61103FEP7Z00184%b3%af%abH%a9v%a5%d1%a9%f3%b1z%aa%ba%c4%f2%b4%c1%abO%b6O%abH%a5%ce%a5d%a6%a9%b4%da%a4%a3%a6%a8%a5%5c%a1C%bd%d0%bbP%b7%7e%b0%c8%ad%fb%c1p%c3%b4%a7%b9%a6%a8%c4%f2%abO%a1A%a5H%ba%fb%c5%40%b1z%aa%ba%c5v%afq%a1C%b7s%a5%fa%b2%a3%aa%ab%b7q%a4W

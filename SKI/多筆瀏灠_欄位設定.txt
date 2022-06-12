@@ -1,0 +1,31 @@
+當Entity中的XXXXQuery.xsd沒有指定msdata:Caption，多筆瀏灠時，就不會自動顯示自定的欄位名稱
+這時就可以從BaseInitBrowseCaption去逐欄設定
+
+    Protected Overrides Sub BaseInitBrowseCaption(ByVal browseDataSet As System.Data.DataSet)
+        Dim doc As DataColumnCollection = browseDataSet.Tables(0).Columns
+        doc(0).Caption = " " '第一欄一定是選取
+        doc(1).Caption = "保單號碼"
+        doc(2).Caption = "批單號碼"
+        doc(3).Caption = "主被保人ID"
+        doc(4).Caption = "主被保人名稱"
+        doc(5).Caption = "共保比例%"
+        doc(6).Caption = "備註"
+        doc(7).Caption = "建立人員"
+        doc(8).Caption = "建立日期"
+        doc(9).Caption = "出單註記"
+    End Sub
+    
+    設定欄位格式，除了民國年用"{0:RocDate}"，其它設定都可以參照string.format 的格式
+    ※有分大小寫；如果直接塞非format的字串，到時每一筆的該欄位就會顯示一模一樣的字串。
+    Protected Overrides ReadOnly Property BaseBrowseResultColumnFormats() As String()
+        Get
+            Return New String() {"", "", "", "{0:d}", "{0:C}", "{0:RocDate} {0:HH:mm}", "{0:0000}", "", "{0:#,##0}", "{0:RocDate}", ""}
+        End Get
+    End Property    
+    
+    隱藏欄位
+    Protected Overrides ReadOnly Property BaseBrowseResultHiddenColumnNames() As String()
+        Get
+            Return New String() {"OID"}
+        End Get
+    End Property    

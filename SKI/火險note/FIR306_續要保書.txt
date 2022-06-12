@@ -1,0 +1,11 @@
+住宅
+Service:
+bsFIR306000Print1_New.vb
+報表:
+/FIRReport/FIR202001_Main
+
+商業
+Service:
+bsFIR306000Print2_New.vb
+報表:
+/FIRReport/FIR201001_Main

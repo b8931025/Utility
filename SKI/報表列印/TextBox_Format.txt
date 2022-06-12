@@ -1,0 +1,19 @@
+厨い计沮ΑΤㄇ
+      Cnum:C=肂num计计C3=12,345.679
+      Dnum:D=俱计num俱计计D5=01234
+      Enum:E=厩癘计猭ΑnumE玡计计计E3=1.235E+004
+      Fnum:F=疊翴计num疊翴计计计F2=12345.68
+      Gnum:G=计num弘絋计G2=1.2E004,G3=1.23E004,G5=12346
+      Mnum:M=るらnumぃび睲贰
+      Nnum:N=Numeric,num计计N2=12,345.68
+      Pnum:P=κだゑnumκだゑ计计P3=1,234,567.890%
+      R:计
+      S:ら戳2006-10-13 T10:00:00
+      T:だ牧1619
+      U:硄ノ丁2006-10-13 10:00:00Z
+      X:
+      Y:る200610る
+      
+璶肂Α陪ボじ碞璶ノ陪ボよ猭
+=String.Format( "{0:N0}じ",Cint(Fields!MPREM_21.Value))
+      

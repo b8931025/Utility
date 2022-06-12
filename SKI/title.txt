@@ -1,0 +1,4 @@
+ApplicationTitle這個變數，是當程式設定好權限，掛到左側之後，就會設定名稱
+是權限設定的人負責，所以不用管設定的問題，直接在title套用就好
+
+<title><%=ApplicationTitle%></title>

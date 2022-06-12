@@ -1,0 +1,8 @@
+    '是否執行舊程式碼
+    Private Function ifRunOldCode() As Boolean
+        Dim dsSing As DataSet = InvokeCommonService("CLMService.bsSingleSQL", New String() {"CMNP_COMMONCODE", "TYPE = '" & Me.ScsProgramID & "' AND CODE='IF_OLD_CODE'", "NAME"})
+        If Not IsNothing(dsSing) AndAlso dsSing.Tables.Count > 0 AndAlso dsSing.Tables(0).Rows.Count > 0 Then
+            Return dsSing.Tables(0).Rows(0)(0).ToString = "1"
+        End If
+        Return True
+    End Function

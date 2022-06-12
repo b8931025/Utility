@@ -1,0 +1,6 @@
+DataSetUtils.SetStringColumnsDefaultMaxLength(dsPrint, dsPrint.FIRR_201001.TableName, 10000) 
+最大值設過大，就會造成
+
+
+解決:
+調成該table欄位中最大的長度

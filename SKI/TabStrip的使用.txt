@@ -1,0 +1,50 @@
+<%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls" %>
+
+
+
+<iewc:tabstrip id="Tabstrip2" tabIndex="-1" runat="server" TabSelectedStyle="background-image:url(../../images/TabSel100.gif);color:white;BACKGROUND-COLOR:transparent;"
+	TabHoverStyle="background-image:url(../../images/TabHover100.gif);color:Blue;BACKGROUND-COLOR:transparent;"
+	TabDefaultStyle="background-image:url(../../images/TabUnSel100.gif);color:silver;width:90px;height:22px;BACKGROUND-COLOR:transparent;PADDING-TOP: 5px;text-indent:8px;text-align:center;"
+	Font-Size="9pt" SepDefaultStyle="background-color:gray;" TargetID="MultiPage1">
+	<iewc:Tab accessKey="1" Text="Page1[1]"></iewc:Tab>
+	<iewc:Tab accessKey="2" Text="Page2[2]"></iewc:Tab>
+</iewc:tabstrip>
+<iewc:multipage id="Multipage1" runat="server">
+	<iewc:PageView>
+		<!------------------------------------------------------------------------Page1--------------------------------------------------------------------------------------------------------->
+		<FIELDSET style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: black 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 3px; BORDER-LEFT: black 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: #f2f2e3">
+			<LEGEND align="left">要保被保人資料</LEGEND>
+			<table width="100%" border="1" cellpadding="0" cellspacing="0"  bordercolor="1" >
+				<tr>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</table>
+			<div style="text-align:center">Coding Here.....</div>
+		</FIELDSET>
+		<FIELDSET style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: black 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 3px; BORDER-LEFT: black 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: #f2f2e3">
+			<LEGEND align="left">保單資料</LEGEND>
+			<div style="text-align:center">Coding Here.....</div>
+		</FIELDSET>
+	</iewc:PageView>
+	<iewc:PageView>
+		<!------------------------------------------------------------------------Page2--------------------------------------------------------------------------------------------------------->
+		<FIELDSET style="BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: black 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 3px; BORDER-LEFT: black 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: black 1px solid; BACKGROUND-COLOR: #f2f2e3">
+			<LEGEND align="left">保額保費資料</LEGEND>
+			<div style="text-align:center">Coding Here.....</div>
+		</FIELDSET>
+	</iewc:PageView>
+</iewc:multipage>
+
+in vb
+
+Imports Microsoft.Web.UI.WebControls  '匯入
+            
+Dim TS As TabStrip = CType(Tabstrip1, TabStrip)
+TS.SelectedIndex = 0 '設定一開始顯示的頁面
+TS.Items(0).AccessKey = "1" '設定hot key
+

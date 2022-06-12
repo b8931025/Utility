@@ -1,0 +1,12 @@
+in Service
+DataSetUtils.GetColumnText()
+DataSetUtils.SetColumnValue()
+IntelliSys.NetExpress.Entity.SetColumnText()
+IntelliSys.NetExpress.Entity.SetColumnValue()
+IntelliSys.NetExpress.GetColumnText()
+
+in Web
+UTF.GetColumnText()
+UTF.GetColumnValue()
+UTF.SetColumnText()
+UTF.SetColumnValue()

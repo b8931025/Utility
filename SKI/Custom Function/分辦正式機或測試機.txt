@@ -1,0 +1,2 @@
+'分辦正式機或測試機
+ PUBEntity.CmnFunction.isTestModeServer

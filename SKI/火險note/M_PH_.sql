@@ -1,0 +1,69 @@
+select * from pubm_ph_main         where oid = 1000036078;
+select * from PUBm_ph_SHAR         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_CONTENT      where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_RECV         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_TERMID       where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_TERMTXT      where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_MEMO         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_RCHG         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_PRT          where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_CRED         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_OBJ          where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_PREM         where oid_pubm_ph_main = 1000036078;
+select * from FIRm_ph_MAIN         where oid_pubm_ph_main = 1000036078;
+select * from FIRm_ph_OBJ          where oid_pubm_ph_main = 1000036078;
+select * from FIRm_ph_INSTYPE      where oid_pubm_ph_main = 1000036078;
+select * from FIRm_ph_DEDUCT       where oid_pubm_ph_main = 1000036078;
+select * from FIRm_ph_FLT          where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_ADDR         where oid_pubm_ph_main = 1000036078;
+select * from PUBm_ph_AREA         where oid_pubm_ph_main = 1000036078;
+select * from HASm_ph_ISSU         where oid_pubm_ph_main = 1000036078;
+select * from HASm_ph_BENE         where oid_pubm_ph_main = 1000036078;
+
+/*
+SELECT COUNT(*),'PUBM_PH_MAIN   ' AS TNAME FROM PUBM_PH_MAIN         WHERE OID = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_SHAR   ' AS TNAME FROM PUBM_PH_SHAR         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_CONTENT' AS TNAME FROM PUBM_PH_CONTENT      WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_RECV   ' AS TNAME FROM PUBM_PH_RECV         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_TERMID ' AS TNAME FROM PUBM_PH_TERMID       WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_TERMTXT' AS TNAME FROM PUBM_PH_TERMTXT      WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_MEMO   ' AS TNAME FROM PUBM_PH_MEMO         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_RCHG   ' AS TNAME FROM PUBM_PH_RCHG         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_PRT    ' AS TNAME FROM PUBM_PH_PRT          WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_CRED   ' AS TNAME FROM PUBM_PH_CRED         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_OBJ    ' AS TNAME FROM PUBM_PH_OBJ          WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_PREM   ' AS TNAME FROM PUBM_PH_PREM         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'FIRM_PH_MAIN   ' AS TNAME FROM FIRM_PH_MAIN         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'FIRM_PH_OBJ    ' AS TNAME FROM FIRM_PH_OBJ          WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'FIRM_PH_INSTYPE' AS TNAME FROM FIRM_PH_INSTYPE      WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'FIRM_PH_DEDUCT ' AS TNAME FROM FIRM_PH_DEDUCT       WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'FIRM_PH_FLT    ' AS TNAME FROM FIRM_PH_FLT          WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_ADDR   ' AS TNAME FROM PUBM_PH_ADDR         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'PUBM_PH_AREA   ' AS TNAME FROM PUBM_PH_AREA         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'HASM_PH_ISSU   ' AS TNAME FROM HASM_PH_ISSU         WHERE OID_PUBM_PH_MAIN = 1000036078 UNION 
+SELECT COUNT(*),'HASM_PH_BENE   ' AS TNAME FROM HASM_PH_BENE         WHERE OID_PUBM_PH_MAIN = 1000036078 ; 
+*/
+
+/*
+delete pubm_ph_main         where oid = 1000036078;
+delete PUBm_ph_SHAR         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_CONTENT      where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_RECV         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_TERMID       where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_TERMTXT      where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_MEMO         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_RCHG         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_PRT          where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_CRED         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_OBJ          where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_PREM         where oid_pubm_ph_main = 1000036078;
+delete FIRm_ph_MAIN         where oid_pubm_ph_main = 1000036078;
+delete FIRm_ph_OBJ          where oid_pubm_ph_main = 1000036078;
+delete FIRm_ph_INSTYPE      where oid_pubm_ph_main = 1000036078;
+delete FIRm_ph_DEDUCT       where oid_pubm_ph_main = 1000036078;
+delete FIRm_ph_FLT          where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_ADDR         where oid_pubm_ph_main = 1000036078;
+delete PUBm_ph_AREA         where oid_pubm_ph_main = 1000036078;
+delete HASm_ph_ISSU         where oid_pubm_ph_main = 1000036078;
+delete HASm_ph_BENE         where oid_pubm_ph_main = 1000036078;
+*/

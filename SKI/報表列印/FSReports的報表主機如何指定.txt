@@ -1,0 +1,21 @@
+使用FSReportViewer，會連到哪台報表主機，是由Service中的AfterCommit使用的function來決定 
+
+如果PUBService.bsPubFunction.RSWebServiceRenderPDF()
+就是取決於PUBEntity.RSService.ReportingService有沒有設定，通常是"http://rs/ReportServer/ReportService.asmx"
+如果沒有設定PUBEntity.RSService.ReportingService，就由PUBEntity.RSService.Reference.map裡的預設值來決定
+通常也是"http://rs/ReportServer/ReportService.asmx"
+
+想要自已決定使用哪一台主機來產生報表，就要自已改寫RSWebServiceRenderPDF
+
+PUBEntity.RSService.ReportingService.Url
+Public Sub New()
+    MyBase.New
+    Dim urlSetting As String = System.Configuration.ConfigurationSettings.AppSettings("PUBEntity.RSService.ReportingService")
+    If (Not (urlSetting) Is Nothing) Then
+        Me.Url = String.Concat(urlSetting, "")
+    Else
+        Me.Url = "http://rs/ReportServer/ReportService.asmx" <---預設值
+    End If
+End Sub
+
+Client-->Web-->Service-->用url連到報表主機產生檔案-->傳到Client

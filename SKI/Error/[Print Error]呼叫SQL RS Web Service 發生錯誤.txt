@@ -1,0 +1,12 @@
+呼叫SQL RS Web Service 發生錯誤\nSystem.Web.Services.Protocols.SoapException: 項目 '' 的路徑無效。
+完整路徑必須少於 260 個字元、必須以斜線開頭; 其他限制也適用。如需完整的限制條件，請查看文件。
+ --> 項目 '' 的路徑無效。完整路徑必須少於 260 個字元、必須以斜線開頭; 其他限制也適用。
+ 如需完整的限制條件，請查看文件。 
+ 
+ at System.Web.Services.Protocols.SoapHttpClientProtocol.ReadResponse(SoapClientMessage message, WebResponse response, Stream responseStream, Boolean asyncCall) 
+ at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters) 
+ at PUBEntity.RSService.ReportingService.Render(String Report, String Format, String HistoryID, String DeviceInfo, ParameterValue[] Parameters, DataSourceCredentials[] Credentials, String ShowHideToggle, String& Encoding, String& MimeType, ParameterValue[]& ParametersUsed, Warning[]& Warnings, String[]& StreamIds) in C:\SKERP\PUB\PUBEntity\Web References\RSService\Reference.vb:line 555 
+ at PUBEntity.CmnFunction.RSWebServiceRenderPDF(String ReportPath, String Ireport, String[] strName, String[] strValue) in C:\SKERP\PUB\PUBEntity\CMN\CmnFunction.vb:line 764 
+
+
+原因:RSWebServiceRenderPDF 輸入了空字串

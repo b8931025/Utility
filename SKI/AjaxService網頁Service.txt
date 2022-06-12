@@ -1,0 +1,41 @@
+參考c:\inetpub\wwwroot\SKERP\CLMWeb\CLM00\CLM027000.aspx
+
+in vb
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+				'註冊該類別到Ajax中，有<Ajax.AjaxMethod()>的function才可以被Ajax讀到
+        Ajax.Utility.RegisterTypeForAjax(GetType(CLM027000))      
+    End Sub
+    
+    Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
+        '在啟用Ajax的元件上，加入事件
+        UTF.AppendUniqueAttributeValue(ddlQIinscls, "onchange", "onChangeQ_DDL(this.value, '" & ddlQIinsKind.ClientID & "');")
+    End Sub    
+
+		'在Ajax中的JavaScript要呼叫的function，就要加<Ajax.AjaxMethod()>
+    <Ajax.AjaxMethod()> _
+    Public Function RequestIINSKIND_Ajax(ByVal val As String) As DataTable
+			'一堆程式碼，產生DataTable給JavaScript
+    End Function  
+    
+in aspx javascript code
+			function onChangeQ_DDL(val,elementID){
+				//******呼叫vb中的程式碼，將結果傳給JavaScript function bindDropDownList()
+				CLM027000.RequestIINSKIND_Ajax(val,bindDropDownList,ddl);  
+			}
+
+			//RequestIINSKIND_Ajax執行過後，就會呼叫下面
+			function bindDropDownList(res) {
+				if(res.error != null) {
+					alert(res.error);
+					return;
+				}
+				var ddl = res.context;//要變動的元件
+				var val = ddl.value;//元件的值
+				var tbl = res.value;//RequestIINSKIND_Ajax產生的DataTable
+				
+				//取得DataTable的值
+				for (i=0;i<tbl.Rows.length;i++) {
+					tbl.Rows[i].Value;
+					tbl.Rows[i].Name;
+				}
+			}

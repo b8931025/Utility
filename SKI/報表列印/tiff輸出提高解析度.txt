@@ -1,0 +1,23 @@
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:DpiX", "300") '水平解析度300dpi
+        dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:DpiY", "300") '垂直解析度300dpi
+        
+Lin Ben :
+應用程式(通常是 service 程式)要修改影像檔輸出之dpi 參數，方法分為兩部分說明:
+1. 如果是報表作業產生 beRSReports 作業結果, 以 TimeSheetService.bsWorkReportJob 範例為例，請加入最後兩行(粗體字)指令，TIFF 影像檔案可以在 JobStateView 裡面選擇 Tiff 轉換產生影像檔。
+beRSReports.ReportItemsRow drReportItem = dsResult.ReportItems.AddReportItemsRow(REPORT_ITEM,strCaption);
+dsResult.PrivateParameters.AddPrivateParametersRow(drReportItem,"BeginDate",strBeginDate);
+dsResult.PrivateParameters.AddPrivateParametersRow(drReportItem,"EndDate",strEndDate);
+dsResult.PrivateParameters.AddPrivateParametersRow(drReportItem,"TempID",tempID);
+dsResult.PublicParameters.AddPublicParametersRow(drReportItem,"rs:Command","Render"); //指定Render 指令，免除 Reporting Service 偵測的 Loading
+dsResult.PublicParameters.AddPublicParametersRow(drReportItem,"rc:Parameters","False"); //隱藏 參數輸入 區塊dsResult.PublicParameters.AddPublicParametersRow(drReportItem,"rc:DpiX","300"); //水平解析度300dpi
+dsResult.PublicParameters.AddPublicParametersRow(drReportItem,"rc:DpiY","300"); //垂直解析度300dpi
+2.如果要呼叫 ReportingService 的 Web Service API 的 Render 方法直接產生 Tiff 影像檔資料:
+Dim format As String = "IMAGE"
+Dim devInfo As String = "<DeviceInfo><DpiX>300</DpiX><DpiY>300</DpiY></DeviceInfo>"
+
+範例可參考，msdn ReportingService Web API Render 方法
+http://msdn.microsoft.com/en-us/library/aa258532(v=sql.80).aspx
+
+
+ 請將此資料轉寄給相關程式修改人員，如有問題可隨時 Call 我討論。
+        

@@ -1,0 +1,8 @@
+ IntelliSys.NetExpress.Util.StringUtils
+ IntelliSys.NetExpress.Web.UTF
+ 
+ log
+ PUBControl.CommonFunction.SaveTraceLog(Me, "A", sIpolicy, "新增住火保單")
+ 
+NEPage.ScsUserID = "SKI\100245"
+NEPage.ScsOfficerID = "100245"

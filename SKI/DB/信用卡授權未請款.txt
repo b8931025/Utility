@@ -1,0 +1,15 @@
+參考自AOI109
+
+ select * from (
+select m.ipolicy,d.FRCV_PAY,c.dauthdate,c.iauthcode,c.dauthdate+a.qlimit DLIMIT
+from pubm_pn_main m
+inner join pubm_pn_cred c on c.oid_pubm_pn_main = m.oid and c.fconti='Y'
+inner join Aoip_Taishincard a on a.crd_no = substr(c.inum,1,6)
+left join AOIM_PLYEDR_DETAIL d on d.ipolicy = m.ipolicy and d.iplyseq = m.iplyseq
+where m.iinscls='F'
+and m.iinskind='FR'
+and m.dplyissu > sysdate - 60 --60天內的簽單日
+and m.nrmk3 is null --null首期 FIR321000續期
+order by c.dauthdate) 
+where FRCV_PAY <> 'P' -- <> 'P'未出納 'N'未請款
+and DLIMIT < sysdate  -- 過期授權碼 

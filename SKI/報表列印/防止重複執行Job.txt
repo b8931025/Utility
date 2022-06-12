@@ -1,0 +1,20 @@
+        Try
+        		'CODEING HERE
+        
+            Dim dsChk As DataSet = Me.InvokeBusinessService("PUBService.bsPubChkJobParam", beReportParameter)
+            																																							 ^^^^^^^^^^^^^^^^^
+              
+            obID = InvokeJobService("CLMService.bsCLM566000Print", beReportParameter, jobTitle)
+            																											 ^^^^^^^^^^^^^^^^^
+            UIAppendMessage("列印作業已經成功送出! 作業代號:" + jobID)
+            JobWait.Wait(Me, jobID, jobTitle, WaitRSReport)                      
+        Catch ex As Exception
+            ProcessException(ex)
+        End Try  
+
+
+        Try '防止重複執行JobService		
+            Dim dsChk As DataSet = Me.InvokeBusinessService("PUBService.bsPubChkJobParam", beReportParameter)
+        Catch ex As Exception
+            ProcessException(ex)
+        End Try

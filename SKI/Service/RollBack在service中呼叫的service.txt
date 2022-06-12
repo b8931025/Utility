@@ -1,0 +1,9 @@
+ Me.InvokeBusinessService("FIRService.bsFIR202000SaveBatch", dsFIR202) '無法rollback
+ 
+ Me.LocalServer.RequestService(New FIRService.bsFIR202000SaveBatch, dsFIR202, trans) '可以rollback
+ or 
+ Dim ibus As IntelliSys.NetExpress.ServiceLib.IBusinessService = CType(IntelliSys.NetExpress.ServiceLib.ServiceUtil.CreateServiceObject("FIRService.bsFIR202000SaveBatch"), IntelliSys.NetExpress.ServiceLib.IBusinessService)
+ Dim dsResult As beParameters = CType(Me.LocalServer.RequestService(ibus, ds, trans), beParameters)
+ Me.LocalServer.RequestService(ibus, dsFIR202, trans) '可以rollback 
+ 
+ RequestLocalService() ???

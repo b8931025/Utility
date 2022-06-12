@@ -1,0 +1,19 @@
+RSReportViewer的報表主機，是用NEPage.CfgGetAppSetting("ReportServerUrl")來決定
+NEPage.CfgGetAppSetting("ReportServerUrl")這個變數存在web.config
+的 <add key="app://ReportServerUrl/" value="http://RS/ReportServer" />
+如果value是RS這種hostname，會連到哪台報表主機，就要看client端的c:\WINDOWS\system32\drivers\etc\hosts如何設定
+如果不是RS，就要看value指向哪個url
+
+使用RSReportViewer會用JavaScript產生類似下面的url
+http://RS/ReportServer?/FIRReport/FIR301000&IPREPLY=0007FAP0000015&rs%3aFormat=EXCEL&rc%3aParameters=False
+
+參考bsFIR301000Print
+
+RSReportViewer產生報表的流程
+
+Web按下列印>執行完Service>
+Web.BaseOnPageReturn>RSReportViewer.ViewReport(Me, jobID)
+RSReportViewer.BaseOnPageLaunch>
+RSReportViewer.ReportServerUrl() <---確定報表主機 
+
+Client-->Web-->Service--傳回報表主機url-->Client--用url連線-->報表主機產生檔案

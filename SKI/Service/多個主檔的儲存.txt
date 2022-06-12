@@ -1,0 +1,30 @@
+當一個Service會儲存到多個table的資料時，就不能用MyBase.DoRequest(param, result, trans)來儲存
+不然會失效，一定要分開並指定Table Name來update
+
+'OK的
+    Protected Overloads Overrides Sub DoRequest(ByVal param As DataSet, ByVal result As DataSet, ByVal trans As IDbTransaction)
+        Dim dtReusable As beCMN114000.CMNT_REUSABLE_NUMDataTable = CType(param, beCMN114000).CMNT_REUSABLE_NUM
+        Dim dtHistory As beCMN114000.CMNT_NUM_HISTORYDataTable = CType(param, beCMN114000).CMNT_NUM_HISTORY
+
+        UpdateTable(dtReusable, result, trans)
+        UpdateTable(dtHistory, result, trans)
+  
+    End Sub
+    
+    Private Function UpdateTable(ByVal dt As DataTable, ByVal result As DataSet, ByVal trans As IDbTransaction)
+        Me.DefaultRunner.UpdateDataSet(result, dt.TableName, _
+             DataSetUtils.GetInsertSqlString(dt, Me.DefaultRunner), _
+             DataSetUtils.GetUpdateSqlString(dt, Me.DefaultRunner), _
+             DataSetUtils.GetDeleteSqlString(dt, Me.DefaultRunner), _
+              trans)
+    End Function    
+    
+'不OK的
+    Protected Overloads Overrides Sub DoRequest(ByVal param As DataSet, ByVal result As DataSet, ByVal trans As IDbTransaction)
+        MyBase.DoRequest(param, result, trans)
+    End Sub 
+
+'下面的函數已經停用    
+'IntelliSys.NetExpress.Service.Enterprise.BaseDbUpdateService.GetInsertCommand
+'IntelliSys.NetExpress.Service.Enterprise.BaseDbUpdateService.GetUpdateCommand
+'IntelliSys.NetExpress.Service.Enterprise.BaseDbUpdateService.GetDeleteCommand        

@@ -1,0 +1,46 @@
+    '簡化EXCEPTION訊息
+    
+    'v2.0
+    Private Function getStackTrace(ByVal ex As Exception) As String
+        Dim sbMesg As New System.Text.StringBuilder
+        Dim sbInner As New System.Text.StringBuilder
+        Dim aryStack As String()
+
+        If IsNothing(ex) Then Return ""
+        If Not IsNothing(ex.InnerException) Then sbInner.Append(getStackTrace(ex.InnerException))
+        '顯示exception主訊息
+        sbMesg.Append(ex.Message).Append(vbNewLine)
+        '取得exception StackTrace
+        aryStack = Microsoft.VisualBasic.Split(ex.StackTrace, vbNewLine)
+        '將有行數資訊的StackTrace取出
+        For i As Integer = aryStack.Length - 1 To 0 Step -1
+            Dim s As String = aryStack(i).Trim
+            If s.IndexOf(":line ") > -1 Then sbMesg.Append(s).Append(vbNewLine)
+        Next
+        '加上InnerException的訊息
+        If sbInner.Length > 0 Then sbMesg.Append(sbInner.ToString)
+
+        Return sbMesg.ToString
+    End Function    
+    
+    'v1.0
+    Private Function getStackTrace(ByVal ex As Exception) As String
+        Dim stMesg As String()
+        Dim sb As New System.Text.StringBuilder
+        If IsNothing(ex) Then Return ""
+        If IsNothing(ex.StackTrace) OrElse ex.StackTrace = "" Then
+            Return ex.Message
+        End If
+        '取得exception StackTrace
+        stMesg = Microsoft.VisualBasic.Split(ex.StackTrace, vbNewLine)
+        '顯示exception主訊息
+        sb.Append(ex.Message).Append(vbNewLine)
+        '將有行數資訊的StackTrace取出
+        For i As Integer = 0 To stMesg.Length - 1
+            Dim s As String = stMesg(i).Trim
+            If s.IndexOf(":line ") > -1 Then
+                sb.Append(s).Append(vbNewLine)
+            End If
+        Next
+        Return sb.ToString
+    End Function

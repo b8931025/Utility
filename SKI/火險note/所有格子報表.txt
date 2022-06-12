@@ -1,0 +1,8 @@
+商/住保單
+c:\skerp\fir\firreport\FirPlyRpt_REMARK_New.rdl
+住批單
+c:\skerp\fir\firreport\FIR402000_3.rdl
+商批單
+c:\skerp\fir\firreport\FIR402000MA1_11.rdl
+
+※有時間，把他們都改成同一支

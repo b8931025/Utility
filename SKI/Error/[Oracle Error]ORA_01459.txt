@@ -1,0 +1,3 @@
+ORA-01459: 變數的字元字串之長度無效
+
+DataSetUtils.SetStringColumnsDefaultMaxLength設的長度過大

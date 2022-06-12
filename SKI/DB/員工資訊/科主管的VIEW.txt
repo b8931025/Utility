@@ -1,0 +1,3 @@
+select * from PSNV_ORG3_NEW
+where 1=1
+AND KORG IN ('3','4') /*2→部門、3→科?、4→通訊處*/

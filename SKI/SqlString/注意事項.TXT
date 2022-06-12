@@ -1,0 +1,1 @@
+若DataSet 與DB的TABLE不符 ,則需使用方法二

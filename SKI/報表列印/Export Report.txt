@@ -1,0 +1,116 @@
+in Web
+  Protected Overrides Sub BaseDoPrint()
+		Try
+			CheckNull()
+			Dim tempID As String = Guid.NewGuid().ToString("N").ToUpper()
+			Dim jobTitle As String
+			Dim beReportParameter As New beParameters
+			
+			beReportParameter.Parameters.AddParametersRow(tempID)			 '報表編號
+			beReportParameter.Parameters.AddParametersRow(Me.ddlIInsCls.SelectedValue)			 '險類(傷害險、健康險)
+			beReportParameter.Parameters.AddParametersRow(Me.uc2DClose.DateText.Trim)			 '簽單日期
+			beReportParameter.Parameters.AddParametersRow(Me.ScsUserName)				'使用者名稱
+			beReportParameter.Parameters.AddParametersRow(Me.ddlSubPrint.SelectedValue)				'報表類別
+			beReportParameter.Parameters.AddParametersRow(Me.ddlCompID.SelectedValue)			 '分公司代號
+
+			jobTitle = "保單簽單日報表列印"
+
+        Try '防止重複執行JobService		
+            Dim dsChk As DataSet = Me.InvokeBusinessService("PUBService.bsPubChkJobParam", beReportParameter)
+        Catch ex As Exception
+            ProcessException(ex)
+        End Try
+
+			Dim jobID As String = InvokeJobService("CASService.bsCAS303001Print", beReportParameter, jobTitle)
+			UIAppendMessage("列印作業已經成功送出! 作業代號:" + jobID)
+			JobWait.Wait(Me, jobID, jobTitle, WaitRSReport)
+
+		Catch ex As Exception
+			ProcessException(ex)
+		End Try
+  End Sub
+  
+  	''''''''''''''''''''''''''''''''以下不用改，直接複製''''''''''''''''''''''''''''''''
+    Protected Overrides ReadOnly Property BaseCanPrint() As Boolean
+        Get
+            Return True '顯示列印按鈕
+        End Get
+    End Property
+      
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitRSReport
+                If ti.Committed Then
+
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                            RSReportViewer.ViewReport(Me, jobID)
+                    End Select
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select  
+  	''''''''''''''''''''''''''''''''以上不用改，直接複製''''''''''''''''''''''''''''''''
+  
+in Service
+    Protected Overloads Overrides Sub DoRequest( _
+               ByVal param As DataSet, _
+               ByVal result As DataSet, _
+               ByVal trans As IDbTransaction _
+       )
+
+        'coding sql        
+        Dim row As beCAS304000Query.CAS304000QueryRow = CType(param, beCAS304000Query).CAS304000Query(0)
+        Dim sb As New SqlStringBuilder
+        Dim IReport As String = Guid.NewGuid().ToString("N").ToUpper()
+
+        'get DataSet
+			  Me.LoadDataSet(sb.ToSqlString(), dsCASR_304, "PUBM_PE_PREM", trans) 
+			       
+
+			'將資料結果上傳到DB儲存
+			Me.DefaultRunner.UpdateDataSet(dsCASR_304, "CASR_304", DataSetUtils.GetInsertSqlString(dsCASR_304, "CASR_304", Me.DefaultRunner), Nothing, Nothing, trans)
+ 			'or 
+ 			Me.DefaultRunner.UpdateDataSet(dsCASR_304, "CASR_304", trans)
+
+			'將Reporting Service需要的參數，存到result
+			Dim dsResult As beRSReports = CType(result, beRSReports)
+			Dim drReportItem As beRSReports.ReportItemsRow
+			drReportItem = dsResult.ReportItems.AddReportItemsRow("/CASReport/CAS304000", "工程險保單明細表")
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "IREPORT", IReport)
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "PrinterName", row.PrinterName)
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "DateBGN", row.DPLYISSU1.ToString("yyyy/MM/dd"))
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "DateEND", row.DPLYISSU2.ToString("yyyy/MM/dd"))
+
+      '直接匯出 rs:Format=EXCEL/PDF optional ，如果少了這一行，就會彈出ReportViewer，讓使用者選擇excel/pdf/txt/...
+      dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Format", "EXCEL")
+
+			'必要的動作
+			'指定Render 指令，免除Reporting Service 偵測的Loading
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Command", "Render")
+			'隱藏參數輸入區塊
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:Parameters", "False")
+End Sub
+
+※
+要匯出報表時，要執行ISNEJobConsole，去啟動連線。連線之後就會自動開啟ISNEJobServer。
+然後就可以關掉ISNEJobConsole。
+報表的匯出，是由ISNEJobServer在控制
+
+  

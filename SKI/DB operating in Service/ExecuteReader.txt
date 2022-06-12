@@ -1,0 +1,9 @@
+                    sb.Reset()
+                    sb.Append("select OID,IENDORS FROM MARP_COPLY_GETNUM")
+                    sb.Append(" where IPOLICY = '" & sIpolicy.Trim & "'")
+                    sb.Append("   and FSTATUS = 'N'")
+                    Dim drReader As IDataReader = DefaultRunner.ExecuteReader(sb.ToSqlString)
+                    While drReader.Read
+                        decOID = CType(drReader.Item("OID"), Decimal)
+                        sIendors = CType(drReader.Item("IENDORS"), String)
+                    End While                    

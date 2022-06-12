@@ -1,0 +1,194 @@
+  '[dNum]ヴ種计
+    '[bBig]true:糶计 false:糶计
+    '[bOneTen]true:程玡10~19ノ false:程玡10~19ノ ex:10,0000 true:窾 false:窾
+    Public Shared Function ConvertCHNum(ByVal dNum As Decimal, ByVal bBig As Boolean, ByVal bOneTen As Boolean) As String
+        If dNum = 0 Then Return "箂" '0
+        '20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 (计)
+        '3  2  1  0  3  2  1  0  3  2  1  0  3  2  1  0  3  2  1  0  (SU:small unit 虫)  
+        ' κ      κ      κ      κ      κ   
+        'ㄊ ㄊ ㄊ ㄊ     货 货 货 货 窾 窾 窾 窾             
+        '4  4  4  4  3  3  3  3  2  2  2  2  1  1  1  1  0  0  0  0  (BU:big unit 虫)
+        Dim chrBU As String() '虫
+        Dim chrSU() As String '虫
+        Dim chrNUM() As String 'いゅ计
+        Dim sOut As String = ""
+        Dim iPre As Integer = -1 '癘魁计
+        Dim sNum As String
+        Dim iLen As Integer
+        Dim iSU As Integer '虫0~9999
+        Dim cSU As Char() '虫0~9999
+        Dim bSU As Boolean
+        Dim bBU As Boolean
+        Dim bDot As Boolean = False
+        Dim sDot As String
+        Dim iHeadBU As Integer
+        If iLen > 20 Then Throw New Exception("禬矪瞶絛瞅")
+
+        '琌璽计
+        If dNum < 0 Then
+            sOut &= "璽"
+            dNum *= -1
+        End If
+
+        sNum = dNum.ToString
+
+        '琌Τ计翴
+        If sNum.IndexOf(".") > -1 Then
+            bDot = True
+            sDot = sNum.Split("."c)(1)
+            sNum = sNum.Split("."c)(0)
+        End If
+
+        iLen = sNum.Length
+        iHeadBU = ((iLen - 1) \ 4)
+        chrBU = New String() {"", "窾", "货", "", "ㄊ"}
+        If bBig Then
+            chrNUM = New String() {"箂", "滁", "禠", "把", "竩", "ヮ", "嘲", "琺", "", "╤"}
+            chrSU = New String() {"", "珺", "ㄕ", ""}
+        Else
+            chrNUM = New String() {"箂", "", "", "", "", "き", "せ", "", "", ""}
+            chrSU = New String() {"", "", "κ", ""}
+        End If
+
+        '–4计虫ex:ㄊ货窾
+        For iBU As Integer = iHeadBU To 0 Step -1
+            If iBU = iHeadBU Then
+                Dim iEnd As Integer = CInt(IIf(iLen Mod 4 > 0, iLen Mod 4, 4))
+                iSU = CInt(sNum.Substring(0, iEnd))
+                cSU = sNum.Substring(0, iEnd).ToCharArray
+            Else
+                iSU = CInt(sNum.Substring(iLen - (iBU + 1) * 4, 4))
+                cSU = sNum.Substring(iLen - (iBU + 1) * 4, 4).ToCharArray
+            End If
+
+            '–虫穦Τ3~0虫 3: 2:κ 1: 0: 絛瞅0~9999
+            For i As Integer = cSU.Length - 1 To 0 Step -1 '
+                '眔虫计
+                Dim iOne As Integer = CInt(cSU(cSU.Length - 1 - i).ToString)
+
+                If iOne > 0 Then
+                    '计琌0碞干"箂"
+                    If iPre = 0 Then sOut &= chrNUM(0)
+
+                    '程玡虫计琌10~19虫琌ぃ  ex:11,0000 > 窾τぃ琌窾
+                    If iBU = iHeadBU AndAlso iSU >= 10 AndAlso iSU <= 19 AndAlso i = 1 Then
+                        If bOneTen Then sOut &= chrNUM(iOne) 'bOneTen=true碞
+                        sOut &= chrSU(i)
+                    ElseIf i > 0 Then 'κ
+                        sOut &= chrNUM(iOne) & chrSU(i)
+                    Else '
+                        sOut &= chrNUM(iOne)
+                    End If
+                    'ElseIf iOne = 0 Then do nothing 1000
+                End If
+                '癘计癹伴耞
+                iPre = iOne
+            Next
+
+            '虫0赣虫计0碞"ㄊ货窾"
+            If iBU > 0 AndAlso iSU > 0 Then sOut &= chrBU(iBU)
+        Next
+
+        '盢计翴
+        If bDot Then
+            sOut &= "翴"
+            For i As Integer = 0 To sDot.Length - 1
+                sOut &= chrNUM(CInt(sDot.Substring(i, 1)))
+            Next
+        End If
+
+        Return sOut
+    End Function
+
+代刚ノ
+
+    Private Sub validNum(ByVal iNum As Decimal, ByVal sOK As String, ByRef sb As System.Text.StringBuilder)
+        Dim sOut As String = Test(iNum, False, False)
+        If sOut <> sOK Then
+            sb.Append(iNum).Append("块:").Append(sOut)
+            sb.Append("<>").Append(sOK).Append(vbNewLine)
+        End If
+    End Sub
+                validNum(3.1415926D, "翴きせ", sbOut)
+                validNum(-3.1415926D, "璽翴きせ", sbOut)
+                validNum(0, "箂", sbOut)
+                validNum(1, "", sbOut)
+                validNum(2, "", sbOut)
+                validNum(3, "", sbOut)
+                validNum(4, "", sbOut)
+                validNum(5, "き", sbOut)
+                validNum(6, "せ", sbOut)
+                validNum(7, "", sbOut)
+                validNum(8, "", sbOut)
+                validNum(9, "", sbOut)
+                validNum(10, "", sbOut)
+                validNum(11, "", sbOut)
+                validNum(12, "", sbOut)
+                validNum(20, "", sbOut)
+                validNum(21, "", sbOut)
+                validNum(99, "", sbOut)
+                validNum(100, "κ", sbOut)
+                validNum(101, "κ箂", sbOut)
+                validNum(110, "κ", sbOut)
+                validNum(111, "κ", sbOut)
+                validNum(120, "κ", sbOut)
+                validNum(200, "κ", sbOut)
+                validNum(201, "κ箂", sbOut)
+                validNum(210, "κ", sbOut)
+                validNum(999, "κ", sbOut)
+                validNum(1000, "", sbOut)
+                validNum(1001, "箂", sbOut)
+                validNum(1010, "箂", sbOut)
+                validNum(1011, "箂", sbOut)
+                validNum(1100, "κ", sbOut)
+                validNum(1101, "κ箂", sbOut)
+                validNum(1110, "κ", sbOut)
+                validNum(1111, "κ", sbOut)
+                validNum(2345, "κき", sbOut)
+                validNum(6789, "せκ", sbOut)
+                validNum(10000, "窾", sbOut)
+                validNum(10001, "窾箂", sbOut)
+                validNum(10010, "窾箂", sbOut)
+                validNum(10011, "窾箂", sbOut)
+                validNum(10100, "窾箂κ", sbOut)
+                validNum(10101, "窾箂κ箂", sbOut)
+                validNum(10110, "窾箂κ", sbOut)
+                validNum(10111, "窾箂κ", sbOut)
+                validNum(11000, "窾", sbOut)
+                validNum(100000, "窾", sbOut)
+                validNum(1000000, "κ窾", sbOut)
+                validNum(98765, "窾κせき", sbOut)
+                validNum(43210, "窾κ", sbOut)
+                validNum(13579, "窾きκ", sbOut)
+                validNum(24680, "窾せκ", sbOut)
+                validNum(491423, "窾κ", sbOut)
+                validNum(12100300, "κ窾箂κ", sbOut)
+                validNum(62304321, "せκ窾箂κ", sbOut)
+                validNum(123456789, "货κき窾せκ", sbOut)
+                validNum(100000000, "货", sbOut)
+                validNum(100000001, "货箂", sbOut)
+                validNum(100001000, "货箂", sbOut)
+                validNum(100010000, "货箂窾", sbOut)
+                validNum(100100000, "货箂窾", sbOut)
+                validNum(430005100, "货窾箂きκ", sbOut)
+                validNum(5920001245, "き货窾箂κき", sbOut)
+                validNum(9876543210, "货せκき窾κ", sbOut)
+                validNum(1000000000000, "", sbOut)
+                validNum(1000000000001, "箂", sbOut)
+                validNum(1000100010001, "箂货箂窾箂", sbOut)
+                validNum(1000000010000, "箂窾", sbOut)
+                validNum(1000100000000, "箂货", sbOut)
+                validNum(1000000010001, "箂窾箂", sbOut)
+                validNum(1000100000001, "箂货箂", sbOut)
+                validNum(10000100000001, "箂货箂", sbOut)
+                validNum(100000100000001, "κ箂货箂", sbOut)
+                validNum(1000000100000001, "箂货箂", sbOut)
+                validNum(10000000000000000, "ㄊ", sbOut)
+                validNum(10000000100000001, "ㄊ箂货箂", sbOut)
+                validNum(10000000010000000, "ㄊ箂窾", sbOut)
+                validNum(10000000000000010, "ㄊ箂", sbOut)
+                validNum(10000000000000001, "ㄊ箂", sbOut)
+                validNum(10101010101010101, "ㄊ箂κ箂箂κ箂货箂κ箂窾箂κ箂", sbOut)
+                validNum(88888888888888888, "ㄊκκ货κ窾κ", sbOut)
+                validNum(100100100100100100, "ㄊ箂κ箂箂货箂窾箂κ", sbOut)
+  

@@ -1,0 +1,27 @@
+        Dim sb As New SqlStringBuilder
+        '主要的sql
+        sb.Append(".....some select sql") 
+        
+        '要設條件時，可以用ReservePosition，如果條件沒輸入，ReservePosition後面的sql就會自動省略        
+        sb.ReservePosition("WHERE")    		
+
+        '如果要用排序，可以在ApplyReservation後面加，不管有沒有設條件，ApplyReservation後面的sql都會存在
+        sb.ApplyReservation()             
+                
+        ex:
+        
+        sb.Append("select * from aoim_pay_tmp WHERE IACK = ")
+        sb.Append(New ParameterInfo("IACK", DbType.Decimal, row("IACK")))
+        sb.Append("order by oid")
+        
+        可以改成
+        
+        sb.Append("select * from aoim_pay_tmp")
+
+        sb.ReservePosition("WHERE")
+        If row.IsIACKNull Then
+            sb.Append("IACK=").Append(New ParameterInfo("IACK", DbType.String, row("IACK")))
+        End If
+
+        sb.ApplyReservation()
+        sb.Append("order by oid")        

@@ -1,0 +1,13 @@
+﻿    VB
+    Function isNull(ByVal input As Object) As Boolean
+        If IsNothing(input) OrElse IsDBNull(input) OrElse input.ToString.Trim = "" Then Return True
+        Return False
+    End Function        
+    
+    C#
+    public static Boolean isNull(Object input) {
+        if (input == null || input == DBNull.Value || input.ToString().Trim() == "") return true;
+        if (input.GetType() != typeof(DateTime)) return false;
+        if (((DateTime)input).Year < 1900) return true;
+        return false;
+    }    

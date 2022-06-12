@@ -1,0 +1,25 @@
+    Protected Overrides ReadOnly Property MaxLengthDefinition() As IntelliSys.NetExpress.DAO.DataColumnMaxLengthDefinition
+        Get
+            Dim def As New DataColumnMaxLengthDefinition
+            def.Add("IPOLICY", 20)
+            def.Add("FS_SA", 2) '960208
+            def.Add("ICRD_FRM", 12)
+            def.Add("ICRD_TO", 12)
+            def.Add("IAPPLY", 64)
+            def.Add("ICREATE", 64)
+            def.Add("IENDORS", 20)
+            def.Add("FSTATUS", 1)
+            Return def
+        End Get
+    End Property
+    
+    or
+    
+    Protected Overloads Overrides Sub DoRequest( _
+        ByVal param As DataSet, _
+        ByVal result As DataSet, _
+        ByVal trans As IDbTransaction _
+        )    
+            DataSetUtils.SetStringColumnsDefaultMaxLength(result, 100)
+    End Sub
+            

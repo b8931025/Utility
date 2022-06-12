@@ -1,0 +1,20 @@
+        Dim dsQry As New beCarp_car_typeQuery
+        Dim rq As DataRow
+        Dim dsReturn As DataSet
+        Dim tCarSer As beCarp_car_type.carp_car_typeDataTable
+        
+
+                rq = dsQry.Tables("carp_car_typeQuery").NewRow()
+                rq("icode") = "%"
+                rq("fc_class") = "%"
+                dsQry.Tables("carp_car_typeQuery").Rows.Add(rq)
+                dsReturn = Me.InvokeBusinessService("bsLoadCarType", dsQry)
+                tCarSer = CType(dsReturn.Tables(0), beCarp_car_type.carp_car_typeDataTable)
+                
+                'tCarSer is the result what you want
+            End If 
+            
+            
+				OR 
+				
+				Me.LoadDataSet(sb.ToSqlString(), dsCAS404000, "cas404000", trans)    

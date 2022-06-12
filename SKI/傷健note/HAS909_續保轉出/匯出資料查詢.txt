@@ -1,0 +1,18 @@
+   --計算年齡
+   select d.iissu,d.dbirth,d.nissu,d.ipolicy,
+   round((p.dply_bgn-d.dbirth)/365,3) 
+   from hasm_pn_issu d
+   left join pubm_pn_main p on p.oid = d.oid_pubm_pn_main
+   where 1=1
+   and substr(d.iissu,1,7)='L125039'
+ /*  and d.ipolicy='0700IIP0000976'*/;
+
+ 
+select to_date(col15,'mm/dd/yyyy'),col16,col13 from hasx_snd_data_909
+where 1=1
+and date1= to_date('20120201','yyyymmdd')
+and date2= to_date('20120430','yyyymmdd')
+and ikind2=1 /*=2 log ,=1 send*/
+and iinscls='I'
+and iinskind='5'/*保單類別*/
+and ikind1=3 /*1通路 2新壽 3個人*/

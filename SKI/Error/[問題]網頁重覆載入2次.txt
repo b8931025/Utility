@@ -1,0 +1,12 @@
+當公司網頁，不是從首頁左邊的清單點進去
+而是從ie的網址列輸入網址，如果not postback，跳出JavaScript Alert()，該網址就會重新載入一遍
+
+通常是在not postback時自動查詢，查無資料會用alert顯示，造成重覆載入
+
+解決方法:
+不要用alert顯示訊息
+Me.UIAlertMessage("查無資料！")
+
+改用
+Me.UIAppendMessage("查無資料！")
+

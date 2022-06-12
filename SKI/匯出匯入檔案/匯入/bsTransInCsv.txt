@@ -1,0 +1,56 @@
+※匯入用字元像逗號(,)直線(|)分隔的文字檔
+
+1.先到CMN351000設定轉檔的設定和轉檔格式代號
+
+2.然後再程式中加入下列程式碼
+  Protected Overrides Function BaseGetCommandBarCommands() As IntelliSys.NetExpress.Web.UICommand()
+      Return New UICommand() {UICommands.cmdQuery, UICommands.cmdClear, UICommands.cmdExit, UICommands.cmdImport}
+    End Function                                                                      加入這個^^^^^^^^^^^^^^^^^^^^
+
+  Protected Overrides Sub BaseDoImport(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim dsParam As New beBRK313074
+        Dim jobID As String
+        Dim jobTitle As String = "土銀回傳受理資料匯入作業"
+        Dim drParam As beBRK313074.ParamRow
+        Dim dRenew As Date '續保年月
+
+        'txt轉Entity
+        If IsNothing(StateMain) OrElse StateMain.Tables("BRKP_871ACC_R").Rows.Count = 0 Then
+            If UploadFile.Value.Trim = "" Then Throw New Exception("請選擇上傳檔案!")
+            If Not UploadFile.PostedFile Is Nothing AndAlso UploadFile.PostedFile.ContentLength > 0 Then
+                ' 1. 產出呼叫轉檔Service所需的parameter dsTrans
+                Dim pf As HttpPostedFile = UploadFile.PostedFile
+                Dim st As IO.Stream = pf.InputStream
+                Dim dsTrans As New PUBEntity.beTransParam
+                Dim sr As System.IO.StreamReader = New System.IO.StreamReader(st, System.Text.Encoding.Default)
+                Dim dr As DataRow
+
+                Do While sr.Peek() >= 0
+                    Dim s As String = sr.ReadLine()
+                    If s.Length > 0 Then
+                        dr = dsTrans.TransData.NewRow
+                        dr.Item("inputstr") = s
+                        dsTrans.TransData.Rows.Add(dr)
+                    End If
+                Loop
+
+                'txt匯入檔參數
+                dr = dsTrans.TransInfo.NewRow
+                dr.Item("TransCode") = "BRK313074IMP"
+                dr.Item("RDSType") = "BRKEntity.beBRK313074"
+                dr.Item("RDSAssembly") = "BRKEntity"
+                dsTrans.TransInfo.Rows.Add(dr)
+                'txt檔轉成Entyty
+                StateMain = CType(InvokeBusinessService("PUBService.bsTransInCsv", dsTrans), beBRK313074)
+            End If
+        End If
+        
+            If dsParam.BRKP_871ACC_R.Count = 0 Then Throw New Exception("匯入檔無資料！")        
+        
+            '判斷Job是否重複執行
+            InvokeBusinessService("PUBService.bsPubChkJobParam", dsParam)
+            '將Entity存入暫存檔
+            jobID = InvokeJobService("BRKService.bsBRK336010", dsParam, jobTitle)
+            UIAppendMessage("媒體檔匯入已經成功送出! 作業代號:" + jobID)
+            JobWait.Wait(Me, jobID, jobTitle, WaitImp)        
+    End Sub        

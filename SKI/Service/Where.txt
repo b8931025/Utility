@@ -1,0 +1,1 @@
+        sb.Append("WHERE '" & Me.ProgramID & "_" & Me.OfficerID & "' = '" & Me.ProgramID & "_" & Me.OfficerID & "'")

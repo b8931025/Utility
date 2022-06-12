@@ -1,0 +1,8 @@
+SELECT F.IOFFICER,                                  
+OFF_NMAID(OFF_MAID(F.IOFFICER)||'00') AS NMANAGER,  
+OFF_MAID(F.IOFFICER)||'00' AS IMANAGER              
+FROM CMNP_OFF_SOURCE F, PSNV_PSN_ORG B              
+WHERE F.IMANAGER = B.IOFFICER                       
+AND (F.INVALID IS NULL OR  F.INVALID <> 'Y' )       
+AND F.IOFF_OLD =  '00B12'       --ÂÂ¸g¿ì                     
+AND ROWNUM = 1   

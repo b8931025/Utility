@@ -1,0 +1,66 @@
+ORA-01036
+
+.net+Oracle
+如下代碼： 
+String sqlInsert =   " INSERT INTO xinwen(建立日期,建立時間,新聞標題,新聞類別,新聞類型,新聞內容,關鍵字,新聞來源,點擊次數,發布部門,經辦人,SN) VALUES(:jlrq,:jlsj,: xwbt,:xwlb,:xwlx,:xwnr,:gjz,:xwly,:djcs,:fbbm,:jbr,:sn) " ;
+
+OracleParameter[] parms =   {
+new OracleParameter( " :jlrq " , OracleType.Char, 10 ),
+new OracleParameter( " :jlsj " , OracleType.Char, 10 ),
+new OracleParameter( " :xwbt " , OracleType.VarChar, 512 ),
+new OracleParameter( " :xwlb " , OracleType.Char, 8 ),
+new OracleParameter( " :xwlx " , OracleType.Char, 8 ),
+new OracleParameter( " :xwnr " , OracleType.Clob),
+new OracleParameter( " :gjz " , OracleType.Char, 128 ),
+new OracleParameter( " :xwly " , OracleType.VarChar, 1024 ),
+new OracleParameter( " :djcs " , OracleType.Number, 8 ),
+new OracleParameter( " :fbbm " , OracleType.Char, 64 ),
+new OracleParameter( " :jbr " , OracleType.Char, 20 ),
+new OracleParameter( " :sn " , OracleType.Char, 32 )
+} ;
+
+parms[ 0 ].Value =   this .TextBoxJianLiRiQi.Text.Trim();
+parms[ 1 ].Value =   this .TextBoxJianLiShiJian.Text.Trim();
+parms[ 2 ].Value =   this .TextBoxXinWenBiaoTi.Text.Trim();
+parms[ 3 ].Value =   this .DropDownListXinWenLeiBie.SelectedItem.Text.Trim();
+parms[ 4 ].Value =   this .DropDownListXinWenLeiXin.SelectedItem.Text.Trim();
+parms[ 5 ].Value =   this .FreeTextBoxXinWenNeiRong.Text;
+parms[ 6 ].Value =   this .TextBoxGuanJianZi.Text.Trim();
+parms[ 7 ].Value =   this .TextBoxXinWenLaiYuan.Text.Trim();
+parms[ 8 ].Value =   0 ;
+parms[ 9 ].Value =   this .TextBoxFaBuBuMen.Text.Trim();
+parms[ 10 ].Value =   this .TextBoxJinBanRen.Text.Trim();
+parms[ 11 ].Value =   this .LabelZhuJian.Text.Trim();
+
+
+OracleConnection conn =   new OracleConnection(OracleHelper.DatabaseConnStr);
+conn.Open();
+OracleTransaction trans = conn.BeginTransaction(IsolationLevel.ReadCommitted);
+
+try
+{
+OracleHelper.ExecuteNonQuery(trans, CommandType.Text, sqlInsert, parms);
+trans.Commit();
+}
+catch (Exception ex)
+{
+trans.Rollback();
+ex.ToString();
+}
+finally
+{
+conn.Close();
+}
+
+出現System.Data.OracleClient.OracleException: 
+ORA-01036:非法的變量名/編號
+問題可能之一就是你的名稱不對應
+比如:xwlx寫成:xxlx所引起的
+
+或則// 
+客戶類型,客戶編號,客戶名稱,開戶行,賬戶,稅號,地址,郵編,電話號碼,手機,傳真,郵箱,聯繫人,客戶生日,特點,備註,更新日期,更新人, SN
+String sqlUpdate = "UPDATE kehuxinxi SET 客戶類型=:khlx,客戶編號=:khbh,客戶名稱=:khmc,開戶行=:khh,賬戶=:zh,稅號=:sh,地址=:dz,郵編=: yb,"
++ "電話號碼=:dhhm,手機=:sj,傳真=:cz,郵箱=:yx,聯繫人=:lxl,客戶生日=:khsr,特點=:td,備註=:bz,更新日期=:gxrq ,更新人=:gxr"
++ " W??HERE SN=:sn";
+
+其中少寫了個,比如電話號碼=:dhhm,手機=:sj,寫成電話號碼=:dhhm手機=:sj,

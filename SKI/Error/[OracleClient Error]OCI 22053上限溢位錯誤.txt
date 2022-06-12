@@ -1,0 +1,8 @@
+OCI-22053: 上限溢位錯誤
+在oracle的sql中，如果有的欄位因計算產生無限小數，如下
+SELECT  1/3  FROM DUAL;
+System.Data.OracleClient在Fill DataSet時就會產生錯誤
+
+解決方法:
+將無限小數，四捨五入到想要的位數
+SELECT  round(1/3, 2)  FROM DUAL

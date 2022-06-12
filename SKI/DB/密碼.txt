@@ -1,0 +1,11 @@
+Oracle
+ DB:ESKIIRP ID:SKERP_RPP PW:intell00356 
+ DB:ESKIITEST ID:SKERP_RP PW:intell
+ DB:ESKII/ESKIIBK ID:SKERP_DB/SKERP_APD PW:intell
+
+
+Sql Server 
+Server Name :tnetdb
+ID:NetExpress.sa
+PW:NetExpress.sa
+

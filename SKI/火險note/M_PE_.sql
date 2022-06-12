@@ -1,0 +1,75 @@
+select * from pubm_pe_main         where oid = 1000390034;
+select * from PUBM_PE_SHAR         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_CONTENT      where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_RECV         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_TERMID       where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_TERMTXT      where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_MEMO         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_RCHG         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_PRT          where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_ENDORSEMENT  where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_CRED         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_RETURN       where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_OBJ          where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_PREM         where oid_pubm_pe_main = 1000390034;
+select * from FIRM_PE_MAIN         where oid_pubm_pe_main = 1000390034;
+select * from FIRM_PE_OBJ          where oid_pubm_pe_main = 1000390034;
+select * from FIRM_PE_INSTYPE      where oid_pubm_pe_main = 1000390034;
+select * from FIRM_PE_DEDUCT       where oid_pubm_pe_main = 1000390034;
+select * from FIRM_PE_FLT          where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_ADDR         where oid_pubm_pe_main = 1000390034;
+select * from PUBM_PE_AREA         where oid_pubm_pe_main = 1000390034;
+select * from HASM_PE_ISSU         where oid_pubm_pe_main = 1000390034;
+select * from HASM_PE_BENE         where oid_pubm_pe_main = 1000390034;
+
+/*
+SELECT count(*),'PUBM_PE_MAIN       ' AS TNAME FROM PUBM_PE_MAIN         WHERE OID = 1000390034 union 
+SELECT count(*),'PUBM_PE_SHAR       ' AS TNAME FROM PUBM_PE_SHAR         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_CONTENT    ' AS TNAME FROM PUBM_PE_CONTENT      WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_RECV       ' AS TNAME FROM PUBM_PE_RECV         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_TERMID     ' AS TNAME FROM PUBM_PE_TERMID       WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_TERMTXT    ' AS TNAME FROM PUBM_PE_TERMTXT      WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_MEMO       ' AS TNAME FROM PUBM_PE_MEMO         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_RCHG       ' AS TNAME FROM PUBM_PE_RCHG         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_PRT        ' AS TNAME FROM PUBM_PE_PRT          WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_ENDORSEMENT' AS TNAME FROM PUBM_PE_ENDORSEMENT  WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_CRED       ' AS TNAME FROM PUBM_PE_CRED         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_RETURN     ' AS TNAME FROM PUBM_PE_RETURN       WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_OBJ        ' AS TNAME FROM PUBM_PE_OBJ          WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_PREM       ' AS TNAME FROM PUBM_PE_PREM         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'FIRM_PE_MAIN       ' AS TNAME FROM FIRM_PE_MAIN         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'FIRM_PE_OBJ        ' AS TNAME FROM FIRM_PE_OBJ          WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'FIRM_PE_INSTYPE    ' AS TNAME FROM FIRM_PE_INSTYPE      WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'FIRM_PE_DEDUCT     ' AS TNAME FROM FIRM_PE_DEDUCT       WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'FIRM_PE_FLT        ' AS TNAME FROM FIRM_PE_FLT          WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_ADDR       ' AS TNAME FROM PUBM_PE_ADDR         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'PUBM_PE_AREA       ' AS TNAME FROM PUBM_PE_AREA         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'HASM_PE_ISSU       ' AS TNAME FROM HASM_PE_ISSU         WHERE OID_PUBM_PE_MAIN = 1000390034 union 
+SELECT count(*),'HASM_PE_BENE       ' AS TNAME FROM HASM_PE_BENE         WHERE OID_PUBM_PE_MAIN = 1000390034 ; 
+*/
+
+/*
+delete pubm_pe_main         where oid = 1000390034;
+delete PUBM_PE_SHAR         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_CONTENT      where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_RECV         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_TERMID       where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_TERMTXT      where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_MEMO         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_RCHG         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_PRT          where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_ENDORSEMENT  where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_CRED         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_RETURN       where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_OBJ          where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_PREM         where oid_pubm_pe_main = 1000390034;
+delete FIRM_PE_MAIN         where oid_pubm_pe_main = 1000390034;
+delete FIRM_PE_OBJ          where oid_pubm_pe_main = 1000390034;
+delete FIRM_PE_INSTYPE      where oid_pubm_pe_main = 1000390034;
+delete FIRM_PE_DEDUCT       where oid_pubm_pe_main = 1000390034;
+delete FIRM_PE_FLT          where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_ADDR         where oid_pubm_pe_main = 1000390034;
+delete PUBM_PE_AREA         where oid_pubm_pe_main = 1000390034;
+delete HASM_PE_ISSU         where oid_pubm_pe_main = 1000390034;
+delete HASM_PE_BENE         where oid_pubm_pe_main = 1000390034;
+*/

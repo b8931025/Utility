@@ -1,0 +1,137 @@
+存入PUBM_PE_MEMO.IMEMOTXT時，發生下列問題
+ORA-01461: can bind a LONG value only for insert into a LONG column
+
+IMEMOTXT的資料形態是CLOB，在insert時字串長度在1000到2000之間，就會出錯
+                        
+該IMEMOTXT的內容如下:
+一．自負額：
+    本單：地震險每一事故為保險金額之1%,最高新台幣4,000,000元
+    地址001：火險每一事故為賠償金額之10%,最低新台幣1,000,000元
+    地址002：火險每一事故為賠償金額之10%,最低新台幣1,000,000元
+    地址003：火險每一事故為新台幣0元
+二．賠償限額：
+    本單：地震險為火險保險金額之10%/每一事故/保險期間累計
+三．本保單係由富邦產物(30%)，新光產物(30%)，國泰世紀(20%)，第一產
+    物(10%)，華南產物(10%)，共同承保(詳附件)，
+    其他相關事項詳主辦公司新光產物。
+四．保險費延緩交付特約條款(戊式)
+五．抵押權特約條款
+六．貨物預收全年保費75%，實收保費不得低於全年保費50%，
+    詳預約保單約定事項。
+七．本保單適用電腦資料及設備危險除外不保附加條款。
+八．附加條款：
+    1.貨物預約保險附加條款
+    2.保險金額自動增加條款
+    3.保險金額自動恢復條款
+    4.專業費用附加條款
+    5.殘餘物清除費用附加條款
+    6.暫時外移附加條款
+    7.預付賠款附加條款
+    8.建築物外部設備附加條款
+    9.擴大承保處所附加條款
+    10.內部遷移附加條款
+    11.改建與修復附加條款
+    12.拋棄代位求償權附加條款
+    13.車輛裝載物附加條款
+    14.額外費用附加條款
+    15.消防費用附加條款
+    16.保險標的物敘述附加條款
+九．本保單之保險金額基礎為『實際現金價值』.
+十．本保險單明細表所列之各項機器設備均包其相關設備.
+十一．本保險單各項標的物之抵押權人內容詳附明細表.
+十二．抵押權人如下：
+　　(1)大里廠製三課      不動產   抵押權人：台灣銀行股份有限公司
+    (2)太平廠成品倉庫    不動產   抵押權人：華南商業銀行股份有限公司
+    (3)太平分廠製五課(新)不動產   抵押權人：華南商業銀行股份有限公司
+    (4)太平分廠製五課(舊)不動產   抵押權人：華南商業銀行股份有限公司
+    (5)太平廠原料倉庫    不動產   抵押權人：華南商業銀行股份有限公司
+    (6)太平廠二課        不動產   抵押權人：華南商業銀行股份有限公司
+    (7)太平廠外勞宿舍    不動產   抵押權人：華南商業銀行股份有限公司
+    (8)太平廠守衛室      不動產   抵押權人：華南商業銀行股份有限公司
+    (9)太平廠鍋爐室      不動產   抵押權人：華南商業銀行股份有限公司
+    (10)太平廠人造大理石實驗  不動產  抵押權人：華南商業銀行(股)公司
+    (11)太平廠辦公大樓   不動產   抵押權人：華南商業銀行(股)公司
+    (12)大里廠研發大樓   不動產   抵押權人：合作金庫商業銀行(股)公司
+                                            中興分行
+    (13)大里廠           不動產   抵押權人：台灣銀行股份有限公司，
+                                  保險金額NT$68,207,000元
+    (14)大里廠           不動產   抵押權人：台灣銀行股份有限公司，
+                                  保險金額NT$132,000,000元
+    (15)太平廠及研發中心 機器設備 抵押權人：華南商業銀行股份有限公司，
+                                  保險金額NT$47,989,481元(詳附件)
+    (16)研發中心　　　 　機器設備 抵押權人：中租迪和股份有限公司，
+                                  保險金額NT$30,000,000元(詳附件)
+十三．
+    1.大里廠建號1.2.3.4.5.6.7.8.9.10.11.1165共12筆，
+      抵押設定第一順位台灣銀行股份有限公司，
+              第二順位為華南商業銀行股份有限公司.
+    2.TPU雙軸押出機及25KL POLYOL反應槽設備，
+      抵押設定為華南商業銀行股份有限公司.
+十四．地震險保險金額為火災保險金額之10%.
+＊	本保單正本壹式『陸份』，副本壹式『捌份』。
+
+解決方法:
+1.更新驅動程式為Oracle 10g以上
+2.或者用讀stream的方式來讀寫
+3.(我的方法)
+If CBool(dr("IsLong")) Then
+  Dim param As OracleParameter = mexec.Parameters.Add(":" + dr("ColumnName").ToString.ToUpper, vReader(dr("ColumnName").ToString))
+  If Not vReader(dr("ColumnName").ToString) Is DBNull.Value Then
+      param.OracleType = OracleType.NClob '<-------要設成這個
+  End If
+  param.Size = CInt(dr("ColumnSize"))
+EndIf
+4.(翌浚的方法)
+
+'參考自C:\SKERP\FIR\FIRService\bsFIR401000Save.vb
+    Sub UpdatePUBT_PE_MEMO_SUB(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+        '20110324修改為用迴圈寫入的方式(日結也要跟著改)-------\
+        Dim sb As New SqlStringBuilder
+        For Each dr As DataRow In param.Tables("PUBT_PE_MEMO").Rows
+            Select Case dr.RowState
+                Case DataRowState.Added     '新增
+                    Dim IMEMOTXT As String = DataSetUtils.GetColumnText(dr, "C_IMEMOTXT", "")
+                    sb.Reset()
+                    sb.Append(" insert into pubT_PE_memo(OID,OID_PUBT_PE_MAIN, FMEMO,IMEMOTXT) ")
+                    sb.Append("     values(")
+                    sb.Append("   SEQ_PUBT_PE_MEMO.nextval ").Append(", ")
+                    sb.Append(New ParameterInfo("OID_PUBT_PE_MAIN", DbType.String, dr("C_OID_PUBT_PE_MAIN", DataRowVersion.Current))).Append(", ")
+                    sb.Append(New ParameterInfo("FMEMO", DbType.String, dr("C_FMEMO", DataRowVersion.Current))).Append(", ")
+                    If IMEMOTXT.Length > 0 Then
+                        If IMEMOTXT.Length < 2001 Then
+                            sb.Append(New ParameterInfo("IMEMOTXT", IMEMOTXT)).Append(") ")
+                        Else
+                            sb.Append(New ParameterInfo("IMEMOTXT", DbType.AnsiStringFixedLength, IMEMOTXT)).Append(") ")
+                        End If
+                    Else
+                        sb.Append("''").Append(") ")
+                    End If
+                    Me.DefaultRunner.ExecuteNonQuery(sb.ToSqlString, trans)
+
+                Case DataRowState.Modified
+                    Dim IMEMOTXT As String = DataSetUtils.GetColumnText(dr, "C_IMEMOTXT", "")
+                    sb.Reset()
+                    sb.Append(" Update PUBT_PE_MEMO Set ")
+                    sb.Append("  OID_PUBT_PE_MAIN=").Append(New ParameterInfo("OID_PUBT_PE_MAIN", DbType.String, dr("C_OID_PUBT_PE_MAIN", DataRowVersion.Current))).Append(", ")
+                    sb.Append("  FMEMO=").Append(New ParameterInfo("FMEMO", DbType.String, dr("C_FMEMO", DataRowVersion.Current))).Append(", ")
+                    sb.Append("  IMEMOTXT=")
+                    If IMEMOTXT.Length > 0 Then
+                        If IMEMOTXT.Length < 2001 Then
+                            sb.Append(New ParameterInfo("ITERMTXT", IMEMOTXT))
+                        Else
+                            sb.Append(New ParameterInfo("ITERMTXT", DbType.AnsiStringFixedLength, IMEMOTXT))
+                        End If
+                    Else
+                        sb.Append("''")
+                    End If
+                    sb.Append(" Where OID = '" & CStr(dr("C_OID", DataRowVersion.Original)) & "'")
+                    Me.DefaultRunner.ExecuteNonQuery(sb.ToSqlString, trans)
+
+                Case DataRowState.Deleted   '刪除
+                    sb.Reset()
+                    sb.Append(" Delete From pubT_PE_memo ")
+                    sb.Append("     Where OID = '" & CStr(dr("C_OID", DataRowVersion.Original)) & "'")
+                    Me.DefaultRunner.ExecuteNonQuery(sb.ToSqlString, trans)
+            End Select
+        Next
+    End Sub

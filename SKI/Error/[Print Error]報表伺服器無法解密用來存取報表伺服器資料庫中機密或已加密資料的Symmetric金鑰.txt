@@ -1,0 +1,37 @@
+ThreadTrace:2011/11/1 上午 08:57:46,Warning,CP215,6,Fail,Service:FIRService.bsFIR303000Print,20111101085659308,火險保單列印(商業),ServiceException,System.ApplicationException: 呼叫SQL RS Web Service 發生錯誤
+System.Web.Services.Protocols.SoapException: 報表伺服器無法解密用來存取報表伺服器資料庫中機密或已加密資料的 Symmetric 金鑰。您必須還原備份金鑰或刪除所有加密內容，然後重新啟動服務。如需詳細資訊，請查看文件。 --> 報表伺服器無法解密用來存取報表伺服器資料庫中機密或已加密資料的 Symmetric 金鑰。您必須還原備份金鑰或刪除所有加密內容，然後重新啟動服務。如需詳細資訊，請查看文件。 --> 資料錯誤。
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.ReadResponse(SoapClientMessage message, WebResponse response, Stream responseStream, Boolean asyncCall)
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PUBEntity.RSService.ReportingService.Render(String Report, String Format, String HistoryID, String DeviceInfo, ParameterValue[] Parameters, DataSourceCredentials[] Credentials, String ShowHideToggle, String& Encoding, String& MimeType, ParameterValue[]& ParametersUsed, Warning[]& Warnings, String[]& StreamIds) in C:\SKERP\PUB\PUBEntity\Web References\RSService\Reference.vb:line 555
+   at PUBEntity.CmnFunction.RSWebServiceRenderPDF(String ReportPath, String Ireport, String[] strName, String[] strValue) in C:\SKERP\PUB\PUBEntity\CMN\CmnFunction.vb:line 780
+   at PUBEntity.CmnFunction.RSWebServiceRenderPDF(String ReportPath, String Ireport, String[] strName, String[] strValue) in C:\SKERP\PUB\PUBEntity\CMN\CmnFunction.vb:line 785
+   at FIRService.bsFIR303000Print.AfterCommit(DataSet param, DataSet result) in C:\SKERP\FIR\FIRService\bsFIR303000Print.vb:line 184
+   at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet param, IDbTransaction trans)
+   at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet param)
+   at IntelliSys.NetExpress.Server.BSServer.Request(String serviceName, DataSet ds)
+   at IntelliSys.NetExpress.Web.BSAgent.InvokeBusinessService(String serviceName, DataSet dsParam, CallContextData cdContextData)
+   at IntelliSys.NetExpress.Web.JobExecuter.ProcessJob()
+PoolTrace:2011/11/1 上午 08:57:46,CP215,Warning,Running,Job Failed,1,1,8,8,4
+
+解決方法:
+1.         小弟安裝完 TFS2010 後本機的報表伺服器又掛了，以下是我常用的解決方式：
+2.         如果出現：
+System.ApplicationException: 呼叫SQL RS Web Service 發生錯誤
+System.Web.Services.Protocols.SoapException: 
+報表伺服器無法解密用來存取報表伺服器資料庫中機密或已加密資料的 Symmetric 金鑰。
+您必須還原備份金鑰或刪除所有加密內容，然後重新啟動服務。如需詳細資訊，請查看文件。 
+--> 報表伺服器無法解密用來存取報表伺服器資料庫中機密或已加密資料的 Symmetric 金鑰。
+您必須還原備份金鑰或刪除所有加密內容，然後重新啟動服務。如需詳細資訊，請查看文件。 --> 資料錯誤。
+
+3.         適用以下方式
+甲、               功能表→開始→執行→cmd
+乙、               RSKeyMgmt.exe -d
+丙、               rsconfig -c -s . -d reportserver -a Windows -u 網域帳號(ski\100231) -p 密碼
+丁、               RSKeyMgmt.exe -e -f c:\myfile.key -p password
+4.         如果執行後，跑本機報表還是會出現錯誤訊息，如下描述：
+甲、               System.ApplicationException: 
+									呼叫SQL RS Web Service 發生錯誤
+									System.Web.Services.Protocols.SoapException: 尚未指定執行報表所需的一或多個資料來源認證。 
+									--> 尚未指定執行報表所需的一或多個資料來源認證。 --> 尚未指定執行報表所需的一或多個資料來源認證。
+乙、               進入到本機的報表管理員，修正資料來源(每次比較重大的windows 更新或安裝，都會被清空 >=<)
+									到報表管理員，重新設定DataSource

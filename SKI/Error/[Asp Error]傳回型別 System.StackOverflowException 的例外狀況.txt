@@ -1,0 +1,9 @@
+如果用MasterDetailPage或MultiRowPage，沒使用到DataGrid
+
+    Protected Overrides Function AppGetChildDataGrids(ByVal parentDataGrid As System.Web.UI.WebControls.DataGrid) As System.Web.UI.WebControls.DataGrid()
+        If parentDataGrid Is Nothing Then
+            Return New DataGrid() {Nothing} '會出錯 StackOverflow
+            Return New DataGrid() {}        '這樣才對
+        End If
+    End Function
+    

@@ -1,0 +1,24 @@
+Parameter 'COLUMN_1': No size set for variable length data type: String.
+
+
+這是在使用Parameter時，出現的問題
+Oracle與MS SQL有點不同,如果傳入的值是空字串,Oracle要把它轉為DBNull.Value,而MS SQL不用.
+
+cmd.Parameter.Add("COLUMN_1",DBNull.Value)
+不然會跳出這樣的Exception
+Parameter 'id': No size set for variable length data type: String
+
+解決方法:
+塞入DBNull
+
+or
+
+塞入" " 
+
+建斌:2011/3/4 
+用
+DataSetUtils.SetStringColumnsDefaultMaxLength(result, 100)
+設定長度就可以
+
+
+   UTF.InitColumnValue(row, True)

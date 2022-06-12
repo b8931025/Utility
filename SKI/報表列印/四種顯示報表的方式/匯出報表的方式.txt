@@ -1,0 +1,48 @@
+'in aspx.vb    
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitFSReport,WaitRSReport
+                If ti.Committed Then
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                        	If ti.CommandName = WaitFSReport
+														FSReportViewer.ViewReport(Me, jobID)  '圖FSReportViewer.JPG  
+														FSReportViewer.ViewReport(Me, jobID, FSReportViewer.ViewType.Download) '圖FSReportViewer.ViewType.Download.JPG      	
+                        	Else
+                        		RSReportViewer.ViewReport(Me, jobID)'圖RSReportViewer.JPG/RSReportViewer_Download.JPG
+                        	EndIF                                
+                    End Select
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select  
+        
+'in Service
+			Dim dsResult As beRSReports = CType(result, beRSReports)
+			Dim drReportItem As beRSReports.ReportItemsRow
+			drReportItem = dsResult.ReportItems.AddReportItemsRow("/CASReport/CAS304000", "工程險保單明細表")
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "IREPORT", IReport)
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "PrinterName", row.PrinterName)
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "DateBGN", row.DPLYISSU1.ToString("yyyy/MM/dd"))
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "DateEND", row.DPLYISSU2.ToString("yyyy/MM/dd"))
+
+      '※直接匯出ReportViewer('圖RSReportViewer_Download.JPG)，就要加這一行
+      '少了這一行，就會以圖RSReportViewer.JPG的方式顯示
+      dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Format", "PDF")
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rs:Command", "Render")
+			dsResult.PublicParameters.AddPublicParametersRow(drReportItem, "rc:Parameters", "False")        

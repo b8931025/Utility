@@ -1,0 +1,56 @@
+in Web
+<INPUT id="UploadFile" title="選擇要上傳的檔案" type="file" size="0" name="UploadFile" runat="server">
+        
+in the BaseDoImport function of Web's vb        
+        ''匯入
+        Dim dsTrans As New beTransParam
+        Dim dr As DataRow
+        Dim sr As StreamReader
+        Try
+            'new
+            If UploadFile.Value.Trim = "" Then Throw New Exception("請選擇上傳檔案!")
+            If IsNothing(UploadFile.PostedFile) OrElse UploadFile.PostedFile.ContentLength <= 0 Then Throw New Exception("無資料可轉!!")
+            sr = New StreamReader(UploadFile.PostedFile.InputStream, System.Text.Encoding.Default)
+
+            '匯入資料所需要帶入的參數
+            dr = dsTrans.TransInfo.NewRow
+            dr.Item("TransCode") = "FIR907_EAR_R"
+            dr.Item("RDSType") = ""
+            dr.Item("RDSAssembly") = ""
+            dsTrans.TransInfo.Rows.Add(dr)
+
+            '讀入文件
+            Dim s As String = sr.ReadLine
+            Do While Not IsNothing(s)
+                dr = dsTrans.TransData.NewRow
+                dr.Item("inputstr") = s
+                dsTrans.TransData.Rows.Add(dr)
+                s = sr.ReadLine
+            Loop
+            sr.Close()
+            '執行匯入資料
+            StateMain = InvokeBusinessService("FIRService.bsFIR907000Import", dsTrans)
+            UIAppendMessage("成功匯入檔案""" & UploadFile.Value & """")
+            UIFormIsDirty = True
+        Catch ex As Exception
+            Me.UIAppendError(ex.Message)
+        End Try
+        
+※這種方式，會有request長度的限制，因為是pop up視窗        
+in the BaseDoImport function of Web's vb  
+ 				If Not sender Is Me Then
+            If Not BaseConfirmImport() Then Return
+            'pop up上傳視窗
+            Upload.Show(Me, UICommands.csImport)
+        Else
+            Dim obj As Object = e.CommandArgument
+            Dim fi As beFileInfo = CType(obj, beFileInfo)
+            Try
+            		'取得的資料，轉成byte()
+                fi.FileInfo(0).ContentData
+            Catch ex As Exception
+								Throw 
+            End Try
+            Me.UIAppendMessage(impMethod & "成功匯入暫存檔案""" & fi.FileInfo(0).ContentSource & """")
+            UIFormIsDirty = True
+        End If        

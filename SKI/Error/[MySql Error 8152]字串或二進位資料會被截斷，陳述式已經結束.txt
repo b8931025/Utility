@@ -1,0 +1,6 @@
+                    jobTitle += " - 宅平安 (台企/闔家/加值) (橫式)"
+                    jobID = InvokeJobService("FIRService.bsFIR306000Print7", dsMain, jobTitle)  
+  
+jobTitle如果超過30個字，就會出現這問題
+
+  

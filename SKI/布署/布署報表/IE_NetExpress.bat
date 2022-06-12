@@ -1,0 +1,1 @@
+runas /savecred /noprofile /user:ski\NetExpress.sa "C:\Program Files\Internet Explorer\iexplore.exe http://netrsc/reports/"

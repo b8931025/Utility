@@ -1,0 +1,76 @@
+in Web
+    Protected Overrides Sub BaseDoExport(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim drParam As beFIR908000.FIR908QueryRow = dsParam.FIR908Query.NewFIR908QueryRow
+        Dim dsParam As New beFIR908000        
+        Dim jobID As String
+
+        drParam.FNAME = Me.txtFileName.Text.Trim
+        '''''''''處理要給service的paramater
+        dsParam.FIR908Query.AddFIR908QueryRow(drParam)        
+
+        jobID = InvokeJobService("FIRService.bsFIR908000Export", dsParam, "jobTitle")
+        UIAppendMessage("匯出作業已經成功送出! 作業代號:" + jobID)
+        JobWait.Wait(Me, jobID, "jobTitle", WaitFSReport)
+
+        Me.BaseDoClear()
+        Me.UIAlertMessage("匯出檔案請至【共用資源】[08]查詢作業 : CMN801000批次檔案查詢下載!!")    
+    End Sub
+    
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitFSReport
+                If ti.Committed Then
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                            FSReportViewer.ViewReport(Me, jobID, FSReportViewer.ViewType.Download)
+                    End Select
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select
+    End Sub    
+    
+
+in Service
+    Protected Overrides ReadOnly Property ResultType() As System.Type
+        Get
+            Return GetType(beFSReports)  '<<<<<<
+        End Get
+    End Property
+
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+        Dim dsParam As beFIR908000 = CType(param, beFIR908000)
+        Dim binFileData() As Byte
+        Dim oCmn As New CmnFunction
+        Dim PathID As Integer
+        Dim strKey(7) As String
+        Dim strValue(7) As String
+        Dim sFileNameOnDisk As String = Now.ToFileTime.ToString & ".xls"
+        
+				'處理ReportingService 需要的參數
+        strKey(0) = "DPLYISSU_BGN"
+        strValue(0) = dsParam.FIR908Query(0).DPLYISSU_BGN.ToString("yyyy/MM/dd") '簽單起日
+        strKey(1) = "DPLYISSU_END"
+        strValue(1) = dsParam.FIR908Query(0).DPLYISSU_END.ToString("yyyy/MM/dd") '簽單迄日
+        
+
+        binFileData = oCmn.RSWebServiceRenderExcel("/FIRReport/FIR908000", Nothing, strKey, strValue)
+        PathID = FileService.CreateFile(sFileNameOnDisk, binFileData, "F")
+        CType(result, beFSReports).ReportItems.AddReportItemsRow(PathID, sFileNameOnDisk, "Caption", Nothing)        
+    End Sub                

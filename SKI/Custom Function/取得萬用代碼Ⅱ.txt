@@ -1,0 +1,40 @@
+
+    '取得相關共用設定檔
+    Private Function getCommonCodeSet(ByVal sType As String, ByRef trans As IDbTransaction) As Hashtable
+        Dim sb As New SqlStringBuilder
+        Dim ds As New DataSet
+        Dim ht As New Hashtable
+
+        sb.Reset()
+        sb.Append("SELECT C.*               ")
+        sb.Append("FROM CMNP_COMMONCODE C   ")
+        sb.Append("WHERE 1=1                ")
+        sb.Append("AND TYPE='" & sType & "' ")
+        DefaultRunner.LoadDataSet(sb.ToSqlString, ds, "COMMONCODE", trans)
+
+        If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+            For Each dr As DataRow In ds.Tables(0).Rows
+                Dim htSub As New Hashtable
+                htSub.Add("DATA1", dr("DATA1").ToString)
+                htSub.Add("DATA2", dr("DATA2").ToString)
+                htSub.Add("DATA3", dr("DATA3").ToString)
+                htSub.Add("NAME", dr("NAME").ToString)
+                htSub.Add("NREMARK", dr("NREMARK").ToString)
+                ht.Add(dr("CODE").ToString, htSub)
+            Next
+        Else
+            Return Nothing
+        End If
+
+        Return ht
+    End Function
+
+    '取得設定檔變數
+    Private Function getCommonCode(ByRef ht As Hashtable, _
+    ByVal sCode As String, _
+    Optional ByVal sCol As String = "NAME") As String
+        If IsNothing(ht) OrElse ht.Count = 0 OrElse Not ht.Contains(sCode) Then Return ""
+
+        Dim htSub As Hashtable = CType(ht.Item(sCode), Hashtable)
+        Return htSub.Item(sCol).ToString.Trim
+    End Function

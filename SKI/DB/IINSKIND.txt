@@ -1,0 +1,6 @@
+   SELECT *
+     FROM CMNP_INSKIND
+    WHERE 1=1
+    and iinscls='I' and iinskind='IQP';
+    
+    

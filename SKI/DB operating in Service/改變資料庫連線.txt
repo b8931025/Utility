@@ -1,0 +1,21 @@
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+
+        changeConnection(trans, StringResource.DefaultInstanceName) '程式中動態改變db連線
+        Me.LoadDataSet(sb.ToSqlString, result, "FIRR_306_P1", trans)
+        If result.Tables("FIRR_306_P1").Rows.Count <= 0 Then  Throw New Exception("查無資料 !!")
+    End Sub
+    
+    '改變資料庫連線
+    Private Sub changeConnection(ByRef trans As IDbTransaction, ByVal sInstanceName As String)
+        Dim newRunner As IDatabaseRunner = DatabaseRunnerFactory.GetRunner(sInstanceName)
+        trans.Connection.Close()
+        trans.Connection.ConnectionString = newRunner.GetConnection.ConnectionString
+        trans.Connection.Open()
+    End Sub
+    
+    Protected Overrides ReadOnly Property DefaultInstanceName() As String
+        Get
+            Return FIREntity.StringResource.BackupInstanceName '預設是bk的資料庫
+        End Get
+    End Property
+    

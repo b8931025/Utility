@@ -1,0 +1,19 @@
+
+http://skfont/ate/
+
+一般user都是委托系統科造字，再到下面的造字表去複製出來，貼上
+\\skifs\FS01\Delivery\font\eudc.html
+
+
+字體更新程序
+如果有新的造字，要更新字體
+就要執行 C:\ARPHIC\AGMS_STD\ClientLite.exe 更新最新字體(如果已常駐在右下角，就在小花上按右鍵更新)
+再執行C:\SK\fonts\font.bat，將C:\SK\fonts\下的字體更新至c:\windows\Fonts
+過程中如果有失敗，無法更新至c:\windows\Fonts
+就必需重開機，把c:\windows\Fonts下的文鼎字體刪掉，再把C:\SK\fonts\下的文鼎更新至c:\windows\Fonts
+更新完可看c:\windows\Fonts下的文鼎字型更新日期，確認是不是最新
+然後重新開機，才可以列印新字型
+
+在報表主機那邊，煒哥每一個禮拜才會更新一次，所以會有造完字，還報表印不出來的情況發生 
+
+※報表主機和前線主機就算字型有更新，user沒更新，列印出來的pdf也不會有字型，用報表管理員rsView去看，也看不到字型 

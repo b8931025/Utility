@@ -1,0 +1,20 @@
+彈出是否要繼續執行的警告視窗
+讓使用者選「是」或「取消」
+
+in Web
+                    Try
+                        Throw New Exception("將通知下一關審核主管，是否繼續？")
+                    Catch ex As Exception
+                        Dim rv As MsgPage.ResultValue = Me.UIConfirm("審核確認", ex.Message, "提示訊息視窗")
+                        If rv <> MsgPage.ResultValue.OK AndAlso rv <> MsgPage.ResultValue.Yes Then
+                            If rv = MsgPage.ResultValue.Cancel Then
+                                Throw New Exception("審核取消")
+                            End If
+                            Exit Sub
+                        End If
+                    End Try
+PS:
+該功能只能套用在BaseDoUICommand和BaseDoXXX的函式裡，也就是說，只有ApplicationBanner可以使用該功能
+如果要自定的Button想要使用該對話框，就要另外想辦法     
+
+※匯入txt或xls之前，要先存到StateMain，不然PostBack後Upload Url會不見

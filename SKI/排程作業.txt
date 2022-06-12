@@ -1,0 +1,44 @@
+[程式範例]
+'火險回壓續保號程式(每月一號跑)
+Imports IntelliSys.NetExpress.Entity
+Imports IntelliSys.NetExpress.Service
+Imports IntelliSys.NetExpress.DAO
+Imports FIREntity
+Imports FIREntity.FirFunction
+
+Public Class bsFIRUpdateIPreply
+    Inherits BaseAppService
+    Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal _trans As System.Data.IDbTransaction)
+      'coding here
+    End Sub
+End Class
+
+#Region "[以下Batch使用]"
+Public Class bsFIRUpdateIPreplyExe '這個類別名稱，要跟Web.config裡的一樣
+    Inherits BaseService
+    Public Overrides Function Request(ByVal _Param As System.Data.DataSet) As System.Data.DataSet
+			InvokeBusinessService("FIRService.bsFIRUpdateIPreply", _Param)
+    End Function
+End Class
+#End Region
+
+[Web.config設定]
+	<TaskServiceList>
+		<add key="FIRService.bsFIRUpdateIPreplyExe" value="火險回壓續保號程式" /> '名務名稱
+	</TaskServiceList>
+	
+[安全控管/作業/TaskEdit 排程工作設定]	
+服務名稱:火險回壓續保號程式
+排程代號:bsFIRUpdateIPreplyExe
+參數型別:設定排程的輸入參數
+
+以上設定完成，之後就可以直接執行來測試 
+ex:C:\Inetpub\wwwroot\SKERP\bin\ISNETask.exe /si bsFIRUpdateIPreplyExe /ac
+
+[排定的工作]
+以下例格式，寄信給柏宏或一猷幫忙設定
+
+名稱：車險理賠出險通知表排程作業
+代號：CLM154MailBatch
+參數：C:\Inetpub\wwwroot\SKERP\bin\ISNETask.exe /si CLM154MailBatch /ac
+執行時間：每日早上6:30~8:30 任選即可

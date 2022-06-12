@@ -1,0 +1,12 @@
+
+
+當出現ORA-01000 maximum open cursors exceeded錯誤時，可用下列SQL語法檢查程式中是否有某個SQL做大量且多次查詢做完卻沒有該Dataset關閉，造成Oracel開大量的cursors，使得該cursors數量超過Oracle的設定範圍。
+
+
+
+select user_name, osuser, machine, a.sql_text 
+from v$session b, 
+v$open_cursor a 
+where a.sid = b.sid
+
+如果是迴圈內，寫了太多的select語法，可以把該select的code獨立成function，就可解決

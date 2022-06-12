@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="beCarp_car_type" targetNamespace="http://tempuri.org/beCarp_car_type.xsd" elementFormDefault="qualified"
+	attributeFormDefault="qualified" xmlns="http://tempuri.org/beCarp_car_type.xsd" xmlns:mstns="http://tempuri.org/beCarp_car_type.xsd"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+	xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+	<xs:element name="beCarp_car_type" msdata:IsDataSet="true">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="carp_car_type">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="oid" type="xs:decimal" minOccurs="0" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1"
+								msdata:AutoIncrement="true" />
+							<xs:element name="icode" msdata:Caption="車種代號" msprop:UIType="" msprop:UIAttribute="" type="xs:string"
+								minOccurs="0" />
+							<xs:element name="ncode" msdata:Caption="車種名稱" msprop:UIType="" msprop:UIAttribute="" type="xs:string"
+								minOccurs="0" />
+							<xs:element name="necode" type="xs:string" minOccurs="0" />
+							<xs:element name="fc_class" msdata:Caption="自用營業別" msprop:UIType="" msprop:UIAttribute="" type="xs:string"
+								minOccurs="0" />
+							<xs:element name="fmotor" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+		<xs:key name="beCarp_car_typeKey1" msdata:PrimaryKey="true">
+			<xs:selector xpath=".//mstns:carp_car_type" />
+			<xs:field xpath="mstns:oid" />
+		</xs:key>
+	</xs:element>
+</xs:schema>
+
+msdata:Caption 是設定DataGrid顯示時的欄位名稱，如果沒有設定msdata:Caption，就要在BaseInitBrowseCaption
+指定欄位名稱
+
+minOccurs="0" 在xml schema中，是設定該元素的最少出現次數。在這裡是指該欄位，可以是null，預設是1，也就是not null
+
+※相關說明參考XML Schema
+http://www.w3school.com.cn/schema/schema_complex_indicators.asp

@@ -1,0 +1,19 @@
+db主機名稱，密碼都在
+C:\Inetpub\wwwroot\SKERP\dataconfiguration.config
+
+tnetap1
+tnetap2
+是開發用的主機，可以直接登入修改，building，主要用來測試程式，DB連到SKERP_AP
+
+tnetap3
+tnetap4
+是平測用的主機，主要用來測試資料，DB連SKERP_APD
+
+
+SKERP_AP開發
+SKERP_APD平測
+SKERP_APP production(已上線的正式系統)
+
+
+ESKIIRP存放報表的資料庫，裡面的報表都是由ESKII的資料跑出來的
+但是在存取報表時，還是經由ESKII去讀ESKIIRP的報表

@@ -1,0 +1,114 @@
+※如果要匯出多個txt檔，就不用設定CMN351000，而是在service裡面coding去設定欄位格式
+
+in Web
+  Protected Overrides Function BaseGetCommandBarCommands() As IntelliSys.NetExpress.Web.UICommand()
+      Return New UICommand() {UICommands.cmdQuery, UICommands.cmdClear, UICommands.cmdExit, UICommands.cmdExport}
+  End Function  
+  
+  Private Const WaitReport As String = "WaitReport"
+  Protected Overrides Sub BaseDoExport(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim jobID As String
+        Dim jobTitle As String = = "匯出作業 : xxxxxxxxxxxxxxx" 
+
+				'建立傳入參數
+        Dim dsParam As New beFIR909000
+        Dim drQ As beFIR909000.FIR909000QRow = CType(dsParam.FIR909000Q.NewRow, beFIR909000.FIR909000QRow)
+        drQ.RECNO = Me.ucTrans_date.GetDate.ToString.Trim
+        dsParam.FIR909000Q.Rows.Add(drQ)
+
+        jobID = InvokeJobService("FIRService.bsFIR909002Export", dsParam, jobTitle)
+
+        UIAppendMessage("匯出作業已經成功送出! 作業代號:" + jobID)
+        JobWait.Wait(Me, jobID, jobTitle, WaitFSReport)
+
+        Me.BaseDoClear()
+        Me.UIAlertMessage("匯出檔案請至【共用資源】[08]查詢作業 : CMN801000批次檔案查詢下載!!")
+    End Sub  
+    
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitFSReport, WaitRSReport
+                If ti.Committed Then
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                        		'彈出視窗，列出下載檔案
+                            FSReportViewer.ViewReport(Me, jobID, FSReportViewer.ViewType.Download)
+                    End Select
+                End If
+            Case JobWait.DefaultCommandName
+                If ti.Committed Then
+                    BaseDoGetJobResult(CStr(ti.Args(0)), CType(ti.Result, JobStatus))
+                Else
+                    Me.UIAppendMessage("取消作業!" & CStr(ti.Args(0)))
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select
+    End Sub
+
+    Protected Sub BaseDoGetJobResult(ByVal jobID As String, ByVal status As JobStatus)
+        If status <> JobStatus.Cancel Then
+            Dim dsJob As beJobs = CType(Me.InvokeCommonService("IntelliSys.NetExpress.Service.bsGetJob", jobID), beJobs)
+            Dim dr As beJobs.JobsRow = dsJob.Jobs(0)
+            If status = JobStatus.Completed Then
+                Dim ds As DataSet = EntityHelper.DeserializeTypedXML(dr.ResultData)
+                If Not dr.IsProcessMessageNull Then
+                    Me.UIAppendMessage(dr.ProcessMessage)
+                End If
+                StateMain = ds
+            ElseIf status = JobStatus.ProcessException OrElse status = JobStatus.ServiceException Then
+                Dim ex As Exception = CType(UTF.BinaryDeserializeObject(dr.ExceptionData), Exception)
+                ProcessException(ex)
+            Else
+                Me.UIAppendError("Invalid JobStatus:" & status.ToString())
+            End If
+        Else
+            Me.UIAppendMessage("作業已經取消執行!" & jobID)
+        End If
+    End Sub    
+    
+in Service
+	Protected Overrides ReadOnly Property ResultType() As System.Type
+		Get
+            Return GetType(beFSReports) '一定要用beFSReports
+		End Get
+	End Property    
+	
+	Protected Overloads Overrides Sub DoRequest(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+    Dim sb1 As New System.Text.StringBuilder  	
+    Dim sb2 As New System.Text.StringBuilder  
+    
+  	'用StringBuilder組出要匯出的txt檔內容...........................
+
+		'設定第一個下載檔
+    Dim strFileName As String = "FileName1.txt"
+    '轉成位元組陣列
+    Dim binFileData() As Byte = System.Text.Encoding.Default.GetBytes(sb1.ToString)
+    Dim FSReportViewer_Caption as String = "顯示在FSReportViewer下載清單上的標題"
+    CType(result, beFSReports).ReportItems.AddReportItemsRow(-1, strFileName, FSReportViewer_Caption , binFileData)  
+    
+    '設定第二個下載檔
+    strFileName = "FileName2.txt"
+    binFileData = System.Text.Encoding.Default.GetBytes(sb2.ToString)
+    FSReportViewer_Caption = "顯示在FSReportViewer下載清單上的標題"
+    CType(result, beFSReports).ReportItems.AddReportItemsRow(-1, strFileName, FSReportViewer_Caption , binFileData)   
+    
+    '如果還要在FSReportViewer列出多個下載檔，就重覆AddReportItemsRow，加入想要的檔案
+  End Sub
+	

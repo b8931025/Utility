@@ -1,0 +1,21 @@
+        '記錄複保險號
+        If Not IsNothing(MyDs) AndAlso _
+        MyDs.Tables.Contains("Result") AndAlso _
+        MyDs.Tables("Result").Rows.Count > 0 AndAlso _
+        MyDs.Tables("Result").Rows(0)("Code").ToString = "0" Then
+            Dim sDINo As String = MyDs.Tables("Result").Rows(0)("DINo").ToString
+            InvokeCommonService("FIRService.bsFIRT_DUP_INS", New String() {sDINo, "UPDATE"})
+        End If
+
+        '取得複保險產生日期
+        Dim ds As DataSet = InvokeCommonService("FIRService.bsFIRT_DUP_INS", New String() {"複保險號", "QUERY"})
+        Dim iMaxExpire As Integer = 10
+        If Not IsNothing(ds) AndAlso _
+        ds.Tables.Count > 0 AndAlso _
+        ds.Tables(0).Rows.Count = 1 Then
+            Dim DDUPINS As Date = CDate(ds.Tables(0).Rows(0)("DDUPINS"))
+            Dim dNow As Date = Now
+            If (dNow.DayOfYear - DDUPINS.DayOfYear) >= iMaxExpire Then
+                '該複保險號已過期，請取得新複保險號
+            End If
+        End If

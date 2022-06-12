@@ -1,0 +1,11 @@
+        Dim IReport As String = Guid.NewGuid().ToString("N").ToUpper()
+        
+        Guid.NewGuid().ToString(format)
+        把计:
+format: 虫Α砏絛ボΑて硂 System.Guid format 把计琌NDB┪P狦 format  null ┪﹃ ("")玥ㄏノD 
+
+
+	Guid.NewGuid().ToString("B")	"{bfde01ba-009f-4231-b201-611b7a0677d4}"	
+	Guid.NewGuid().ToString("N")	"3c1e9aab93914f6f9e5d0ff38532555f"	
+	Guid.NewGuid().ToString("D")	"dfb00a36-a2ef-4162-b0fb-23301a3a04f9"	
+	Guid.NewGuid().ToString("P")	"(d661bf88-28c5-47b0-a43e-814d5c277786)"	        

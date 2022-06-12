@@ -1,0 +1,46 @@
+  Private htComCode As Hashtable
+    '取得萬用代碼
+    Private Function getComName(ByVal sType As String, ByVal sCode As String) As String
+        Dim htComName As Hashtable
+        Dim sb As SqlStringBuilder
+        Dim rd As IDataReader
+
+        If IsNothing(sType) OrElse sType.Trim.Length = 0 Then Throw New Exception("Error CMNP_COMMONCODE.Type")
+        If IsNothing(sCode) OrElse sCode.Trim.Length = 0 Then Throw New Exception("Error CMNP_COMMONCODE.Code")
+
+        If IsNothing(htComCode) OrElse Not htComCode.Contains(sType) Then
+            sb = New SqlStringBuilder
+            htComName = New Hashtable
+            If IsNothing(htComCode) Then htComCode = New Hashtable
+            sb.Append("SELECT NAME,CODE,TYPE")
+            sb.Append("FROM CMNP_COMMONCODE C")
+            sb.Append("WHERE '" & Me.ProgramID & "_" & Me.OfficerID & "' = '" & Me.ProgramID & "_" & Me.OfficerID & "'")
+            sb.Append("AND C.TYPE = '" & sType & "'")
+
+            rd = DefaultRunner.ExecuteReader(sb.ToSqlString, trans)
+            While rd.Read
+                Dim sName As String = rd("NAME").ToString
+                Dim sKey As String = rd("CODE").ToString
+                If Not htComName.Contains(sKey) Then
+                    htComName.Add(sKey, sName)
+                End If
+            End While
+            htComCode.Add(sType, htComName)
+        Else
+            htComName = CType(htComCode.Item(sType), Hashtable)
+        End If
+
+        If htComName.Count = 0 OrElse Not htComName.Contains(sCode) Then Return ""
+        Return htComName.Item(sCode).ToString
+    End Function
+    
+'In Service
+    '取得萬用代碼
+    Private Function getNameValue(ByVal Type As Object, ByVal Code As Object) As String
+        Dim sb As New SqlStringBuilder
+        If Not isNull(Type) AndAlso Not isNull(Code) Then
+            sb.Append("SELECT CMCODE_NAME('" & Type.ToString & "','" & Code.ToString & "') AS CNAME FROM DUAL")
+            Return nvl(DefaultRunner.ExecuteScalar(sb.ToSqlString, trans), "")
+        End If
+        Return ""
+    End Function    

@@ -1,0 +1,6 @@
+        '另外開一個transaction
+        conn = DatabaseRunnerFactory.GetRunner(DefaultInstanceName).GetConnection
+        conn.Open()
+        transOther = conn.BeginTransaction
+        DefaultRunner.ExecuteNonQuery(sb.ToSqlString, transOther)
+        transOther.Commit()

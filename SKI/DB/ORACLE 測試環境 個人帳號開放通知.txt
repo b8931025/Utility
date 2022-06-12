@@ -1,0 +1,6 @@
+From 曹瑞生
+    ESKIITEST 測試環境已幫各位建立個人帳號 帳號為SKI + 6碼員工編號，密碼亦同。首次登入後ORACLE 會要求各位變更密碼，各位再變更成自己的密碼。
+個人帳號權限可以建立自己的TABLE及 SELECT  SKERP_DB及SKERP_APD 的資料但SELECT 時要掛上SCHEMA 例如：select * from skerp_db.pubm_pe_main。
+如果問題 請MAIL 通知我 我會儘速處理。
+
+PS：正試環境ESKII 個人帳號 開放時另行通知

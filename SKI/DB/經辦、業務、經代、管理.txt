@@ -1,0 +1,11 @@
+ICREATE			建檔人員(key單人員)
+IOFFICER		經辦代號(負責的業務)
+IRES				業務來源(舊系統在用的)
+IAGENT			經紀代理人，拿傭金的人 (FAGENT_TYPE=1 這個欄位就是保經的代號，3碼 ；FAGENT_TYPE=2就是業務員的員編，8碼)
+IMANAGER		管理人(收費員)代號，業績歸屬，如果IAGENT是公司員編，那IAGENT=IMANAGER  (一個IMANAGER可以管理多位IOFFICER)
+FAGENT_TYPE	經紀人類別	1經紀人,2業務員
+
+/*由經辦代號取得對應管理人員代號和名稱*/
+select off_maid('KJ480F00') AS IMANAGER,
+off_nmaid('KJ480F00') as NMANAGER
+from dual;

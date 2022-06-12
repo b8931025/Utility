@@ -1,0 +1,30 @@
+    '用縣、市和鄉、鎮、市、區，取得郵遞區號
+    Private Function getZIP(ByVal sCity As String, ByVal sTown As String) As String
+        If isNull(sCity) OrElse isNull(sTown) Then Return ""
+
+        Dim sCityOk As String = Microsoft.VisualBasic.Replace(sCity, "臺", "台")
+        Dim sTownOk As String = sTown
+        Dim dsOut As DataSet
+        Dim sParam(2) As String
+
+        If sCity = "台北縣" OrElse sCity = "台中縣" OrElse sCity = "台南縣" OrElse sCity = "高雄縣" Then
+            If sCity = "台北縣" Then sCityOk = "新北市"
+            If sCity = "台中縣" Then sCityOk = "台中市"
+            If sCity = "台南縣" Then sCityOk = "台南市"
+            If sCity = "高雄縣" Then sCityOk = "高雄市"
+            sTownOk = Left(sTown, 2) & "區"
+        End If
+
+        'args(0):TableName
+        'args(1):Condition
+        'args(2):ColumnList
+        sParam(0) = "CMNP_ZIPCODE"
+        sParam(1) = "NCITY='" & sCityOk & "' AND NCOUNTY='" & sTownOk & "'"
+        sParam(2) = "IZIPCODE"
+        dsOut = InvokeCommonService("FIRService.bsSingleSQL", sParam)
+
+        If Not IsNothing(dsOut) AndAlso dsOut.Tables(0).Rows.Count > 0 AndAlso Not IsDBNull(dsOut.Tables(0).Rows(0)("IZIPCODE")) Then
+            Return dsOut.Tables(0).Rows(0)("IZIPCODE").ToString
+        End If
+        Return ""
+    End Function

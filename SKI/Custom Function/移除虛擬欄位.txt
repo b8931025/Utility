@@ -1,0 +1,28 @@
+    '移除DataTable中的虛擬欄位
+    Public Sub removeFakeColumn(ByRef ds As DataSet, ByVal sTBName As String, ByVal trans As IDbTransaction)
+        Dim sb As New SqlStringBuilder
+        Dim dsSchema As DataSet
+        Dim sRemList As New System.Text.StringBuilder    '移除清單
+
+        If Not ds.Tables.Contains(sTBName) Then Exit Sub
+
+				'不取資料，只取schema
+        sb.Append("select * ")
+        sb.Append("from " & sTBName)
+        sb.Append("where 1=0")
+        dsSchema = DefaultRunner.ExecuteDataSet(sb.ToSqlString, trans)
+
+        For Each col As DataColumn In ds.Tables(sTBName).Columns
+            If Not dsSchema.Tables(0).Columns.Contains(col.ColumnName) Then
+                '虛擬欄位清單
+                sRemList.Append(col.ColumnName & ",")
+            End If
+        Next
+
+        If sRemList.Length > 0 Then
+            For Each sCol As String In sRemList.ToString.Trim(","c).Split(","c)
+                '移除虛擬欄位
+                ds.Tables(sTBName).Columns.Remove(sCol)
+            Next
+        End If
+    End Sub

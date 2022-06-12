@@ -1,0 +1,7 @@
+下個工作日SQL ：
+因車險理賠有個需求，發送簡訊要抓今天之後的下個工作日(不含今天)
+舉例：禮拜五送簡訊排程，下禮拜一(工作日)送簡訊，依此類推，因人事檔有個TABLE 可以抓工作日，小弟在此分享如何抓下個工作日
+SELECT  MIN(DDATE) DWORK
+FROM PSNP_DATE
+WHERE DDATE>SYSDATE
+AND KWORK=1

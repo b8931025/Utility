@@ -1,0 +1,49 @@
+<From>
+//me.RegisterHiddenField("_PAGESI", this.PageSessionID)
+ <input type="hidden" name="_PAGESI" value="FIR2B2000_014703944" />
+ 
+//If Not Page.IsClientScriptBlockRegistered("FIRAjax") Then
+//    Dim sScript As String = "<script language='javascript' src='" & ResolveUrl("../FIRUtils/FIRAjax.js") & "'></script>" & Environment.NewLine
+//    Me.Page.RegisterClientScriptBlock("FIRAjax", sScript)
+//End If		
+<script language='javascript' src='/skerp/B2BWEB/FIRUtils/FIRAjax.js'></script>
+
+//me.JSAppendFormHeadScripts(script)
+	<script language='javascript'>
+		var urlHome="/skerp/";
+		var urlControlPath="/skerp/ISNEControl";
+		var urlFrameControl="/skerp/ISNEControl/FrameControl.aspx";
+		var urlMainMenu="/skerp/SCSWeb/MainMenu.aspx";
+		var urlRemoveThread="/skerp/ISNEControl/RemoveThread.aspx";
+		var strFormsCookieName="NEAuth";
+		var isFrameContainer=false;
+		var strModalWindowFeature="center:yes;resizable:yes;scrollbars:yes;dialogWidth:900px;dialogHeight:600px;";
+		var strModelessWindowFeature="status=yes,toolbar=no,menubar=no,location=no,resizable=yes,scrollbars=yes";
+		var intSessionTimeoutDetectInterval=60000;
+		var strDefaultFocusControlClientID="";
+		var isPopupSessionTimeout=false;
+		var UIIsPreventResubmit=true;
+	</script>
+
+//me.JSAppendWindowOnLoadScripts("initPage();", true)
+	<script language='javascript' FOR=window EVENT=onload>
+		initPage();
+	</script>
+
+//me.JSAppendWindowOnUnloadScripts("alert('Unload');")
+	<script language='javascript' FOR=window EVENT=onunload>
+		alert('Unload');
+	</script>	
+
+  <Table>  
+  
+  </Table>
+  //me.JSRegisterFormTailScriptFile(this.CfgControlPathUrl + "/FrameControl.js")
+  <script language='javascript' src='/skerp/ISNEControl/FrameControl.js'></script>
+  
+  
+  	<script language='javascript'>
+  	  //me.JSAppendFormTailScripts("window.open('/skerp/B2BWEB/FIR/FIR2B2001.aspx', 'FIR2B2001','');")  一行一行加
+			window.open('/skerp/B2BWEB/FIR/FIR2B2001.aspx', 'FIR2B2001','');
+		</script>
+</From>

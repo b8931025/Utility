@@ -1,0 +1,51 @@
+成員屬於: IntelliSys.NetExpress.Web.CodeCache.BindDropDownList
+Public Shared Sub BindDropDownList(ByVal dataName As String, 
+ByVal typeName As String, 
+ByVal ddl As System.Web.UI.WebControls.DropDownList, 
+ByVal selectedValue As String, 
+ByVal withLeadingCode As Boolean, 
+ByVal showDisabledItem As Boolean, 
+ByVal emptyItemText As String)
+
+參數:
+dataName: 快取資料名稱(在Web.config設的key)
+typeName: 快取資料種類代碼(CMNP_COMMONCODE.TYPE)
+ddl: 下拉式選單控制項
+selectedValue: 項目的Value屬性相同時會設為已選擇，null(Nothing)表示不設已選擇項目
+withLeadingCode: 是否加前置代碼
+showDisabledItem: 是否使用已標示停用(Status=2)的代碼
+emptyItemText: 空白項目(值為空字串)顯示內容，如果 null 將不會建立空白項目
+
+example:
+
+in CLM502000.aspx.vb
+If IsDBNull(ROW("FDEAD")) Then '身故方式
+    CodeCache.BindDropDownList("clm.has", "HAS_FDEAD", Me.ddlFDEAD, Nothing, True, False, "")
+Else
+    CodeCache.BindDropDownList("clm.has", "HAS_FDEAD", Me.ddlFDEAD, UTF.GetColumnText(ROW, "FDEAD"), True, False, "")
+End If
+
+Web.config
+<add key="ccdn://clm.has/" value="CLMService.bsGetClmItem" /> <!--傷健險相關代碼-->
+
+in CLMService.bsGetClmItem.vb
+Public Class bsGetClmItem
+    Protected Overloads Overrides Sub DoRequest(ByVal args() As String, ByVal result As System.Data.DataSet, ByVal trans As System.Data.IDbTransaction)
+        Select Case args(0).ToLower()
+            Case "clm.has"  
+                Load_AllHas(result, trans)
+            Case Else
+                Throw New ApplicationException("CLM CODE CACHE ERROR:無法提供所要求的資料-'" & args(0) & "'")
+        End Select
+    End Sub
+    
+    Public Sub Load_AllHas(ByVal ds As beCodeText, ByVal trans As System.Data.IDbTransaction)
+        '送件單位
+        Dim sb As New SqlStringBuilder
+        sb.Append("SELECT TYPE, CODE, NAME AS TEXT, STATUS, OSEQ AS ORDERSEQUENCE, DATA1")
+        sb.Append("FROM CMNP_COMMONCODE")
+        sb.Append("WHERE TYPE LIKE 'HAS%'")
+        sb.Append("ORDER BY CODE")
+        LoadDataSet(sb.ToSqlString, ds, trans)
+    End Sub    
+End Class

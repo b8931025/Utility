@@ -1,0 +1,5 @@
+Imports IntelliSys.NetExpress.DAO
+        Dim runner As IDatabaseRunner = DatabaseRunnerFactory.GetRunner
+        runner.ExecuteDataSet()
+        runner.ExecuteScalar()
+        runner.UpdateDataSet().....

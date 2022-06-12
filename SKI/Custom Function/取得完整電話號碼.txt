@@ -1,0 +1,17 @@
+    '取得完整電話號碼,ZCode=區碼,Tel=電話號碼,EXT=分機
+    Private Function getFullTel(ByVal ZCode As Object, ByVal Tel As Object, ByVal EXT As Object) As String
+        Dim sFormat As String = String.Empty
+        If isNull(Tel) Then Return ""
+        If Not isNull(ZCode) AndAlso Not isNull(EXT) Then
+            sFormat = "({0}){1}#{2}"
+            Return String.Format(sFormat, New String() {ZCode.ToString, Tel.ToString, EXT.ToString})
+        ElseIf Not isNull(ZCode) Then
+            sFormat = "({0}){1}"
+            Return String.Format(sFormat, New String() {ZCode.ToString, Tel.ToString})
+        ElseIf Not isNull(EXT) Then
+            sFormat = "{0}#{1}"
+            Return String.Format(sFormat, New String() {Tel.ToString, EXT.ToString})
+        Else
+            Return Tel.ToString
+        End If
+    End Function

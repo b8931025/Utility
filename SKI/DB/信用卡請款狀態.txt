@@ -1,0 +1,10 @@
+Select a.FRCV_PAY
+From AOIM_PLYEDR_DETAIL a
+Join AOIM_PLYEDR_MAIN b On a.AOIM_PLYEDR_MAIN_OID=b.OID
+Where 1=1
+  And a.IPOLICY='xxxx'
+  And a.IPLYSEQ=xxxx
+  And a.IEDRSEQ=xxxx
+  And a.QPERD=xxxx
+  And a.FRCV_PAY='N'  --N:未請款 P:出納確認
+

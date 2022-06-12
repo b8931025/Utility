@@ -1,0 +1,5 @@
+update時出現錯誤訊息[DBConcurrencyException]並行違規 UpdateCommand 已經影響 0 個記錄
+
+建斌:
+那是因為bsXXXLoad，在下sql時沒有把oid給select出來，看不到oid，系統就會把oid設為-1，以為是新增
+造成這個錯誤

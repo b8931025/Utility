@@ -1,0 +1,9 @@
+c:\skerp\fir\firreport\FIR306000Print6.rdl
+
+取得npage如果用left join排序會失效，改用inner join連輸出都沒有
+但報表管理員印出來，卻有排序，一定要用逗號去join，才可以正常排序
+應該是Reporting Service的問題
+
+※
+在Reporting Service的sql裡，不要用inner,left join
+盡量用逗號的join 

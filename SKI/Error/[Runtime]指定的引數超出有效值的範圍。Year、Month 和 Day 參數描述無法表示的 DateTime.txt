@@ -1,0 +1,11 @@
+sqlいDVOUCH琌Date篈穦メ
+                          
+ServiceException,System.ArgumentOutOfRangeException: ﹚ま计禬Τ絛瞅
+把计嘿: YearMonth ㎝ Day 把计磞瓃礚猭ボ DateTime                       
+               
+sb.Append("SELECT MAX(DVOUCH)              ")
+sb.Append("FROM CLMM_CM_SETTLE             ")
+sb.Append("WHERE ICLAIM = '0000FBC0000001' ")     
+Dim DVouch As Object = DefaultRunner.ExecuteScalar(sb.ToSqlString, trans)     
+
+秆∕よ猭:ぃ璶ノScalar    

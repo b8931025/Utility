@@ -1,0 +1,84 @@
+ServiceException,System.Data.OracleClient.OracleException: ORA-01405: 擷取出來的資料欄值是 NULL
+   at System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   at System.Data.OracleClient.OracleDataReader.ReadInternal()
+   at System.Data.OracleClient.OracleDataReader.Read()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Oracle.OracleDataReaderWrapper.Read()
+   at CLMService.bsCLM284000Print.DoRequest(DataSet param, DataSet result, IDbTransaction _trans) in C:\SKERP\CLM\ClmService\bsCLM284000Print.vb:line 51
+   at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet param, IDbTransaction trans)
+   at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet param)
+   at IntelliSys.NetExpress.Server.BSServer.Request(String serviceName, DataSet ds)
+   at IntelliSys.NetExpress.Web.BSAgent.InvokeBusinessService(String serviceName, DataSet dsParam, CallContextData cdContextData)
+   at IntelliSys.NetExpress.Web.JobExecuter.ProcessJob()
+
+用下面這段left join的sql就會丟出  ORA-01405 的error
+是oracle client的bug，所以要用(+)改寫才可以避掉 
+error sql:
+SELECT DISTINCT A.OID AS ICLAIM_OID,
+                A.ICLAIM,
+                A.IPOLICY,
+                A.IPLYSEQ,
+                A.IACDRESN,
+                A.NACDRESN,
+                A.TACDENT,
+                A.TCLAIM,
+                A.FCLOSE,
+                A.INOTARY,
+                A.IACDRESN,
+                A.NACDRESN,
+                A.TACDENT,
+                A.TCLAIM,
+                A.FCLOSE,
+                B.OID AS SETTLE_OID,
+                NVL(B.ICLAIM_TYPE, 0) AS ICLAIM_TYPE,
+                B.DVOUCH,
+                NVL2(B.DVOUCH, 1, 0) AS SETTLE_CLOSE,
+                C.IPROCESS,
+                B.FSTL,
+                B.FSETTLE
+  FROM CLMM_CM_CLAIM A
+  LEFT JOIN CLMM_FI_CLAIM C
+    ON A.OID = C.CLMM_CM_CLAIM_OID
+   AND A.ICLAIM = C.ICLAIM
+   AND A.IINSCLS = 'F'
+  LEFT JOIN CLMM_CM_SETTLE B
+    ON A.OID = B.ICLAIM_OID
+   AND b.dvouch IS NOT NULL
+   AND B.DVOUCH <= TO_DATE('2011/04/30', 'YYYY/MM/DD')
+ WHERE 'CLM284000_085001' = 'CLM284000_085001'
+   AND A.IINSCLS = 'F'
+   AND A.TACDENT BETWEEN TO_DATE('2010/04/01', 'YYYY/MM/DD') AND
+       TO_DATE('2011/04/30', 'YYYY/MM/DD') 
+       
+ok sql:
+SELECT DISTINCT A.OID AS ICLAIM_OID,
+                A.ICLAIM,
+                A.IPOLICY,
+                A.IPLYSEQ,
+                A.IACDRESN,
+                A.NACDRESN,
+                A.TACDENT,
+                A.TCLAIM,
+                A.FCLOSE,
+                A.INOTARY,
+                A.IACDRESN,
+                A.NACDRESN,
+                A.TACDENT,
+                A.TCLAIM,
+                A.FCLOSE,
+                B.OID AS SETTLE_OID,
+                NVL(B.ICLAIM_TYPE, 0) AS ICLAIM_TYPE,
+                B.DVOUCH,
+                NVL2(B.DVOUCH, 1, 0) AS SETTLE_CLOSE,
+                C.IPROCESS,
+                B.FSTL,
+                B.FSETTLE
+  FROM CLMM_CM_CLAIM A  , CLMM_CM_SETTLE B ,CLMM_FI_CLAIM C
+ WHERE 'CLM284000_085001' = 'CLM284000_085001'
+   AND A.IINSCLS = 'F'
+   AND A.TACDENT BETWEEN TO_DATE('2010/04/01', 'YYYY/MM/DD') AND
+       TO_DATE('2011/04/30', 'YYYY/MM/DD') 
+   AND A.OID = C.CLMM_CM_CLAIM_OID(+)
+   AND A.ICLAIM = C.ICLAIM(+)
+   AND A.OID = B.ICLAIM_OID (+)
+   AND b.dvouch(+) IS NOT NULL 
+   AND B.DVOUCH(+) <= TO_DATE('2011/04/30', 'YYYY/MM/DD')            

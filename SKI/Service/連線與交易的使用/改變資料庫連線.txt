@@ -1,0 +1,9 @@
+    '改變資料庫連線
+    'sInstanceName 連線資料庫名稱StringResource.BackupInstanceName或StringResource.DefaultInstanceName
+    Private Sub changeConnection(ByRef trans As IDbTransaction, ByVal sInstanceName As String)
+        Dim newRunner As IDatabaseRunner = DatabaseRunnerFactory.GetRunner(sInstanceName)
+        trans.Connection.Close()
+        trans.Connection.ConnectionString = newRunner.GetConnection.ConnectionString '"Data Source=ESKIIBK;Password=intell;User ID=skerp_db;"
+        trans.Connection.Open()
+        trans = trans.Connection.BeginTransaction
+    End Sub

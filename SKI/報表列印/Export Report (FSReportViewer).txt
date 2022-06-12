@@ -1,0 +1,120 @@
+in Web
+  Protected Overrides Sub BaseDoPrint()
+		Try
+			CheckNull()
+			sIREPORT = Guid.NewGuid().ToString("N").ToUpper()
+			Dim jobTitle As String
+			Dim beReportParameter As New beParameters
+			
+			'設定參數
+			beReportParameter.Parameters.AddParametersRow(tempID)			 '報表編號
+			beReportParameter.Parameters.AddParametersRow(Me.ddlIInsCls.SelectedValue)			 '險類(傷害險、健康險)
+			beReportParameter.Parameters.AddParametersRow(Me.uc2DClose.DateText.Trim)			 '簽單日期
+			beReportParameter.Parameters.AddParametersRow(Me.ScsUserName)				'使用者名稱
+			beReportParameter.Parameters.AddParametersRow(Me.ddlSubPrint.SelectedValue)				'報表類別
+			beReportParameter.Parameters.AddParametersRow(Me.ddlCompID.SelectedValue)			 '分公司代號
+
+			jobTitle = "保單簽單日報表列印"
+
+        Try '防止重複執行JobService		
+            Me.InvokeBusinessService("PUBService.bsPubChkJobParam", beReportParameter)
+        Catch ex As Exception
+            ProcessException(ex)
+        End Try
+
+			Dim jobID As String = InvokeJobService("CASService.bsCAS303001Print", beReportParameter, jobTitle)
+			UIAppendMessage("列印作業已經成功送出! 作業代號:" + jobID)
+			JobWait.Wait(Me, jobID, jobTitle, WaitFSReport)
+
+		Catch ex As Exception
+			ProcessException(ex)
+		End Try
+  End Sub
+  
+  	''''''''''''''''''''''''''''''''以下不用改，直接複製''''''''''''''''''''''''''''''''
+    Protected Overrides ReadOnly Property BaseCanPrint() As Boolean
+        Get
+            Return True '顯示列印按鈕
+        End Get
+    End Property
+      
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitFSReport
+                If ti.Committed Then
+
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                                FSReportViewer.ViewReport(Me, jobID)  '<----這裡跟ReportViewer不一樣
+                    End Select
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select  
+  	''''''''''''''''''''''''''''''''以上不用改，直接複製''''''''''''''''''''''''''''''''
+  
+in Service
+    Dim strName() As String
+    Dim strValue() As String
+    Protected sIREPORT As String = String.Empty  
+Protected Overloads Overrides Sub DoRequest( _
+               ByVal param As DataSet, _
+               ByVal result As DataSet, _
+               ByVal trans As IDbTransaction _
+       )
+
+        '取得參數
+        Dim row As beCAS304000Query.CAS304000QueryRow = CType(param, beCAS304000Query).CAS304000Query(0)
+        Dim IReport As String = Guid.NewGuid().ToString("N").ToUpper()
+
+				'......商業邏輯處理.......
+        Me.LoadDataSet(sb.ToSqlString(), dsCASR_304, "PUBM_PE_PREM", trans) 
+				''''''......Coding ....			       
+
+			'將資料結果上傳到DB儲存
+ 			Me.DefaultRunner.UpdateDataSet(dsCASR_304, "CASR_304", trans)		
+End Sub
+
+  	''''''''''''''''''''''''''''''''以下不用改，直接複製''''''''''''''''''''''''''''''''
+    Public Overrides Sub AfterCommit(ByVal param As System.Data.DataSet, ByVal result As System.Data.DataSet)
+        If isFSView Then
+            Dim oCmn As New CmnFunction
+            'Throw New Exception("作業逾時")
+            '因為會產生空報表, 所以修改如下 -----------------------
+            Dim bytData() As Byte
+            For i As Integer = 0 To 5       ' 如果 5 次後還是空報表 表示 其結果為空報表.
+
+            'sIREPORT是Guid.NewGuid().ToString("N").ToUpper()
+            'strName/strValue是傳給報表的參數
+                bytData = oCmn.RSWebServiceRenderPDF("/FIRReport/FIRPLY21_Main", sIREPORT, strName, strValue)
+                If bytData.Length > 3072 Then   ' 小於 1 k 視為空報表.
+                    Exit For
+                Else
+                    System.Threading.Thread.Sleep(100)
+                End If
+            Next
+
+            Dim strExtName As String = Now.ToFileTime.ToString & ".pdf"
+            Dim PathID As Integer = FileService.CreateFile(strExtName, bytData, "F")
+            CType(result, beFSReports).ReportItems.AddReportItemsRow(PathID, strExtName, "資料轉入處理", Nothing)
+        Else
+            MyBase.AfterCommit(param, result)
+        End If
+    End Sub
+  	''''''''''''''''''''''''''''''''以上不用改，直接複製''''''''''''''''''''''''''''''''    

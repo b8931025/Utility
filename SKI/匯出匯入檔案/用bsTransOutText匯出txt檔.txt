@@ -1,0 +1,92 @@
+1.先到CMN351000設定轉檔的設定和轉檔格式代號
+
+2.然後再程式中加入下列程式碼
+
+  Protected Overrides Function BaseGetCommandBarCommands() As IntelliSys.NetExpress.Web.UICommand()
+      Return New UICommand() {UICommands.cmdQuery, UICommands.cmdClear, UICommands.cmdExit, UICommands.cmdExport}
+  End Function                                                                      加入這個^^^^^^^^^^^^^^^^^^^^
+
+  Private Const WaitReport As String = "WaitReport"
+    Protected Overrides Sub BaseDoExport(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim dsTrans As New beTransParam
+        Dim dr As DataRow = dsTrans.TransInfo.NewRow
+        Dim jobID As String
+        Dim jobTitle As String = String.Empty
+
+        dr.Item("TransCode") = "CLM299_EX"
+        'SerializeTypedXML   將DataSet轉成XML格式後放入 dr("ParamText") 欄位中
+        'DeserializeTypedXML 將欄位資料轉成XML格式後放回 DataSet -> bsTransOutText 中實作    
+        dr.Item("ParamText") = EntityHelper.SerializeTypedXML(AppGetQueryParameterDataSet)
+        dr.Item("QryService") = "CLMService.bsCLM299000Export"
+        dr.Item("RDSAssembly") = " "
+        dsTrans.TransInfo.Rows.Add(dr)
+
+        jobTitle = "匯出上傳檔作業"
+
+        ' Excel格式: bsTransOutCsv
+        ' Txt  格式: bsTransOutText
+        jobID = InvokeJobService("PUBService.bsTransOutText", dsTrans, jobTitle)
+        UIAppendMessage("匯出作業已經成功送出! 作業代號:" + jobID)
+        JobWait.Wait(Me, jobID, jobTitle, WaitReport)
+
+        Me.BaseDoClear()
+        Me.UIAlertMessage("上傳檔案請至【共用資源】[08]查詢作業 : CMN801000批次檔案查詢下載!!")
+    End Sub
+
+    Protected Overrides Sub BaseOnPageReturn(ByVal ti As IntelliSys.NetExpress.Web.TransferInfo)
+        Select Case ti.CommandName
+            Case WaitFSReport, WaitRSReport
+                If ti.Committed Then
+                    Dim jobID As String = ti.Args(0).ToString
+                    Select Case CType(ti.Result, JobStatus)
+                        Case JobStatus.ServiceException, JobStatus.ProcessException
+                            Dim ds As New IntelliSys.NetExpress.Entity.beParameters
+                            Dim dr As DataRow = ds.Parameters.NewParametersRow
+                            UTF.SetColumnValue(dr, "Parameter", jobID)
+                            ds.Tables(0).Rows.Add(dr)
+                            Dim dsReturn As IntelliSys.NetExpress.Entity.beJobs
+                            dsReturn = CType(Me.InvokeBusinessService("IntelliSys.NetExpress.Service.bsGetJob", ds), beJobs)
+
+                            If Not IsNothing(dsReturn) AndAlso dsReturn.Tables(0).Rows.Count > 0 Then
+                                If Not IsDBNull(dsReturn.Tables(0).Rows(0)("ExceptionData")) Then
+                                    Dim ex As Exception = CType(UTF.BinaryDeserializeObject(CType(dsReturn.Tables(0).Rows(0)("ExceptionData"), Byte())), Exception)
+                                    Me.UIAppendError(ex.Message)
+                                End If
+                            End If
+                        Case JobStatus.Cancel
+                        Case Else
+                        		'彈出視窗，列出下載檔案
+                            FSReportViewer.ViewReport(Me, jobID, FSReportViewer.ViewType.Download)
+                    End Select
+                End If
+            Case JobWait.DefaultCommandName
+                If ti.Committed Then
+                    BaseDoGetJobResult(CStr(ti.Args(0)), CType(ti.Result, JobStatus))
+                Else
+                    Me.UIAppendMessage("取消作業!" & CStr(ti.Args(0)))
+                End If
+            Case Else
+                MyBase.BaseOnPageReturn(ti)
+        End Select
+    End Sub
+
+    Protected Sub BaseDoGetJobResult(ByVal jobID As String, ByVal status As JobStatus)
+        If status <> JobStatus.Cancel Then
+            Dim dsJob As beJobs = CType(Me.InvokeCommonService("IntelliSys.NetExpress.Service.bsGetJob", jobID), beJobs)
+            Dim dr As beJobs.JobsRow = dsJob.Jobs(0)
+            If status = JobStatus.Completed Then
+                Dim ds As DataSet = EntityHelper.DeserializeTypedXML(dr.ResultData)
+                If Not dr.IsProcessMessageNull Then
+                    Me.UIAppendMessage(dr.ProcessMessage)
+                End If
+                StateMain = ds
+            ElseIf status = JobStatus.ProcessException OrElse status = JobStatus.ServiceException Then
+                Dim ex As Exception = CType(UTF.BinaryDeserializeObject(dr.ExceptionData), Exception)
+                ProcessException(ex)
+            Else
+                Me.UIAppendError("Invalid JobStatus:" & status.ToString())
+            End If
+        Else
+            Me.UIAppendMessage("作業已經取消執行!" & jobID)
+        End If
+    End Sub

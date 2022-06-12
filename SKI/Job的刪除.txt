@@ -1,0 +1,20 @@
+用Query Analyzer連到SqlServer
+用[Windows的帳戶驗證]
+或是
+[SqlServer的帳戶驗證]
+Server Name :tnetdb
+ID:NetExpress.sa
+PW:NetExpress.sa
+
+修改表格[NetExpress].[dbo].[Jobs]  的  JobStatus為-4
+update  [NetExpress].[dbo].[Jobs] set JobStatus=-4
+where JobID=20180119100413644;  <---作業代號
+
+SELECT [JobID], [JobTitle], [JobStatus]
+ FROM [NetExpress].[dbo].[Jobs]
+where JobID=20120217142834640;
+
+
+SELECT [JobID], [JobTitle], [JobStatus]
+ FROM [NetExpress].[dbo].[Jobs]
+where JobStatus=2; --執行中

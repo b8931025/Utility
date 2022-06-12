@@ -1,0 +1,8 @@
+如果不從mis的左邊樹狀選單進入網頁，而是直接打網址，像 http://cp167/skerp/FIRWEB/FIR01/FIR101000.ASPX 
+進去之後會Page_Load兩次
+是因為如果從樹狀選單進去，會經由FrameControl.apsx去當外框
+如果直接打網址進去，平台的BaseRegisterJavascript()會附加上一段JavaScript再重新導入FrameControl.apsx
+造成第二次的Page_Load
+
+直接打網址如果要避免二次Page_Load就把BaseRegisterJavascript() overrides成空的，就可以
+但不建議 

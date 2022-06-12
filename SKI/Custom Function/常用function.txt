@@ -1,0 +1,211 @@
+    '眔疭﹚计计
+    '_Num : 琌null碞メnullΤ眔计
+		'_Val : 璶矪瞶Value
+    'i : 1 计 2 珺计 3 κ计 摸崩
+    Function getDigi(ByVal _Num As Object, ByVal _Val As Object, ByVal i As Integer) As String
+        Dim dOrigi As Decimal
+        Dim lPrem As Long
+        If isNull(_Num) Then Return ""
+        dOrigi = CDec(nvl(_Val, "0"))
+        lPrem = CLng(dOrigi Mod (10 ^ i))
+        lPrem = CLng(lPrem) \ CLng(10 ^ (i - 1))
+        If i = 1 Then
+            Return lPrem.ToString
+        ElseIf i > 1 AndAlso dOrigi >= CLng(10 ^ (i - 1)) Then
+            Return lPrem.ToString
+        End If
+        Return ""
+    End Function
+    
+    '盢DataRow琌DBNull逆峨箇砞NullNumberValue㎝NullStringValue狦⊿Τ砞碞琌砞﹚DBNull
+    Private Sub setEmptyAndDBNull(ByRef _dr As Object, Optional ByVal NullNumberValue As Decimal = -1, Optional ByVal NullStringValue As String = Nothing)
+        If IsNothing(_dr) OrElse Not TypeOf _dr Is DataRow Then Exit Sub
+        Dim dr As DataRow = CType(_dr, DataRow)
+
+        For Each col As DataColumn In dr.Table.Columns
+            Dim tp As Type = col.DataType
+            If Not col.ColumnName.Equals("IOBJ_ID_1") Then
+                If IsDBNull(dr(col.ColumnName)) OrElse dr(col.ColumnName).ToString.Trim.Length = 0 Then
+                    If tp Is GetType(String) Then
+                        If IsNothing(NullStringValue) Then
+                            If col.AllowDBNull Then dr(col.ColumnName) = DBNull.Value
+                        Else
+                            dr(col.ColumnName) = NullStringValue
+                        End If
+                    ElseIf tp Is GetType(Decimal) OrElse tp Is GetType(Integer) Then
+                        If NullNumberValue = -1 Then
+                            If col.AllowDBNull Then dr(col.ColumnName) = DBNull.Value
+                        Else
+                            dr(col.ColumnName) = NullNumberValue
+                        End If
+                    End If
+                End If
+            End If
+        Next
+    End Sub
+
+    Private Enum Align
+        Left
+        Right
+    End Enum
+    '砞﹚オ/綼恶骸疭﹚じ
+    Private Function PadFormatString(ByVal obj As Object, _
+    ByVal maxLength As Integer, _
+    ByVal fillChar As String, _
+    Optional ByVal align As Align = Align.Right) As String
+        Dim oCommon As New PUBEntity.CmnFunction
+        Dim sResult As String
+        'obj:块﹃
+        'maxLength:﹃程
+        'fillChar:恶じ
+        'align:癸霍よΑ
+        If IsNothing(obj) OrElse IsDBNull(obj) OrElse CStr(obj).Trim.Length < 1 Then
+            sResult = ""
+        Else
+            sResult = CStr(obj)
+        End If
+
+        If align = align.Left Then
+            sResult = Left(oCommon.ansiFillStr(sResult, maxLength, fillChar), maxLength)
+        ElseIf align = align.Right Then
+            sResult = Right(oCommon.ansiFillStrLeft(sResult, maxLength, fillChar), maxLength)
+        End If
+        Return sResult
+    End Function
+    
+    '矪瞶Unicode螟锣传big硑Θ拜腹
+    Private Function treatQuestionMark(ByVal _Src As Object) As String
+        Dim data() As Byte
+        If isNull(_Src) Then Return ""
+        data = System.Text.Encoding.Default.GetBytes(_Src.ToString)             ''ず甧锣ΘByte
+        Dim BigStr As String = System.Text.Encoding.GetEncoding("big5").GetString(data)       ''ず甧锣ΘBig5絪絏锣Θ﹃
+        '﹃い?ノㄢフ锣Byte
+        Return BigStr.Replace("?"c, Space(2))
+    End Function    
+   
+        '耞琌坝穨(FC)(FR)临琌﹡產侯(FP)
+    Function getIINSKIND(ByVal sIPolicy As String) As String
+        If isNull(sIPolicy) OrElse sIPolicy.Length < 7 Then
+            Throw New Exception("ERROR IPOLICY")
+        End If
+        '玂虫腹絏材せ絏璝A,C,I,S,W,X,Y 妮坝穨ㄤウ玥耴摸 ㎝﹡產侯
+        Dim enterprise As Char() = {"A"c, "C"c, "I"c, "S"c, "W"c, "X"c, "Y"c}
+        '玂虫腹絏材せ絏璝P 妮﹡產侯ㄤウ玥耴摸
+        Dim house_combine As String = "P"
+        If sIPolicy.Substring(5, 1).IndexOfAny(enterprise) = -1 Then
+            '
+            If sIPolicy.Substring(5, 1).IndexOf(house_combine) > -1 Then
+                '﹡產侯
+                Return "FP"
+            Else
+                '
+                Return "FR"
+            End If
+        Else
+            '坝穨
+            Return "FC"
+        End If
+    End Function
+    
+    '┰计锣いゅ计,bBig=False 糶いゅ bBig=True 糶いゅ
+    Public Shared Function ConvertCHNum(ByVal Num As Integer, Optional ByVal bBig As Boolean = False) As String
+        If Num = 0 Then
+            Return "箂"
+        Else
+            Dim cName() As String = {"", "", "", "κ", "", "窾", "", "κ", "", "货", "", "κ", ""}
+            Dim ar() As String = {"箂", "", "", "", "", "き", "せ", "", "", ""}
+            Dim cNum As Integer
+            Dim cunit As String
+            Dim i, j As Integer
+            Dim cZero As Integer
+            Dim conver As New StringBuilder
+            Dim cLast As String = ""
+            Dim Text1 As String = CStr(Num)
+
+            'いゅ糶
+            If bBig Then
+                cName = New String() {"", "", "珺", "ㄕ", "", "窾", "珺", "ㄕ", "", "货", "珺", "ㄕ", ""}
+                ar = New String() {"箂", "滁", "禠", "把", "竩", "ヮ", "嘲", "琺", "", "╤"}
+            End If
+
+            cZero = 0
+            i = 1
+            For j = Len(Text1) To 1 Step -1
+                cNum = CInt(Val(Mid(Text1, i, 1)))
+                cunit = cName(j) '计 
+                If cNum = 0 Then '耞计琌0,狦琌0,玥癘魁Τ碭0 
+                    cZero = cZero + 1
+                    If cunit.IndexOf("窾货") > -1 AndAlso (cLast = "") Then '狦琌窾,货,玥计窾货ㄓ干 
+                        cLast = cunit
+                    End If
+                Else
+                    If cZero > 0 Then '狦计0Τn,玥箂蠢┮Τ0 
+                        If conver.ToString.Substring(conver.Length - 1, 1).IndexOf("窾货") = -1 Then
+                            conver.Append(cLast) '狦程ぃ琌货,窾,玥程干"货窾" 
+                        End If
+                        conver.Append("箂")
+                        cZero = 0
+                        cLast = ""
+                    End If
+                    If j = 2 AndAlso cNum = 1 AndAlso Len(Text1) = 2 Then
+                        conver.Append(cunit)  '狦计⊿Τ0,玥琌いゅ计+虫(计琌1碞菠筁) 
+                    Else
+                        conver.Append(ar(cNum) + cunit) '狦计⊿Τ0,玥琌いゅ计+虫 
+                    End If
+                End If
+                i += 1
+            Next
+            '耞计程琌0,狦程0,玥р窾货干 
+            If InStr("窾货", conver.ToString.Substring(conver.Length - 1, 1)) = 0 Then
+                conver.Append(cLast) '狦程ぃ琌货,窾,玥程干"货窾" 
+            End If
+
+            Return conver.ToString
+        End If
+    End Function
+    
+    '浪チ瓣る琌タ絋
+    Public Shared Function isValidRocYYYMM(ByVal sYYYMM As String) As Boolean
+        Dim iYYY As Integer
+        Dim iMM As Integer
+
+        If IsNothing(sYYYMM) OrElse sYYYMM.Trim = "" OrElse Not IsNumeric(sYYYMM) Then Return False
+        If sYYYMM.Length = 4 Then
+            sYYYMM = "0" & sYYYMM
+        ElseIf sYYYMM.Length <> 5 Then
+            Return False
+        End If
+        iYYY = CInt(sYYYMM.Substring(0, 3))
+        iMM = CInt(sYYYMM.Substring(3, 2))
+        If iYYY < 60 OrElse iYYY > 200 Then Return False
+        If iMM > 12 Then Return False
+        Return True
+    End Function    
+
+    Private Function IIF(ByVal boo As Boolean, ByVal sTrue As String, ByVal sFalse As String) As String
+        If boo Then Return sTrue
+        Return sFalse
+    End Function
+
+    Private Function substr(ByVal d As Object, ByVal iIndex As Integer, Optional ByVal iLen As Integer = -1) As String
+        If isNull(d) OrElse iIndex >= CStr(d).Length Then Return ""
+
+        If iLen < 0 Then
+            Return CStr(d).Substring(iIndex)
+        Else
+            Return CStr(d).Substring(iIndex, iLen)
+        End If
+    End Function
+
+    '狦单0碞メ"+"玥碞メ"-"
+    Function AddOrNot(ByVal amt As Object) As String
+        If isNull(amt) Then Return "+"
+        Return IIF(CDec(amt) >= 0, "+", "-")
+    End Function
+
+    Public Shared Function getWhere(ByVal sProgramID As String, ByVal sOfficerID As String) As String
+        Return "WHERE '" & sProgramID & "_" & sOfficerID & "' = '" & sProgramID & "_" & sOfficerID & "'"
+    End Function
+
+
+    

@@ -1,0 +1,13 @@
+新種險
+
+建斌：
+Entity都用CASEntity01，只有TimeRay下的程式才是用CASEntity
+
+不要讓使用者看到OID
+
+ParameterInfo是禁用的，會拖慢速度，除非是BOLB或CLOB型態的欄位
+
+bsXXXGet,bsXXXLoad在下sql時，一定要select到 OID，不然會發生
+[DBConcurrencyException]並行違規: UpdateCommand 已經影響 0 個記錄。
+的錯誤
+

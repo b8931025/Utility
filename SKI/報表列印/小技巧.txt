@@ -1,0 +1,85 @@
+要輸出特別字元，可以用下面內建function
+Chr(65)  ASCII
+ChrW(2322) Unicode
+
+輸出到PDF的資料行首和行尾的空白會被trim掉，可以用調整padding大小的方式去控制前方的空白
+
+
+當顯示字串過大，造成報表格式失真或多一頁，可以用下面function動態調整字型大小
+s=輸入字串
+iMaxLength=限制最大長度
+iOriginPt=沒有超過最大長度下的字型size
+iChangePt=超過最大長度的字型size 
+Function setFontSizeInStringTooLong(ByVal s As String, ByVal iMaxLength As Integer, ByVal iOriginPt As Integer, ByVal iChangePt As Integer) As String
+    If IsNothing(s) OrElse s.TrimStart.Length = 0 Then Return "" & iOriginPt & "pt"
+    Dim iLength As Integer = System.Text.Encoding.Default.GetByteCount(s)
+    If iLength > iMaxLength Then Return "" & iChangePt & "pt"
+    Return "" & iOriginPt & "pt"
+End Function
+設定Reporting Service裡面的FontSize==Code.setFontSizeInStringTooLong(Fields!NPROP.Value,26,10,8)
+
+
+或者字串裡面有可轉半型的字元，也可以用下面的內建function來轉換大小
+設定Reporting Service裡面的Value=StrConv(Fields!NPROP.Value, VbStrConv.Narrow)
+
+或者將該欄位設為不可調整大小
+
+Function setFontSize(ByVal s As String, _
+ByVal iSet11Pt As Integer, _
+ByVal iSet10Pt As Integer, _
+ByVal iSet9Pt As Integer) As String
+    If IsNothing(s) OrElse s.TrimStart.Length = 0 Then Return "11pt"
+    Dim iLength As Integer = System.Text.Encoding.Default.GetByteCount(s)
+    If iLength <= iSet11Pt Then Return "11pt"
+    If iLength > iSet11Pt AndAlso iLength <= iSet10Pt Then Return "10pt"
+    If iLength > iSet10Pt AndAlso iLength <= iSet9Pt Then Return "9pt"
+    If iLength > iSet9Pt Then Return "8pt"
+End Function
+
+
+Function addPadding(ByVal s As String, ByVal iMaxLength As Integer, ByVal iLowerPt As Integer, ByVal iOverPt As Integer) As String
+    If IsNothing(s) OrElse s.TrimStart.Length = 0 Then Return "0pt"
+    Dim iLength As Integer = System.Text.Encoding.Default.GetByteCount(s)
+    If iLength <= iMaxLength Then Return iLowerPt & "pt"
+    Return iOverPt & "pt"
+End Function
+
+'用Byte數，去取SubString
+'bAfter=True 取出第iByteNum位元組後的字串
+'bAfter=False取出開頭到iByteNum位元組前一個字元的字串
+    Function SubStringByByte(ByVal sSrc As String, ByVal iByteNum As Integer, Optional ByVal bAfter As Boolean = True) As String
+        Dim iByteCount As Integer
+        Dim aryChar As Char()
+
+        If isNull(sSrc) Then Return ""
+        iByteCount = System.Text.Encoding.Default.GetByteCount(sSrc)
+        If iByteCount <= iByteNum Then
+            If bAfter Then Return ""
+            Return sSrc
+        End If
+
+        aryChar = sSrc.ToCharArray
+        For i As Integer = 0 To aryChar.Length - 1
+            iByteNum -= System.Text.Encoding.Default.GetByteCount(aryChar(i))
+            If iByteNum < 0 Then
+                If bAfter Then
+                    '取得index之後的字串
+                    Return sSrc.Substring(i)
+                Else
+                    '取得0到index之前
+                    If (i - 1) < 0 Then Return ""
+                    Return sSrc.Substring(0, i)
+                End If
+            End If
+        Next
+    End Function
+
+取得報表中的TextBox的值
+=ReportItems!textbox2.value
+
+以下欄位，會有全形數字出現，在報表列印也容易超出放置的textbox，所以
+盡量，在處理這些欄位時，將可轉半形的字，都轉半形
+NINS,NISSU,AINS,AISSU,ACOLL,ASND
+
+要在表格裡面放表格，一定要資料表首頁欄，才可以在裡面加子表格
+如果是資料表詳細資料欄，就不可以加子表格

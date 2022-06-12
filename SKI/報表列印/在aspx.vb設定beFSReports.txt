@@ -1,0 +1,22 @@
+可以在aspx.vb設定beRSReports
+c:\inetpub\wwwroot\SKERP\FIRWeb\FIR03\FIR306000.aspx.vb
+
+Protected Overloads Overrides Sub BaseDoUICommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+
+..................Codes
+
+   Case "cmdPrint8" '個資同意書
+      Dim oCmn As New PUBEntity.CmnFunction
+      Dim bytData() As Byte
+      For i As Integer = 0 To 5       '避免產生空報表, 所以修改如下 
+          bytData = oCmn.RSWebServiceRenderPDF("/FIRReport/FIRR_PSNDT_AGREE", "", New String() {"IREPORT", "IPOLICY"}, New String() {"", ""})
+          If bytData.Length > 3072 Then   ' 小於 1 k 視為空報表.
+              Exit For
+          Else
+              System.Threading.Thread.Sleep(100)
+          End If
+      Next
+      Dim strExtName As String = Now.ToFileTime.ToString & ".pdf"
+      FSReportViewer.ViewReport(Me, strExtName, bytData, FSReportViewer.ViewType.Download) '多檔下載
+      FSReportViewer.ViewReport(Me, "個資蒐集同意書.pdf", bytData, FSReportViewer.ViewType.TempUrl) '直接開啟
+End Sub    

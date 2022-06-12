@@ -1,0 +1,21 @@
+<%@ Register TagPrefix="cc1" Namespace="ProgStudios.WebControls" Assembly="ProgStudios.WebControls" %>
+<cc1:combobox id="ddlQIinscls" runat="server" AutoValidate="True" Size="6"></cc1:combobox>
+
+使用ComboBox的時機
+1.在Client端JavaScript對ComboBox的選項做改變，PostBack可以正確回傳到Server端
+但DropDownList沒辦法
+2.當下拉選項，長度過長ComboBox可以正確加長，但DropDownList無法跟隨字串長度去加長
+
+使用方法
+<%@ Register TagPrefix="cc1" Namespace="ProgStudios.WebControls" Assembly="ProgStudios.WebControls" %>
+<cc1:combobox id="ddlQIinscls" runat="server" AutoValidate="True" Size="6"></cc1:combobox>
+
+in JavaScript
+					//加入新項目
+					var ddl = document.getElementById('ddlQIinscls');
+					var oOption = document.createElement("OPTION");
+					ddl.options.add(oOption);
+					oOption.innerText = '顯示文字';
+					oOption.value = '項目值';
+					ddl.repaint();//呈現更新後的combobox
+					ddl.selectedIndex = 0;//設定選取項目

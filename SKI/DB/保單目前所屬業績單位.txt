@@ -1,0 +1,6 @@
+因經辦會調動，所以要取得該保單當前所屬業績單位，要用 off_unit()
+
+select off_unit('K077M400') 
+from dual ;
+
+

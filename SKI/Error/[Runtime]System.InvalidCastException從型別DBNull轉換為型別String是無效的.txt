@@ -1,0 +1,15 @@
+[Runtime]System.InvalidCastException從型別DBNull轉換為型別String是無效的
+ ServiceException,System.InvalidCastException: 
+ 從型別 'DBNull' 轉換為型別 'String' 是無效的。
+ 
+ 
+ Dim dr as DataRow = dtTmp.Rows(0)
+ Dim sTmp as String = "" 
+ '如果欄位COL1是DBNull那下面的程式都會出現錯誤
+ sTmp = CStr(dr("COL1"))
+ sTmp = dr.Item("COL1")
+ sTmp = dr.COL1 'Entity的DataRow
+ 
+ '避開DBNull的方法
+ sTmp = dr("COL1").ToString()   '用ToString
+ sTmp = SomeFunction(dr("COL1")) '用自定的function去處理

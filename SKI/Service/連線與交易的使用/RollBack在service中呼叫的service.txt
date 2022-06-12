@@ -1,0 +1,3 @@
+ Me.InvokeBusinessService("FIRService.bsFIR202000SaveBatch", dsFIR202) '無法rollback
+ 
+ Me.LocalServer.RequestService(New FIRService.bsFIR202000SaveBatch, dsFIR202, trans) '可以rollback

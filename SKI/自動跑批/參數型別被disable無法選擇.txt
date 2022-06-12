@@ -1,0 +1,14 @@
+參數型別被disable無法編輯是因為沒有在service中設定RequestParameterEntity造成
+不可以用ParameterType，用ParameterType還是會disable
+    
+    '無效
+    Protected Overrides ReadOnly Property ParameterType() As System.Type
+        Get
+            Return GetType(beNameValues)
+        End Get
+    End Property
+
+    '這個才對
+    Public Overrides Function RequestParameterEntity() As System.Data.DataSet
+        Return New beNameValues
+    End Function

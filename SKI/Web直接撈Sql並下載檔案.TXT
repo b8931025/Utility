@@ -1,0 +1,59 @@
+    Private Sub btnGetFile_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnGetFile.Click
+        Dim key As String = GetConnectionKey("SCS", "", "dbcs")
+        Dim con As System.Data.SqlClient.SqlConnection
+        Dim ds As New DataSet
+        Dim da As System.Data.SqlClient.SqlDataAdapter
+        Dim sSelect As New System.Text.StringBuilder
+
+        Try
+            If Me.txtFileName.Text.Trim = "" Then
+                Throw New Exception("請輸入檔名")
+            End If
+            If Me.txtCatlogID.Text.Trim = "" Then
+                Throw New Exception("請輸入CatalogID")
+            End If
+
+            con = New System.Data.SqlClient.SqlConnection(System.Configuration.ConfigurationSettings.AppSettings(key))
+            If con.State = ConnectionState.Closed Then con.Open() '判斷連線狀態
+            sSelect.Append("select PKID,Path From [NetExpress].[dbo].[Paths] Where CatalogID='" & txtCatlogID.Text.Trim & "'")
+
+            Dim DbCommand_0 As New SqlClient.SqlCommand(sSelect.ToString, con)
+            da = New SqlClient.SqlDataAdapter(DbCommand_0)
+            da.Fill(ds)
+
+            If Not IsNothing(ds) AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+                Dim binaryData() As Byte
+                Dim iPathID As Integer = CInt(ds.Tables(0).Rows(0)("PKID").ToString)
+                Dim sPath As String = ds.Tables(0).Rows(0)("Path").ToString & "\" & Me.txtFileName.Text.Trim
+
+                binaryData = Me.FSReadFile(iPathID, Me.txtFileName.Text.Trim)
+                Dim headerValue As String = "attachment; filename=" & HttpUtility.UrlEncode(System.IO.Path.GetFileName(Me.txtFileName.Text.Trim))   '避免中文檔名問題
+                HttpContext.Current.Response.ClearHeaders()
+                HttpContext.Current.Response.Clear()
+                HttpContext.Current.Response.AppendHeader("content-disposition", headerValue)
+                HttpContext.Current.Response.BinaryWrite(binaryData)
+                HttpContext.Current.Response.End()
+            End If
+        Catch ex As Exception
+            ProcessException(ex)
+        Finally
+            If Not IsNothing(con) AndAlso con.State <> ConnectionState.Closed Then
+                con.Close()
+                con.Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Function GetConnectionKey(ByVal DBID As String, ByVal SiteID As String, ByVal Type As String) As String
+        Dim KeyType As String
+        If Type = "dbcs" Then
+            KeyType = "dbcs" 'DB連線型Key
+        Else
+            KeyType = "app" '一般設定型Key
+        End If
+
+        If (SiteID.Length > 0) Then
+            Return String.Format(KeyType & "://{0}:{1}/", DBID, SiteID)
+        End If
+        Return String.Format(KeyType & "://{0}/", DBID)
+    End Function

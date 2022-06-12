@@ -1,0 +1,25 @@
+ORA-01453: SET TRANSACTION must be first statement of transaction
+
+原因:
+程式在呼叫ExecuteDataSet,RequestLocalService或LoadDataSet 等函數的時候, 忘記傳trans這個參數,
+
+如果你也和我一樣找到眼睛快脫窗，那不如就試試看這個方法吧
+快速篩選幾千筆資料，找出真正需要修改的程式碼
+
+1.      開啟專案，用Ctrl+Chift+F 尋找 可能錯誤的關鍵字，目前我知道有兩個，RequestLocalServicec和LoadDataSet(以及類似的)
+2.      在尋找結果內，會有一堆等著你去檢查的程式碼，百筆的話不如就直接看著改吧，可以直接點選開啟檔案，比較快
+3.      若是和我一樣幾千的話，就照下面的方法篩選：
+4.      將全部文字複製出來，另存成.txt文字檔
+5.      開啟Excel，執行匯入外部資料，選擇剛剛儲存的文字檔，分隔符號請輸入冒號: 即可(原本勾選的tab務必取消)
+6.      檔案將分為三欄，請給各欄位第一行一個隨便的欄位名稱(才能使用接著要做的自動篩選)
+7.      選擇第三欄(也就是LoadDataSet(sb.ToSqlString,…..那欄)，然後執行資料->篩選->自動篩選
+8.      點欄名的下拉按鈕，選擇自訂，條件是”不包含”，值輸入trans
+9.      剩下的資料，就是需要修改的程式了
+
+附件是我找出CAS需修改的資料範本(僅LoadDataSet)，可以看出雖然找出有總共3千多筆，但篩選後我只需要修改一筆
+
+建斌
+
+
+PS:
+在Service中InvokeBusinessService有時也會造成這個問題，建議改成 Me.LocalServer.RequestService(New FIRService.bsService, beEntity, trans)

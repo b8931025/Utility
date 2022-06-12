@@ -1,0 +1,127 @@
+2012/10/1 11:05上午
+翌浚:商業火險續保，不用重算，直接撈舊的，因為無法用程式自動算出
+只能撈舊的，讓user參考，還要再讓user手動算，所以商火要保書右上角，才會標示"<需重新核定保費>"
+
+    '取得總保險費
+    Private Function getAmt(ByVal sIPolicy As String, ByVal dFIR_AMT As Decimal, _
+    ByRef dNewFirAmt As Decimal, ByRef dNewEarAmt As Decimal) As Boolean
+        Dim drFRQ As DataRow
+        Dim FRate As Decimal '火災險費率
+
+        '取得beFIRGetEarthQuake,bsFIRGetRate需要的Parameter
+        drFRQ = getFRQ(sIPolicy)
+        If isNull(drFRQ) Then Return False '取不到相關Parameter就傳回False
+
+        '取得火災險費率
+        FRate = getFirRate(drFRQ)
+
+        '取得火災險保費
+        dNewFirAmt = FRate * dFIR_AMT
+
+        '取得地震險保費
+        dNewEarAmt = getEarAmt(drFRQ)
+
+        Return True
+    End Function
+
+    '取得火災險費率(千分之一)
+    Private Function getFirRate(ByRef drFRQ As DataRow) As Decimal
+        Dim qParam As beFIRGetRateQuery.FIRGetRateQueryRow
+        Dim dsQry As New beFIRGetRateQuery
+        Dim dsRtn As beFIRGetRate
+        Dim FRate As Decimal
+
+        qParam = dsQry.FIRGetRateQuery.NewFIRGetRateQueryRow
+        qParam.ICHAN = getNRMK4(drFRQ.Item("IPOLICY").ToString)  ' 通路別
+        qParam.IUSEPURP = nvl(drFRQ.Item("IUSEPURP"), "") ' 使用性質
+        qParam.ICLASS = nvl(drFRQ.Item("ICLASS1"), "") ' 建築物等級
+        qParam.ILEVEL1 = nvl(drFRQ.Item("ILEVEL1"), "") ' 建物樓層
+        qParam.PBUSI = nvl(drFRQ.Item("PBUSI"), "") ' 營業加費率
+        qParam.PFIGHT = nvl(drFRQ.Item("PFIGHT"), "") ' 消防減費率
+        qParam.PBUILD = nvl(drFRQ.Item("PBUILD"), "") ' 高樓加費率
+        dsQry.FIRGetRateQuery.AddFIRGetRateQueryRow(qParam)
+
+        dsRtn = CType(InvokeBusinessService("FIRService.bsFIRGetRate", dsQry), beFIRGetRate)
+        If Not DataSetUtils.IsDataSetEmpty(dsRtn) Then
+            '保險費率，千分之一
+            FRate = CDec(dsRtn.Tables(0).Rows(dsRtn.Tables(0).Rows.Count - 1)("INS_RATE")) / 1000
+        End If
+        Return FRate
+    End Function
+
+    '取得地震保費(已乘費率 )
+    Private Function getEarAmt(ByRef drFRQ As DataRow) As Decimal
+        Dim dsQak As New beFIRGetEarthQuakeQuery
+        Dim dsRtn2 As beFIRGetEarthQuake
+        Dim dNewEarAmt As Decimal
+        Dim eParam As beFIRGetEarthQuakeQuery.FIRGetEarthQuakeQueryRow = dsQak.FIRGetEarthQuakeQuery.NewFIRGetEarthQuakeQueryRow
+        eParam.ICONSTYP = nvl(drFRQ.Item("ICONSTYP"), "") '構造別
+        eParam.ILEVEL1 = nvl(drFRQ.Item("ILEVEL1"), "") '樓層
+        eParam.IBUILDPG = nvl(drFRQ.Item("IBUILDPG")) '坪數 
+        eParam.IZIP = getZIP(drFRQ.Item("IPOLICY").ToString)
+        dsQak.FIRGetEarthQuakeQuery.AddFIRGetEarthQuakeQueryRow(eParam)
+
+        dsRtn2 = CType(InvokeBusinessService("FIRService.bsFIRGetEarthQuake", dsQak), beFIRGetEarthQuake) '可能會有多筆
+        If Not dsRtn2.Tables(0) Is Nothing AndAlso dsRtn2.Tables(0).Rows.Count > 0 Then
+            dNewEarAmt = CInt(dsRtn2.Tables(0).Rows(dsRtn2.Tables(0).Rows.Count - 1).Item("MPRM_TE_T"))  '地震保險費，已乘費率
+        End If
+        Return dNewEarAmt
+    End Function
+
+    '取得beFIRGetEarthQuake,bsFIRGetRate需要的Parameter
+    Private Function getFRQ(ByVal sIPolicy As String) As DataRow
+        Dim sb As New SqlStringBuilder
+        Dim ds As DataSet
+        sb.Append("SELECT M.IPOLICY,                                                          ")
+        sb.Append("       G.IUSEPURP,                                                         ")
+        sb.Append("       P.ICONSTYP,                                                         ")
+        sb.Append("       P.IBUILDPG,                                                         ")
+        sb.Append("       P.ICLASS   AS ICLASS1,                                              ")
+        sb.Append("       P.ILEVEL1,                                                          ")
+        sb.Append("       H.PBUSI,                                                            ")
+        sb.Append("       H.PFIGHT,                                                           ")
+        sb.Append("       H.PBUILD                                                            ")
+        sb.Append("  FROM PUBM_PN_MAIN M                                                      ")
+        sb.Append("  LEFT JOIN PUBM_PN_OBJ C ON C.OID_PUBM_PN_MAIN = M.OID                    ")
+        sb.Append(" INNER JOIN FIRM_PN_INSTYPE H ON C.OID = H.OID_PUBM_PN_OBJ                 ")
+        sb.Append("       AND C.OID_PUBM_PN_MAIN = H.OID_PUBM_PN_MAIN                         ")
+        sb.Append(" INNER JOIN PUBM_PN_PREM E ON H.OID_PUBM_PN_MAIN = E.OID_PUBM_PN_MAIN      ")
+        sb.Append("       AND H.OID_PUBM_PN_OBJ = E.OID_PUBM_PN_OBJ                           ")
+        sb.Append("       AND H.IINSTYP = E.IINSTYP                                           ")
+        sb.Append(" INNER JOIN FIRM_PN_OBJ G ON C.OID_PUBM_PN_MAIN = G.OID_PUBM_PN_MAIN       ")
+        sb.Append("       AND C.OID = G.OID_PUBM_PN_OBJ                                       ")
+        sb.Append("  LEFT JOIN PUBM_PN_AREA P ON C.OID_PUBM_PN_AREA = P.OID                   ")
+        sb.Append(" WHERE E.IINSTYP = 'FRQ'                                                   ")
+        sb.Append(" AND M.IPOLICY = '" & sIPolicy & "'                                        ")
+        ds = Me.DefaultRunner.ExecuteDataSet(sb.ToSqlString)
+        If Not DataSetUtils.IsDataSetEmpty(ds) Then Return ds.Tables(0).Rows(0)
+    End Function
+
+    '取得郵遞區號
+    Private Function getZIP(ByVal sIPolicy As String) As String
+        Dim sb As New SqlStringBuilder
+        Dim obj As Object
+        Dim sZip As String = ""
+
+        sb.Append("SELECT B.IZIP FROM PUBM_PN_ADDR B WHERE B.OID_PUBM_PN_MAIN=(SELECT OID FROM PUBM_PN_MAIN WHERE IPOLICY='" & sIPolicy & "') AND ROWNUM = 1   ")
+        obj = Me.DefaultRunner.ExecuteScalar(sb.ToSqlString)
+        If Not isNull(obj) Then
+            If obj.ToString.Length > 3 Then
+                sZip = obj.ToString.Substring(0, 3)
+            Else
+                sZip = obj.ToString
+            End If
+        End If
+        Return sZip
+    End Function
+
+    '取得通路別
+    Private Function getNRMK4(ByVal sIPolicy As String) As String
+        Dim sb As New SqlStringBuilder
+        Dim obj As Object
+
+        sb.Append("SELECT A.NRMK4 FROM PUBM_PN_MAIN A WHERE A.IPOLICY = '" & sIPolicy & "'")
+        obj = Me.DefaultRunner.ExecuteScalar(sb.ToSqlString)
+        If Not isNull(obj) Then Return obj.ToString
+        Return ""
+    End Function

@@ -1,0 +1,2 @@
+列印報表時，如果要debug InvokeJobService，就要設定如下
+工具->偵錯處理序->附加 ISNEJobServer.exe 到已偵錯的處理序

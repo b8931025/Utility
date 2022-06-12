@@ -1,0 +1,1 @@
+CommonLib.Util.NumberFormatter.ToChineseFinancialNumber

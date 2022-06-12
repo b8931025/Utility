@@ -1,0 +1,11 @@
+
+
+    Protected Overrides Sub BaseDoNewItem(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        MyBase.BaseDoNewItem(sender, e)
+        If sender Is Me.dgMain Then 
+        		'當按下新增按鈕時，要取得正在編輯的Item，要用SelectedItem
+        		'※一定要在BaseDoNewItem之後，不然會Nothing
+            Dim txtPROGRAMID_E As TextBox = dgMain.SelectedItem.FindControl("txtPROGRAMID_E")
+            If Not IsNothing(txtPROGRAMID_E) Then txtPROGRAMID_E.Enabled = True
+        End If
+    End Sub

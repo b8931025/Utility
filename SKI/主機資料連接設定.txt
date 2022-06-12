@@ -1,0 +1,53 @@
+正式區-
+connectionString:skerp_ap
+Data Source:ESKII  
+User ID:skerp_db  
+
+connectionString:skerp_bk
+Data Source:ESKIIBK  
+User ID:skerp_db  
+(SCS及Job連接正式SQL Server) 報表:Netap3C
+Netap4 ~ Netap5
+Netap7 ~ Netap10
+Netap131 ~ Netap145
+Netap151 ~ Netap153
+
+原本的正式機
+connectionString:skerp_ap
+Data Source:ESKII  
+User ID:skerp_app  
+
+connectionString:skerp_bk
+Data Source:ESKII  
+User ID:skerp_app  
+(SCS及Job連接正式SQL Server) 報表:Netap3C
+Netap146
+
+ 
+
+轉檔資料測試
+connectionString:skerp_ap
+Data Source:ESKIIRP  
+User ID:skerp_apr  
+
+connectionString:skerp_bk
+Data Source:ESKIIRP  
+User ID:skerp_apr  
+(SCS及Job連接平測SQL Server) 報表:Tnetdb
+Netap6
+
+ 
+
+平行測試機
+connectionString:skerp_ap
+Data Source:ESKIIRP  
+User ID:skerp_apd  
+
+connectionString:skerp_bk
+Data Source:ESKIIRP  
+User ID:skerp_apd  
+(SCS及Job連接平測SQL Server) 報表:Tnetdb
+
+(1/2下午提供)
+Tnetap161
+

@@ -1,0 +1,16 @@
+字符串加密解密函數集合元件BASE64Encrypt.dll
+
+平台新增.net 字符串加密解密函?集合元件BASE64Encrypt.dll
+功能:Base64加密 Base64?碼 MD5加密 加密函? 解密函? 密匙處理函?
+
+資訊補充
+
+VB.NET範例
+Dim bs64 As New BASE64Encrypt.SKIEncrypt.DES ‘宣告物件
+bs64.Key = “03458403” ‘密鑰參數(若沒指定預設是公司統編,如要指定請要提供8碼英數資訊,不可空直或者碼數不足)
+bs64.Encrypt(“A123456789”) ‘加密函數
+bs64.Decrypt("J3E9viTZmPM2quRoxp2qmQ==") ‘解密函數
+
+PS：如加密的密鑰不是預設值..解密時就要指定..否則資料解開還是亂碼..
+
+以上

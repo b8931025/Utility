@@ -1,0 +1,3 @@
+	Imports.PUBService.bsPubFunction
+		getIofficerByRoleID() '取得該角色下所有員編
+		getMailByIoff() '取得員編所屬email
