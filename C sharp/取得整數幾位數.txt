@@ -1,0 +1,11 @@
+﻿        public int getDigi_v3(decimal _val)
+        {
+            if (_val == 0) return 1;
+            double tmp = (double)_val;
+            if (_val < 0) tmp = tmp * -1;
+            tmp = Math.Log10(tmp) + 1;
+
+            return (int)tmp;
+        }
+
+效能比ToString().Length好

@@ -1,0 +1,5 @@
+﻿IEnumerator sIe = Session.Keys.GetEnumerator();
+while (sIe.MoveNext()) {
+    var key = sIe.Current;
+    var value = Session[sIe.Current.ToString()];
+}

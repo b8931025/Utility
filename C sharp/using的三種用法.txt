@@ -1,0 +1,12 @@
+1.匯入命名空間
+using System; 
+
+2.類別的別名，不同命名空間的類別名稱衝突時
+using aClass = NameSpace1.MyClass;
+using bClass = NameSpace2.MyClass;
+
+3.在物件使用完後呼叫Dispose
+using (Class1 cls1 = new Class1(), cls2 = new Class1())
+{
+  //coding here
+} //執行cls1,cls2的Dispose
