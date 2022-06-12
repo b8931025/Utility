@@ -1,0 +1,23 @@
+/* 寫成兩個檔 */
+<link href="styles.css" rel="stylesheet" type="text/css" media="screen" /> 
+<link href="print.css" rel="stylesheet" type="text/css" media="print" /> 
+
+
+
+
+/* 寫成一個檔 */
+@media all/* 螢幕樣式 */
+{
+.PTmbg {	BACKGROUND-COLOR: #ffffff;	vertical-align: top;}
+.PTtinactive { FONT-SIZE: 10pt; COLOR: #007ebe; BACKGROUND-COLOR: #e0f0ff; TEXT-DECORATION: none }
+.PTtactive { FONT-WEIGHT: bold; FONT-SIZE: 10pt; COLOR: #ffffff; BACKGROUND-COLOR: #345d88 }
+.PTtitle { FONT-WEIGHT: bold;COLOR: #800080; }
+}
+
+@media print/* 列印樣式 */
+{
+.PTmbg { vertical-align: top;}
+.PTtinactive { FONT-SIZE: 10pt; TEXT-DECORATION: none }
+.PTtactive { FONT-WEIGHT: bold; FONT-SIZE: 10pt; }
+.PTtitle { FONT-WEIGHT: bold; }
+}

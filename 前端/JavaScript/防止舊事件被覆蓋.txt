@@ -1,0 +1,10 @@
+防止舊事件被覆蓋
+ex:
+	var oldOnBeforeUnload = window.onbeforeunload;  //先備份 
+    function onPressX(){
+   		//當按下"X"按鈕，或Alt+F4
+		if(event.clientX > (document.body.clientWidth-25) && event.clientY < 0 || event.altKey){
+			SecurityLog("Y");
+		}
+		if(oldOnBeforeUnload!=undefined)oldOnBeforeUnload();//加到新function裡面
+   }

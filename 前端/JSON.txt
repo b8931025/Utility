@@ -1,0 +1,21 @@
+using Newtonsoft.Json;
+
+to json 
+CJudge_0101.Request result = new CJudge_0101.Request();
+result.serno = "1101001112218";
+result.apiorg = "H";
+result.crtnm = "TYD";
+result.chkListCnt = cList.Count;
+result.CJudgeData = cList;
+result.chkListNo = "PCD1101001";
+result.chkType = "a";
+return JsonConvert.SerializeObject(result);
+
+to object
+CJudge_0101.Request data = JsonConvert.DeserializeObject<CJudge_0101.Request>(dataRequest);
+
+
+
+
+//Indented±Njson±Æª©
+string jsonStr = JsonConvert.SerializeObject(list,Formatting.Indented);

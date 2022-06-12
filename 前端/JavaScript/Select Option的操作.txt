@@ -1,0 +1,38 @@
+JavaScript...
+			function add_option()
+			{
+			//先用getElementById取得select的id
+			var s = document.getElementById('go');        
+			//這兩個可以用其他方式取得，端看怎麼使用
+			var t = document.getElementById('t').value;
+			var v = document.getElementById('v').value;
+			var ori_count = s.length;
+			//其實重點只有下面這兩行XD
+			var new_option = new Option(t,v);  //new Option([text], [value], [defaultSelected], [selected])      
+			s.options.add(new_option);         //add(newoption, beforeoption*)   *Important: IE以外的瀏灠器beforeoption必需是Option 物件, IE則是select中的Index 數值
+
+			var new_count = s.length;
+			//這邊只是要驗證是不是有增加成功
+			//新的option個數會比原本的個數多
+			if( new_count > ori_count )
+				alert('新增成功');
+			else
+				alert('新增失敗');
+			}
+			
+			function remove(){
+				var s = document.getElementById('go');    
+				s.remove(s.selectedIndex);  
+			}
+
+HTML...
+			<select name="go" id="go" multiple="true"  >
+			<option value="">請選擇</option>
+			<option value="apple" selected>蘋果</option>
+			<option value="banana" >香蕉</option>
+			</select>
+			<br />
+			值：<input type="text" name="v" id="v"><br />
+			文字：<input type="text" name="t" id="t"><br />
+			<input type="button" onclick="add_option()" value="新增option">
+			<input type="button" onclick="remove()" value="移除option">

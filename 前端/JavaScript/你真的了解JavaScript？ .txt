@@ -1,0 +1,83 @@
+JavaScript高級測試題-你真的瞭解JavaScript？ 
+
+說出它們的值：
+
+
+1、typeof(NaN) 、typeof(Infinity)、typeof(null)、typeof(undefined)
+2、NaN == NaN 
+3、NaN != NaN
+4、NaN >= NaN
+5、null == undefined
+6、null >= undefined
+7、null <= undefined
+8、parseInt("123abc")
+9、"123abc" - 0 
+10、Infinity > 10
+11、Infinity > "abc"
+12、Infinity == NaN
+13、true == 1
+14、new String("abc") == "abc"
+15、new String("abc") === "abc"
+
+
+
+說出它們的輸出結果：
+
+
+1、
+var a = "123abc";
+alert(typeof(a++));
+alert(a);
+
+2、
+var a = "123abc";
+a.valueOf = function(){return parseInt(a);}
+alert(++a);
+alert(a-0);
+
+3、
+var a = new Object();
+a.toString = function(){return "123abc";}
+a.valueOf = function(){return parseInt(a);}
+alert(++a);
+alert(a-0);
+
+4、
+String.prototype.valueOf = function()
+{
+    return parseFloat(this);
+}
+alert("123abc" > 122);
+alert(new String("123abc") > 122);
+
+5、
+var s = new String("abc");
+alert(typeof(s) == typeof("abc"));
+alert(s === "abc");
+alert(s.toString() == s);
+
+6、
+var a = new Object();
+a.toString = function(){return "a"};
+var b = new Object();
+b.toString = function(){return "b"};
+alert(a>b);
+a.valueOf = function(){return 1};
+b.valueOf = function(){return 0};
+alert(a>b);
+
+7、
+function step(a)
+{
+    return function(x)
+    {
+        return x + a++;
+    }
+}
+var a = step(10);
+var b = step(20);
+alert(a(10));
+alert(b(10));
+
+
+你是不是想選擇這些JavaScript測試題做面試題了？ 

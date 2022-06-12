@@ -1,0 +1,37 @@
+Javascript有許多內建的方法來產生對話框，如：window.alert(), window.confirm(),window.prompt().等。 然而IE提供更多的方法支持對話框。如： 
+
+showModalDialog() (IE 4+ 支持)
+    var vReturnValue = window.showModalDialog(sURL [, vArguments] [, sFeatures])
+showModelessDialog() (IE 5+ 支持)
+    var vReturnValue = window.showModelessDialog(sURL [, vArguments] [, sFeatures])
+
+參數說明：
+    sURL
+   必選參數，類型：字符串。用來指定對話框要顯示的文檔的URL。
+    vArguments
+   可選參數，類型：變體。用來向對話框傳遞參數。
+   傳遞的參數類型不限，包括數組等。對話框通過window.dialogArguments來取得傳遞進來的參數。
+    sFeatures
+   可選參數，類型：字符串。用來描述對話框的外觀等信息，可以使用以下的一個或幾個，用分號「;」隔開。
+    dialogHeight 對話框高度，不小於１００px，ＩＥ４中dialogHeight 和 dialogWidth 默認的單位是em，而ＩＥ５中是px，為方便其見，在定義modal方式的對話框時，用px做單位。
+ 　 dialogWidth: 對話框寬度。
+ 　 dialogLeft: 距離桌面左的距離。
+ 　 dialogTop: 離桌面上的距離。
+ 　 center: {yes | no | 1 | 0 }：窗口是否居中，默認yes，但仍可以指定高度和寬度。
+ 　 help: {yes | no | 1 | 0 }：是否顯示幫助按鈕，默認yes。
+ 　 resizable: {yes | no | 1 | 0 } 〔ＩＥ５＋〕：是否可被改變大小。默認no。
+ 　 status: {yes | no | 1 | 0 } 〔IE5+〕：是否顯示狀態欄。默認為yes[ Modeless]或no[Modal]。
+    scroll:{ yes | no | 1 | 0 | on | off }：指明對話框是否顯示滾動條。默認為yes。
+
+還有幾個屬性是用在HTA中的，在一般的網頁中一般不使用。
+    dialogHide:{ yes | no | 1 | 0 | on | off }：在打印或者打印預覽時對話框是否隱藏。默認為no。
+    edge:{ sunken | raised }：指明對話框的邊框樣式。默認為raised。
+    unadorned:{ yes | no | 1 | 0 | on | off }：默認為no。
+
+回傳值 vReturnValue
+在新開的視窗中關閉之前，必需要指定parent.window.returnValue=123;
+才能將變數傳給vReturnValue
+
+
+
+

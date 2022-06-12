@@ -1,0 +1,11 @@
+<script type="text/javascript"> 
+//string.Blength() 傳回字串的byte長度 
+String.prototype.Blength = function() { 
+	var arr = this.match(/[^\x00-\xff]/ig); 
+	return  arr == null ? this.length : this.length + arr.length; 
+} 
+
+var str = "我是puma"; 
+alert("字元數:"+str.length); //中文字(2),英文字(4),總共(6)
+alert("byte數:"+str.Blength()); //中文字(4),英文字(4),總共(8)
+</script>

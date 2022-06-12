@@ -1,0 +1,5 @@
+	function getFimeName() {
+        var file_name = document.location.href;
+        var end = (file_name.indexOf("?") == -1) ? file_name.length : file_name.indexOf("?");
+        return file_name.substring(file_name.lastIndexOf("/")+1, end);
+    }

@@ -1,0 +1,8 @@
+			function DisplaySwitch(obj){
+				var zone = document.getElementById(obj).style; 
+				if (zone.display == 'none'){
+					zone.display = 'list-item';
+				}else{
+					zone.display = 'none';
+				}
+			}

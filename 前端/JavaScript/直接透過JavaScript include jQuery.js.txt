@@ -1,0 +1,6 @@
+直接透過JavaScript include jQuery.js
+//1. 在console載入jQuery
+var jq = document.createElement('script');
+jq.src = "http://code.jquery.com/jquery-latest.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+

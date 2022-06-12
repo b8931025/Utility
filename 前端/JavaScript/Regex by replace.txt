@@ -1,0 +1,67 @@
+//IPolicy
+var regex=/^\d\d\d\d[A-Z0-9]{3}\d\d\d\d\d\d\d$/;
+if (IPolicy.match(regex)==null)alert("格式錯誤");
+
+//檢查是不是數字
+var score = 12; // 1.2, 1., 1, -1.2, -1, -1., -1.25, -12., -13, -133.235, 133.235 
+var regex = /^-?\d+\.?\d*?$/;
+if (score.match(regex)==null) alert("不是數值"); 
+
+// trim space
+var V = "string";
+V.replace(/^\s+|\s+$/g,"");
+
+
+// replace 
+var str = "this is a book123!";
+var regex=/book\d+/gi;  // 不能寫成 regex="/book\d+/gi";
+alert(str.replace(regex,"test")); // 把 book123 取代成 test 
+
+//regex Object
+//如果使用new 物件，就可以用字串變數去定義RegExp
+var regex = new RegExp('^\\d{4}[' + IINSKIND + '][A-Z0-9]{2}\\d{7}$');
+
+
+[Regular Expression]
+Regular Expression (以下簡稱 REGEX) 是以一組特定字元符號描述字串樣式規則的記述語法。簡單地說， REGEX 用於表達字元符號在字串中出現的規則。舉個例子說明，在 REGEX 中，字元 '^' 放在第一個位置表示字串開頭位置，當我寫下 ^A 的記述時，便表示必須是一個開頭為 A 的字串，如 Adam，才符合此一規則。這個表達規則通常稱為 pattern 。 ECMAScript/JavaScript 以內建的 RegExp Object 提供 REGEX 功能。See also: ECMA-262 15.10 - RegExp Objects 
+
+要產生一個 RegExp 個體有兩種方式。第一種是直接以斜線 (/) 包住 pattern ，例如 /^A/ 。注意不要再用單引號或雙引號包在斜線外圍，一但用了引號圍住，就只是一個 String 而非 RegExp 個體。 "/^A/" 就是錯誤寫法，這只是一個普通字串。第二種是向系統要求建立一個 RegExp 個體，即 new RegExp(pattern) ，引數 pattern 可以是一個字串也可以是另一個 RegExp 個體。第一種方法只能使用常值的 pattern ，我們不能用斜線包住一個變數或一個字串運算結果。如果 pattern 保存在變數之中，則必須使用第二種方式。 
+
+RegExp 個體提供兩個主要行為，即 exec() 和 test() 。 exec() 會對引數字串進行比對運算，並將匹配的字串內容記錄在陣列中回傳。而 test() 則僅僅測試引數字串是否符合規則，只回傳 true 或 false 。此外，RegExp 個體也可以作為 String 個體的 match(), search(), replace(), split() 之引數。 String 的 match() 其實就是調用 RegExp 的 exec() ，兩者的結果相同。 
+
+ECMAScript/JavaScript 的 REGEX 規則是以 Perl 的規則為範本 (PHP 中稱為 PCRE 的內容) ，本文僅簡短說明幾個常見的字元意義。想了解更多用法者，請參看 Perl/PHP 的相關書籍，以及 ECMA-262 15.10 的內容。 
+
+^
+寫在 pattern 第一個位置時，表示其後一符號必須出現在字串開頭的位置。寫在 pattern 中間位置時則為否定之意，表示字串中不可有 ^ 之後一符號的內容。 
+$
+寫在 pattern 最後一個位置時，表示其前一符號必須出現在字串尾端的位置。寫在 pattern 中時無特別意義。 
+*
+表示字串中有 0 到無數個其前一符號的內容。 
++
+表示字串中有 1 到無數個其前一符號的內容。 
+?
+表示字串中有 0 到 1個其前一符號的內容。 
+{ }
+表示前一符號在字串中的重覆次數。例如 /A{2}/ 表示 'A' 重覆兩次 (即 'AA') ；/A{2,}/ 表示字串含有 2 到無數多個 'A' ；/A{2,5}/ 表示含有 2 到 5 個 'A' 。 
+.
+表示一個任意字元。 
+[ ]
+表示字串含有括號中任一字元的內容。可以 - 表示一組連續字元，例如 /[a-z]/, /[0-9]/ 。注意， [] 僅代表一個字元，例如 /[abc]/ 表示 'a' 或 'b' 或 'c' ，而不是 'abc' 。 
+( )
+表示一個 sub pattern ，符合 sub pattern 的字串內容會被存放在匹配陣列中，並依序指派數字代表此 sub pattern 。可以此數字在 pattern 的其他地方引用內容，例如 /The h([0-9]) means Title (\1)/ 表示第 1 個 sub pattern 是 0 到 9 的任一字元，而 \1 表示匹配的內容。故 'The h1 means Title 1', 'The h2 means Title 2' 到 'The h9 means Title 9' 符合規則。 
+\
+表示轉義 (escaping) ，將其後的字元視為一般字元。例如要表示字串中含有 '/' 字元時，就必須寫作 /\// 。 
+|
+「或」意，字串中含有 '|' 之前一符號或後一符號的內容。例如 /image\.(jpg|png)/ 表示 'image.jpg' 或 'image.png' 。通常會用 () 括住 '|' 的前後符號。 
+\d
+表示任何一個數字，意同 [0-9] 。 
+\D
+表示任何一個非數字，意同 [^0-9] 。 
+\w
+表示任何一個字元與數字以及 '_' ，意同 [a-zA-Z0-9_] 。 
+\W
+表示任何一個 \w 以外的字元。 
+\s
+表示任何一個空白符號，包括 \t, \v 等。 
+\S
+表示任何一個非空白符號。

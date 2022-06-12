@@ -1,0 +1,51 @@
+        //限定輸入整數 onkeydown="onlyNumberOnKeydown();"
+        function onlyNumberOnKeydown() {
+            let keyCode;
+            if (event.keyCode > 0) {
+                keyCode = event.keyCode;
+            }else if (typeof (event.charCode) != "undefined") {
+                keyCode = event.charCode;// IE
+            }
+
+            if ((keyCode >= 48 && keyCode <= 57) ||
+                (keyCode >= 96 && keyCode <= 105) ||
+                (keyCode == 8) || (keyCode == 9) ||
+                (keyCode == 37) || (keyCode == 39)) {
+                //只可輸入0~9,左右鍵,刪除,Tab
+            } else {
+                event.returnValue = false;
+                event.preventDefault();//IE 11
+            }
+        }		
+        
+        // onbeforepaste="onlyNumberBeforePaste(this);" 
+        function onlyNumberBeforePaste(obj) {
+            clipboardData.setData('text', clipboardData.getData('text').replace(/[^\d]/g, ''));
+        } 
+        
+			
+        //限定輸入有浮點數 onkeydown="onlyFloatNumberOnKeydown();"
+        function onlyFloatNumberOnKeydown() {
+            let keyCode;
+            if (event.keyCode > 0) {
+                keyCode = event.keyCode;
+            } else if (typeof (event.charCode) != "undefined") {
+                keyCode = event.charCode;// IE
+            }
+
+            if ((keyCode >= 48 && keyCode <= 57) ||
+                (keyCode >= 96 && keyCode <= 105) ||
+                (keyCode == 8) || (keyCode == 9) ||
+                (keyCode == 110) || (keyCode == 190) ||
+                (keyCode == 37) || (keyCode == 39)) {
+                //只可輸入0~9,小數點,左右鍵,刪除,Tab
+            } else {
+                event.returnValue = false;
+                event.preventDefault();//IE 11
+            }
+        }
+			
+        // onbeforepaste="onlyNumberBeforePaste(this);" 
+        function onlyNumberBeforePaste(obj) {
+            clipboardData.setData('text', clipboardData.getData('text').replace(/[^\d.]/g, ''));
+        }

@@ -1,0 +1,9 @@
+			 window.clipboardData.clearData();//清除剪貼簿
+			 window.clipboardData.setData("Text",document.location.href);//複製到剪貼簿
+			 var sClipBoradData = window.clipboardData.getData();//貼上
+			 //syntax:
+			 //window.clipboardData.setData(Format,sData)
+			 //Format:"Text"以文字格式複製 
+			 //sData:欲複製的資料
+			 
+			 

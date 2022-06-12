@@ -1,0 +1,17 @@
+<body
+  onmouseover="window.status='狀態列顯示字';return true;" 
+	ondragstart="window.event.returnValue=false" 
+	oncontextmenu="window.event.returnValue=false" 
+	onSelectStart="event.returnValue=false">
+	
+或
+<body
+ onmouseover="window.status='狀態列顯示字';return true;" 
+	ondragstart="return false" 	
+	oncontextmenu="return false" 	
+	onSelectStart="return false">
+	
+	ondragstart 是將反白文字的拖曳事件
+	oncontextmenu 是在文字區按右鍵跳出選單的事件
+	onSelectStart 是按下左鍵開始將文字反白的事件
+	

@@ -1,0 +1,116 @@
+用prototype定義物件的方法 
+本文是本人通過個人理解所寫成的，沒有參照任何資料，如有雷同，純屬巧合，同時，如果您要引用本文文字，請註明 — 作者：windy_sk；Email:seasonx@163.net，謝謝！
+
+　　本文進通過實例，講述通過 prototype 自定義方法的過程，旨在拋磚引玉，如果不對的地方，歡迎指正！
+
+　　prototype 是在 IE 4 及其以後版本引入的一個針對於某一類的對象的方法，而且特殊的地方便在於：它是一個給類的對象添加方法的方法！這一點可能聽起來會有點亂，別急，下面我便通過實例對這一特殊的方法作已下講解：
+
+　　首先，我們要先瞭解一下類的概念，JavaScript 本身是一種面向對象的語言，它所涉及的元素根據其屬性的不同都依附於某一個特定的類。我們所常見的類包括：數組變量(Array)、邏輯變量(Boolean)、日期變量(Date)、結構變量(Function)、數值變量(Number)、對像變量(Object)、字符串變量(String) 等，而相關的類的方法，也是程序員經常用到的（在這裡要區分一下類的注意和屬性發方法），例如數組的push方法、日期的get系列方法、字符串的split方法等等，
+
+　　但是在實際的編程過程中不知道有沒有感覺到現有方法的不足？prototype 方法應運而生！下面，將通過實例由淺入深講解 prototype 的具體使用方法：
+
+
+1、最簡單的例子，瞭解 prototype：
+(1) Number.add(num)：作用，數字相加
+實現方法：Number.prototype.add = function(num){return(this+num);}
+試驗：alert((3).add(15)) -> 顯示 18
+
+
+(2) Boolean.rev(): 作用，布爾變量取反
+實現方法：Boolean.prototype.rev = function(){return(!this);}
+試驗：alert((true).rev()) -> 顯示 false
+
+是不是很簡單？這一節僅僅是告訴讀者又這麼一種方法，這種方法是這樣運用的。
+
+
+2、已有方法的實現和增強，初識 prototype：
+(1) Array.push(new_element)
+　　作用：在數組末尾加入一個新的元素
+　　實現方法：
+　　Array.prototype.push = function(new_element){
+        this[this.length]=new_element;
+        return this.length;
+    }
+　　讓我們進一步來增強他，讓他可以一次增加多個元素！
+　　實現方法：
+　　Array.prototype.pushPro = function() {
+        var currentLength = this.length;
+        for (var i = 0; i < arguments.length; i++) {
+            this[currentLength + i] = arguments[i];
+        }
+        return this.length;
+    }
+　　應該不難看懂吧？以此類推，你可以考慮一下如何通過增強 Array.pop 來實現刪除任意位置，任意多個元素（具體代碼就不再細說了）
+
+(2) String.length
+　　作用：這實際上是 String 類的一個屬性，但是由於 JavaScript 將全角、半角均視為是一個字符，在一些實際運用中可能會造成一定的問題，現在我們通過 prototype 來彌補這部不足。
+　　實現方法：
+　　String.prototype.Tlength = function(){
+        var arr=this.match(/[^\x00-\xff]/ig);
+        return this.length+(arr==null?0:arr.length);
+    }
+　　試驗：alert("aa啦啦aa".Tlength()) -> 顯示 8
+　　這裡用到了一些正則表達式的方法和全角字符的編碼原理，由於屬於另兩個比較大的類別，本文不加說明，請參考相關材料。
+
+
+3、新功能的實現，深入 prototype：在實際編程中所用到的肯定不只是已有方法的增強，更多的實行的功能的要求，下面我就舉兩個用 prototype 解決實際問題的例子：
+(1) String.left()
+　　問題：用過 vb 的應該都知道left函數，從字符串左邊取 n 個字符，但是不足是將全角、半角均視為是一個字符，造成在中英文混排的版面中不能截取等長的字符串
+　　作用：從字符串左邊截取 n 個字符，並支持全角半角字符的區分
+　　實現方法：
+　　String.prototype.left = function(num,mode){
+        if(!/\d+/.test(num))return(this);
+        var str = this.substr(0,num);
+        if(!mode) return str;
+        var n = str.Tlength() - str.length;
+        num = num - parseInt(n/2);
+        return this.substr(0,num);
+    }
+　　試驗：alert("aa啦啦aa".left(4)) -> 顯示 aa啦啦
+     alert("aa啦啦aa".left(4,true)) -> 顯示 aa啦
+　　本方法用到了上面所提到的String.Tlength()方法，自定義方法之間也能組合出一些不錯的新方法呀！
+
+(2) Date.DayDiff()
+　　作用：計算出兩個日期型變量的間隔時間（年、月、日、周）
+　　實現方法：
+　　Date.prototype.DayDiff = function(cDate,mode){
+        try{
+            cDate.getYear();
+        }catch(e){
+            return(0);
+        }
+        var base =60*60*24*1000;
+        var result = Math.abs(this - cDate);
+        switch(mode){
+            case "y":
+                result/=base*365;
+                break;
+            case "m":
+                result/=base*365/12;
+                break;
+            case "w":
+                result/=base*7;
+                break;
+            default:
+                result/=base;
+                break;
+        }
+        return(Math.floor(result));
+    }
+　　試驗：alert((new Date()).DayDiff((new Date(2002,0,1)))) -> 顯示 329
+     alert((new Date()).DayDiff((new Date(2002,0,1)),"m")) -> 顯示 10
+　　當然，也可以進一步擴充，得出響應的小時、分鐘，甚至是秒。
+
+(3) Number.fact()
+　　作用：某一數字的階乘
+　　實現方法：
+　　Number.prototype.fact=function(){
+        var num = Math.floor(this);
+        if(num<0)return NaN;
+        if(num==0 || num==1)
+            return 1;
+        else
+            return (num*(num-1).fact());
+    }
+　　試驗：alert((4).fact()) -> 顯示 24
+　　這個方法主要是說明了遞歸的方法在 prototype 方法中也是可行的！

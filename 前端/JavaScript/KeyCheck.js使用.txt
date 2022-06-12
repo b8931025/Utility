@@ -1,0 +1,661 @@
+﻿移除左邊空白
+function KCLTrim(s)return String
+移除右邊空白
+function KCRTrim(s)return String
+移除左右空白
+function KCTrim(s)return String
+字串轉浮點數
+function KCParseDec(s)return float
+檢查鍵盤上輸入的是否為數字相關鍵，如果是傳回true，如果不是傳回false
+function KCAmtCheck()return Boolean
+檢查鍵盤上輸入的是否為數字相關鍵，如果是傳回true，如果不是傳回false(舊版，沒有正負號、小數點功能)
+function KCNumCheck()return Boolean
+數字格式化外加千分位，相當於vb裡的format(Num,"#.#0")
+Vquotient數字
+fraction取幾位的小數，1就取到小數點後一位，2就取到小數點後2位，類推…
+function KCAmtFmt(Vquotient, fraction) return String
+檢查身份証字號
+function checkIDN(thisObj)return Boolean
+function KCRocDateCheck(thisObj){
+	if(thisObj==null) thisObj = window.event.srcElement;
+	thisObj.value = KCTrim(thisObj.value);
+	//0305add
+	//-------
+	if (thisObj.value.length==0)
+		return true;
+	var arrayYMD = thisObj.value.split(".")
+	if (arrayYMD.length == 3) {
+		thisObj.value = arrayYMD[0] + ("00"+arrayYMD[1]).substr(("00"+arrayYMD[1]).length-2,2) + ("00"+arrayYMD[2]).substr(("00"+arrayYMD[2]).length-2,2)
+	}
+	if (thisObj.value.length < 5){
+		thisObj.select();
+		thisObj.focus();
+	  alert ("日期格式錯誤『YYYMMDD』 ");
+	  return false;
+	}
+
+	if (KCParseDec(thisObj.value)==NaN) {
+		thisObj.select();
+		thisObj.focus();
+		alert ("日期格式錯誤『YYYMMDD』 ");
+		return false;
+	}
+	var YYYYMMDD = KCParseDec(thisObj.value) + 19110000;
+	var DD    =  YYYYMMDD % 100;
+	var MM    = (YYYYMMDD % 10000 - DD) / 100 ;
+	var YYYY  = (YYYYMMDD - (MM) * 100 - DD) / 10000;
+	if (!KCDateCheck(YYYY,MM,DD)) {
+		thisObj.select();
+		thisObj.focus();
+		alert ("日期錯誤『YYYMMDD』 ，請輸入正確日期");
+		return false;
+	}
+	thisObj.value = KCParseDec(thisObj.value);
+	if (arrayYMD.length == 3) {
+		thisObj.value = arrayYMD.join(".");
+	}
+	if(thisObj.value.length == 6){
+	  thisObj.value = "0"+thisObj.value;
+	}
+	if(thisObj.value.length == 5){
+	  thisObj.value = "00"+thisObj.value;
+	}
+	return true;
+}
+
+
+function KCDateCheck(YYYY,MM,DD){
+	if(isNaN(YYYY) || isNaN(MM) || isNaN(DD))
+		return false;	
+	var tDate = new Date(YYYY, MM-1, DD);
+	var yyyy  = tDate.getYear();
+	var mm    = tDate.getMonth()+1;
+	var dd    = tDate.getDate();
+	if ((YYYY%100)!=(yyyy%100) || MM!=mm || DD!=dd) {
+		return false;
+	}
+	return true;
+}
+
+function KCMmCheck(){
+	window.event.srcElement.value = KCTrim(window.event.srcElement.value);
+	if (window.event.srcElement.value.length==0)
+		return true;
+	if(KCParseDec(window.event.srcElement.value)==NaN) {
+		window.event.srcElement.select();
+		window.event.srcElement.focus();
+		alert ("『月』 輸入錯誤，請重新輸入");
+		return false;
+	}
+	var MM = KCParseDec(window.event.srcElement.value);
+	if(MM<1 || MM>12) {
+		window.event.srcElement.select();
+		window.event.srcElement.focus();
+		alert ("『月』 輸入錯誤，請重新輸入");
+		return false;
+	}
+	return true;
+}
+
+function KCDdCheck(){
+	window.event.srcElement.value = KCTrim(window.event.srcElement.value);
+	if (window.event.srcElement.value.length==0)
+		return true;
+	if(KCParseDec(window.event.srcElement.value)==NaN) {
+		window.event.srcElement.select();
+		window.event.srcElement.focus();
+		alert ("『日』 輸入錯誤，請重新輸入");
+		return false;
+	}
+	var MM = KCParseDec(window.event.srcElement.value);
+	if(MM<1 || MM>31) {
+		window.event.srcElement.select();
+		window.event.srcElement.focus();
+		alert ("『日』 輸入錯誤，請重新輸入");
+		return false;
+	}
+	return true;
+}
+
+function KCAmtFormat(indata){
+	window.event.srcElement.value = KCTrim(window.event.srcElement.value);
+	if(window.event.srcElement.value.length==0 || KCParseDec(window.event.srcElement.value)==NaN)
+		return false;
+	window.event.srcElement.value = KCAmtFmt(KCParseDec(window.event.srcElement.value), indata);
+	return true;
+}
+
+function KCDotFormat(fraction){
+	//alert(window.event.srcElement.value);
+	window.event.srcElement.value = KCTrim(window.event.srcElement.value);
+	if(window.event.srcElement.value.length==0 || KCParseDec(window.event.srcElement.value)==NaN)
+		return false;
+	window.event.srcElement.value = KCAmtFmt(KCParseDec(window.event.srcElement.value), fraction);
+	return true;
+}
+
+
+function KCChk100Percent(){
+	var fraction = 2;
+	if(KCChk100Percent.arguments.length > 0) {
+		fraction = KCChk100Percent.arguments[0];
+	}
+	if(!KCDotFormat(fraction))
+		return false;
+	var iValue = KCParseDec(window.event.srcElement.value);
+	if (iValue <= 100 && iValue >= -100)
+		return true;
+	
+	alert ("比率值輸入不合常理 ，請檢查 ");
+	window.event.srcElement.select();
+	window.event.srcElement.focus();
+	return false;
+}
+
+
+function KCChkPercent100_4(){
+	var fraction = 4;
+	if(KCChkPercent100_4.arguments.length > 0) {
+		fraction = KCChkPercent100_4.arguments[0];
+	}
+	if(!KCDotFormat(fraction))
+		return false;
+	var iValue = KCParseDec(window.event.srcElement.value);
+	if (iValue <= 100 && iValue >= -100)
+		return true;
+	
+	alert ("比率值輸入不合常理 ，請檢查 ");
+	window.event.srcElement.select();
+	window.event.srcElement.focus();
+	return false;
+}
+
+
+function KCCalFmtPercent(numerator, denominator, quotient, fraction)  // numerator / denominator
+{
+	var Vnumerator   = KCParseDec(numerator.value);
+	var Vdenominator = KCParseDec(denominator.value);
+	var Vquotient;
+	quotient.value = "";
+	if (Vdenominator==0){
+		Vquotient = 0;
+		quotient.value = KCAmtFmt(Vquotient, fraction);
+	}
+	if (!isNaN(Vnumerator) && !isNaN(Vdenominator) && Vdenominator!=0) {
+		Vquotient = Vnumerator * 100 / Vdenominator;
+		if (fraction > 0){
+			var Vround = 0.5;
+			for (var i=0; i< fraction; i++) {
+				Vround /= 10;
+			}
+			Vquotient += Vround;
+		}
+		quotient.value = KCAmtFmt(Vquotient, fraction);
+	}
+	return true;
+}
+
+function KCCalFmtPercent1(numerator, denominator, quotient, fraction) // (numerator - denominator) / denominator
+{
+	var Vnumerator   = KCParseDec(numerator.value);
+	var Vdenominator = KCParseDec(denominator.value);
+	var Vquotient;
+	quotient.value = "";
+	if (!isNaN(Vnumerator) && !isNaN(Vdenominator) && Vdenominator!=0) {
+		Vquotient = (Vnumerator - Vdenominator) * 100 / Vdenominator;
+		if (fraction > 0){
+			var Vround = 0.5;
+			for (var i=0; i< fraction; i++) {
+				Vround /= 10;
+			}
+			Vquotient += Vround;
+		}
+		quotient.value = KCAmtFmt(Vquotient, fraction);
+	}
+	return true;
+}
+
+function KCAmtFmtSubtract(minuend, subtrahend, remainder, idx)
+{
+	var Vminuend    = KCParseDec(minuend.value);
+	var Vsubtrahend = KCParseDec(subtrahend.value);
+	var Vremainder  = KCParseDec(remainder.value);
+	if (idx==1){
+		if (!isNaN(Vsubtrahend) && !isNaN(Vremainder)) {
+			Vminuend = Vsubtrahend + Vremainder;
+			minuend.value = KCAmtFmt(Vminuend, 0)
+			return true;
+		}
+	} else
+	if (idx==2){
+		if (!isNaN(Vminuend) && !isNaN(Vremainder)) {
+			Vsubtrahend = Vminuend - Vremainder;
+			subtrahend.value = KCAmtFmt(Vsubtrahend, 0)
+			return true;
+		}
+	} else
+	if (idx==3){
+		if (!isNaN(Vminuend) && !isNaN(Vsubtrahend)) {
+			Vremainder = Vminuend - Vsubtrahend;
+			remainder.value = KCAmtFmt(Vremainder, 0)
+			return true;
+		}
+	}
+	return false;
+}
+
+function KCmaxWord(text,max)
+{
+		if(text.value.length > max)
+			text.value=text.value.substr(0,max);
+}
+
+function KCQuotationCheck(){
+	var sInput = KCTrim(window.event.srcElement.value);
+	if (sInput.indexOf("'") >-1){
+	sInput =sInput = window.event.srcElement.value.replace(/'/g,"");
+	window.event.srcElement.value=sInput;
+	}
+}
+
+function FormatNumber()
+{
+  if(window.event.keyCode==16)
+  {
+	shift_tmp = 0;
+  }
+  if (window.event.srcElement.value.charAt(0)=="-")
+  {
+	a=1;
+	window.event.srcElement.value=window.event.srcElement.value.replace(/,/g,"").substring(1,window.event.srcElement.value.replace(/,/g,"").length);
+  }
+  else 
+  {
+  　	
+	a=0;
+  }
+  var sInput = window.event.srcElement.value.replace(/,/g,"");
+//不能打小數點  
+//  if (sInput.length >=0)
+//  var kdot = sInput.indexOf('.');
+//  {
+//  if (kdot > -1)
+//  {
+//  	sInput = sInput.substring(0,kdot);
+//  }
+//  else
+//  {
+//  	sInput = sInput;
+//  }
+//  window.event.srcElement.value = sInput;
+//  }  
+　if (sInput.length >= 3)
+　{
+　　var sHead = sInput.substring(0,(sInput.length % 3));
+　　var sTail = "";
+　　for (var i = ((sInput.length) % 3) ; i < sInput.length ; )
+　　{
+　　　sTail = sTail + "," + sInput.substring(i,i+3);
+　　　i+=3;
+　　}
+　　if (sHead == "")
+　　{
+　　　sTail = sTail.substring(1,sTail.length);
+　　}
+		
+　　window.event.srcElement.value = (sHead + sTail);
+　}
+  if (a==1)
+  {
+	window.event.srcElement.value="-"+window.event.srcElement.value;
+  }
+}
+
+
+function bgIDNcheck(thisObj,si)
+{
+	//if (!Lock(thisObj)){
+	// return false;
+	//}
+	thisObj.value=thisObj.value.toUpperCase();
+	var tID = thisObj.value;
+	var tlength = tID.length;
+	//alert(tID);
+	//alert(tlength);
+	//alert(thisObj.id);
+  for (var i=0; i<tlength; i++){
+  	var chk = tID.charAt(i);
+  	if (chk==" "){
+  		alert("身份証統編輸入錯誤？");
+  		return checkError(thisObj);
+  	}
+  }
+	switch(si){
+		case "A" :checkIDN(thisObj);break;
+		case "B" :checkBAN(thisObj);break;
+		case "C" : break;
+		default  :alert("身份証統編輸入錯誤？");return checkError(thisObj);
+	}
+}
+
+
+function checkBAN(thisObj)
+{
+	//if (!Lock(thisObj)) return false;
+	var myID=KCTrim(thisObj.value);
+	//alert(myID);
+	if (myID.length==0)
+		return checkOK(thisObj);
+	if (myID.length!=8 || isNaN(myID.substring(4,4))) {
+		alert("法人統一編號必須為８碼，且後４碼須為數字");
+		return checkError(thisObj);
+	}
+	//var c1 = (ID.charAt(0) * 1);
+	//var c2 = (ID.charAt(2) * 1);
+	//var c3 = (ID.charAt(4) * 1);
+	//var c4 = (ID.charAt(7) * 1);
+	//var b1 = (ID.charAt(1) * 2)      % 10;
+	//var a1 = (ID.charAt(1) * 2 - b1) / 10;
+	//var b2 = (ID.charAt(3) * 2)      % 10;
+	//var a2 = (ID.charAt(3) * 2 - b2) / 10;
+	//var b3 = (ID.charAt(5) * 2)      % 10;
+	//var a3 = (ID.charAt(5) * 2 - b3) / 10;
+	//var b4 = (ID.charAt(6) * 4)      % 10;
+	//var a4 = (ID.charAt(6) * 4 - b4) / 10;
+	//var b5 = (a4 + b4)      % 10;
+	//var a5 = (a4 + b4 - b5) / 10;
+	//var Y = a1 + b1 + c1 + a2 + b2 + c2 + a3 + b3 + c3 + a4 + b4 + c4;
+	//if ((Y % 10) == 0)
+	//  return checkOK(thisObj);
+	//if (ID.charAt(7) == 7) {
+	//  Y = a1 + b1 + c1 + a2 + b2 + c2 + a3 + b3 + c3 + a4 + a5 + c4;
+	//  if ((Y % 10) == 0)
+	//      return checkOK(thisObj);
+	//}
+	//alert('統一編號加總檢核碼錯誤？');
+	//return checkError(thisObj);
+	var the_ban = new Array();
+	var i, j , sum ;
+	var weight = new Array( 1, 2, 1, 2, 1, 2, 4, 1);
+	sum = 0 ;
+	for ( i = 0 ; i < 8 ; i ++ ) {
+		the_ban[i] = myID.charAt(i) ;
+		if ( isNaN(the_ban[i]) == true ) {
+			if ( i < 4 ) {
+				j = myID.charCodeAt(i) - 48 ;
+				// equivelenat to 'A' - '0' in C language
+				// 48 is the ascii code of '0' in decimal
+				j = ( ( myID.charCodeAt(i) - 48 ) % 10 ) * weight[i];
+			}
+			else {
+				j = i+1;
+				alert("法人統一編號應為８碼數字,虛擬統編應為４碼字母４碼數字, 但輸入值的第 "+j+" 碼不為數字");
+				return checkError(thisObj);
+			}
+		}
+		else {
+			j = eval(the_ban[i]) * weight[i] ;
+		}
+		sum += j % 10 ;
+		sum += Math.floor( j/10 );
+	}
+	sum = sum % 10;
+	if ( sum == 0 || ( sum == 9 && the_ban[6] == '7') ) {
+		return checkOK(thisObj);
+	}
+	else {
+		alert('統一編號加總檢核碼錯誤？');
+	}
+	return checkError(thisObj);
+}
+
+function Lock(thisObj){
+	if (errItem!="" && errItem!=thisObj.id)
+		return false;
+	return true;
+}
+function checkError(thisObj){
+	thisObj.focus();
+	thisObj.select();
+	errItem=thisObj.id;
+	return false;
+}
+function checkOK(thisObj){
+	errItem="";
+	return true;
+}
+
+function checkLen(oSrc, nLen, sText)
+{
+	var bEvent = true;
+	if (event.type == "keypress")
+	{
+		if (event.keyCode < 32)
+			return true;
+		// 取得text內容
+		sText = getKeypressText();
+		// 檢查輸入字元個數
+		if  (sText.length + sText.replace(/[ -~]/g, "").length > nLen)
+		{
+			event.returnValue = false;
+			return false;
+		}
+		else
+			return true;
+	}
+	else if (event.type == "blur")
+	{
+		var sRtnText = "";
+		for (var i=1;i<=sText.length;i++)
+		{
+			var sTemp = sText.substr(0,i);
+			if (sTemp.length + sTemp.replace(/[ -~]/g, "").length <= nLen)
+				sRtnText = sTemp;
+		}
+		oSrc.value = sRtnText;
+	}
+}
+
+function getKeypressText()
+{
+	var oRange = document.selection.createRange();
+	oRange.text = String.fromCharCode(event.keyCode);
+
+	var sText = event.srcElement.value;
+	oRange.moveStart("character", -1);
+	oRange.text = "";
+	return sText;
+}
+
+//防止User type -> ' (單引號), Event -> onkeypress
+//document.onkeypress = handlerkeypress;
+function handlerkeypress(text)
+{
+	//alert(window.event.keyCode);
+	//alert("no way!")
+	if (event.keyCode == 222 ) { text.value = text.value.substr(0, text.value.length -1); }
+	if (event.keyCode ==  39) { event.returnValue = false;  }
+}
+
+function maxWord(text,max)
+{
+	 var addascii=0 ;
+	 for(var i=0;i<text.value.length  ;i++)
+	 {
+		var codes=text.value.charCodeAt(i);
+		//alert(codes);
+		if(codes>=32 && codes<=10000)
+		{
+			addascii++;
+		}else{
+			addascii+=2;
+		}
+
+		if(addascii > max){
+			text.value=text.value.substr(0,i);
+			alert( "已輸入超過"+max+"字元長度");
+			return false;
+		}
+	}
+}
+
+/**
+* Validate the input text as a number
+*
+* @param object ID of the input control object
+* @param string Number type ('int', 'u_int', 'float' or 'u_float')
+* @param number Max number allowed to input
+*
+* @return null
+*/
+/*使用方法 sample:DB欄位為Number(7,2)則不可大於等於100000
+onkeypress="javascript:KCAmtCheck();" onchange="validationNumber(this, 'float', 100000);KCDotFormat(2);"
+*/
+function validationNumber(hndID, numType, maxNum)
+{
+ var keyCode = window.event.keyCode;
+ var ch = String.fromCharCode(keyCode);
+ var value = '';
+ var retCode = 0;
+ var oNumVerify=null;
+ //擋Enter鍵
+ if (keyCode==13)
+ {
+  window.event.keyCode = 0;
+  return null;
+ }
+ if (hndID != undefined)
+ {
+  value += hndID.value+ch;
+ }
+ else
+ {
+  window.event.keyCode = keyCode;
+  return null;
+ }
+ value = KCParseDec(value);
+ oNumVerify = new isNumeric(value);
+ if (oNumVerify.isNumber)
+ {
+  numType = numType.toString().toLowerCase();
+  switch(numType)
+  {
+   case 'u_int':  //正整數
+    if ((oNumVerify.isMinus==false) && (oNumVerify.isDecimal==false))
+    {
+     retCode = keyCode;
+    }
+    break;
+   case 'u_float':  //正實數
+    if (oNumVerify.isMinus==false)
+    {
+     retCode = keyCode;
+    }
+    break;
+   case 'int':   //整數
+    if (oNumVerify.isDecimal==false)
+    {
+     retCode = keyCode;
+    }
+    break;
+   case 'float':  //實數
+    retCode = keyCode;
+    break;
+   default:
+    retCode = 0;
+  }
+  //判斷輸入的數字是否超過設置的最大值
+  if ((maxNum!=undefined) && (maxNum.constructor==Number) && (oNumVerify.value >= maxNum))
+  {
+   retCode = 0;
+	 alert("值不能大於等於"+maxNum);
+	 window.event.srcElement.select();
+	 window.event.srcElement.focus();
+	 /*
+	 if ((hndID != undefined) && (hndID.type="text") )
+	 {
+	 	hndID.value="";
+	 }
+	 */
+  }
+ }
+ oNumVerify = null;
+ window.event.keyCode = retCode; 
+ return null;
+} 
+
+function isNumeric(verifyNum)
+{
+ var re = /^([-]{0,1})([0-9]*)([\.]{0,1})([0-9]*)$/g;
+ this.isNumber = false;
+ this.isMinus = false;
+ this.isDecimal = false;
+ this.value = verifyNum;
+ verifyNum = verifyNum.toString();
+ if (re.test(verifyNum))
+ {
+  this.isNumber = true;
+  re.exec(verifyNum);
+  //判斷 '-' 符號
+  if (RegExp.$1=='-')
+  {
+   this.isMinus = true;
+  }
+  //判斷 '.' 符號
+  if (RegExp.$3=='.')
+  {
+   this.isDecimal = true;
+   verifyNum += '0';
+  }
+  try
+  {
+   this.value = parseFloat(verifyNum);
+  }
+  catch(e)
+  {
+   this.value = 0;
+  }
+ }
+ return;
+}
+
+
+//防止User type -> ' (單引號), Event -> onkeypress
+/*
+function KCWordCheck()
+{
+	//if ((event.keyCode >= 33 && event.keyCode <= 39) || (event.keyCode >= 58 && event.keyCode <= 64) ||(event.keyCode >= 91 && event.keyCode <= 96) || (event.keyCode >= 123 && event.keyCode <= 126) || event.keyCode == 44)
+	//	event.returnValue = false;
+	
+	if (event.keyCode ==  39) {
+		event.returnValue = false;
+		}
+}
+*/
+
+//add by ted 20070110 按Button後disable
+window.onbeforeunload=top_onbeforeunload;
+function top_onbeforeunload()
+{
+	for (var j=0;j<document.all.length;j++)
+	{
+		if (document.all(j).tagName=="A")
+		{
+			document.all(j).disabled = true;
+			document.all(j).removeAttribute("href");
+		}
+		if (document.all(j).tagName=="INPUT")
+		{
+			if (document.all(j).type=="submit" || document.all(j).type=="button" || document.all(j).type=="reset")
+			{
+				if (document.all(j).disabled==false)
+				{
+					document.all(j).disabled=true;
+				}
+			}
+		}
+	}
+}
+// </SCRIPT>
+// -->
+

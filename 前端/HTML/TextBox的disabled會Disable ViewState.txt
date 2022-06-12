@@ -1,0 +1,15 @@
+一個TextBox 如果在aspx或js檔中，以DOM的指令作disabled的動作
+Form1.text.disabled = true;
+會造成EnableViewState=flase
+也就是說，只要postback，該textbox中的值，就會被清空，而不會記錄上一次的內容
+
+解決方法
+1.改用ReadOnly
+2.改在vb中去設定disabled=true
+
+
+用正規運算找出相關錯誤
+
+for Visual Studio 
+uc[A-Za-z0-9_]*[.]disabled[ ]*=[ ]*true
+txt[A-Za-z0-9_]*[.]disabled[ ]*=[ ]*true

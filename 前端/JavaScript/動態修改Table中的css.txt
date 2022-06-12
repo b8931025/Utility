@@ -1,0 +1,76 @@
+動態修改Table中的css
+
+
+<table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="cherry_TL" id="DynamicFrameStyle">
+        <DIV></DIV>
+      </td>
+      <td colspan="3" class="cherry_TOP" id="DynamicFrameStyle"> </td>
+      <td class="cherry_TR" id="DynamicFrameStyle">
+        <DIV></DIV>
+      </td>
+    </tr>
+    <tr>
+      <td class="cherry_LEFT" id="DynamicFrameStyle"> </td>
+      <td colspan="3">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="GreyRed_TL" id="DynamicMatteStyle">
+              <DIV></DIV>
+            </td>
+            <td class="GreyRed_TOP" id="DynamicMatteStyle"></td>
+            <td class="GreyRed_TR" id="DynamicMatteStyle"></td>
+          </tr>
+          <tr>
+            <td class="GreyRed_LEFT" id="DynamicMatteStyle"></td>
+            <td>Content<td>
+            <td class="GreyRed_RIGHT" id="DynamicMatteStyle"></td>
+          </tr>
+          <tr>
+            <td class="GreyRed_BL" id="DynamicMatteStyle"></td>
+            <td class="GreyRed_BOTTOM" id="DynamicMatteStyle"></td>
+            <td class="GreyRed_BR" id="DynamicMatteStyle">
+              <DIV></DIV>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td class="cherry_RIGHT" id="DynamicFrameStyle"> </td>
+    </tr>
+    <tr>
+      <td class="cherry_BL" id="DynamicFrameStyle">
+        <DIV></DIV>
+      </td>
+      <td colspan="3" class="cherry_BOTTOM" id="DynamicFrameStyle"> </td>
+      <td class="cherry_BR" id="DynamicFrameStyle">
+        <DIV></DIV>
+      </td>
+    </tr>
+  </table>
+
+And here is the code that makes the changes based on "onChange" events in a drop down.
+
+
+<script>                  
+function Frame_OnChange(style)      {
+      if (DynamicFrameStyle.length>1)      {
+        for (var i=0; i<DynamicFrameStyle.length; i++)      {
+          DynamicFrameStyle[i].className = style + DynamicFrameStyle[i].className.match("_.+");
+    }
+  } else {
+    DynamicFrameStyle.className = style + DynamicFrameStyle.className.match("_.+");
+  }
+}
+
+function Matte_OnChange(style)      {
+      if (DynamicMatteStyle.length>1)      {
+        for (var i=0; i<DynamicMatteStyle.length; i++)      {
+          DynamicMatteStyle[i].className = style + DynamicMatteStyle[i].className.match("_.+");
+    }
+  } else {
+    DynamicMatteStyle.className = style + DynamicMatteStyle.className.match("_.+");
+  }
+}
+</script>
+

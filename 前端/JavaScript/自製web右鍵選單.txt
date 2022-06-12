@@ -1,0 +1,69 @@
+<!--右鍵開啟連結選單 _開始-->
+<style>
+<!-- 
+#ie5menu{
+position:absolute;
+width:50pt;
+border:1pt solid black;/*外框粗細色彩*/
+background-color:menu;/*背景顏色*/
+font-family:Verdana;
+line-height:15pt;
+cursor:default;
+visibility:hidden;
+} 
+.menuitems{
+padding-left:5pt;/*修改連結文字離選單左邊的距離*/
+padding-right:5pt;/*修改連結文字離選單右邊的距離*/
+}
+-->
+</style>
+
+<script language="JavaScript">
+	<!--
+		var display_url=0;
+		function showmenuie5(){
+			ie5menu.style.left=window.event.offsetX;
+			ie5menu.style.top=window.event.offsetY;
+			ie5menu.style.visibility="visible";
+			return false;//不要顯示IE的menu
+		}
+
+		function hidemenuie5(){ie5menu.style.visibility="hidden";}
+
+		function highlightie5(){//顯示反白
+			if (event.srcElement.className=="menuitems"){
+				event.srcElement.style.backgroundColor="green";
+				event.srcElement.style.color="white";
+				if (display_url==1)	window.status=event.srcElement.url;
+			}
+		}
+		
+		function lowlightie5(){//取消反白
+			if (event.srcElement.className=="menuitems"){
+			event.srcElement.style.backgroundColor="";
+			event.srcElement.style.color="black";
+			window.status=event.srcElement.url;
+			}
+		}
+		
+		function jumptoie5(){//前進到點選的連結
+		if (event.srcElement.className=="menuitems")window.location=event.srcElement.url;
+		}
+	-->
+</script> 
+<!--在 style="width: 55pt; height: 75pt" 中修改選單的寬度及高度-->
+<div id="ie5menu" onMouseOver="highlightie5()" onMouseOut="lowlightie5()"  style=" height:75pt"> 
+	<div class="menuitems" url="http://www.google.com">Google</div>
+	<div class="menuitems" url="http://tw.yahoo.com">Taiwan Yahoo</div>
+	<div class="menuitems" url="連結網址">連結網址</div>
+	<div class="menuitems" url="連結網址">連結網址</div>
+	<div class="menuitems" url="連結網址">連結網址</div>
+</div>
+<script language="JavaScript">
+<!--
+document.oncontextmenu=showmenuie5;//按右鍵時，顯示menu
+document.body.onclick=hidemenuie5;//當在其它地方click時，影藏menu
+-->
+</script>
+
+<!--右鍵開啟連結選單 _結束-->

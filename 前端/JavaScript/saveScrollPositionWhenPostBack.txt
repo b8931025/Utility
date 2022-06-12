@@ -1,0 +1,47 @@
+    Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
+    	RetainScrollPosition()
+    End Sub
+
+    Private Sub RetainScrollPosition()
+
+        'Page.SmartNavigation = True
+
+        '只要在Page_Load呼叫這個副程式就可以了，而且在html中將body 的 id 命名為　thebody。
+
+        Dim saveScrollPosition As System.Text.StringBuilder = New System.Text.StringBuilder
+
+        Dim setScrollPosition As System.Text.StringBuilder = New System.Text.StringBuilder
+
+        Me.Page.RegisterHiddenField("__SCROLLPOS", "0")
+
+
+        saveScrollPosition.Append("<script language='javascript'>")
+
+        saveScrollPosition.Append("function saveScrollPosition() {")
+
+        saveScrollPosition.Append(" document.forms[0].__SCROLLPOS.value = document.documentElement.scrollTop+ document.body.scrollTop;") 'thebody.scrollTop
+
+        saveScrollPosition.Append("}")
+
+        saveScrollPosition.Append("window.onscroll=saveScrollPosition;") 'thebody.onscroll
+
+        saveScrollPosition.Append("</script>")
+
+        Me.Page.RegisterStartupScript("saveScroll", saveScrollPosition.ToString())
+
+        If Page.IsPostBack Then
+            setScrollPosition.Append("<script language='javascript'>")
+
+            setScrollPosition.Append("function setScrollPosition() {")
+
+            setScrollPosition.Append(" document.body.scrollTop = " + Request("__SCROLLPOS") + ";") 'thebody.scrollTop
+
+            setScrollPosition.Append("}")
+
+            setScrollPosition.Append("window.onload=setScrollPosition;") 'thebody.onload
+
+            setScrollPosition.Append("</script>")
+
+            Me.Page.RegisterStartupScript("setScroll", setScrollPosition.ToString())
+        End If
+    End Sub

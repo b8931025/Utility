@@ -1,0 +1,2 @@
+在地址欄裡輸入如下script可以查看執行時生成的html
+javascript:document.body.innerHTML%20=%20"<textarea%20style='height:300;%20width:300'>"+document.body.innerHTML+"</textarea>"

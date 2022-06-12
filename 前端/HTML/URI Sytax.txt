@@ -1,0 +1,12 @@
+  foo://username:password@example.com:8042/over/there/?name=ferret#nose
+  \ /   \________________/\_________/ \__/\_________/  \_________/ \__/
+   |           |               |        |     |             |       |
+   |       userinfo         hostname  port  path          query   fragment
+   |    \_______________________________/
+scheme              authority
+   |
+   |            path
+   |   ___________|____________
+  / \ /                        \
+  urn:example:animal:ferret:nose
+

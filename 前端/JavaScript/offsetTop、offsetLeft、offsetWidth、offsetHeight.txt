@@ -1,0 +1,19 @@
+offsetTop、offsetLeft、offsetWidth、offsetHeight
+
+假設 obj 為某個 HTML 控件。
+
+obj.offsetTop 指 obj 相對於版面或由 offsetParent 屬性指定的父坐標的計算上側位置，整型，單位像素。
+
+obj.offsetLeft 指 obj 相對於版面或由 offsetParent 屬性指定的父坐標的計算左側位置，整型，單位像素。
+
+obj.offsetWidth 指 obj 控件自身的絕對寬度，不包括因 overflow 而未顯示的部分，也就是其實際佔據的寬度，整型，單位像素。
+
+obj.offsetHeight 指 obj 控件自身的絕對高度，不包括因 overflow 而未顯示的部分，也就是其實際佔據的高度，整型，單位像素。
+
+我們對前面提到的 offsetParent 作個說明。
+
+offsetParent 獲取定義對像 offsetTop 和 offsetLeft 屬性的容器對象的引用。offsetTop 與 offsetParent 很複雜，不同瀏覽器有不同解釋，浮動一下解釋又不同了，所以我們一般只要理解通過二者可以獲得控件在瀏覽器中的絕對位置即可。
+
+以上屬性在 FireFox 中也有效。
+
+另外：我們這裡所說的是指 HTML 控件的屬性值，並不是 document.body，document.body 的值在不同瀏覽器中有不同解釋（實際上大多數環境是由於對 document.body 解釋不同造成的，並不是由於對 offset 解釋不同造成的），點擊這裡查看不同點。

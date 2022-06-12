@@ -1,0 +1,51 @@
+function LockAndMax(text,max)
+{
+/*鎖住非數字鍵並限制輸入字數(max)
+  用法onkeydown="return LockAndMax(this,5);"
+  不限制數字onkeydown="return LockAndMax(this,-1);"
+*/
+	if (!window.event.shiftKey) {
+		var c = String.fromCharCode(event.keyCode);
+		if (window.event.keyCode		== KC_BACKSPACE )       {return true;}
+		if (window.event.keyCode		== KC_TAB       )       {return true;}
+		if (window.event.keyCode		== KC_END       )       {return true;}
+		if (window.event.keyCode		== KC_HOME      )       {return true;}
+		if (window.event.keyCode		== KC_LEFT      )       {return true;}
+		if (window.event.keyCode		== KC_RIGHT     )       {return true;}
+		if (window.event.keyCode		== KC_INSERT    )       {return true;}
+		if (window.event.keyCode		== KC_DELETE    )       {return true;}
+		if (window.event.keyCode		== KC_NUMLOCK   )       {return true;}
+		if (window.event.keyCode		== KC_CAPSLOCK  )       {return true;}
+		if (window.event.keyCode		== KC_PAD_0     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_1     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_2     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_3     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_4     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_5     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_6     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_7     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_8     )       {return true;}
+		if (window.event.keyCode		== KC_PAD_9     )       {return true;}
+		if ("0123456789".indexOf(c,0) 	>= 0			){
+			var addascii=0 ;
+			var sTemp = text.value + c;
+			if (max > 0)
+			for(var i=0;i<sTemp.length  ;i++)
+			{
+				var codes=sTemp.charCodeAt(i);
+				if(codes>=32 && codes<=10000)
+				{
+					addascii++;
+				}else{
+					addascii+=2;
+				}
+				if(addascii > max){
+					alert( "已輸入超過"+max+"字元長度");
+					return false;
+				}
+			}						
+			return true;
+		}
+	}
+	return false;
+}		

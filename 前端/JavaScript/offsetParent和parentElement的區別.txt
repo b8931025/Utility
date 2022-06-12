@@ -1,0 +1,100 @@
+offsetParent和parentElement的區別
+
+offsetParent的回傳element有兩種情況：
+1.有宣告position屬性時，會回傳上一個有宣告position屬性的element
+2.無宣告position屬性時，會回傳上一層包裏住該物件的的element，如果上一層是div和span，就再往上一層
+
+而parentElement與position屬性無關，只會回傳上一層包裏住該物件的的element
+
+例如：
+  <BODY>
+  <div   style="border:   1px   solid   black;position:absolute;">  
+  <form>  
+  <input   type="checkbox"   id="cc">  
+  </form>  
+  </div>  
+這個例子中，「cc」元素的offsetParent是div，如果去掉div的position屬性，那麼cc的offsetParent就會變為body。而parentElement一直都為form。
+與此相關的還有offsetLeft和offsetTop兩種屬性，他們分別表示的是元素與offsetElement相對應的左側和頂部距離。
+
+1.<BODY >
+<TABLE BORDER=1 ALIGN=right>
+  <TR>
+    <TD ID=oCell>
+    	<div id="parentdiv" style="position:relative" >
+    		parentdiv
+    		<div id="sondiv">sondiv</div>
+    	</div>
+    </TD>
+  </TR>
+</TABLE>
+
+
+運行結果
+parentdiv.offsetParent.tagName IS "body"
+sondiv.offsetParent.id     IS　"parentdiv" 
+
+2.<BODY >
+<TABLE BORDER=1 ALIGN=right>
+  <TR>
+    <TD ID=oCell>
+    	<div id="parentdiv" style="position:relative" >
+    		parentdiv
+    		<div id="sondiv"　style="position:relative">sondiv</div>
+    	</div>
+    </TD>
+  </TR>
+</TABLE> 
+
+運行結果
+parentdiv.offsetParent.tagName IS "body" 
+sondiv.offsetParent.id     IS　"parentdiv"
+
+3.<BODY >
+<TABLE BORDER=1 ALIGN=right>
+  <TR>
+    <TD ID=oCell>
+    	<div id="parentdiv" >
+    		parentdiv
+    		<div id="sondiv"　style="position:relative">sondiv</div>
+    	</div>
+    </TD>
+  </TR>
+</TABLE> 
+
+
+運行結果
+parentdiv.offsetParent.tagName IS "TD" 
+sondiv.offsetParent.tagName    IS　"body"
+
+4.<BODY >
+<TABLE BORDER=1 ALIGN=right>
+  <TR>
+    <TD ID=oCell>
+    	<div id="parentdiv" >
+	    parentdiv<div id="sondiv">sondiv</div>
+	    </div>
+    </TD>
+  </TR>
+</TABLE> 
+
+
+運行結果
+parentdiv.offsetParent.tagName IS "TD" 
+sondiv.offsetParent.tagName    IS　"TD"
+
+5.<BODY >
+<TABLE BORDER=1 ALIGN=right style="position:relative">
+  <TR>
+    <TD ID=oCell>
+    	<div id="parentdiv" style="position:relative" >
+    		parentdiv
+    		<div id="sondiv"　style="position:relative">sondiv</div>
+    	</div>
+    </TD>
+  </TR>
+</TABLE> 
+
+運行結果
+parentdiv.offsetParent.tagName IS "Table" 
+sondiv.offsetParent.tagName    IS　"DIV" 
+

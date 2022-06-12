@@ -1,0 +1,17 @@
+﻿    //加速器
+	if (window.DeviceMotionEvent) {
+	    window.addEventListener('devicemotion', function (event) {
+	        var x = Math.round(event.acceleration.x, -3),
+              y = Math.round(event.acceleration.y, -3),
+              z = Math.round(event.acceleration.z, -3);
+                  
+	        var totalG = Math.abs(x) + Math.abs(y) + Math.abs(z);
+
+            //大力搖晃才顯示
+	        if (totalG > 20) {
+	          //do something
+	        }
+	    });
+	} else {
+	    //沒有加速器
+	}

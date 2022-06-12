@@ -1,0 +1,11 @@
+document.write("Hellow World again<br>"); 
+ var s = "我是打字機"; 
+ var i = 0;
+ var myInterval = setInterval(f1,1000);
+ function f1(){
+  document.getElementById("spn1").innerHTML = s.slice(0,i);
+  i+=1;
+  if (i==(s.length+1)){
+  alert('stop');
+  clearInterval(myInterval); 
+   } 

@@ -1,0 +1,36 @@
+﻿第一種方式：
+$(document).ready(function(){
+$("#clickme").click(function(){
+alert("hello world click")
+})
+})
+
+第二種方式（簡寫方式為第一種）：
+$('#clickmebind').bind("click", function(){
+alert("Hello World bind");
+});
+
+第三種方式：                                   << 最新的寫法1.9版之後都用這個就可以了，是最新的1.9版本整合了之前的三種方式的新事件繫結機制
+$('#clickmeon').on("click",function(){
+alert("hello world on")
+}) 
+
+注意：第三種方式只適用於jquery 1.7以上的版本
+
+第四種方式：
+$("button").live("click",function(){
+$("p").slideToggle();
+});
+
+第五種方式：
+$("div").delegate("button","click",function(){
+$("p").slideToggle();
+});
+如果只繫結一次事件，那接著用one()吧，這個沒有變化。
+
+
+$(document).ready(function(){
+　　$("p").one("click",function(){
+　　　　$(this).animate({fontSize:" =6px"});
+　　});
+});

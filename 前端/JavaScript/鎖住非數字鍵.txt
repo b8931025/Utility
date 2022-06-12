@@ -1,0 +1,25 @@
+html加入此function到Head標籤
+		<SCRIPT language="JavaScript">
+			function KCNumCheck(){
+				if (!window.event.shiftKey) {
+					var c = String.fromCharCode(event.keyCode);
+					var keyCodeArray = new Array(13,3,8, 9, 35, 36,37,39,45,46,144,145,96,97,98,99,100,101,102,103,104,105);
+					for(var i=0;i<=keyCodeArray.length-1;i++)
+					{
+							if(window.event.keyCode==keyCodeArray[i]){
+							return true;
+							}
+					}
+					if ("0123456789".indexOf(c,0)>= 0 )       {return true;}
+				}
+				return false;
+			}
+		</SCRIPT>
+		
+		設TextBox 屬性onkeydown='return KCNumCheck();'
+		
+		在html使用該函數
+		<asp:textbox id="tbSYYYMM"  Runat="server" MaxLength="5" onkeydown="return KCNumCheck();"></asp:textbox>
+		
+		在vb使用該函數
+		tbSYYYMM.Attributes.Add("onkeydown", "return KCNumCheck();")

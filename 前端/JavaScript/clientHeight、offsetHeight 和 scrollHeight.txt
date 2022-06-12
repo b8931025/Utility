@@ -1,0 +1,30 @@
+我們這裡說說四種瀏覽器對 document.body 的 clientHeight、offsetHeight 和 scrollHeight 的解釋，這裡說的是 document.body，如果是 HTML 控件，則又有不同，點擊這裡查看。
+
+這四種瀏覽器分別為IE（Internet Explorer）、NS（Netscape）、Opera、FF（FireFox）。
+
+clientHeight
+大家對 clientHeight 都沒有什麼異議，都認為是內容可視區域的高度，也就是說頁面瀏覽器中可以看到內容的這個區域的高度，一般是
+clientHeight、offsetHeight和scrollHeight
+
+最後一個工具條以下到狀態欄以上的這個區域，與頁面內容無關。
+
+offsetHeight
+IE、Opera 認為 offsetHeight = clientHeight + 滾動條 + 邊框。
+NS、FF 認為 offsetHeight 是網頁內容實際高度，可以小於 clientHeight。
+
+scrollHeight
+IE、Opera 認為 scrollHeight 是網頁內容實際高度，可以小於 clientHeight。
+NS、FF 認為 scrollHeight 是網頁內容高度，不過最小值是 clientHeight。
+
+簡單地說
+clientHeight 就是透過瀏覽器看內容的這個區域高度。
+NS、FF 認為 offsetHeight 和 scrollHeight 都是網頁內容高度，只不過當網頁內容高度小於等於 clientHeight 時，scrollHeight 的值是 clientHeight，而 offsetHeight 可以小於 clientHeight。
+IE、Opera 認為 offsetHeight 是可視區域 clientHeight 滾動條加邊框。scrollHeight 則是網頁內容實際高度。
+
+同理
+clientWidth、offsetWidth 和 scrollWidth 的解釋與上面相同，只是把高度換成寬度即可。
+
+
+重要說明
+
+以上是在沒有指定 DOCTYPE 的情況下，如果指定了 DOCTYPE，比如：DTD XHTML 1.0 Transitional，則意義又會不同，在這種情況下這三個值都是同一個值，都表示內容的實際高度。新版本的瀏覽器大多支持根據頁面指定的 DOCTYPE 來啟用不同的解釋器。下載或瀏覽測試文件。如果要在指定的 DOCTYPE 下按上述意義來應用，怎麼辦呢？答案是：將 document.body 和 document.documentElement 一起應用，比如：document.documentElement.scrollLeft || document.body.scrollLeft（一般將 document.documentElement 寫在前面），類似應用請參見：

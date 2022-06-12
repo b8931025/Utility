@@ -1,0 +1,6 @@
+in VB
+    Public javaArray As String = "['AA','BB','CC']"  '宣告字串，以JavaScript的陣列格式組成
+
+in JavaScript
+			var s = <%=javaArray%>;//指定VB的變數
+			alert(s.length);//JavaScript陣列型態

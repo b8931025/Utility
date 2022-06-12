@@ -1,0 +1,24 @@
+當關閉瀏灠器，就會觸發onbeforeunload事件
+如果想在離開web之前，加入一些程序，可以用下列方法
+
+		<script lang='JavaScript'>
+		window.onbeforeunload   =   function()   
+		{   
+			//event.clientX > document.body.clientWidth &&e vent.clientY < 0 判斷是否在網頁顯示區外
+			//在網頁顯示區外觸發onbeforeunload，表示"X"按鈕被按下，如果想要連網頁更新按鈕被按下時，也包括在內
+			//就改成event.clientX > 0 || e vent.clientY < 0 
+			//event.altKey判斷是否按下了Alt+F4離開
+			
+			if(event.clientX > document.body.clientWidth && event.clientY < 0 || event.altKey)   
+			{   
+			  //加入想要的程序
+				return   "別走嘛~!~!~!~!";   
+			}   
+		}
+		</script>
+		
+		或者...
+		
+		<body onbeforeunload="alert('OK');"></body>
+		
+		※關閉網頁是Client端的事件，如果要在關閉網頁時，Postback 回Server 就要用Form.submit();

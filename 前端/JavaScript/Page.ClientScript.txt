@@ -1,0 +1,20 @@
+Response.Write                                       在整個的page的最上面，這個還是少用。
+Page.ClientScript.RegisterClientScriptBlock
+Page.ClientScript.RegisterStartupScript
+Page.ClientScript.RegisterClientScriptInclude
+
+
+//產生的地方在<form  runat="server"> 的下面，這個會比RegisterStartupScript更早發生，所以要放全域變數的可以用這個。
+Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "test1", "function Hello1(){alert('這是Block');}", true);
+
+
+//產生的地方在</form> 的上面，方便在client端取值，因為全部的control render後，它才會發生。
+Page.ClientScript.RegisterStartupScript(this.GetType(), "test2", "function Hello2(){alert('這是Startup');}", true);
+ 
+
+//Include的是將JavaScript寫到Client端HTML裡的<form>下面；此方法會在前端網頁的 HTML 中插入類似這樣的 script 標籤： <script src="~/myscript/cool.js" type="text/javascript"></script>
+Page.ClientScript.RegisterClientScriptInclude(this.GetType(), "test3", Page.ResolveUrl("~/myscript/cool.js"));
+
+
+
+

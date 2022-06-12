@@ -1,0 +1,19 @@
+<HTML xmlns:v><!--※-->
+	<HEAD>
+		<STYLE type="text/css">v\:*{behavior:url(#default#VML);}</STYLE> <!--※-->
+		<script src="barChart.js"></script><!--※-->
+	</HEAD>
+	<body >
+	
+		<!--※
+		<v:group />必需在function barChar前面
+		如果要調整大小，就改變width,height。
+		coordsize盡量不要改數字，但改變正負可以切換繪圖的方向
+		function barChar(統計項目,項目名稱,GroupID);
+		-->
+		<v:group ID="g1" style='position:relative;left:0;top:0;z-index:10;width:1200px;height:600px' coordsize="-200,-200"/>
+		<script lang="JavaScript">
+		barChart('90|80|70','Banana|Apple|Eggplant','g1');
+		</script>
+	</body>
+</HTML>

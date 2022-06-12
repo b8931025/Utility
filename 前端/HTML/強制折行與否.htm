@@ -1,0 +1,1897 @@
+<!--STATUS OK-->
+
+<html><head><meta http-equiv=content-type content="text/html; charset=gb2312"><title>网页内强制折行与不折行的解决方案_My Space      </title>
+
+<style type="text/css">
+
+.error{color:#FF0000;font-size:12px}
+
+
+
+
+
+	
+
+
+
+
+
+</style>
+
+<script type="text/javascript" src="/ui/scripts/global.js"></script>
+
+<script language="javascript" src="/js/popup.js"></script>
+
+<script type="text/javascript" src="/ui/scripts/CommentEditor/BdEditor-mined.js?v=2.3"></script>
+
+<script LANGUAGE="JavaScript" src="/js/g_spjs.js"></script>
+
+<script language="javascript">
+
+<!--
+
+
+(function(){var A=109;function C(D){var F="nslog__"+(new Date()).getTime();var E=window[F]=new Image();E.onload=(E.onerror=function(){window[F]=null});E.src="http://nsclick.baidu.com/v.gif?pid="+A+"&url="+encodeURIComponent(D)+"&type=0&_t="+Math.random();E=null}function B(F){F=F||event;var E=F.srcElement||F.target;if(E.nodeType!=1){E=E.parentNode}while(E&&E.tagName&&E.tagName.toUpperCase()!="A"){E=E.parentNode}if(E&&E.tagName&&E.tagName.toUpperCase()=="A"){if(E.protocol.indexOf("http")==0&&!/^([\w-]+\.)*?baidu\.com/i.test(E.host)){var D=E.href;setTimeout(function(){C(D)},1)}}E=null}if(document.attachEvent){document.attachEvent("onmousedown",B);window.attachEvent("onunload",function(){document.detachEvent("onmousedown",B)})}else{document.addEventListener("mousedown",B,false);window.addEventListener("unload",function(){document.removeEventListener("mousedown",B,false)},false)}})();
+
+var allkey="";
+
+var i=0;
+
+var flag=0;
+
+function setpv(allnum)
+
+{
+
+	var num = allnum.split('_');
+
+	document.getElementById("result").innerHTML=num[0];
+
+}
+
+
+
+function checkMail(s)
+
+{
+
+  	var pattern=/\w+@\w+\.[a-z]+/;
+
+  	if(pattern.test(s))
+
+    {
+
+       return true;
+
+    }
+
+  	else
+
+   {
+
+      return false;
+
+   }
+
+}
+
+
+
+
+
+function checkeandu(eanduid)
+
+{
+
+	var eanduvalue=G(eanduid).value;
+
+	var len=bytes(eanduvalue);
+
+	if(len>128)
+
+	{
+
+		showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+
+		return false;
+
+	}
+
+	else
+
+	{
+
+		 return true;
+
+	}
+
+
+
+}
+
+
+
+function cmtdel(str)
+
+{
+
+	var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+
+	pop.setContent("title","删除评论");
+
+	pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+
+	pop.setContent("callBack",delCallback2);
+
+	pop.setContent("parameter",{fid:str,popup:pop});
+
+	pop.build();
+
+	pop.show();
+
+	return false;
+
+}
+
+function delCallback2(para)
+
+{
+
+	var o_pop=para["popup"];
+
+	o_pop.config.contentType=1;
+
+	o_pop.setContent("contentUrl","");
+
+	o_pop.reBuild();
+
+	G(para["fid"]).target=o_pop.iframeIdName;
+
+	eval("document."+para["fid"]).submit();
+
+}
+
+
+
+String.prototype.byteLength = function() {
+
+    return this.replace(/[^\u0000-\u007f]/g,"\u0061\u0061").length;
+
+}
+
+
+
+function checkname(strid)
+
+{
+
+	var ele=document.getElementById(strid);
+
+	var len=bytes(ele.value);
+
+	if(len>49)
+
+	{
+
+		showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+
+		return false;
+
+	}
+
+	else
+
+	{
+
+		if(len==0)
+
+		{
+
+			document.getElementById(strid).value="匿名网友";
+
+		}
+
+		 return true;
+
+	}
+
+
+
+}
+
+
+
+function checktext(textid)
+
+{
+
+        var tempStr='';
+
+        var isLightFont=false;
+
+		if(editor&&textid=="spBlogCmtText"){
+
+			//document.getElementById("spBlogCmtText").value=editor.getHtml();
+
+			tempStr=editor.getHtml();
+
+			tempStr=tempStr.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,'');
+
+			tempStr=tempStr.replace(/<\/span>/ig,'');
+
+			document.getElementById("spBlogCmtText").value=tempStr;
+
+            isLightFont=!(tempStr==editor.getHtml());
+
+        }
+
+		document.getElementById(textid).value=trimlr(textid);
+
+		var str=trimrn(textid);
+
+		len=str.length;
+
+		if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+
+		{
+
+			showErr(3,"您必须输入评论内容，请检查。");
+
+			return false;
+
+		}
+
+		else
+
+        {
+
+                len=str.byteLength();
+
+                var maxLength=isLightFont?916:1000;
+
+				if(len > maxLength)
+
+				{
+
+					showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+
+					return false;
+
+				}
+
+				if(editor&&textid=="spBlogCmtText"){
+
+					document.getElementById("spBlogCmtText").value=editor.getHtml();
+
+					document.getElementById(textid).value=trimlr(textid);
+
+				}
+
+
+
+			return true;
+
+		}
+
+}
+
+
+
+function showErr(index,str)
+
+{
+
+	G(index+"_err").style.display="";
+
+	G(index+"_err_con").innerHTML=str;
+
+}
+
+function hidErr(index)
+
+{
+
+	G(index+"_err").style.display="none";
+
+	G(index+"_err_con").innerHTML="";
+
+}
+
+
+
+function alertPop(tit,con)
+
+{
+
+	var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+
+	pop.setContent("title",tit);
+
+	pop.setContent("alertCon",con);
+
+	pop.build();
+
+	pop.show();
+
+}
+
+
+
+function cmtfull()
+
+{
+
+	var cnum=0;
+
+	if(cnum>=50000)
+
+	{
+
+		alertPop("发表评论","单篇日志评论数最多为50000条.");
+
+		return false;
+
+	}
+
+	else
+
+	{
+
+		return true;
+
+	}
+
+}
+
+
+
+function checkcmtform()
+
+{
+
+	if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+
+	{
+
+		submitForm();
+
+		return true;
+
+	}
+
+	else
+
+	{
+
+		return false;
+
+	}
+
+}
+
+
+
+var g_pop=null;
+
+function submitForm()
+
+{
+
+	g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+
+	g_pop.setContent("title","添加评论");
+
+	g_pop.setContent("contentUrl","");
+
+	g_pop.setContent("someDisabledBtn","btn_ok");
+
+	g_pop.build();
+
+	G("popFormSubmit").target=g_pop.iframeIdName;
+
+	g_pop.show();
+
+}
+
+
+
+function g_close_pop()
+
+{
+
+	g_pop.close();
+
+}
+
+
+
+function formatonlinpic()
+
+{
+
+var picobj=document.getElementsByName("onlinepic");
+
+var picnum=picobj.length;
+
+
+
+	for(var i=0;i<picnum;i++)
+
+	{
+
+		if(picobj[i].width>200)
+
+		{
+
+			picobj[i].width=200;
+
+		}
+
+		if(picobj[i].height>200)
+
+		{
+
+			picobj[i].height=200;
+
+		}
+
+	}
+
+    try{document.getElementById("btn_ok").disabled = "";}catch(e){}
+
+}
+
+
+
+function addToFavor(){
+
+var blogTitle='网页内强制折行与不折行的解决方案'.replace(/&#39;/g,'\'');
+
+window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(blogTitle+'_百度空间')+'&iu='+encodeURIComponent(location.href)+'&fr=sp#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes');
+
+return false;
+
+}
+
+
+
+var isIE = /*@cc_on!@*/false;
+
+function tracker(did,a){
+
+	return function(){
+
+		var t=new Date().getTime();
+
+		var href=a.href;
+
+        if(isIE){
+
+            var r = /href\s*=\s*("|')?([^\s]*)\1/gi;
+
+            if(r.test(a.outerHTML))
+
+                href = RegExp.$2;
+
+        }
+
+        new Image().src = "http://hi.baidu.com/sys/statlog/1.gif?m=" + did + "&v=" + encodeURIComponent(href) + "&c=" + encodeURIComponent(location.href) + "&t="+t;
+
+	}
+
+}
+
+
+
+function tracker_init(did){
+
+	var _s=document.getElementById(did);
+
+	var as = _s.getElementsByTagName('A');
+
+	for(var i = 0, j = as.length; i < j; i ++){
+
+		var a = as[i];
+
+		if(isIE){
+
+			a.attachEvent("onclick", tracker(did,a));
+
+		}else{
+
+			a.addEventListener("click", tracker(did,a), false);
+
+		}
+
+	}
+
+}
+
+
+
+
+
+/* some functions for cmt-reply */
+        var g_cmtorInfo = [];
+        function goCmtReply(cmtPorID){
+            cmtreply(g_cmtorInfo[cmtPorID],cmtPorID);
+        }
+		function cmtreply(cmtName,cmtPorID)
+
+		{
+
+			cmtName=cmtName.replace(/<|>/g,"");
+
+			window.location.hash="#send";
+
+			var cmtForm=document.form1;
+
+			cmtForm.cm.value="3";
+
+			if(!cmtForm.spReferTarget)
+
+			{
+
+				var ipt=document.createElement("input");
+
+				ipt.type="hidden";
+
+				ipt.name="spReferTarget";
+
+				ipt.value=cmtPorID;
+
+				cmtForm.appendChild(ipt);
+
+			}else cmtForm.spReferTarget.value=cmtPorID;
+
+
+
+
+
+			 //G("reTitle").innerHTML="回复"+cmtName+"：";
+
+			 G("cancleReLink").style.display="";
+
+			 cmtForm.btn_ok.value="回复评论";
+
+
+
+
+
+			 try{
+
+				editor.window.focus();
+
+                editor.window.document.body.innerHTML="回复"+cmtName+"：";
+
+
+
+                var w = editor.window;
+
+				if(w.getSelection){
+
+					var d = w.document;
+
+					var s = w.getSelection();
+
+					var r = d.createRange();
+
+					r.setStartAfter(d.body.firstChild);
+
+					r.setEndAfter(d.body.lastChild);
+
+					s.removeAllRanges();
+
+					s.addRange(r);
+
+				}
+
+			}catch(e){
+
+			 		try{
+
+				 		cmtForm.getElementsByTagName("textarea")[0].focus();
+
+				 		cmtForm.getElementsByTagName("textarea")[0].value="回复"+cmtName+"：";
+
+				 	}catch(e){}
+
+			}
+
+		}
+
+
+
+		function canclereply()
+
+		{
+
+			var cmtForm=document.form1;
+
+			cmtForm.cm.value="1";
+
+			try{cmtForm.removeChild(cmtForm.spReferTarget);}catch(e){}
+
+			/*
+
+			try{
+
+					var cmt=cmtForm.getElementsByTagName("textarea")[0]
+
+					cmt.value="";
+
+					cmt.focus();
+
+			}catch(e){}
+
+			*/
+
+
+
+			try{
+
+					var ed=editor.window.document.body;
+
+					ed.innerHTML="";
+
+					editor.window.focus();
+
+				}catch(e){
+
+					var cmt=cmtForm.getElementsByTagName("textarea")[0];
+
+					cmt.value="";
+
+					cmt.focus();
+
+			}
+
+
+
+			G("cancleReLink").style.display="none";
+
+			cmtForm.btn_ok.value="发表评论";
+
+		}
+
+
+
+		function gotoreply()
+
+		{//to checking whether reply cmt
+
+			if( window.location.hash.indexOf("&re=1")<0) return;
+
+			var cmtID=window.location.hash.split("&")[0].replace("#","");
+
+			var cmtlinks=document.getElementsByTagName("a");
+
+			for(var i=0,n=cmtlinks.length;i<n;i++)
+
+			{
+
+				if(cmtlinks[i].name==cmtID){ var rename=cmtlinks[i].getAttribute("rename");  repid=cmtlinks[i].getAttribute("repid"); break;}
+
+			}
+
+			if(typeof(rename)!="undefined"){
+
+				cmtreply(rename, repid);
+
+			}
+
+		}
+
+
+
+//-->
+
+</script>
+
+
+<script type="text/javascript">
+
+    /*<![CDATA[*/
+
+
+
+window.onerror=function(){return true;}
+
+
+
+var RelatedDocData = null, GetAndEval = false;
+
+(function(){
+
+	var xhr = BdAjax.getXHR();
+
+	if(xhr == null){
+
+		RelatedDocData = -1;
+
+		return;
+
+	}
+
+
+
+	xhr.open("GET", "/sys/search?type=8&word=%CD%F8%D2%B3%C4%DA%C7%BF%D6%C6%D5%DB%D0%D0%D3%EB%B2%BB%D5%DB%D0%D0%B5%C4%BD%E2%BE%F6%B7%BD%B0%B8&item=f5cd4197b4e6786855fb969b&t=" + new Date().getTime(), true);
+
+	xhr.onreadystatechange = function(){
+
+		if(xhr.readyState == 4){
+
+			if(xhr.status == 0 || xhr.status == 200){
+
+				if(GetAndEval){
+
+					eval(xhr.responseText);
+
+				}else{
+
+					RelatedDocData = xhr.responseText;
+
+				}
+
+			}
+
+		}
+
+	}
+
+	xhr.send(null);
+
+})();
+
+/*]]>*/
+
+</script>
+
+
+
+</head>
+
+<body onLoad="formatonlinpic();">
+
+<center>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+if(top.location != self.location){
+	top.location = self.location;
+}
+var myref = encodeURIComponent("http://hi.baidu.com/wyd45123/blog/item/f5cd4197b4e6786855fb969b%2Ehtml");
+/*]]>*/
+</script>
+<link rel="stylesheet" type="text/css" href="/ui/css/mods.css" />
+
+<link rel="stylesheet" type="text/css" href="/wyd45123/css/item/1c69ce0151086e061d958395.css" />
+
+<link rel="stylesheet" type="text/css" href="/space.css" />
+<style type="text/css">
+/*<![CDATA[*/
+
+.stage{ background:url(http://img.baidu.com/hi/img/tempbg21b.jpg) no-repeat scroll center center; }
+
+#usrbar{padding:4px 10px 3px 0;font-size:12px;height:19px;line-height:19px;color:#000000;font-family:Arial;text-align:right;background:#ffffff;filter:alpha(opacity=65);-moz-opacity:0.5;width:auto !important;width:100%;letter-spacing:normal}
+#usrbar a,#usrbar a:link,#usrbar a:visited{color:#0000CC;text-decoration:underline}
+#ft{clear:both;height:20px;line-height:20px;color:#666666;font-size:12px;font-family:Arial;text-align:center}
+#ft a,#ft a:link,#ft a:visited{color:#7777CC;text-decoration:underline}
+#usrbar,#usrbar a,#usrbar a:link,#usrbar a:visited,#ft,#ft a,#ft a:link,#ft a:visited{letter-spacing:normal}
+/*]]>*/
+</style>
+
+
+
+<div id="usrbar"><nobr>
+
+			<a id="hi_index" href="http://hi.baidu.com" target="_blank">百度空间</a>&nbsp;|&nbsp;<a href="http://www.baidu.com/" target="_blank">百度首页</a>&nbsp;<script type="text/javascript">
+		document.write('| <a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u=http://hi.baidu.com' + encodeURIComponent('/wyd45123/blog/item/f5cd4197b4e6786855fb969b%2Ehtml') + '">登录</a>');
+		</script>
+		
+</nobr></div>
+
+
+
+	
+
+
+
+
+<script type="text/javascript">
+
+function set_cookie_4_bdtip(index/* start from one */, value){
+	var bdtip = document.cookie.match(/(^| )BDTIP=([^;]*)(;|$)/);
+	if(!bdtip){
+		bdtip=new Array(index);
+		for(var i=0,n=bdtip.length;i<n;i++)
+		{
+			if(bdtip[i]=="" || bdtip[i]==null)  bdtip[i]=0;
+			if(i == index - 1){
+				bdtip[i] = value;
+			}
+		}
+	}else{
+	bdtip = bdtip[2].split('-');
+	if(index > bdtip.length)  bdtip.length= index;
+	for(var i = 0, j = bdtip.length; i < j; i ++){
+		if(bdtip[i]=="" || bdtip[i]==null) bdtip[i]=0;
+		if(i == index - 1){
+			bdtip[i] = value;
+		}
+	}
+	}
+	bdtip = bdtip.join('-');
+	document.cookie = "BDTIP=" + bdtip+ ";expires=Wed, 28-Nov-37 01:45:46 GMT;path=/;";
+}
+</script>
+
+<div id="main" align="left">
+
+<!--[if IE]>
+<script>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</script>
+<![endif]-->
+
+	<div id="header">
+
+	<div class="lc"><div class="rc"></div></div>
+<div class="tit"><a href="/wyd45123" class="titlink" title="wyd45123的空间 http://hi.baidu.com/wyd45123">My Space</a></div>
+<div class="desc">HOHOoo。......</div>
+<div id="tabline">&nbsp;</div>
+
+	<div id="tab"><a href="/wyd45123">主页</a><a href="/wyd45123/blog" class="on">博客</a><a href="/wyd45123/album">相册</a><span>|</span><a href="/wyd45123/profile">个人档案</a>
+
+	<span>|</span><a href="/wyd45123/friends">好友</a>
+
+
+
+
+
+
+
+	</div>
+
+</div>
+
+
+
+<div class="stage">
+
+<div class="stagepad">
+
+<div style="width:100%">
+
+
+
+
+
+	
+
+
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modth">
+
+	<tr><td class="modtl" width="7">&nbsp;</td>
+
+	<td class="modtc" nowrap><div class="modhead"><span class="modtit">查看文章</span></div></td>
+
+	<td class="modtc" nowrap align="right"></td>
+
+	<td class="modtr" width="7">&nbsp;</td>
+
+	</tr></table>
+
+
+
+<div id="m_blog" class="modbox" style="overflow-x:hidden;">
+
+<div class="tit">网页内强制折行与不折行的解决方案</div>
+
+<div class="date">2008年05月05日 星期一  19:29</div>
+
+<table style="table-layout:fixed;width:100%"><tr><td><div id="blog_text" class="cnt"  >来自：http://hi.baidu.com/cowskin/blog/item/c1b303f3d91d00c80b46e0fc.html<br>
+<br>
+网页开发过程中时常会遇到关于折行和不折行的问题。<br>
+比如连续英文或符号时，即使定义了宽度，文本还是没法折行，因为没有字符、字母里间隔的话，会当成一个单词。所以按不能折行来解析。<br>
+这时如果遇到了链接url，往往全是连续的英文和字母，这样就会把原本做好的页面搅乱。<br>
+而有的时候，我们希望强制不折行，或者某一链接不折行，或者折行时链接一起折行，而不会出现链接里两个字有断开的折行。<br>
+<br>
+<strong>首先做个需要折行的效果，如果遇到连续的英文字母符号时，当窗口缩小时看下是否折行。<br>
+</strong>&lt;br&gt;<br>
+&lt;hr&gt;<br>
+什么也不加，不折行<br>
+&lt;div style=&quot;width:200px；height:50px&quot;&gt;<br>
+<a href="http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/">http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/</a><br>
+&lt;/div&gt;<br>
+&lt;br&gt;<br>
+&lt;hr&gt;<br>
+加上 word-break:break-all;word-wrap:break-word;在IE下缩小窗口时候折行，但firefox不折行.<br>
+&lt;div style=&quot;width:200px；height:50px;w<font color="#0000ff"><strong>ord-break:break-all;word-wrap:break-word</strong></font>;&quot;&gt;<br>
+<a href="http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/">http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/</a><br>
+&lt;/div&gt;<br>
+&lt;br&gt;<br>
+&lt;hr&gt;<br>
+加上 word-break:break-all;word-wrap:break-word;overflow:hidden;在IE下缩小窗口时候折行，但firefox不折行.<br>
+&lt;div style=&quot;width:200px;height:50px;<font color="#0000ff">word-break:break-all;word-wrap:break-word;overflow:hidden;</font>&quot;&gt;<br>
+<a href="http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/">http://jiarry.126.com/http://jiarry.blogchina.com/http://hi.baidu.com/jarry/http://jarryli.googlepages.com/http://jiarry.blogspot.com/</a><br>
+&lt;/div&gt;<br>
+<br>
+&lt;hr&gt;<br>
+若firefox下也要把英文url强制折行，需要增加js<br>
+如下：<br>
+&lt;pre&gt;<br>
+<strong>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; defer=&quot;defer&quot;&gt;<br>
+</strong><font color="#ff0000">javascript</font>:(<strong>function()</strong><font color="#0000ff" style="background-color: rgb(255, 255, 255);">{var D=document; F(D.body); function F(n){var u,r,c,x; if(n.nodeType==3){ u=n.data.search(/\S{10}/); if(u&gt;=0) { r=n.splitText(u+10); n.parentNode.insertBefore(D.createElement(&quot;WBR&quot;),r); } }else if(n.tagName!=&quot;STYLE&quot; &amp;&amp; n.tagName!=&quot;SCRIPT&quot;){for (c=0;x=n.childNodes[c];++c){F(x);}} } })();<br>
+</font><strong>&lt;/script&gt;<br>
+</strong>&lt;/pre&gt;
+<p>如果不增加js可以参考如下：<br>
+在其它浏览器中要实现文字自动强制折行功能，代码如下。<a href="http://www.blooberry.com/indexdot/css/properties/text/whitespace.htm">http://www.blooberry.com/indexdot/css/properties/text/whitespace.htm</a><br>
+<a href="http://myy.helia.fi/%7Ekarte/pre-wrap-css3-mozilla-opera-ie.html">http://myy.helia.fi/~karte/pre-wrap-css3-mozilla-opera-ie.html</a></p>
+<p>pre{<br>
+<font color="#0000ff">white-space: pre; /* CSS2 */<br>
+white-space: -moz-pre-wrap; /* Mozilla */<br>
+white-space: -hp-pre-wrap; /* HP printers */<br>
+white-space: -o-pre-wrap; /* Opera 7 */<br>
+white-space: -pre-wrap; /* Opera 4-6 */<br>
+white-space: pre-wrap; /* CSS 2.1 */<br>
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */<br>
+word-wrap: break-word; /* IE */</font><br>
+}<br>
+word-wrap和white-space都可以控制，但对IE5就不起作用了。<br>
+在IE5下面控制元素折行应该使用这个 word-break : normal | break-all | keep-all <br>
+&lt;br&gt;<br>
+&lt;br&gt;<br>
+强制不折行<br>
+对于table来讲，给td增加nowrap就行。xhtml写法是nowrap=&quot;nowrap&quot;;<br>
+用style=&quot;<font color="#0000ff"><strong>white-space:nowrap</strong></font>;&quot;同样可以强制不折行。或者用&lt;nobr&gt;来包括不允许折行的内容。&lt;hr&gt;<br>
+&lt;div&nbsp;&nbsp;&nbsp;  style=&quot;width:200px；height:50px;white-space:nowrap;&quot;&gt;<br>
+强制不折行强 制fasdf不折 行强制不折行强制fasf不 折行强制 不折行fasfsa强制不折行<br>
+&lt;/div&gt;<br>
+&lt;hr&gt;<br>
+&lt;br&gt;<br>
+&lt;div&nbsp;&nbsp;&nbsp;  style=&quot;width:200px；height:50px;&quot;&gt;<br>
+<font color="#0000ff"><strong>&lt;nobr&gt;</strong></font><br>
+强制不 折行fasd强制 不折行强制不fasdf折行强制不折行 强制不折行fasdf强制不折行<br>
+<strong><font color="#0000ff" style="background-color: rgb(255, 255, 255);">&lt;/nobr&gt;</font></strong><br>
+&lt;/div&gt;<br>
+&lt;br&gt;&lt;br&gt;&lt;hr&gt;<br>
+&lt;br&gt;</p>
+<p> </p>
+<hr>
+<p> </p>
+<p><br>
+有样式控制</p>
+<div style="width: 300px; color: red; background-color: rgb(206, 206, 206);">fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</div>
+有样式控制<font color="#0000ff">word-break:break-all</font>
+<div style="width: 300px; color: red; background-color: rgb(206, 206, 206);">fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</div>
+有样式控制<font color="#0000ff">word-break:break-all;word-wrap:break-word</font>
+<div style="width: 300px; color: red; background-color: rgb(206, 206, 206);">fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</div>
+有样式控制<font color="#0000ff">word-break:break-all;word-wrap:break-word</font>
+<div style="width: 300px; color: red; background-color: rgb(206, 206, 206);">
+<p style="width: 200px; color: red; background-color: rgb(241, 241, 241);">fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+</div>
+<hr>
+给table加样式<font color="#0000ff"> style=&quot;table-layout:fixed;width:300px;color:red;background-color:#cecece;word-break:break-all;word-wrap:break-word&quot;</font>
+<table style="table-layout: fixed; width: 300px; color: red; background-color: rgb(206, 206, 206);">
+    <tbody>
+        <tr>
+            <td>
+            <p>fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+给td加样式 <font color="#0000ff">style=&quot;table-layout:fixed;width:300px;color:red;background-color:#cecece;word-break:break-all;word-wrap:break-word&quot;</font>
+<table>
+    <tbody>
+        <tr>
+            <td style="table-layout: fixed; width: 300px; color: red; background-color: rgb(206, 206, 206);">
+            <p>fadsfdasfdasdgaggagadgagagagfadsfdasfdasdgaggagadgagagag 中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国中国。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p> </p>
+<p>转载：<a href="http://blog.csdn.net/xworld99/archive/2005/11/23/535884.aspx">http://blog.csdn.net/xworld99/archive/2005/11/23/535884.aspx</a></p>
+<p> </p>
+<p> </p>
+<hr>
+<p><strong>css之自动换行</strong></p>
+<p> </p>
+<p> </p>
+<p>　如果想要一个table固定大小，里面的文字强制换行(尤其是在一长串英文文本，并且中间无空格分隔的情况下)，以达到使过长的文字不撑破表格 的目的，一般是使用样式：table-layout:fixed。但是在Firefox下面，会有一些问题，参考Gmail的一些做法，做了几个测试，得 出一种解决办法。</p>
+<p>　　如果想要一个table固定大小，里面的文字强制换行(尤其是在一长串英文文本，并且中间无空格分隔的情况下)，以达到使过长的文字不 撑破表格的目的，一般是使用样式：table-layout:fixed。但是在Firefox下面，会有一些问题，参考Gmail的一些做法，做了几个 测试，得出一种解决办法。</p>
+<p><strong>例1：(IE浏览器)普通的情况</strong></p>
+<pre>&lt;table border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080826_01.gif"><br>
+可以看到width=80并没有起作用，表格被字符撑开了。</p>
+<p> </p>
+<p><strong>例2：(IE浏览器)使用样式table-layout:fixed</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080838_01.gif"><br>
+width=80起作用了，但是表格换行了。</p>
+<p> </p>
+<p><strong>例3：(IE浏览器)使用样式table-layout:fixed与nowrap</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td nowrap&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080851_01.gif"><br>
+width=80起作用了，换行也被干掉了。</p>
+<p> </p>
+<p><strong>例4：(IE浏览器)在使用数值固定td大小情况下使用样式table-layout:fixed与nowrap</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td width=20 nowrap&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td nowrap&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080903_01.gif"><br>
+不幸发生了，第一个td的nowrap不起作用了</p>
+<p> </p>
+<p><strong>例5：(IE浏览器)在使用百分比固定td大小情况下使用样式table-layout:fixed与nowrap</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td width=25% nowrap&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td nowrap&gt;abcdefghigklmnopqrstuvwxyz 1234567890<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080917_01.gif"><br>
+改成百分比，终于搞定了</p>
+<p> </p>
+<p><strong>例6：(Firefox浏览器)在使用百分比固定td大小情况下使用样式table-layout:fixed与nowrap</strong>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080932_01.gif"><br>
+把例5放到firefox下面，又ft了</p>
+<p><strong>例7：(Firefox浏览器)在使用百分比固定td大小情况下使用样式table-layout:fixed与nowrap,并且使用div</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>.td {overflow:hidden;}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td width=25% class=td nowrap&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;div&gt;abcdefghigklmnopqrstuvwxyz 1234567890&lt;/div&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td class=td nowrap&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;div&gt;abcdefghigklmnopqrstuvwxyz 1234567890&lt;/div&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409080947_01.gif"><br>
+天下终于太平了</p>
+<p> </p>
+<p><strong>例8：(Firefox浏览器)在使用数值固定td大小情况下使用样式table-layout:fixed与nowrap,并且使用div</strong></p>
+<pre>&lt;style&gt;<br><br>.tbl {table-layout:fixed}<br><br>.td {overflow:hidden;}<br><br>&lt;/style&gt;<br><br><br><br>&lt;table class=tbl border=1 width=80&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;tr&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td width=20 class=td nowrap&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;div&gt;abcdefghigklmnopqrstuvwxyz 1234567890&lt;/div&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;td class=td nowrap&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;div&gt;abcdefghigklmnopqrstuvwxyz 1234567890&lt;/div&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &lt;/td&gt;<br><br>&nbsp;&nbsp;&nbsp;  &lt;/tr&gt;<br><br>&lt;/table&gt;</pre>
+<p>效果：<img src="http://www.webdn.com/web_file/html/H0607157/images/20060409081004_01.gif"><br>
+nowrap又不起作用了</p>
+<p> </p>
+<p>最终，例7是一个在IE和Firefox都可以完美解决页面强制换行问题的解决方案。</p></div></td></tr></table>
+
+<br>
+
+<div class="opt">
+
+<a href="/wyd45123/blog/category/%B1%E0%B3%CC" title="查看该分类中所有文章">类别：编程</a>
+
+
+
+	
+
+	| <a title="将此文章添加到百度搜藏" href="http://cang.baidu.com/do/add" onClick="return addToFavor();" target="_blank">添加到搜藏</a>
+
+	
+
+	| 浏览(<span id="result"></span>)
+
+	| <a href="#send">评论</a>&nbsp;(0)
+
+
+
+<script language="javascript">
+
+/*<![CDATA[*/
+
+var pre = [true,'在ORACLE中实现SELECT TOP N（转）', '在ORACLE中实现SELECT TOP N（转...','/wyd45123/blog/item/09bbb613da50c6075baf53f2.html'];
+
+var post = [true,'vs2005的aspx页面中javascript断点的设置','vs2005的aspx页面中javascript断...', '/wyd45123/blog/item/e2d36ef766a0de27730eec8d.html'];
+
+if(pre[0] || post[0]){
+
+	document.write('<div style="height:5px;line-height:5px;">&nbsp;</div><div id="in_nav">');
+
+	if(pre[0]){
+
+		document.write('上一篇：<a href="' + pre[3] + '" title="' + pre[1] + '">' +  pre[2] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	}
+
+	if(post[0]){
+
+		document.write('下一篇：<a href="' + post[3] + '" title="' + post[1] + '">' +  post[2] + '</a>');
+
+	}
+
+	document.write('</div>');
+
+}
+
+/*]]>*/
+
+</script>
+
+
+
+</div>
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+    
+<style type="text/css">
+
+/*<![CDATA[*/
+
+#in_related_doc a { text-decoration:none; }
+
+/*]]>*/
+
+</style>
+
+<div id="in_related_tmp"></div>
+
+<script language="javascript" type="text/javascript">
+
+/*<![CDATA[*/
+
+function HI_MOD_IN_RELATED_DOC_CALLBACK(arg){
+
+    if(arg.length <= 1) return false;
+
+    var hasMore = arg[0];
+
+    var D=function(A,B){A[A.length]=B;}
+
+    if(arg.length % 2 == 0) D(arg, ["","","",""]);
+
+
+
+    var html = ['<div id="in_related_doc"><div class="tit">相关文章：</div>'];
+
+    D(html, '<table cellpadding="0" cellspacing="3" border="0">');
+
+    for(var i = 1, j = arg.length; i < j; i += 2){
+
+        D(html, '<tr>');
+
+        D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i][3] + '/blog/item/' + arg[i][2] + '.html" target="_blank" title="' + arg[i][0] + '">' + arg[i][1] + '</a>');
+
+        D(html, new Array(10).join('\u3000'));
+
+        D(html, '</td>');
+
+        if(arg[i + 1][0] != "")
+
+            D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i + 1][3] + '/blog/item/' + arg[i + 1][2] + '.html" target="_blank" title="' + arg[i + 1][0] + '">' + arg[i + 1][1] + '</a></td>');
+
+        else
+
+            D(html, '<td>&nbsp;</td><td>&nbsp;</td>');
+
+        D(html, '</tr>');
+
+    }
+
+    if(hasMore) D(html, '<tr><td colspan="4"><a target="_blank" href="/sys/search?pageno=1&type=7&sort=1&word=%CD%F8%D2%B3%C4%DA%C7%BF%D6%C6%D5%DB%D0%D0%D3%EB%B2%BB%D5%DB%D0%D0%B5%C4%BD%E2%BE%F6%B7%BD%B0%B8&item=f5cd4197b4e6786855fb969b">更多&gt;&gt;</a></td></tr>');
+
+    D(html, '</table></div><div class="line">&nbsp;</div>');
+
+
+
+    var div = document.getElementById('in_related_tmp');
+
+    if(div){
+
+        div.innerHTML = html.join('');
+
+        while(div.firstChild){
+
+            div.parentNode.insertBefore(div.firstChild, div);
+
+        }
+
+        div.parentNode.removeChild(div);
+
+    }
+
+	window.setTimeout("tracker_init('in_related_doc')",100);
+
+}
+
+
+
+if(RelatedDocData == -1){	// not supported xhr
+
+    var script = document.createElement('script');
+
+    script.type = 'text/javascript';
+
+    script.src = '/sys/search?type=8&word=%CD%F8%D2%B3%C4%DA%C7%BF%D6%C6%D5%DB%D0%D0%D3%EB%B2%BB%D5%DB%D0%D0%B5%C4%BD%E2%BE%F6%B7%BD%B0%B8&item=f5cd4197b4e6786855fb969b&t=' + new Date().getTime();
+
+    document.getElementsByTagName('HEAD')[0].appendChild(script);
+
+}else if(RelatedDocData == null){
+
+	GetAndEval = true;
+
+}else{
+
+	eval(RelatedDocData);
+
+}
+
+
+
+/*]]>*/
+
+</script>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="in_reader">
+
+<div class="tit">最近读者：</div>
+
+
+
+<script>
+
+
+
+	var g_spAnnony=true;
+
+
+
+
+
+var g_read=[
+
+
+
+["iori97","2cf8736e6f77776f6c66313130e400","snowwolf110"],
+
+
+
+["azuiwangchuan","ce8c617a756977616e67636875616e7901","azuiwangchuan"],
+
+
+
+["alice%5F%5Fyu","b301416c6963655f5f79752d03","Alice__yu"],
+
+
+
+["cbh1668","2bb363626831363638b804","cbh1668"],
+
+
+
+["xwanyu","28847877616e7975a304","xwanyu"],
+
+
+
+["peter%5Fzhang","83bef4e0b9adc7f3bcfd3e02","羿弓求箭"],
+
+
+
+{}
+
+];
+
+g_read.length=g_read.length-1;
+
+
+
+var _rh1="";
+
+var _rh2="";
+
+
+
+function wrreader(){
+
+	_rh1 += '<table width="100%" ><tr>';
+
+	_rh2+='<tr>';
+
+	if(g_spAnnony){
+
+		_rh1+='<td align="center" width="10%" ><img border="0" width="55" height="55" src="http://img.baidu.com/hi/img/portraitn.jpg"></td>';
+
+		_rh2+='<td>&nbsp;</td>';
+
+		if(g_read.length>0){
+
+			_rh1+='<td align="left" width="12%">';
+
+		}else{
+
+			_rh1+='<td align="left" width="100%">';
+
+		}
+
+		_rh1+='<a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'" target="_self">登录</a>后，您就出现在这里。</td>';
+
+		_rh2+='<td>&nbsp;</td>'
+
+	}
+
+	if(g_read.length==0){
+
+		if(!g_spAnnony){
+
+			_rh1+='<td align=left width="100%">最近还没有登录用户看过这篇文章……</td>';
+
+			_rh2+='<td>&nbsp;</td>';
+
+		}
+
+	}else{
+
+		for(i=0,len=g_read.length;i<len;i++){
+
+			_rh1+='<td align="center" valign="bottom" width="10%" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid='+g_read[i][1]+'><img border="0" src="http://himg.baidu.com/sys/portraitn/item/'+g_read[i][1]+'.jpg"></a></td>';
+
+			_rh2+='<td align="center" valign="top" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid="'+g_read[i][1]+'">'+g_read[i][2]+'</a></td>';
+
+		}
+
+	}
+
+	_rh1+='<td width="100%"></td></tr>';
+
+	_rh2+='<td></td></tr></table>';
+
+	document.write(_rh1+_rh2);
+
+}
+
+
+
+wrreader();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+<script language="JavaScript">
+
+allkey=allkey+"14a19f1922e8517adbb4bd86_f5cd4197b4e6786855fb969b_";
+
+</script>
+
+
+
+<div id="in_comment">
+
+<a name="comment"></a>
+
+<div class="tit">网友评论：</div>
+
+<script>
+
+function writecmt(type,id,cmtname,cmturl,portraitId){
+
+	var html1="";
+
+	cmturl=cmturl.replace("https://","http://");
+
+	if(type==1){
+
+			html1="<a href='"+cmturl+"' target='_blank' class='ucard' pid="+portraitId+"><img  border='0' src='http://himg.baidu.com/sys/portraitn/item/"+portraitId+".jpg'><br>"+cmtname+"</a>";
+
+	}else{
+
+		if(cmtname=="" || cmtname=="匿名网友"){
+
+			if(cmturl==""){
+
+				html1="<a>匿名网友</a>";
+
+			}else{
+
+				html1="<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a>";
+
+			}
+
+		}else{
+
+			if(cmturl==""){
+
+				html1="<div class='f14' style='display:inline'>网友:<a>"+cmtname+"</a></div>";
+
+			}else{
+
+				html1="<div class='f14' style='display:inline'>网友:<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a></div>";
+
+			}
+
+		}
+
+	}
+
+	document.write(html1);
+
+}
+
+function filterCmtContent(n){
+
+	if(!BdBrowser.isIE){
+
+		var defaultfilter1='<span style="filter:glow(color=#000000,strength=2);height:0px;color:#000000">';
+
+		var defaultfilter2='<span style="height: 0px; color: rgb(0, 0, 0);">';
+
+		var commentDiv=document.getElementById(n);
+
+		var divs=commentDiv.getElementsByTagName('div');
+
+		var d,tmp;
+
+		for( var i=0,len=divs.length;i<len;i++){
+
+			d=divs[i];
+
+			if(d.getAttribute('name')=='cmtcontent'){
+
+				tmp=d.innerHTML;
+
+				tmp=tmp.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,defaultfilter1);
+
+				tmp=tmp.replace('<span style="height: 0px; color: rgb(255, 255, 255);">',defaultfilter2);
+
+				d.innerHTML=tmp;
+
+			}
+
+		}
+
+	}
+
+}
+
+
+
+</script>
+
+
+
+
+<div id="page"></div>
+
+
+
+</div>
+
+<script>filterCmtContent('in_comment');</script>
+
+
+
+
+
+<div id="in_send">
+
+<a name="send"></a>
+
+<form name="form1" id="popFormSubmit" action="/wyd45123/commit" method="post" onSubmit="return checkcmtform()">
+
+<input type="hidden" name="bdstoken" value="18331d20002bcfd72f52a19a5de9b090">
+
+<input type="hidden" name="ct" value="8">
+
+<input type="hidden" name="cm" value="1">
+
+<input type="hidden" name="spBlogID" value="f5cd4197b4e6786855fb969b">
+
+<input type="hidden" name="spRefURL" id="spRefURL" />
+
+<script>
+
+    document.getElementById("spRefURL").value = window.location.href;
+
+</script>
+
+<div class="tit">发表评论：</div>
+
+<table width="620" border="0" cellspacing="5" cellpadding="0">
+
+<tr>
+
+
+
+<td class="f14">姓　名：</td>
+
+<td><input type="text" name="spBlogCmtor" id="spBlogCmtor" style="width:220px" onChange="checkname('spBlogCmtor')" maxlength="49" onFocus="hidErr(1);">
+
+<script>
+
+document.write(" &nbsp;&nbsp; <a href='http://hi.baidu.com/st/reg.html' target='_blank'>注册</a>");
+
+document.write(' | <a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'">登录</a>');
+
+
+
+</script>
+
+
+
+<div style="display:none" id="nmerror">*姓名最长为50字节</div></td>
+
+</tr>
+
+
+
+<tr id="1_err" style="display:none">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="1_err_con"></div></td>
+
+</tr>
+
+
+
+<tr>
+
+<td class="f14">网址或邮箱：</td>
+
+<td><input type="text" name="spBlogCmtURL" id="spBlogCmtURL" style="width:360px" maxlength="128" onChange="checkeandu('spBlogCmtURL')" onFocus="hidErr(2);"> (选填)</td>
+
+<script>
+
+G("spBlogCmtor").value="";
+
+G("spBlogCmtURL").value="";
+
+</script>
+
+
+
+</tr>
+
+
+
+<tr id="2_err" style="display:none">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="2_err_con"></div></td>
+
+</tr>
+
+
+
+<tr>
+
+<td valign="top" class="f14" id="reTitle">内　容：</td>
+
+<td><textarea name="spBlogCmtText" id="spBlogCmtText" style="width:520px;height:155px" onFocus="hidErr(3);" ></textarea>
+
+<script>
+
+	var editor=null;
+
+	try{
+
+		editor=new BdEditor("spBlogCmtText",{width:"100%",height:"155px"});
+
+		editor.onfocus = function(){hidErr(3);}
+
+		editor.render();
+
+	}catch(e){
+
+		var spBlogCmtText = document.getElementById("spBlogCmtText");
+
+		var p = spBlogCmtText.previousSibling;
+
+		while(p && p.nodeType != 1) p = p.previousSibling;
+
+		if(p && /bdeditor_container/.test(p.id)){
+
+			p.parentNode.removeChild(p);
+
+		}
+
+		spBlogCmtText.style.display = '';
+
+		editor=null;
+
+	}
+
+</script>
+
+
+
+<script>
+
+G("spBlogCmtor").value=G("spBlogCmtor").defaultValue;
+
+G("spBlogCmtText").value="";
+
+</script>
+
+</td>
+
+</tr>
+
+<tr id="3_err" style="display:none">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="3_err_con"></div></td>
+
+</tr>
+
+
+
+<tr id="vercode">
+
+<td valign="top" class="f14">验证码：</td>
+
+<td valign="top"><input type="hidden" name="spVcode" value="" />
+
+<input type="text" onFocus="f_focus()" id="spVerifyKey" name="spVerifyKey" size="6"  maxlength="4" autocomplete="off" tabindex=4>  请点击后输入四位验证码，字母不区分大小写<br/>
+
+<script type="text/javascript">
+
+/*<![CDATA[*/
+
+
+function f_focus(){
+	getVcode();
+}
+function getVcode(){
+	var url="http://hi.baidu.com/sys/file/getvcode?echoback=getVcodeDone&t="+(new Date().getTime());
+	BdAjax.loadJS(url)
+}
+
+function getVcodeDone(vcode){
+	document.form1.spVcode.value=vcode;
+	var imgsrc="http://hiup.baidu.com/cgi-bin/genimg?"+vcode;
+	G('verifypic').src=imgsrc;
+	G('yanzheng').style.display="block";
+}
+function newverifypic(){
+	getVcode();
+	return false;
+}
+
+/*]]>*/
+
+</script>
+
+<div id="yanzheng" style="display:none">
+
+<img id='verifypic' width='120' height='40'><wbr /><a onFocus="this.blur();" href="#" onClick="return newverifypic();" title="看不清左边的字符" >看不清?</a>
+
+</div>
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td valign="top"class="f14">&nbsp;</td>
+
+<td valign="top" class="f14"><input id="btn_ok" name="btn_ok" type="submit" value="发表评论" tabindex=5>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="cancleReLink" onClick="canclereply(); return false;" style="display:none; font-size:12px;color:#666;">取消回复</a></td>
+
+</tr>
+
+</table>
+
+</form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<br>
+
+</div>
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="8">
+
+<tr><td class="modbl" width="7">&nbsp;</td>
+
+<td class="modbc">&nbsp;</td>
+
+<td class="modbr" width="7">&nbsp;</td>
+
+</tr></table>
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+<script language="javascript">
+
+//fck layout rework
+</script>
+<script src="/js/bgmusic.js?v=1.0.js" language="javascript"></script>
+<script language="javascript">
+function initBlogTextForFCK(){
+	//fck layout resize
+    /*
+    var fckLayoutArr=document.getElementById('blog_text').getElementsByTagName('table');
+	for(var i=0,n=fckLayoutArr.length;i<n;i++){
+		if(fckLayoutArr[i].className.indexOf('FCKLAYOUT')>-1){
+			fckLayoutArr[i].width="100%";
+			fckLayoutArr[i].style.width="100%";
+			fckLayoutArr[i].style.height="100%";
+		}
+	}
+    */
+
+	//fck init music
+	if(window.Node){Node.prototype.replaceNode=function(Node){this.parentNode.replaceChild(Node,this);}}
+	var imgBox=document.getElementsByName('musicName');
+	var isAutoPlay=true;
+	for(var i=0,n=imgBox.length;i<n;i++){
+		var img=imgBox[i];
+		if(img.getAttribute('rel')){
+			var musicSrc=img.getAttribute('rel');
+			var musicDiv = document.createElement("SPAN");
+			var tmp=musicSrc.substr (musicSrc.indexOf('#')+1, 1);
+			var tmpAutoPlay=(tmp=='1');
+			if(isAutoPlay&&tmpAutoPlay){
+				isAutoPlay=false;
+				tmpAutoPlay=true;
+			}else{
+				tmpAutoPlay=false;
+			}
+			var shtml=creatbgmusic(musicSrc.substr(0,musicSrc.indexOf('#')),1,true,false,tmpAutoPlay,tmpAutoPlay,'FckMusicHelper');
+			shtml=shtml.replace('width=100%','width=200').replace('width="100%"','width=200 height=45');			img.replaceNode(musicDiv);
+			musicDiv.innerHTML=shtml;
+			i--;n--;
+		}
+	}
+	//document.getElementById('blog_text').style.display='';
+}
+initBlogTextForFCK();
+</script>
+
+<script language="javascript">
+
+<!--
+
+var hstr="/wyd45123/brwstat?key1=1";
+
+document.write("<script src='"+hstr+"&key2="+allkey+"'><\/script>");
+
+//-->
+
+</script>
+
+<br><center><div id="ft">&copy;2009 Baidu</div></center>
+
+
+
+<script>
+
+if(document.getElementById("m_blog"))
+
+{
+
+	var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+
+	var imgw = document.getElementById("m_blog").offsetWidth;
+
+	imgw =imgw-40;
+
+    for(var i=0; i<imgarray.length; i++){
+    	if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) {
+	    	imgarray[i].width=imgw;
+        }
+    }
+}
+
+
+
+// Fix ff bugs
+
+var blog_text = document.getElementById('blog_text');
+
+blog_text.innerHTML = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+
+
+
+gotoreply();
+
+</script>
+
+</center>
+
+
+
+<img src="http://c.baidu.com/c.gif?t=6&p=3" style="display:none;"/>
+<iframe id="submitiframe" name="submitiframe" src="/st/blank.html" style="display:none;"></iframe>
+
+			
+
+
+
+
+<SCRIPT src="/ui/scripts/ucard/all.js?v=020507100.js"></SCRIPT>
+<link rel="stylesheet" type="text/css" href="/ui/css/ucard/ucard.css?v=020507100.css" />
+<script type="text/javascript">
+/*<![CDATA[*/
+
+var Session = {
+    spaceURL: "/wyd45123",
+    pageURL: "http://hi.baidu.com/wyd45123/blog/item/f5cd4197b4e6786855fb969b%2Ehtml",    
+    isHost: "",         
+    userName: "wyd45123",   
+    userNameEnc:    "wyd45123",
+    visitorPortrait:'00000000',
+    visitorName:    "",
+    visitorURL: "/index.html",        // 
+    refer: "http://www.google.com.tw/search?sourceid=navclient&hl=zh-TW&ie=UTF-8&rlz=1T4GGLL_zh-TWTW346TW347&q=nowrap+html+%e6%8a%98%e8%a1%8c",
+    spBasicURL:"wyd45123",
+    spBasicURLEnc:"wyd45123"
+};
+
+baidu.dom.ready(function(){
+        baidu.space.mycard.bind('m_blog',Session.visitorPortrait);
+});
+
+/*]]>*/
+</script>
+
+
+
+
+
+	<script type="text/javascript" src="/ui/scripts/refer/refer.js"></script>
+	
+</body></html>

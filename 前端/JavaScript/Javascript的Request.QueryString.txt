@@ -1,0 +1,44 @@
+Javascript的Request.QueryString()函數，相容IE,firefox
+在JavaScript要做到VB .Net中Request.QueryString()的功能，就要用location
+
+window.document.location 物件的屬性
+屬性 			描述 		
+search 		設置或返回從問號 (?) 開始的 URL（查詢部分，不含(#)標籤）。 			    4  1 9																						                IE F O 
+hash 			設置或返回從井號 (#) 開始的 URL（標籤）。 						              4  1 9 
+host 			設置或返回主機名和當前 URL 的端口號。 							                4  1 9 
+hostname 	設置或返回當前 URL 的主機名。 											                4  1 9 
+href 			設置或返回完整的 URL，也可以只用location，取代											4  1 9 
+pathname 	設置或返回當前 URL 的路徑部分。 										                4  1 9 
+port 			設置或返回當前 URL 的端口號。 											                4  1 9 
+protocol 	設置或返回當前 URL 的協議。 												                4  1 9 
+
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+//取得該網頁"？"後所有的Request，不含標簽符號"#"和後面的字串
+function AllRequest(){
+	var sAllRequest = window.document.location.search;
+	return sAllRequest;
+}
+
+//用JavaScript寫的Request("XX")
+function Request(strName)
+{
+    var strHref = window.document.location.href;
+    var intPos = strHref.indexOf("?");
+    var strRight = strHref.substr(intPos + 1);
+
+    var arrTmp = strRight.split("&");
+    for(var i = 0; i < arrTmp.length; i++)
+    {
+        var arrTemp = arrTmp[i].split("=");
+
+        if(arrTemp[0].toUpperCase() == strName.toUpperCase()) return arrTemp[1];
+    }
+    return "";
+}
+alert(Request("id"))
+//-->
+</SCRIPT>

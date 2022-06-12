@@ -1,0 +1,10 @@
+		function   getQueryString(sUrl,sParamName){   
+			try{   
+				var   sPattern   =   "\\?.*"   +   sParamName   +   "=([^&]*)&|\\?.*"   +   sParamName   +   "=(.*)";   
+				var   re               =   new   RegExp(sPattern,"gi");   
+				re.exec(sUrl);   
+				return   unescape(RegExp.$1   +   RegExp.$2);   
+			}catch(e){   
+				return   "";   
+			}   
+		} 

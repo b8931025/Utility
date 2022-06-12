@@ -1,0 +1,12 @@
+﻿    //陀螺儀
+	if(window.DeviceOrientationEvent) {
+		window.addEventListener('deviceorientation', function(event) {
+      var alpha = event.alpha,
+      		beta = event.beta,
+      		gamma = event.gamma;
+      
+          // do something
+		}, false);
+    }else{
+  	    //不支援
+	}

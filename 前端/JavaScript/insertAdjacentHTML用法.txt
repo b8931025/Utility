@@ -1,0 +1,4 @@
+<div id='obj'></div>
+
+obj.insertAdjacentHTML('beforeBegin','<div>在該物件前面加入html code</div>');
+obj.insertAdjacentHTML('beforeEnd','<div>在該物件後面加入</div>');

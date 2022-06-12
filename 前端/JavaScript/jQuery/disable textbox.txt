@@ -1,0 +1,5 @@
+$("#txtIbank").attr('disabled',true);      <--disable
+$("#txtIbank").prop("disabled", false);    <--enable
+
+$('#txtIbank').removeAttr('disabled');     <--字會變成灰色
+$('#txtIbank').attr('disabled',false);     <--字會變成灰色

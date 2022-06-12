@@ -1,0 +1,15 @@
+<!--右鍵加入最愛_開始-->
+<script language=JavaScript>
+<!--
+function click() {
+if (event.button==2) {
+window.external.addFavorite('http://asianhollo.com/','Asianhollo')
+}
+}
+document.onmousedown=click
+-->
+</script>
+<!--右鍵加入最愛_結束-->
+
+
+

@@ -1,0 +1,18 @@
+<script lang="JavaScript">			
+	onload = function() { 
+		document.getElementById('txt').onmouseup = function() { 
+				if (document.selection) { // for IE 
+					document.selection.createRange().execCommand("Copy");
+					alert(document.selection.createRange().text); 
+				} else if (typeof this.selectionStart != 'undefined') { // for FF, Opera etc... 
+					alert(this.value.substring(this.selectionStart, this.selectionEnd)); 
+				} else { 
+					alert('Could not find selection'); 
+				} 
+		}; 
+	}; 
+</script>
+
+<body>
+<textarea id="txt" rows="10" cols="50">hello! please select me</textarea>
+</body>

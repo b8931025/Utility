@@ -1,0 +1,3 @@
+<meta http-equiv="refresh" content="20; url=main.php">  
+20是秒數
+main.php是時間到後，要連結的網頁，如果不設，就是自動更新

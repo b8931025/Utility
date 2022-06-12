@@ -1,0 +1,13 @@
+<script language="JavaScript">
+<!--
+var submit_count=0;
+function Actions(ACT,PID){
+if(submit_count >= 1){
+alert("請勿重覆點選按鍵，以免下載失敗！");
+}else{
+submit_count++;
+document.myform.submit();
+}
+}
+// -->
+</script>

@@ -1,0 +1,21 @@
+showModalDialog取得父視窗的語法 
+通常使用window.open的方式開啟新視窗的話
+要取得父視窗的控制項，可以用window.opener來取得父視窗
+
+然而如果使用showModalDialog的話...卻無效
+如果有需要的話，需要修改開啟的語法以及showModalDialog中的語法
+
+開啟語法第2個參數請下self,範例如下
+
+window.showModalDialog(strURL,self,sFeatures);
+                              ^^^^
+
+然後接著就是呼叫父視窗的語法
+
+var pWindow=window.dialogArguments;
+
+這樣就可以取得父視窗的window物件控制了
+
+			var pWindow=window.dialogArguments;
+			pWindow.close();
+			window.close();

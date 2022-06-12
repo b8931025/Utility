@@ -1,0 +1,51 @@
+<script   language="javascript"   event="onload"   for="window">   
+  </script>   
+  1、這裡的event顯然是在頁面load的時候做，   
+        按照常理他是默認的操作，為什麼還要寫？我測試過了，如果刪除的話，程序會出錯   
+  2、而for="window"為什麼？有幾種for？就是說for可以等於哪些值？   
+  所有的程序代碼如下：   
+  請指點   
+  <script   language="javascript"   event="onload"     for="window">   
+  var   xmlDoc   =   new   ActiveXObject("Microsoft.XMLDOM");   
+  xmlDoc.async="false";   
+  xmlDoc.load("myfile.xml");   
+  nodes   =   xmlDoc.documentElement.childNodes;   
+  title.innerText   =   nodes.item(0).text;   
+  author.innerText   =   nodes.item(1).text;   
+  email.innerText   =   nodes.item(2).text;   
+  date.innerText   =   nodes.item(3).text;   
+  </script> 
+
+for="window"就是說這個event是針對window的，而不是哪個表單元素。   
+  當然你也可以for其他對像   
+    
+  <script   language="javascript"   event="onload"   for="window">   
+    alert();   
+  </script>   
+    
+  等價與   
+  <script   language="javascript">   
+  function   window.onload()   
+  {   
+    alert();   
+    
+  }   
+  </script>   
+  等價與   
+  <script   language="javascript">   
+  window.onload   =   window_onload;   
+  function   window_onload()   
+  {   
+    alert();   
+    
+  }   
+  </script>   
+  等價與   
+  <script   language="javascript">   
+  window.attachEvent("onload",window_onload);   
+  function   window_onload()   
+  {   
+    alert();   
+    
+  }   
+  </script>

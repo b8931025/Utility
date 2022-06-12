@@ -1,0 +1,104 @@
+有種語法是要鑲在body的標籤裡的，如下,
+
+<body ondragstart="return false" onselectstart="return false"  onContextMenu="return false">
+
+不過，部落不可能開放Html的原碼讓使用者修改，這樣可是會天下大亂的.. 
+
+既然如此，那就退而求其次
+將放在body中的ondragstart="return false" onselectstart="return false" onContextMenu="return false"
+改為放在div標籤裡，這樣可以利用在原始碼中修改將文章前後包起來。語法如下,
+
+<div ondragstart="return false" onselectstart="return false" onContextMenu="return false">文章內容..</div>
+
+這個方法可以用在部份圖片或文章不想被拷貝時使用。
+若是要每篇文章或圖片都要上防拷貝語法，就必須每次在新文章前後加入如上的語法才可。
+
+
+整個網站的內容通通都鎖住
+body {star:expression(document.body.onselectstart = function(){return false;});}
+
+只要在css樣式表中加入此語法即可，但是你會發現樣式表中本來就有個body的標籤設定，
+其實，這是不要緊的，兩個body內的設定並不同，也沒有衝突，所以大可放心的給它放進去吧！^ ^
+※修正更新語法：
+上方的語法僅能鎖住文章內容被選取的功能，以下是圖片與文章都可以鎖住的功能！
+
+body {star:expression(document.body.onselectstart = document.body.oncontextmenu = function(){return false;});}
+
+其它
+<!--預警式防止複製_開始-->
+<script language="JavaScript">
+<!--
+	function right(e) {
+	if (navigator.appName =='Netscape'&&(e.which ==3|| e.which ==2))return false;
+	else if (navigator.appName == 'Microsoft Internet Explorer' && (event.button == 2|| event.button ==3)) {
+	alert("你想要做什麼;\n\n裡面沒什麼東西的啦!");
+	return false;
+	}
+	return true;
+	}
+	document.onmousedown=right;
+	if (document.layers) window.captureEvents(Event.MOUSEDOWN);
+	window.onmousedown=right;
+-->
+</script>
+<!--預警式防止複製_結束-->
+
+<!--不預警防止複製_開始-->
+<body oncontextmenu="window.event.returnValue=false">
+<!--不預警防止複製_結束-->
+
+<!--不預警防止複製_開始-->
+<body ONDRAGSTART="window.event.returnValue=false" ONCONTEXTMENU="window.event.returnValue=false" onSelectStart="event.returnValue=false">
+<!--不預警防止複製_結束-->
+
+<!--轉址式防止複製_開始-->
+<script language=JavaScript>
+<!--
+if (navigator.appName.indexOf("Internet Explorer") != -1) 
+document.onmousedown = noSourceExplorer;
+function noSourceExplorer()
+{
+if (event.button == 2 | event.button == 3)
+{
+alert("您已經按了右鍵，\n疑似想偷看本站原始碼，\n您將要受到懲罰，\n就把您丟回首頁！");
+location.replace("http://www.google.com/");
+}
+}
+-->
+</script>
+<!--轉址式防止複製_結束-->
+
+<!--轉址式防止複製_開始-->
+<script language="JavaScript">
+<!--
+if (navigator.appName.indexOf("Internet Explorer") != -1) 
+document.onmousedown = noSourceExplorer;
+function noSourceExplorer(){if (event.button == 2 | event.button == 3)window.open("http://www.google.com")}
+-->
+</script>
+<!--轉址式防止複製_結束-->
+
+<!--處罰式防止複製_開始-->
+<script language="JavaScript"> 
+<!--
+function right(e) { 
+if (navigator.appName =='Netscape'&& (e.which ==3|| e.which ==2)) 
+return false; 
+else if (navigator.appName == 'Microsoft Internet Explorer' && 
+(event.button == 2|| event.button ==3)) { 
+alert("疑");alert("好像按到什麼東西囉？");alert("沒錯，就是按到右鍵了");alert("我偏偏就是不給你按!");alert("先看完這首詩才能離開!");
+alert("長恨歌.慢慢讀吧!");alert("算了!不整你了");
+return false; 
+} 
+return true; 
+} 
+document.onmousedown=right; 
+if (document.layers) window.captureEvents(Event.MOUSEDOWN); window.onmousedown=right; 
+--> 
+</script>
+<!--處罰式防止複製_結束-->
+
+
+				document.body.onselectstart		= function () {return false;}
+				document.body.ondragstart		= function () {return false;}
+				document.body.oncontextmenu		= function () {return false;}

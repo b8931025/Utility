@@ -1,0 +1,10 @@
+<body>
+.....Codes 
+
+
+	</body>		
+</html>
+一定要放在html的最下面
+		<script lang="JavaScript">
+		window.clipboardData.setData("Text",document.body.innerHTML);
+		</script>

@@ -1,0 +1,295 @@
+<html>
+	<head>
+		<title>常用Style</title>
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<script language="JavaScript">
+			function Visible(div){
+			var divChild = div.children[0];
+				if (divChild != undefined){ 
+				document.all['sStyle'].value = divChild.innerHTML;
+				    /*if (divChild.style.display){
+						divChild.style.display='';
+					}else{
+						divChild.style.display='none';
+					}*/
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<form id="Form1">
+			<div style="TEXT-ALIGN:center">
+				<input id="sStyle" type="text" size="100">
+				<div style="FONT-SIZE: 17pt; COLOR: #800080; FONT-FAMILY: 標楷體" onclick="Visible(this);">
+					主頁標題
+					<div style="DISPLAY:none">FONT-SIZE: 17pt; COLOR: #800080; FONT-FAMILY: 標楷體;</div>
+				</div>
+			</div>
+			<table width="100%">
+				<tr>
+					<td class="box" onclick="Visible(this);">&nbsp;<div style="DISPLAY:none">BACKGROUND-COLOR: 
+							#8194d9</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td2" onclick="Visible(this);">&nbsp;<div style="DISPLAY:none">background-color: 
+							#F0F9FD;</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="th1" onclick="Visible(this);">&nbsp;<div style="DISPLAY:none">background-color: 
+							#D9EAF7</div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%">
+			<tr>
+				<td>
+					<h3 onclick="Visible(this);">H3
+						<div style="DISPLAY:none">COLOR: #a20d0d</div>
+					</h3>				
+				</td>
+				<td>
+					<h4 onclick="Visible(this);">H4
+						<div style="DISPLAY:none">COLOR: #336598</div>
+					</h4>				
+				</td>
+				<td>
+					<h5 onclick="Visible(this);">H5
+						<div style="DISPLAY:none">COLOR: #ff8c00</div>
+					</h5>				
+				</td>								
+			</tr>
+			</table>
+			<table width="100%">
+				<tr>
+					<td class="th1" onclick="Visible(this);">th1
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: 
+							#D9EAF7; text-align: Left;</div>
+					</td>
+					<td class="th1c" onclick="Visible(this);">th1c
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: 
+							#D9EAF7; text-align: center;</div>
+					</td>
+					<td class="th1r" onclick="Visible(this);">th1r
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: 
+							#D9EAF7; text-align: Right;</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td2" onclick="Visible(this);">td2
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: 
+							Left ;</div>
+					</td>
+					<td class="td2c" onclick="Visible(this);">td2c
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: 
+							center;</div>
+					</td>
+					<td class="td2r" onclick="Visible(this);">td2r
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: 
+							Right ;</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="th1_b" onclick="Visible(this);">th1_b
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Left; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+					<td class="th1c_b" onclick="Visible(this);">th1c_b
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: center; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+					<td class="th1r_b" onclick="Visible(this);">th1r_b
+						<div style="DISPLAY:none">font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Right; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td2_b" onclick="Visible(this);">td2_b
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: Left ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+					<td class="td2c_b" onclick="Visible(this);">td2c_b
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: Center ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+					<td class="td2r_b" onclick="Visible(this);">td2r_b
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: Right ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px;</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td3_b" onclick="Visible(this);">td3_b
+						<div style="DISPLAY:none"> font-size: 10pt; background-color: #F0F9FD; border: 0; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px;</div>
+					</td>
+					<td class="td3c_b" onclick="Visible(this);">td3c_b
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: Center; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px;</div>
+					</td>
+					<td class="td3r_b" onclick="Visible(this);">td3r_b
+						<div style="DISPLAY:none">font-size: 10pt; background-color: #F0F9FD; text-align: right; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; </div>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<table width="100%" class="mtr" cellpadding="0" cellspacing="1" border="0">
+				<tr>
+					<td>mtr</td>
+					<td> BACKGROUND-COLOR: #77B6E3 </td>
+				</tr>
+			</table>
+			<br/>
+			<div class="box" onclick="Visible(this);">box
+				<div style="DISPLAY:none">BACKGROUND-COLOR: #8194d9 </div>
+			</div>
+			<br />
+			<div class="box1" onclick="Visible(this);">box1
+				<div style="DISPLAY:none">BACKGROUND-COLOR: #c6e0f4</div>
+			</div>
+			<br />
+			<div class="box2" onclick="Visible(this);">box2
+				<div style="DISPLAY:none">BACKGROUND-COLOR: #cc9999</div>
+			</div>
+			<br />
+			<div class="box3" onclick="Visible(this);">box3
+				<div style="DISPLAY:none">BACKGROUND-COLOR: #ffcccc</div>
+			</div>
+			<br />
+			<div style="text-align:center" onclick="Visible(this);"><div style="display:none">BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px; BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-TOP: 1px; PADDING-BOTTOM: 1px; FONT-SIZE: 12px; CURSOR: hand; text-align:center; BACKGROUND-COLOR: #E4B1E4;</div><input id="btn" type="button" name="btn" class="bt" value="Button"/></div>
+			<div style="text-align:center" onclick="Visible(this);"><div style="display:none">BORDER-RIGHT:0px;BORDER-TOP:0px;FONT-WEIGHT:bold;BACKGROUND:none transparent scroll repeat 0% 0%;BORDER-LEFT:0px;BORDER-BOTTOM:0px;TEXT-ALIGN:center</div><input style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; FONT-WEIGHT: bold; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; TEXT-ALIGN: center"
+				type="text" value="偽裝成Lable的TextBox"></div>
+		</form>
+		<STYLE TYPE="text/css"> The following styles are customizable { }
+	BODY { BACKGROUND-COLOR: #ffffff }
+	H3 { COLOR: #a20d0d }
+	H4 { COLOR: #336598 }
+	H5 { COLOR: #ff8c00 }
+	UNKNOWN { }
+	.mbg { BACKGROUND-COLOR: #ffffff; vertical-align: top; }
+	.mtrnoborder { BACKGROUND-COLOR: #77B6E3; border-style: none; border-width:0; }
+	.mtr36 { BACKGROUND-COLOR: #77B6E3; border-style: none; border-width:0; }
+	.tdmtr,tdHiddenMtr { BACKGROUND-COLOR: #77B6E3 }
+	.mtr { BACKGROUND-COLOR: #77B6E3 }
+	.bt { BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px; BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-TOP: 1px; PADDING-BOTTOM: 1px; FONT-SIZE: 12px; CURSOR: hand; text-align:center; BACKGROUND-COLOR: #E4B1E4; }
+	.box { BACKGROUND-COLOR: #8194d9 }
+	.box1 { BACKGROUND-COLOR: #c6e0f4 }
+	.box2 { BACKGROUND-COLOR: #cc9999 }
+	.box3 { BACKGROUND-COLOR: #ffcccc }
+	UNKNOWN { }
+	.hr { BORDER-LEFT-COLOR: #5581b6; BORDER-BOTTOM-COLOR: #5581b6; BORDER-TOP-COLOR: #5581b6; BORDER-RIGHT-COLOR: #5581b6 }
+	.hrw { BORDER-LEFT-COLOR: #e8fec9; BORDER-BOTTOM-COLOR: #e8fec9; BORDER-TOP-COLOR: #e8fec9; BORDER-RIGHT-COLOR: #e8fec9 }
+	Page component { }
+	Top AREA { }
+	.btop { BACKGROUND-COLOR: #dfe7f3 }
+	.logo { FONT-WEIGHT: bold; FONT-SIZE: 17pt; FONT-FAMILY: Verdana,Arial }
+	.rol { FONT-SIZE: 9pt; WIDTH: 100% }
+	.loc { }
+	.gre { FONT-SIZE: 9pt; BACKGROUND-COLOR: #dfe7f3 }
+	.nav { FONT-SIZE: 9pt; COLOR: #ffffff; BACKGROUND-COLOR: #478cb6 }
+	.toptab1 { FONT-WEIGHT: bold; COLOR: #ffffff; BACKGROUND-COLOR: #478cb6 }
+	.toptab2 { BACKGROUND-COLOR: #bcdced }
+	#search { FONT-SIZE: 8pt }
+	A.nav:visited { COLOR: #ffffdf }
+	Nav AREA { }
+	.bnav { }
+	.nbl { BACKGROUND-COLOR: #d7e3f1 }
+	.nh { FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: #ccffff; BACKGROUND-COLOR: #8681a5 }
+	.ncat { FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #e8fec9 }
+	.ni { FONT-SIZE: 9pt; BACKGROUND-COLOR: #e8fec9 }
+	Footer AREA { }
+	.info { FONT-SIZE: 9pt }
+	.ctac { FONT-SIZE: 9pt }
+	Extra info AREA { }
+	.bxtra { }
+	.xh { }
+	.xi { }
+	.xctnt { }
+	UNKNOWN { }
+	.bl { FONT-SIZE: 1pt; WIDTH: 100%; BACKGROUND-COLOR: #8681a5 }
+	.bha { FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ffffff; BACKGROUND-COLOR: #8681a5 }
+	.bh { FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #ccffff; BACKGROUND-COLOR: #8eaabd }
+	.bf { FONT-WEIGHT: normal; FONT-SIZE: 9pt }
+	.bctnt { BACKGROUND-COLOR: #d7e3f1 }
+	UNKNOWN { }
+	.hl { COLOR: #a20d0d }
+	.note { FONT-SIZE: 7pt }
+	.ref { }
+	.authr { }
+	UNKNOWN { }
+	.page { FONT-SIZE: 9pt }
+	.th1 { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Left; }
+	.th1c { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: center; }
+	.th1r { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Right; }
+	.th2 { FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #d8c6d6 }
+	.ti1 { FONT-SIZE: 9pt; FONT-STYLE: italic; BACKGROUND-COLOR: #dfe7f3; TEXT-ALIGN: center }
+	.ti2 { FONT-SIZE: 9pt; FONT-STYLE: italic; BACKGROUND-COLOR: #d8c6d6; TEXT-ALIGN: center }
+	.td1 { FONT-SIZE: 9pt; BACKGROUND-COLOR: #F0F9FD }
+	.td2 { font-size: 10pt; background-color: #F0F9FD; text-align: Left ; }
+	.td2c { font-size: 10pt; background-color: #F0F9FD; text-align: center; }
+	.td2r { font-size: 10pt; background-color: #F0F9FD; text-align: Right ; }
+	.td3 { FONT-SIZE: 9pt; BACKGROUND-COLOR: #FFFFFF }
+	#td1a { }
+	#td2a { }
+	#td1b { }
+	#td2b { }
+	#td1c { }
+	#td2c { }
+	Customized styles for eKM2 { }
+	.wbl { BACKGROUND-COLOR: #fff4fc }
+	.wcat { FONT-WEIGHT: bold; FONT-SIZE: 9pt; BACKGROUND-COLOR: #fff4fc }
+	.wi { FONT-SIZE: 9pt; BACKGROUND-COLOR: #fff4fc }
+	.evb { BORDER-RIGHT: #336598 1px solid; BORDER-TOP: #336598 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #336598 1px solid; BORDER-BOTTOM: #336598 1px solid; BACKGROUND-COLOR: #dfe7f3 }
+	ui:unknown { }
+	.pblock { BACKGROUND-COLOR: #8681a5 }
+	.pborder { FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: #ffffdf; BACKGROUND-COLOR: #345d88 }
+	.pinner { COLOR: #ffffff; BACKGROUND-COLOR: #c6e0f4 }
+	A.pinner:visited { COLOR: #ffffff }
+	ui:unknown { }
+	.tborder { FONT-WEIGHT: bold; FONT-SIZE: 11pt; COLOR: #ccffff; BACKGROUND-COLOR: #8681a5 }
+	.tinner { COLOR: #ffffff; BACKGROUND-COLOR: #b4b6ce }
+	.tactive { font-weight: bold; font-size: 10pt; color: #ffffff; background-color: #345d88; text-decoration: none; }
+	.tinactive { font-size: 10pt; /* color: #ffffdf; */ color: #007ebe ; /* background-color: #5581b6; */ background-color: #e0f0ff; text-decoration: none; }
+	.tactive2 { FONT-SIZE: 9pt; COLOR: #ffffff; BACKGROUND-COLOR: #345d88 }
+	for Calendar { }
+	.today { FONT-WEIGHT: bold; COLOR: #ff0000; FONT-STYLE: italic }
+	.weekend { COLOR: #a20d0d }
+	.bordertxt { BORDER-RIGHT: #5581b6 1px solid; BORDER-TOP: #5581b6 1px solid; BORDER-LEFT: #5581b6 1px solid; BORDER-BOTTOM: #5581b6 1px solid; BACKGROUND-COLOR: #ffffff; }
+	.bordertxtr { BORDER-RIGHT: #5581b6 1px solid; BORDER-TOP: #5581b6 1px solid; BORDER-LEFT: #5581b6 1px solid; BORDER-BOTTOM: #5581b6 1px solid; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: right }
+	.bordertxtarea { BORDER-RIGHT: #5581b6 1px solid; BORDER-TOP: #5581b6 1px solid; BORDER-LEFT: #5581b6 1px solid; WIDTH: 100%; BORDER-BOTTOM: #5581b6 1px solid; POSITION: relative }
+	.borderSelect { BORDER-RIGHT: #5581b6 1px solid; BORDER-TOP: #5581b6 1px solid; SCROLLBAR-FACE-COLOR: #ffffff; BORDER-LEFT: #5581b6 1px solid; BORDER-BOTTOM: #5581b6 1px solid }
+	.inputtxt {font-size: 9pt; text-align: center; border-style: solid; border-color: #77B6E3; color: red; background-color: #77B6E3; line-height: 15pt; width: 20; height: 20}
+	.newinput { BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; FONT-SIZE: 12px; BORDER-LEFT: 0px solid; COLOR: #000066; BORDER-BOTTOM: 1px solid; FONT-FAMILY: "新細明體"; BACKGROUND-COLOR: #EBEBEB }
+	.newbutton { BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; FONT-SIZE: 12px; BORDER-LEFT: 1px solid; COLOR: #000000; BORDER-BOTTOM: 1px solid; FONT-FAMILY: "新細明體"; BACKGROUND-COLOR: #79b1b9 }
+	.newinputred { BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; FONT-SIZE: 12px; BORDER-LEFT: 0px solid; COLOR: #ff0000; BORDER-BOTTOM: 1px solid; FONT-FAMILY: "新細明體"; BACKGROUND-COLOR: #ebebeb }
+	#item { LEFT: 0px; VISIBILITY: hidden; POSITION: absolute }
+	.on { BORDER-RIGHT: #ffffff 0px solid; BORDER-TOP: #ffffff 0px solid; BACKGROUND: #ffffff; BORDER-LEFT: #ffffff 0px solid; CURSOR: hand; COLOR: #999999; BORDER-BOTTOM: #ffffff 0px solid; TEXT-DECORATION: none }
+	.out { BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid; BACKGROUND: #ffffff; BORDER-LEFT: 0px solid; COLOR: #666666; BORDER-BOTTOM: 0px solid; TEXT-DECORATION: none }
+	.aaa { FONT-SIZE: 12px; VERTICAL-ALIGN: bottom; COLOR: #00007f; TEXT-ALIGN: center; TEXT-DECORATION: none }
+	.ptitle { COLOR:#CC3300 }
+	.nobordertxt { border: 0; background-color: #FFFFFF; text-align: Left; }
+	.tdgry { FONT-SIZE: 9pt; BACKGROUND-COLOR: lightgrey }
+	.tdredgry { FONT-SIZE: 9pt; COLOR: red; BACKGROUND-COLOR: lightgrey }
+	.tdred { FONT-SIZE: 9pt; COLOR: red }
+	.nobordernum { border: 0; background-color: #F0F9FD; text-align: right; font-size:10pt; IME-MODE: disabled; }
+	.bordernum { border-right: #5581b6 1px solid; border-top: #5581b6 1px solid; border-left: #5581b6 1px solid; border-bottom: #5581b6 1px solid; background-color: #ffffff; text-align: right; font-size: 10pt; /* kevinH fix 93/06/09*/ IME-MODE: disabled; }
+	.imgDELETE { cursor:hand; height:16px; width:16px; align=texttop; border=0; }
+	.th11 { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: center; }
+	A.tactive:visited { color: #ffffff; }
+	A.tinactive:visited { /* color: #fafad2; */ color: #007ebe; }
+	.nobordernum1 { border: 0; background-color: #F0F9FD; text-align: right; font-size:10pt; IME-MODE: disabled; }
+	.bgnobordertxt { overflow:auto; background-color: #F0F9FD; border:none; font-size: 10pt; text-align:left; }
+	.nobordertxt1{ border:none; font-size: 10pt; text-align:left; }
+	.border0 { border: 0; margin:0; padding:0; }
+	/*add by ted 20070302 Css Border */ /*border-width:0 0 0 1; top right bottom left*/ .mtrPriTitle_b { background-color: #77B6E3; font-weight: bold; font-size: 12pt; text-align: Center; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.mtrSecTitle_b { background-color: #77B6E3; font-weight: bold; font-size: 10pt; text-align: Left; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.th1_b { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Left; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.th1c_b { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: center; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.th1r_b { font-weight: bold; font-size: 10pt; background-color: #D9EAF7; text-align: Right; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td2_b { font-size: 10pt; background-color: #F0F9FD; text-align: Left ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td2c_b { font-size: 10pt; background-color: #F0F9FD; text-align: Center ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td2r_b { font-size: 10pt; background-color: #F0F9FD; text-align: Right ; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td3_b { font-size: 10pt; background-color: #F0F9FD; border: 0; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td3c_b { font-size: 10pt; background-color: #F0F9FD; text-align: Center; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.td3r_b { font-size: 10pt; background-color: #F0F9FD; text-align: right; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.mtr_b { background-color: #77B6E3; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	.mbg_b { BACKGROUND-COLOR: #ffffff; vertical-align: top; border-color:#77B6E3; border-style:solid; border-width:0 1 1 0; padding:4px; }
+	/*Table Css Class*/ .CRTable_TOP { border-collapse:collapse; border-color:#77B6E3; border-style:solid; border-width:1 0 0 1; empty-cells:show; }
+	.CRTable { border-collapse:collapse; border-color:#77B6E3; border-style:solid; border-width:0 0 0 1; empty-cells:show; }
+	.CRNoborder { font-size: 10pt; background-color: #F0F9FD; text-align: Left ; border-color:#77B6E3; border-style:none; border-width:0 0 0 0; padding:4px; }
+	.bordertxt1 { overflow:auto; BORDER-RIGHT: #5581b6 1px solid; BORDER-TOP: #5581b6 1px solid; BORDER-LEFT: #5581b6 1px solid; BORDER-BOTTOM: #5581b6 1px solid; BACKGROUND-COLOR: #ffffff; background-color: #F0F9FD; font-size: 10pt; text-align:left; }
+	</STYLE>
+	</body>
+</html>

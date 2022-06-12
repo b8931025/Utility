@@ -1,0 +1,6 @@
+﻿
+ 
+ 有時頁面有太多Button，在Textbox輸入完按下Enter不一定會觸發你想要的那一個，可以 用defaultbutton設定要觸發的按鈕
+ 
+ <form id="form1" runat="server" defaultbutton="btnLogin" defaultfocus="txtUsername">
+ .....

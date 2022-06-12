@@ -1,0 +1,4 @@
+﻿		<SCRIPT language="javascript" src="../EN_inc/KeyCheck.js" type="text/javascript"></SCRIPT>
+			在 TextBox 裡設 onpropertychange="maxWord(this,2000);"
+		
+<asp:textbox id="tbContentA" Runat="server" Width="500px" MaxLength="2000" onpropertychange="maxWord(this,2000);" TextMode="MultiLine"></asp:textbox>		

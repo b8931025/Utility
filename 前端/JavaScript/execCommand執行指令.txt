@@ -1,0 +1,92 @@
+您可利用execCommand執行許多功能
+
+如：document.selection.createRange().execCommand("Copy");
+
+sCommand 常用指令內容
+============ ===============
+SelectAll 全選
+Refresh 重新載入文件
+Copy 複製
+Cut 剪下
+Delete 刪除
+============ ===============
+
+
+關於document.execCommand()函數可用參數大解析
+作者：未知 來自：網絡 點擊數： 編輯：Jovan 最後修改時間：2005-5-14 3:09:16 2D-Position 允許通過拖曳移動絕對定位的對象。  
+AbsolutePosition 設定元素的 position 屬性為「absolute」(絕對)。  
+BackColor 設置或獲取當前選中區的背景顏色。  
+BlockDirLTR 目前尚未支持。  
+BlockDirRTL 目前尚未支持。  
+Bold 切換當前選中區的粗體顯示與否。  
+BrowseMode 目前尚未支持。  
+Copy 將當前選中區複製到剪貼板。  
+CreateBookmark 創建一個書籤錨或獲取當前選中區或插入點的書籤錨的名稱。  
+CreateLink 在當前選中區上插入超級鏈接，或顯示一個對話框允許用戶指定要為當前選中區插入的超級鏈接的 URL。  
+Cut 將當前選中區複製到剪貼板並刪除之。  
+Delete 刪除當前選中區。  
+DirLTR 目前尚未支持。  
+DirRTL 目前尚未支持。  
+EditMode 目前尚未支持。  
+FontName 設置或獲取當前選中區的字體。  
+FontSize 設置或獲取當前選中區的字體大小。  
+ForeColor 設置或獲取當前選中區的前景(文本)顏色。  
+FormatBlock 設置當前塊格式化標籤。  
+Indent 增加選中文本的縮進。  
+InlineDirLTR 目前尚未支持。  
+InlineDirRTL 目前尚未支持。  
+InsertButton 用按鈕控件覆蓋當前選中區。  
+InsertFieldset 用方框覆蓋當前選中區。  
+InsertHorizontalRule 用水平線覆蓋當前選中區。  
+InsertIFrame 用內嵌框架覆蓋當前選中區。  
+InsertImage 用圖像覆蓋當前選中區。  
+InsertInputButton 用按鈕控件覆蓋當前選中區。  
+InsertInputCheckbox 用復選框控件覆蓋當前選中區。  
+InsertInputFileUpload 用文件上載控件覆蓋當前選中區。  
+InsertInputHidden 插入隱藏控件覆蓋當前選中區。  
+InsertInputImage 用圖像控件覆蓋當前選中區。  
+InsertInputPassword 用密碼控件覆蓋當前選中區。  
+InsertInputRadio 用單選鈕控件覆蓋當前選中區。  
+InsertInputReset 用重置控件覆蓋當前選中區。  
+InsertInputSubmit 用提交控件覆蓋當前選中區。  
+InsertInputText 用文本控件覆蓋當前選中區。  
+InsertMarquee 用空字幕覆蓋當前選中區。  
+InsertOrderedList 切換當前選中區是編號列表還是常規格式化塊。  
+InsertParagraph 用換行覆蓋當前選中區。  
+InsertSelectDropdown 用下拉框控件覆蓋當前選中區。  
+InsertSelectListbox 用列表框控件覆蓋當前選中區。  
+InsertTextArea 用多行文本輸入控件覆蓋當前選中區。  
+InsertUnorderedList 切換當前選中區是項目符號列表還是常規格式化塊。  
+Italic 切換當前選中區斜體顯示與否。  
+JustifyCenter 將當前選中區在所在格式化塊置中。  
+JustifyFull 目前尚未支持。  
+JustifyLeft 將當前選中區所在格式化塊左對齊。  
+JustifyNone 目前尚未支持。  
+JustifyRight 將當前選中區所在格式化塊右對齊。  
+LiveResize 迫使 MSHTML 編輯器在縮放或移動過程中持續更新元素外觀，而不是只在移動或縮放完成後更新。  
+MultipleSelection 允許當用戶按住 Shift 或 Ctrl 鍵時一次選中多於一個站點可選元素。  
+Open 目前尚未支持。  
+Outdent 減少選中區所在格式化塊的縮進。  
+OverWrite 切換文本狀態的插入和覆蓋。  
+Paste 用剪貼板內容覆蓋當前選中區。  
+PlayImage 目前尚未支持。  
+Print 打開打印對話框以便用戶可以打印當前頁。  
+Redo 目前尚未支持。  
+Refresh 刷新當前文檔。  
+RemoveFormat 從當前選中區中刪除格式化標籤。  
+RemoveParaFormat 目前尚未支持。  
+SaveAs 將當前 Web 頁面保存為文件。  
+SelectAll 選中整個文檔。  
+SizeToControl 目前尚未支持。  
+SizeToControlHeight 目前尚未支持。  
+SizeToControlWidth 目前尚未支持。  
+Stop 目前尚未支持。  
+StopImage 目前尚未支持。  
+StrikeThrough 目前尚未支持。  
+Subscript 目前尚未支持。  
+Superscript 目前尚未支持。  
+UnBookmark 從當前選中區中刪除全部書籤。  
+Underline 切換當前選中區的下劃線顯示與否。  
+Undo 目前尚未支持。  
+Unlink 從當前選中區中刪除全部超級鏈接。  
+Unselect 清除當前選中區的選中狀態。 

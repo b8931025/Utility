@@ -1,0 +1,196 @@
+前言:經常上網的朋友可能會到過這樣一些網站，一進入首頁立刻會彈出一個窗口，或者按一個連接或按鈕彈出，通常在這個窗口裡會顯示一些注意事項、版權信息 、警告、歡迎光顧之類的話或者作者想要特別提示的信息。其實製作這樣的頁面效果非常的容易，只要往該頁面的HTML裡加入幾段Javascript代碼即可實現。下面我就帶您剖析它的奧秘。 
+
+ 
+　 【1、最基本的彈出窗口代碼】 
+　　
+　　<SCRIPT LANGUAGE="javascript"> 
+　　<!-- 
+　　window.open ('page.html') 
+　　--> 
+　　</SCRIPT> 
+　　
+　　因為著是一段javascripts代碼，所以它們應該放在<SCRIPT LANGUAGE="javascript">標籤和</script>之間。
+		<!-- 和 -->是對一些版本低的瀏覽器起作用，在這些老瀏覽器中不會將標籤中的代碼作為文本顯示出來。要養成這個好習慣啊。window.open ('page.html') 用於控制彈出新的窗口page.html，如果page.html不與主窗口在同一路徑下，前面應寫明路徑，絕對路徑(http://)和相對路徑(../)均可。用單引號和雙引號都可以，只是不要混用。這一段代碼可以加入HTML的任意位置，<head>和</head>之間可以，<body>間</body>也可以，越前越早執行，尤其是頁面代碼長，又想使頁面早點彈出就盡量往前放。 
+　  
+　 【2、經過設置後的彈出窗口】 
+　　
+　　下面再說一說彈出窗口的設置。只要再往上面的代碼中加一點東西就可以了。 我們來定制這個彈出的窗口的外觀，尺寸大小，彈出的位置以適應該頁面的具體情況。 
+　　
+　　<SCRIPT LANGUAGE="javascript"> 
+　　<!-- 
+　　window.open ('page.html', 'newwindow', 'height=100, width=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no') //這句要寫成一行
+　　--> 
+　　</SCRIPT>  
+　　
+　　參數解釋： 　　
+		window.open('page.html','newwindow','sFeatures')
+		參數說明：
+　　'page.html' 彈出窗口的文件名； 
+　　'newwindow' 彈出窗口的名字（不是文件名），非必須，可用空''代替； 
+		'sFeatures' 視窗屬性，用";"分開
+	　　height=100 窗口高度； 
+	　　width=400 窗口寬度； 
+	　　top=0 窗口距離屏幕上方的象素值； 
+	　　left=0 窗口距離屏幕左側的象素值； 
+	　　toolbar=no 是否顯示工具欄，yes為顯示； 
+	　　menubar，scrollbars 表示菜單欄和滾動欄。 
+	　　resizable=no 是否允許改變窗口大小，yes為允許； 
+	　　location=no 是否顯示地址欄，yes為允許； 
+	　　status=no 是否顯示狀態欄內的信息（通常是文件已經打開），yes為允許； 
+
+　 【3、用函數控制彈出窗口】 
+　　
+　　下面是一個完整的代碼。 
+　　<html> 
+　　<head> 
+　　<script LANGUAGE="JavaScript"> 
+　　<!-- 
+　　function openwin() { 
+　　window.open ("page.html", "newwindow", "height=100, width=400, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no") //寫成一行
+　　} 
+　　//--> 
+　　</script> 
+　　</head> 
+　　<body onload="openwin()"> 
+　　任意的頁面內容... 
+　　</body> 
+　　</html> 
+
+　　這裡定義了一個函數openwin(),函數內容就是打開一個窗口。在調用它之前沒有任何用途。怎麼調用呢？ 
+
+　　方法一：<body onload="openwin()"> 瀏覽器讀頁面時彈出窗口； 
+　　方法二：<body onunload="openwin()"> 瀏覽器離開頁面時彈出窗口； 
+　　方法三：用一個連接調用： 
+　　<a href="#" onclick="openwin()">打開一個窗口</a> 
+　　注意：使用的「#」是虛連接。 
+　　方法四：用一個按鈕調用： 
+　　<input type="button" onclick="openwin()" value="打開窗口"> 
+ 
+　 
+　  
+　 【4、同時彈出2個窗口】 
+　　
+　　 對源代碼稍微改動一下： 
+　　
+　　<script LANGUAGE="JavaScript"> 
+　　<!-- 
+　　function openwin() { 
+　　window.open ("page.html", "newwindow", "height=100, width=100, top=0, left=0,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=n o, status=no")//寫成一行 
+　　window.open ("page2.html", "newwindow2", "height=100, width=100, top=1 00, left=100,toolbar=no, menubar=no, scrollbars=no, resizable=no, loca tion=no, status=no")//寫成一行 
+　　} 
+　　//--> 
+　　</script>
+　　為避免彈出的2個窗口覆蓋，用top和left控制一下彈出的位置不要相互覆蓋即可 。最後用上面說過的四種方法調用即可。 
+　　注意：2個窗口的name(newwindows和newwindow2)不要相同，或者乾脆全部為空。  
+  
+　 【5、主窗口打開文件1.htm，同時彈出小窗口page.html】 
+
+　　如下代碼加入主窗口<head>區： 
+　　<script language="javascript"> 
+　　<!-- 
+　　function openwin() { 
+　　window.open("page.html","","width=200,height=200") 
+　　} 
+　　//--> 
+　　</script> 
+　　加入<body>區： 
+　　<a href="1.htm" onclick="openwin()">open</a>即可。 
+ 
+  
+　 【6、彈出的窗口之定時關閉控制】 
+　　
+　　下面我們再對彈出的窗口進行一些控制，效果就更好了。如果我們再將一小段 代碼加入彈出的頁面(注意是加入page.html的HTML中，可不是主頁面中，否則 ...)，讓它10秒後自動關閉是不是更酷了？ 
+首先，將如下代碼加入page.html文件的<head>區： 
+　　<script language="JavaScript"> 
+　　function closeit() 
+　　{ 
+　　setTimeout("self.close()",10000) //毫秒 
+　　} 
+　　</script> 
+　　然後，再用<body onload="closeit()"> 這一句話代替page.html中原有的<BODY>這一句就可以了。(這一句話千萬不要忘記寫啊！這一句的作用是調用關閉窗 口的代碼，10秒鐘後就自行關閉該窗口。) 
+　 【7、在彈出窗口中加上一個關閉按鈕】 
+
+　　<FORM> 
+　　<INPUT TYPE='BUTTON' VALUE='關閉' onClick='window.close()'> 
+　　</FORM> 
+　　呵呵，現在更加完美了！
+
+　 【8、彈出幽靈網頁】 
+
+　　上面的例子都包含兩個窗口，一個是主窗口，另一個是彈出的小窗口。通過下面的例子，你可以在一個頁面內完成上面的效果。 
+
+		<script lang="JavaScript">
+			var s = "<html><body background='http://masm1215.myweb.hinet.net/first_page/small_elves.bmp'>Hello HTML<br><div style='text-align:center'>找不到html的網頁<div></body></html>";
+			var w = window.open("");
+			w.document.write(s);
+			w.document.close();
+		</script>
+　　
+
+　　看看OpenWindow.document.write()裡面的代碼不就是標準的HTML嗎？
+		只要按照 格式寫更多的行即可。千萬注意多一個標籤或少一個標籤就會出現錯誤。
+		記得用 OpenWindow.document.close()結束啊。 
+
+　 【9、終極應用--彈出的窗口之Cookie控制】 
+
+　　回想一下，上面的彈出窗口雖然酷，但是有一點小毛病(沉浸在喜悅之中，一定 沒有發現吧？)比如你將上面的腳本放在一個需要頻繁經過的頁面裡(例如首頁)，那麼每次刷新這個頁面，窗口都會彈出一次，是不是非常煩人？:-(
+　　有解決的辦法嗎？Yes! ;-) Follow me.我們使用cookie來控制一下就可以了。 
+　　首先，將如下代碼加入主頁面HTML的<HEAD>區： 
+
+　　<script> 
+　　function openwin(){ 
+　　window.open("page.html","","width=200,height=200") 
+　　} 
+　　function get_cookie(Name) { 
+　　var search = Name + "=" 
+　　var returnvalue = ""; 
+　　if (document.cookie.length > 0) { 
+　　offset = document.cookie.indexOf(search) 
+　　if (offset != -1) { 
+　　offset += search.length 
+　　end = document.cookie.indexOf(";", offset); 
+　　if (end == -1) 
+　　end = document.cookie.length; 
+　　returnvalue=unescape(document.cookie.substring(offset, end)) 
+　　} 
+　　} 
+　　return returnvalue; 
+　　} 　
+　　function loadpopup(){ 
+　　if (get_cookie('popped')==''){ 
+　　openwin() 
+　　document.cookie="popped=yes" 
+　　} 
+　　} 
+　　</script> 
+
+　　然後，用<body onload="loadpopup()">（注意不是openwin而是loadpop啊！）替換主頁面中原有的<BODY>這一句即可。你可以試著刷新一下這個頁面或重新進 入該頁面，窗口再也不會彈出了。真正的Pop-Only-Once！ 
+
+　　寫到這裡彈出窗口的製作和應用技巧基本上算是完成了
+
+　 【10、最小化、最大化window】
+		<script lang="JavaScript">
+			var w = window.open("");
+			w.moveTo(0,0);
+			w.resizeTo(0,0);//最小化
+			w.resizeTo(screen.availWidth,screen.availHeight);////最大化
+			w.blur();
+			self.focus();
+		</script>
+
+　 【11、100%全螢幕】
+ 		<script lang="JavaScript">
+			window.open("","","fullscreen=yes");
+			
+			適用IE
+			window.open(href, windowname, 'width=400,height=150,channelmode=yes,scrollbars=yes');
+			
+			適用Netscape
+			window.open(href, windowname, 'type=fullWindow,scrollbars=yes');
+			
+			
+			IE和Netscape
+			window.open(href, windowname, 'channelmode=yes,type=fullWindow,scrollbars=yes');				
+		</script>
+		
+	

@@ -1,0 +1,78 @@
+
+ª½®Ñ¥ÎWRITING-MODE
+#test {WRITING-MODE:tb-rl;POSITION:absolute;TEXT-ALIGN:left;LEFT:2px;TOP:30px;WIDTH:86px;HEIGHT:23px;LINE-HEIGHT:140%;}
+
+  <div id="test">
+        ª½®Ñ¤å¦r¡Aª½®Ñ¤å¦r¡Aª½®Ñ¤å¦r¡Aª½®Ñ¤å¦r¡Aª½®Ñ¤å¦r¡Aª½®Ñ¤å¦r¡A
+	</div>
+
+http://blog.roodo.com/aqea/archives/964702.html
+
+Writing-mode ªºÄÝ©Ê 
+
+¦b Microsoft Internet Explorer 5.5 ¤¤¡A³q¹L¦W¬° writing-mode¡]­^¤å¡^ªº CSS¡]­^¤å¡^ÄÝ©Ê
+¡]¬O·í«e¬° CSS 3¡]­^¤å¡^±ÀÂËªº¡^±Ò¥Î¹ï««ª½°t¸mªº¤ä«ù¡C¤U­±ªº¥Ü½d¹ï©ó­^¤å©M¤é¤å¤º®e¶i¦æ
+¤F¤ô·Ç§G§½©M««ª½°t¸mªº¤ñ¸û¡C½ÐÂsÄý¥Ü½d¡AµM«á§Ú­Ì±N¹ï²Ó¸`¶i¦æ²`¤J±´°Q¡C
+
+
+writing-mode ÄÝ©Ê¦³¨â­Ó­n±´°Qªº­È¡G
+ƒÜ 
+Tb-rl ªí¥Ü¦Û¤W¦Ó¤U¡B±q¥k¦V¥ª¡A»¡©ú¤FÀ³¥Î³oºØ¼Ë¦¡ªº¤¸¯Àªº¤º®e¨«¦V¡C
+ƒÜ 
+Lr-tb ªí¥Ü±q¥ª¦V¥k¡B¦Û¤W¦Ó¤U¡A¥¦¬O©Ò¦³¤å¦rªºÀq»{¨«¦V¡A¤]¬O­^¤åÅªªÌ©Ò¼ô±xªº¨å«¬ªº¤ô·Ç¨«¦V
+¡C»P¨ä¥L¥ô¦ó CSS ÄÝ©Ê¤@¼Ë¡A¥i³q¹L¥~³¡ CSS ÀÉ¡A©Î³q¹Lª«¥ó¼Ò«¬¡]style.writingMode¡]­^¤å¡^¡^
+¡A¦b¤@¦C¤W«ü©w³o¨Ç­È¡C
+
+¥i¥Îªº¤¸¯À 
+¦b MSDN Áp¾÷ Web ¤u§@«Ç¤åÀÉ¡]­^¤å¡^¤¤¥i§ä¨ì writing-mode ©ÒÀ³¥Îªº¤¸¯Àªº¦Cªí¡A¦ý«oµLªk¦b¦C
+ªí¤¤§ä¨ì BODY ¤¸¯À¡]­^¤å¡^¡C³o»¡©ú BODY ¤¸¯ÀÁ`±Ä¨ú¤ô·Ç§G§½¡A¦ý¥¦©Ò¥]§tªº¤¸¯À«o¥i¥H±Ä¥Î««ª½
+°t¸m¡C¦³®É«ÜÃø¹w®Æ³oºØ§G§½³W«hªº²Õ¦Xµ²ªG¬O¤°»ò¼Ëªº¡A³o¦b¤U­±ªº¥Ü½d¤¤·|¥[¥H»¡©ú¡C
+
+<HTML>
+<BODY>
+<DIV style="writing-mode:tb-rl; width:50cm">
+This is a sentence in a DIV element with vertical layout. 
+</DIV>
+</BODY>
+<HTML>
+
+·í±z¦b Internet Explorer 5.5 ¤¤¬d¬Ý¦¹¼Ð°O®É¡A¤@¶}©l¬Ý¤£¨ì¤å¦r¡A¦ý«o·|¬Ý¨ì¤ô·Ç±²¶b¡C¦pªG±z±N
+¸Ó­¶¤@ª½ºu°Ê¨ì¥kºÝ¡A«h¥i¥H¬Ý¨ì¤å¦r¡C¬°¤°»ò·|³o¼Ë©O¡H
+
+
+
+BODY ¤¸¯ÀÁ`±Ä¥Î¤ô·Ç§G§½¡A¦ÓÂsÄý¾¹Á`¬O±N¥iµø°Ï©w¦ì¤_°_©l©ó¼Ð°O¤¤³Ì³»ºÝ¤¸¯Àªº­ìÂI¡C¦b«e­±ªº¥Ü
+½d¤¤¡A­ìÂI¦ì©ó­¶­±ªº¥ª¤W¨¤¡A­Y­nÅã¥Ü¸ü¤J¤F¤å¦rªº­¶­±¡A¥²¶·¨Ï¥DÅéºu°Ê¨ì¥kºÝ¡C¨ä¹ê²{¤èªk¬°¡G
+¦b¥þ§½ DIV ¤¸¯À¡]­^¤å¡^¤¤¡A±N¥DÅé¤Wªº¤è¦VÄÝ©Ê³]¸m¬° RTL¡]±q¥k¦V¥ª¡^¡AµM«á¦A±N¤è¦VÄÝ©Ê³]¸m¦^
+ LTR¡]±q¥ª¦V¥k¡^¡C³o¼Ë¡A´N±N­ìÂI©ñ¸m¦b¥k¤W¨¤¤F¡C
+
+<HTML>
+<BODY style="direction:rtl">
+<DIV style="direction:ltr; writing-mode:tb-rl; width:50cm">
+This is a vertical sentence.
+</DIV>
+</BODY>
+</HTML>
+
+»P¨ä¥L CSS ÄÝ©Ê ¥æ¤¬ 
+«Ü¦h CSS ÄÝ©Ê¥i¯à¾Ö¦³»P¤è¦V©Î¦ì¸m¬ÛÃöªº­È¡A¦p³»³¡¡B©³³¡¡B¥ªÃä©M¥kÃäµ¥¡C¦b««ª½°t¸mªºÀô¹Ò¤¤À³¦p
+¦óÂà´«³o¨Ç­È©O¡H³q±`¡A¼vÅT¤è¦V©Î¦ì¸mªº CSS ÄÝ©Ê¬O³Qµ´¹ïÂà´«ªº¡C³o¬O±q¹ê»Ú¦Ó¨¥ªº¡Aªí©ú³oºØ¼Ë¦¡
+ªºÁô§tªº©Î©ú½Tªº¤è¦V©Ê¨Ã¤£ÀH««ª½°t¸m¦Ó§ïÅÜ¡C¨Ò¦p¡A½Ð¦Ò¼{ border-left ÄÝ©Ê¡]­^¤å¡^¡CÁ|¨Ò¦Ó¨¥¡A
+¦b««ª½°t¸m¤¤¡Aborder-left ªí¥Ü¦b¤¸¯Àªº¥ªÃä¬É¤WÃ¸»s¤@­ÓÃä®Ø¡C¦]¬°³oºØ©ñ¸m¬Oµ´¹ïªº¡A©Ò¥H¦b««ª½
+°t¸m¤¤¡Aborder-left ¨Ã¤£·|ÅÜ¬° border-top¡]­^¤å¡^¡C
+
+¦ý¬O¡A¦³¨Ç CSS ÄÝ©ÊªºÂà´«¬O¬Û¹ïªº¡C³o¬O±qÅÞ¿è¨¤«×¦Ó¨¥ªº¡Aªí©ú­Y«ö·Ó¤W­±¨º¼Ë¹ï¥¦­Ì¶i¦æµ´¹ïÂà´«
+¬O¨S¦³·N¸qªº¡Cline-height ÄÝ©Ê¡]­^¤å¡^´N¬O¤@­Ó¥Ü½d¡C¦pªG¦æ¬O¤ô·Ç§G§½ªº¡A«h¸ÓÄÝ©Ê±±¨î¦æªº°ª«×¡F
+¦pªG¦æ¬O««ª½°t¸mªº¡A«h¸ÓÄÝ©Ê±±¨î¦æªº¼e«×¡C´«¥y¸ÜÁ¿¡Aline-height ÄÝ©Ê¦b»P°ò½u««ª½ªººû«×¤W±±¨î
+¦æªº¤j¤p¡C¦]¦¹¡A¹ïÄÝ©Ê¶i¦æµ´¹ïÂà´«¬O¨S¦³·N¸qªº¡CWorld Wide Web Consortium (W3C) ´£¨Ñ¤F«ö·ÓÅÞ
+¿èÂà´«ªº CSS ÄÝ©Ê¦Cªí¡]­^¤å¡^¡C
+
+®e¾¹Ãö«Y©MÄ~©Ó 
+writing-mode ÄÝ©Ê¨M©w¤F¤¸¯À¤º®eªº§G§½¤è¦¡¡A¦Ó¤£¬O¤¸¯À¦Û¨­ªº¦ì¸m¡A°O¦í³o¤@ÂI¤Q¤À­«­n¡C·í¤¸¯À 
+writing-mode ªº­È¬° tb-rl ®É¡A¾ã­Ó¤¸¯Àªº¤º®e±Ä¥Î««ª½°t¸m¡]¦¹®É¡A©¿²¤¹ïÄ~©Óªº­­¨î©Î³]¸m¤ô·Ç§G
+§½ªº¤l¤¸¯Àªº±¡ªp¡^¡C³o»¡©ú¤å¦r©M¤l¤¸¯Àªº¨«¦V¬°¦Û¤W¦Ó¤U¡B±q¥k¦V¥ª¡C
+
+¹ï writing-mode ÄÝ©ÊªºÄ~©Ó¨Ã¤£¬O²Î¤@ªº¡C¬Y¨Ç¤¸¯À®Ú¥»¤£Ä~©Ó¥¦¡C¨ä¥L¤¸¯À±N writing-mode ÄÝ©Ê¶Ç
+»¼µ¹¥¦­Ìªº¤l¤¸¯À¡A¦ý¦Û¤v«o¤£±Ä¥Î³o¨ÇÄÝ©Ê¡C³o±N¦b writing-mode °Ñ¦Ò­¶¡]­^¤å¡^¤¤¥[¥H¤¶²Ð¡C±N·Æ
+¹««ü¼Ð²¾¨ì¡§Applies To¡¨¦Cªí¤¤ªº¥ô¦ó¤¸¯À¤W¡A¥i¥H¬d¬Ý¸Ó¤¸¯À¤W¬O§_À³¥Î¤FÄ~©Ó­­¨î¡CÃö©ó¦³­­¨îªºÄ~
+©Óªº¥Ü½d¡A½Ð°Ñ¨£¹ï BUTTON ¤¸¯À¡]­^¤å¡^ªº Web Workshop °Ñ¦Ò¡C

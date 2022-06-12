@@ -1,0 +1,7 @@
+§ì¨ì·Æ¹«®y¼Ð
+<script language="JavaScript1.2">
+function myClick(e) { 
+    alert("x: " + window.event.offsetX + " y: " + window.event.offsetY);
+} 
+document.onmousedown = myClick; 
+</script>

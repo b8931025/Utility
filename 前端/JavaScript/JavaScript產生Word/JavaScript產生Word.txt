@@ -1,0 +1,34 @@
+		先將樣版Word編輯好，在想要放入資料的地方插入書籤
+		專案裡的web根目錄，要有OfficeOpen.cab這個檔案
+		
+		aspx裡面
+		<head>
+		<OBJECT id="OfficeOpen" codeBase="OfficeOpen.CAB#version=2,0,0,0" height="0" width="0" classid="CLSID:FF9D5AA7-8EAE-423F-AE21-B1D9104D80FD"
+			name="OfficeOpen" VIEWASTEXT>
+			<PARAM NAME="_ExtentX" VALUE="450">
+			<PARAM NAME="_ExtentY" VALUE="476">
+		</OBJECT>
+		<script lang="JavaScript">
+			function insertBookMark(bkName,repStr){
+				if (doc != undefined){
+					if (doc.Application.ActiveDocument.Bookmarks.Exists(bkName)){
+						doc.Application.ActiveDocument.Bookmarks.Item(bkName).Select();
+						doc.Application.Selection.TypeText(repStr);
+					}			
+				}
+			}
+		</script>
+		</head>
+		
+		<body>
+		<form id="form1" runat="server">
+			<SCRIPT language='javascript'>
+			wordApp = document.getElementsByName('OfficeOpen')[0].OfficeWord();  //取出OfficeOpen.cab的應用程式
+			doc = wordApp.Documents.Open('http://localhost/pr_dev01/PR/Qry/WordTmp.doc'); //讀取樣版Word
+			insertBookMark('Two','EEE\nccc\t Hello Word');  //可以用\n換行 \t加Tab，也可以用doc.Application.Selection裡的function
+			wordApp.visible = true;//顯示Word
+			doc = null;
+			wordApp = null;
+			</SCRIPT>
+		</form>		
+		</body>

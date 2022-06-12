@@ -1,0 +1,21 @@
+
+
+[屬性名稱] 匹配包含給定屬性的元素
+[att=value] 匹配包含給定屬性的元素(大小寫區分)
+[att*=value] 模糊匹配
+[att!=value] 不能是這個值
+[att$=value] 結尾是這個值
+[att^=value] 開頭是這個值
+[att1][att2][att3]... 匹配多個屬性條件中的一個
+
+===========================================下面舉例===== ===========================
+
+<UL id=comparePro>
+    <li id=compare_prod_list_001>信用卡貸款活動產品1-中國建設銀行</li>
+    <li id=compare_prod_list_002>信用卡貸款活動產品2-中國建設銀行</li>
+    <li id=compare_prod_list_003>信用卡貸款活動產品3-中國建設銀行</li>
+    <li id=other>其他</li>
+</UL>
+
+要取到所有id以compare_prod_list_開頭的<li> ： var list=$('li[id^=compare_prod_list_]');
+

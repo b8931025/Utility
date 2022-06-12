@@ -1,0 +1,5 @@
+Protected WithEvents HGC As System.Web.UI.HtmlControls.HtmlGenericControl '宣告HtmlGenericControl
+Dim SB As New System.Text.StringBuilder '宣告並new出StringBuilder 
+StringBuilder.Append(RESULT) '將結果附加到StringBuilder
+...
+HGC.InnerHtml = SB '將最後結果加到HtmlGenericControl中
