@@ -1,0 +1,220 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=Big5">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./excel3_4_2.files/filelist.xml">
+<link rel=Edit-Time-Data href="./excel3_4_2.files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>絕對參照與相對參照的區別</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>真理大學</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>真理大學</o:LastAuthor>
+  <o:Revision>8</o:Revision>
+  <o:TotalTime>15</o:TotalTime>
+  <o:Created>2000-03-03T08:29:00Z</o:Created>
+  <o:LastSaved>2000-09-01T02:51:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>142</o:Words>
+  <o:Characters>814</o:Characters>
+  <o:Lines>6</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:CharactersWithSpaces>999</o:CharactersWithSpaces>
+  <o:Version>9.2812</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:PunctuationKerning/>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>
+  <w:Compatibility>
+   <w:SpaceForUL/>
+   <w:BalanceSingleByteDoubleByteWidth/>
+   <w:DoNotLeaveBackslashAlone/>
+   <w:ULTrailSpace/>
+   <w:DoNotExpandShiftReturn/>
+   <w:FootnoteLayoutLikeWW8/>
+   <w:ShapeLayoutLikeWW8/>
+   <w:AlignTablesRowByRow/>
+   <w:ForgetLastTabAlignment/>
+   <w:LayoutRawTableWidth/>
+   <w:LayoutTableRowsApart/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:新細明體;
+	panose-1:2 2 3 0 0 0 0 0 0 0;
+	mso-font-alt:PMingLiU;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:1 134742016 16 0 1048576 0;}
+@font-face
+	{font-family:"\@新細明體";
+	panose-1:2 2 3 0 0 0 0 0 0 0;
+	mso-font-charset:136;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:1 134742016 16 0 1048576 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:none;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:新細明體;
+	mso-font-kerning:1.0pt;}
+h1
+	{margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:新細明體;
+	color:black;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p.t, li.t, div.t
+	{mso-style-name:t;
+	margin-right:0cm;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:新細明體;
+	mso-hansi-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:black;}
+ /* Page Definitions */
+@page
+	{mso-page-border-surround-header:no;
+	mso-page-border-surround-footer:no;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:42.55pt;
+	mso-footer-margin:49.6pt;
+	mso-paper-source:0;
+	layout-grid:18.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1029"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=ZH-TW link=blue vlink=purple style='tab-interval:24.0pt;text-justify-trim:
+punctuation'>
+
+<div class=Section1 style='layout-grid:18.0pt'>
+
+<h1 align=center style='text-align:center'><span style='font-size:20.0pt;
+mso-bidi-font-size:24.0pt'>絕對參照與相對參照的區別<span lang=EN-US><o:p></o:p></span></span></h1>
+
+<p class=t><b><span lang=EN-US style='color:blue'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=t><b><span style='color:blue'>相對參照</span></b><span lang=EN-US
+style='font-family:"Times New Roman";mso-ascii-font-family:新細明體'>&nbsp;&nbsp;</span><span
+lang=EN-US> </span><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt'>在建立公式時，儲存格或儲存格範圍的參照通常是根據包含公式之儲存格的相對位置。在下面的範例中，儲存格<span
+lang=EN-US> B6 包含公式 ＝A5 ；Microsoft Excel 將會在距儲存格 B6 上面一個儲存格和左邊一個儲存格處的儲存格中尋找數值。這就是相對參照。<o:p></o:p></span></span></p>
+
+<p class=t align=center style='text-align:center'><span lang=EN-US><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:201.75pt;
+ height:60pt'>
+ <v:imagedata src="./excel3_4_2.files/image001.gif" o:title="相對參照範例"/>
+</v:shape><![endif]--><![if !vml]><img width=269 height=80
+src="./excel3_4_2.files/image001.gif" v:shapes="_x0000_i1025"><![endif]><o:p></o:p></span></p>
+
+<p class=t style='text-align:justify;text-justify:inter-ideograph;mso-char-indent-size:
+12pt'><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt'>在複製包含相對參照的公式時，<span
+lang=EN-US>Excel 會自動調整在已貼上公式中的參照，以便參照相對於目前公式位置的其他儲存格。在下面的範例中，儲存格 B6 中的公式 =A5 已經被複製到
+B7，而 A5 則位在 B6 左上的儲存格。所以 Excel 已經調整儲存格 B7 中的公式為 =A6，亦即參照儲存格 B7 左上一格的儲存格。<o:p></o:p></span></span></p>
+
+<p class=t><b><span lang=EN-US style='color:blue'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></b></p>
+
+<p class=t><b><span style='color:blue'>絕對參照</span></b><span lang=EN-US
+style='font-family:"Times New Roman";mso-ascii-font-family:新細明體'>&nbsp;&nbsp;</span><span
+lang=EN-US> </span><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt'>如果在複製公式時不希望<span
+lang=EN-US> Excel 調整參照，那麼請使用絕對參照。例如，如果公式是儲存格 A5 乘以儲存格 C1 (=A5*C1)，而您將公式複製到另一儲存格中，則
+Excel 會調整這兩個參照。您可以在未改變的參照前加上一個貨幣符號 ($)，這樣就能對儲存格 C1 建立一個絕對參照。若要對儲存格 C1 建立絕對參照，請在公式中加入貨幣符號如下：<o:p></o:p></span></span></p>
+
+<p class=t align=center style='text-align:center'><span lang=EN-US>=A5*$C$1</span></p>
+
+<p class=t><b><span style='color:blue'>相對參照與絕對參照之間的切換</span></b><span
+lang=EN-US style='font-family:"Times New Roman";mso-ascii-font-family:新細明體'>&nbsp;&nbsp;</span><span
+lang=EN-US> </span><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt'>如果您已經建立了一個公式，並想從相對參照變更為絕對參照<span
+lang=EN-US> (反之亦然)，那麼請先選取包含該公式的儲存格。然後在資料編輯列中，選取要變更的參照，並按下 F4 鍵。每當您按下 F4 鍵時，Excel
+都會在下面組合間作切換：絕對欄與絕對列 (例如，$C$1)；相對欄與絕對列 (C$1)；絕對欄與相對列 ($C1)，以及相對欄與相對列 (C1)。例如，在公式中選取位址
+$A$1 並按下 F4 鍵，參照將會變為 A$1。再次按下 F4 鍵，參照將會變為 $A1，以此類推。<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span lang=EN-US><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US
+style='font-family:新細明體'><a
+href="http://imil.au.edu.tw/~hsichcl/Excel/Unit3/excel3_4_3.htm">下一頁</a><span
+style="mso-spacerun: yes">&nbsp; </span></span><span lang=EN-US><a
+href="http://imil.au.edu.tw/~hsichcl/Excel/Unit3/excel3_4_1.htm"><span
+style='font-family:新細明體;mso-ascii-font-family:"Times New Roman"'>回上一頁</span></a></span><span
+lang=EN-US style='font-family:新細明體'><span style="mso-spacerun: yes">&nbsp;
+</span><a href="http://imil.au.edu.tw/~hsichcl/Excel/Excel_Unit3.htm">回教學單元目錄</a><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

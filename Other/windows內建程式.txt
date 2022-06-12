@@ -1,0 +1,37 @@
+計算機 calc
+遠端桌面 mstsc
+憑證管理 certmgr.msc 
+主控台 mmc
+小畫家 mspaint
+剪取工具 SnippingTool.exe
+效能監視器 perfmon.msc 
+事件檢視器 Eventvwr.msc
+本機安全性原則 secpol.msc
+
+SQL Server組態管理員 SQLServerManager13.msc
+
+
+查詢系統資訊	systeminfo
+查詢遠端電腦系統資訊	systeminfo /s {Remote IP}
+查詢網路卡實體位址	getmac
+查詢遠端電腦網路卡實體位址	getmac /s {Remote IP}
+查詢已安裝驅動程式	driverquery
+列出目前工作項目	tasklist
+中止運行中的工作	taskkill /PID
+電腦管理	compmgmt.msc
+本機使用者與群組	lusrmgr.msc
+控制台	control
+系統管理工具	control admintools
+資料夾選項	sontrol folders
+工作排程器	control schedtasks
+印表機	control printers
+系統內容	sysdm.cpl
+防火牆設定	firewall.cpl
+螢幕解析度	desk.cpl
+電源選項	powercfg.cpl
+網路連線	ncpa.cpl
+小畫家	mspaint
+Power Shell	powershell
+Windows Updte	wuapp
+網路裝置設定	netsh
+資源監視器 perfmon /res

@@ -1,0 +1,48 @@
+﻿用web.config的設定載入Mail連線資訊
+defaultCredentials=> true:使用windows認證 false:使用帳密認證
+enableSsl=> true:使用SSL加密連線 false:不使用SSL加密連線
+
+Web.config
+<system.net>
+  <mailSettings>
+    <smtp deliveryMethod="Network">
+      <network defaultCredentials="false" 
+        host="Your.SMTP.Server" port="25"
+        userName="MyAccount" password="ThisIsPassword" />
+    </smtp>
+    <Gmail deliveryMethod="Network" from="test@gmail.com" >
+      <network defaultCredentials="false"  enableSsl="true" host="smtp.gmail.com" port="587"
+        userName="test@gmail.com" password="****"  />
+    </Gmail>    
+  </mailSettings>
+</system.net> 
+
+
+coding
+加上去之後，程式碼就能簡化成以下程式碼，乾淨而清爽：
+SmtpClient smtp = new SmtpClient();
+smtp.Send(msg);
+
+或是取得自定section
+SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("mailSettings/Gmail");
+SmtpClient smtpClient = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
+smtpClient.Credentials = new NetworkCredential(smtpSection.From, smtpSection.Network.Password);
+smtpClient.EnableSsl = smtpSection.Network.EnableSsl;
+/*
+UserName也可以從Newtwork取得
+smtpClient.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+*/
+
+
+
+手動取得web.config 中的 mailSettings
+Using System.Web.Configuration;
+Using System.Net.Configuration;
+Using System.Configuration;
+Configuration config = WebConfigurationManager.OpenWebConfiguration(HttpContext.Current.Request.ApplicationPath);
+MailSettingsSectionGroup settings = (MailSettingsSectionGroup)config.GetSectionGroup("system.net/mailSettings");
+Response.Write("SMTP 主機: " + settings.Smtp.Network.Host + "<br />");
+Response.Write("SMTP 埠號: " + settings.Smtp.Network.Port + "<br />");
+Response.Write("SMTP 帳號: " + settings.Smtp.Network.UserName + "<br />");
+Response.Write("SMTP 密碼: " + settings.Smtp.Network.Password + "<br />");
+Response.Write("預設寄件者:" + settings.Smtp.From + "<br />");

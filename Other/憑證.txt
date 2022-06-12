@@ -1,0 +1,51 @@
+﻿先用管理者權限執行cmd.exe
+
+pvk2pfx.exe
+
+C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\pvk2pfx.exe -pvk makecert.pvk -spc makecert.cer -pfx makecert.pfx
+
+makecert -r -pe -n "CN=192.168.1.133" -b 01/01/2020 -e 01/01/2050 -sr localMachine -ss root -a sha256 -len 2048 -sky exchange
+makecert -r -pe -n "CN=192.168.1.133" -b 01/01/2020 -e 01/01/2050 -sv willy.pvk willy.cer -a sha256 -len 2048 -sky exchange
+makecert -r -pe -n "CN=192.168.1.133" -b 01/01/2020 -e 01/01/2050 -sv willy.pvk willy.cer -a sha256 -len 2048 -sky exchange -sr localMachine -ss root
+
+pvk2pfx.exe -pvk willy.pvk -spc willy.cer -pfx willy.pfx -pi password
+
+-r  自簽憑證
+-pe 憑證可匯出
+-n  主體名稱
+-b  憑證有效起日
+-e  憑證有效迄日
+-a  加密演算法種類
+-len金鑰長度，預設1024，但最好2048以上
+-sv 產生私密金鑰pvk檔與憑證cer檔
+-ss 指定憑證的匯入位置 My=個人 Root=受信任的根憑證授權單位
+-sr 指定憑證給LocalMachine=本機使用者 或 CurrentUser目前使用者
+-sky指定主題的密鑰類型 signature或exchange 
+-eku指定OID識別碼，標示憑證用途
+		1.3.6.1.5.5.7.3.1 - 伺服器驗證 (serverAuth)
+		1.3.6.1.5.5.7.3.2 - 用戶端驗證 (clientAuth)
+		1.3.6.1.5.5.7.3.3 - 程式碼簽署 (codeSigning)
+		1.3.6.1.5.5.7.3.4 - 電子郵件加密 (emailProtection)
+		1.3.6.1.5.5.7.3.8 - 時戳簽章 (timeStamping)
+-cy authority  產生合法的CA憑證		
+
+
+如果憑證過期、CN後面的名稱和url不對，就會顯示"此網站的安全性憑證有問題。"
+makecert產生的自簽憑證如果要測試https連線，只能在localhost使用
+
+
+https://blog.miniasp.com/post/2018/04/23/Using-MakeCert-to-build-Self-Signed-Certificate
+https://www.itdaan.com/blog/2008/08/20/57bd4dc782a927c41ba650b2de08d757.html
+https://blog.miniasp.com/post/2018/04/21/PKI-Digital-Certificate-Format-Convertion-Notes
+https://blog.miniasp.com/post/2018/04/24/Using-PowerShell-to-build-Self-Signed-Certificate
+
+
+New-SelfSignedCertificate -DnsName "192.168.1.133" -Subject "CN=Acer,OU=ExamYuan,DC=Acer" -CertStoreLocation "cert:\LocalMachine\My" -FriendlyName AcerSSL -KeyAlgorithm RSA -KeyLength 2048 -NotAfter (Get-Date).AddYears(10) 
+
+-FriendlyName 友善名稱
+-NotAfter (Get-Date).AddYears(10)  到期日加10年
+ 
+
+產生出來的自簽憑證，只要匯入client端的本機Root，就可以被列為安全，但chrome還是會列為不安全，不過至少不會跳出警告頁面
+PS:給client端的憑證，不需要附私鑰 
+

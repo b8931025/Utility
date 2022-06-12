@@ -1,0 +1,1324 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0049)http://blog.xuite.net/antivirus/hisecure/16707442 -->
+<HTML><HEAD><TITLE>重灌電腦二三事（下）電腦安全性設定─基礎篇：HiNet防毒防駭服務：Xuite日誌</TITLE><WPTPASS>
+<SCRIPT src="本機安全性設定.files/jquery-1.1.2.js" type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="本機安全性設定.files/previewbubble_jsonp.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/xuitemenu_fix.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/blog.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/b5gb.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/json.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/AC_RunActiveContent.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS><LINK title="ICRA labels" 
+href="http://s.blog.xuite.net/_public/js/labels.rdf" type=application/rdf+xml 
+rel=meta></WPTPASS>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="" name=keywords>
+<META content=重灌電腦二三事（下）電腦安全性設定─基礎篇 
+name=description><!--hinet所提供的css:Begin --><LINK href="本機安全性設定.files/tree.css" 
+type=text/css rel=stylesheet><LINK href="本機安全性設定.files/jqModal.css" 
+type=text/css rel=stylesheet><LINK href="本機安全性設定.files/css.css" type=text/css 
+rel=StyleSheet><LINK href="本機安全性設定.files/navigationBar.css" type=text/css 
+rel=StyleSheet><!--hinet所提供的css:End --><LINK href="本機安全性設定.files/blog.css" 
+type=text/css rel=stylesheet><WPTPASS>
+<SCRIPT language=javascript src="本機安全性設定.files/common.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><LINK title="Xuite Blog / RSS 2.0" 
+href="http://blog.xuite.net/antivirus/hisecure/rss.xml" type=application/rss+xml 
+rel=alternate><LINK title="Xuite Blog / ATOM 0.3" 
+href="http://blog.xuite.net/antivirus/hisecure/atom.xml" 
+type=application/atom+xml rel=alternate>
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+     $.ajax({
+     type: "GET",
+     url: '/_theme/TopNavigationBarExp.php?bid=796868&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: get_top_nav
+     });
+ });      
+     function get_top_nav(json){
+     if(json.check != 0){
+     $("ul#suckertree1").html(json);
+     $("div#topmanager").html("<table width='100%' height='30' border='0' cellpadding='0' cellspacing='0'><tr><td width='10'><img src='http://s.blog.xuite.net/_image/f_top_manage_01.gif' width='10' height='30' alt='' /></td><td background='http://s.blog.xuite.net/_image/f_top_manage_02.gif'><table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td width='110'><img src='http://s.blog.xuite.net/_image/f_top_manage_list.gif' alt='日誌列表' name='image1' width='90' height='18' id='image1' onmouseover=\"MM_showHideLayers('Layer1','','show')\" onmouseout=\"MM_showHideLayers('Layer1','','hide')\" /></td><td width='130' valign='bottom'><a href='http://blog.xuite.net/_manager/blog.phtml?bid=796868'><img src='http://s.blog.xuite.net/_image/f_top_manage_enter.gif' alt='進入管理後台' width='110' height='20' border='0' /></a></td><td width='110' valign='bottom'><a href='http://blog.xuite.net/_manager/article_post.phtml?bid=796868'><img src='http://s.blog.xuite.net/_image/f_top_manage_add.gif' alt='發表文章' width='88' height='19' border='0' /></a></td><td width='110' valign='bottom'><a href='http://blog.xuite.net/_manager/blog_theme.phtml?bid=796868'><img src='http://s.blog.xuite.net/_image/f_top_manage_theme.gif' alt='佈景主題' width='88' height='19' border='0' /></a></td><td>&nbsp;</td><td width='15'><a href='#'><img src='http://s.blog.xuite.net/_image/xoomindex_pop_03.gif' alt='關閉' width='15' height='16' border='0' onclick=\"ShowHide('topmanager');MM_showHideLayers('topmanager','','hide')\" /></a></td></tr></table></td><td width='12'><img src='http://s.blog.xuite.net/_image/f_top_manage_03.gif' width='12' height='30' alt='' /></td></tr></table>");
+     $("div#topmanageropen").html("<table width='100%' border='0' cellspacing='0' cellpadding='0' height='6'><tr><td height='6' align='center' valign='top' background='http://s.blog.xuite.net/_image/f_top_manage_open_bg.gif'><a href='#'><img src='http://s.blog.xuite.net/_image/f_top_manage_open.gif' alt='開啟/關閉' width='98' height='6' border='0' OnClick=\"ShowHide('topmanager');MM_showHideLayers('topmanager','','show');\" /></a></td></tr></table>");
+     var xxx = getCookie("_top"); 
+     var yyy = "1";
+
+     if(xxx == null || isNaN(xxx))
+       var xxx = "0";
+
+     if((xxx&yyy) != 0){
+        $("div#topmanager"). css({display:"none"}); 
+     }else{ 
+       $("div#topmanager"). css({display:""});
+     }
+      
+     $("div#topmanageropen").css({display:""});   
+     }
+     } 
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="本機安全性設定.files/mm_menu.js"></SCRIPT>
+
+<META content="MSHTML 6.00.2900.5726" name=GENERATOR></HEAD>
+<BODY><IMG height=0 src="" width=0 border=0><!--<body onLoad="javascript:LoadPage();" ><div id="LoadMessage" style="position:absolute; left:600px; top:10px; background-color:#ff0000; layer-background-color:#ffffff; height:20; width:80;"><table width=100%><tr><td style="color:#ffffff;font-weight:bold">載入中..</td></tr></table></div>-->
+<DIV id=Layer1 onmouseover="MM_showHideLayers('Layer1','','show')" 
+onmouseout="MM_showHideLayers('Layer1','','hide')">
+<DIV class=suckerdiv style="DISPLAY: block; Z-INDEX: 2">
+<UL id=suckertree1></UL></DIV></DIV>
+<DIV id=topmanager style="DISPLAY: none"></DIV>
+<DIV id=topmanageropen style="DISPLAY: none"></DIV>
+<DIV id=container>
+<SCRIPT language=javascript type=text/javascript>
+var xuiteBlogPlugin_bookmark='Y';var xuiteBlogPlugin_article_snapshot='Y';var xuiteBlogPlugin_history_today='Y';var xuiteBlogPlugin_random_article='Y';var xuiteBlogPlugin_relate_article='Y'; 
+   $(document).ready(function(){
+   	 var link = location.href;
+      $.ajax({
+       type: "GET",
+       url: '/_theme/LoginButtonExp.php?location='+link.replace(/&/g, "%")+'&ga='+(new Date()).getTime(),
+       dataType: 'json',
+       success: getLoginButton
+      });
+
+ }); 
+ function getLoginButton(json){
+        $("a#my_blog").attr("href",json.my_blog);
+				$("a#my_blog").html("我的日誌");
+        if(json.loginout_text == 'SignIn'){
+         $("a#in_out").attr("href",json.loginout_href);
+         $("a#in_out").html("登 入");
+        }else{
+         $("a#in_out").attr("href",json.loginout_href);
+         $("a#in_out").html("登 出");
+         
+        }		 
+ }
+
+
+</SCRIPT>
+<!-- 插入Head選單程式:End --><WPTPASS>
+<STYLE>#xuitelogo {
+	BEHAVIOR: url(/png.htc)
+}
+</STYLE>
+</WPTPASS>
+<DIV id=banner>
+<DIV class=menulist>
+<DIV class=menu>
+<DIV align=right><!-- <img src="http://s.blog.xuite.net/_image/beta_label.gif" alt="http://s.blog.xuite.net/_image/beta_label.gif" width="21" height="16" border="0" align="middle">&nbsp;<a href="javascript:;" onClick="javascript:ChangeLang('TraditionalChinese');return false;"><img src="http://s.blog.xuite.net/_image/TraditionalChinese.gif" width="16" height="16" border="0" align="middle"></a><img src="http://s.blog.xuite.net/_image/arrow.gif" width="16" height="16" border="0" align="middle"><a href="javascript:;" onClick="javascript:ChangeLang('SimplifiedChinese');return false;"><img src="http://s.blog.xuite.net/_image/SimplifiedChinese.gif" width="16" height="16" border="0" align="middle"></a> ｜ --><A 
+id=my_blog 
+href="http://blog.xuite.net/_members/login.php?furl=/_manager/index.phtml">我的日誌</A>｜<SPAN 
+class=xuiteLink><A href="javascript:void(0);">工具箱</A><SPAN><!-- <a href="javascript:AddRss();" >&gt; 訂閱</a> --><A 
+onclick="javascript:clickCommend('16707442','article','/antivirus/hisecure/16707442');" 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#">&gt; 推薦</A><A 
+onclick="javascript:clickReport('16707442','article','/antivirus/hisecure/16707442');" 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#">&gt; 
+檢舉</A></SPAN></SPAN>｜<A id=in_out href="javascript:;">登 入</A> ｜<!-- 插入Xuite下拉選單程式:Begin --><SPAN class=xuiteLink> <A 
+href="http://www.xuite.net/">Xuite</A><SPAN id=xuiteLinkItem><A 
+href="http://blog.xuite.net/">&gt; 日誌</A><A href="http://photo.xuite.net/">&gt; 
+相簿</A><A href="http://webhd.xuite.net/">&gt; 硬碟</A><A 
+href="http://mail.xuite.net/">&gt; 郵件</A><A href="http://vlog.xuite.net/">&gt; 
+影音</A><A href="http://admin.xuite.net/">&gt; My Xuite</A></SPAN></SPAN><!-- 插入Xuite下拉選單程式:End --><!-- 插入繁簡互換:Begin -->｜<SPAN 
+class=xuiteLink> <A 
+href="http://blog.xuite.net/antivirus/hisecure/">繁簡</A><SPAN><A 
+href="javascript:d2d_11D1_b5gb(1)">&gt; 繁體</A><A 
+href="javascript:d2d_11D1_b5gb(2)">&gt; 簡體</A><A 
+href="javascript:d2d_11D1_b5gb(-1)">&gt; 
+回復</A></SPAN></SPAN><!-- 插入繁簡互換:End -->｜ <A 
+href="http://blog.xuite.net/faq.phtml">服務說明</A> ｜ <A 
+href="http://blog.xuite.net/">首 頁</A><BR></DIV></DIV><!-- 插入Body選單:Begin --><!-- Part One: Set up a Div named xuiteMenu --><!-- 插入Body選單:End --><!-- 插入myTools必要的form表單:start -->
+<DIV id=mytoolsForm 
+style="VISIBILITY: hidden; WIDTH: 0px; POSITION: absolute; HEIGHT: 0px">
+<FORM name=Report action=/process_report.php method=post><INPUT type=hidden 
+name=relateID> <INPUT type=hidden name=reportType> <INPUT type=hidden 
+name=content> </FORM>
+<FORM name=Commend action=/process_commend.php method=post><INPUT type=hidden 
+name=relateID> <INPUT type=hidden name=commendType> <INPUT type=hidden 
+name=content> </FORM></DIV>
+<DIV class=logo><A href="http://blog.xuite.net/"><IMG id=xuitelogo 
+src="本機安全性設定.files/logo.png" border=0></A></DIV></DIV>
+<DIV class=blogname><A 
+href="http://blog.xuite.net/antivirus/hisecure">HiNet防毒防駭服務</A><SPAN 
+class=blogemotion><A 
+href="http://blog.xuite.net/new_index.php?type=mood&amp;mind=3"><IMG height=25 
+src="本機安全性設定.files/mind_b3.gif" width=90 align=middle border=0></A></SPAN><SPAN 
+class=blogfavo><A href="javascript:AddLoveBlog();"><IMG height=19 
+src="本機安全性設定.files/addFavorite.gif" width=82 align=middle 
+border=0></A></SPAN></DIV>
+<DIV class=description>文章中所提及的：<BR>NAV為HiNet諾頓防毒軟體（Norton 
+Anti-Virus）的簡稱，NIS為HiNet諾頓防毒防駭軟體（Norton Internet 
+Security）的簡稱<BR>SAV為HiNet賽門鐵克防毒軟體（Symantec 
+Anti-Virus）的簡稱，SCS為HiNet賽門鐵克防毒防駭軟體（Symantec Client Security）的簡稱</DIV></DIV>
+<DIV id=linksLeft>
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+   	 if(getCookie("MemberInformation") != null){ 
+     $.ajax({
+     type: "GET",
+     url: '/_theme/AvatarButtonExp.php?mid=17375893&bid=796868&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getAvatarButton
+     });
+     }
+ });
+    
+    function getAvatarButton(json){
+					if(json.check=='0'){ 
+		      $("div.avatarbutton").html("<a href='/_manager/blog.phtml?bid=796868'><img src='http://s.blog.xuite.net/_image/1230_01.gif' width='70' height='20' border='0' align='middle'></a>");
+          }
+        } 
+        
+ </SCRIPT>
+
+<DIV class=personaltitle>
+<DIV class=pTitle>
+<LI>HiNet防毒防駭</LI></DIV></DIV>
+<DIV class=avatar>
+<DIV class=avatarPhoto><IMG height=92 src="本機安全性設定.files/avatar.jpg" 
+width=106></DIV>
+<DIV class=avatarDesciption>
+<P><FONT size=2>中華電信HiNet全年無休24小時免付費服務電話 0800-080-412<BR><A 
+href="http://hisecure.hinet.net/" 
+target=_blank>http://hisecure.hinet.net/</A></FONT></P>
+<P><A href="http://blog.xuite.net/antivirus/hisecure/16941258"><IMG height=44 
+src="本機安全性設定.files/hisecure_log.gif" width=180 border=0></A></P><BR><BR></DIV>
+<DIV class=avatarbutton></DIV>
+<DIV class=personallink>
+<DIV class=plink>
+<LI><A href="http://xuite.net/antivirus">關於我</A></LI></DIV>
+<DIV class=pfriend>
+<LI><A onclick="javascript:AddFriend('antivirus');return false;" 
+href="javascript:;">加入好友</A></LI></DIV>
+<DIV class=pphoto>
+<LI><A href="http://photo.xuite.net/antivirus">我的相簿</A></LI></DIV>
+<DIV class=pvlog>
+<LI><A href="http://vlog.xuite.net/antivirus">我的影音</A></LI></DIV>
+<DIV class=pboard>
+<LI><A href="http://gbook.xuite.net/antivirus">我的留言板</A></LI></DIV></DIV></DIV>
+<SCRIPT language=javascript>var searchClickFlag='false';function Trim(TRIM_VALUE){if(TRIM_VALUE.length < 1){return"";}TRIM_VALUE = RTrim(TRIM_VALUE);TRIM_VALUE = LTrim(TRIM_VALUE);if(TRIM_VALUE==""){return "";}else{return TRIM_VALUE;}}function RTrim(VALUE){var w_space = String.fromCharCode(32);var v_length = VALUE.length;var strTemp = "";if(v_length < 0){return"";}var iTemp = v_length -1;while(iTemp > -1){if(VALUE.charAt(iTemp) == w_space){}else{strTemp = VALUE.substring(0,iTemp +1);break;}iTemp = iTemp-1;}return strTemp;}function LTrim(VALUE){var w_space = String.fromCharCode(32);if(v_length < 1){return"";}var v_length = VALUE.length;var strTemp = "";var iTemp = 0;while(iTemp < v_length){if(VALUE.charAt(iTemp) == w_space){}else{strTemp = VALUE.substring(iTemp,v_length);break;}iTemp = iTemp + 1;}return strTemp;}function blog_search_chk(){if(Trim(document.search_form.w.value)==""){alert('請輸入要查詢關鍵字!!');document.search_form.w.focus();return false;}else if(document.search_form.w.value.indexOf('*')!=-1){alert('請輸入要查詢關鍵字!');document.search_form.w.focus();return false;}else if(document.search_form.w.value=="請輸入關鍵字"){alert('請輸入要查詢關鍵字!');document.search_form.w.focus();return false;}else{return true;}}</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=searchTitle>
+<LI>搜尋文章</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=searchSide>
+<DIV class=searchbutton>
+<FORM name=search_form onsubmit="javascript:return blog_search_chk();" 
+action=/antivirus/hisecure method=get>關鍵字 <INPUT class=inputForm 
+onblur="if(this.value==''){this.value='請輸入關鍵字';this.searchClickFlag=false;}" 
+onfocus="this.value='';this.searchClickFlag=true;" size=13 value=請輸入關鍵字 
+name=w><BR><INPUT type=hidden value=list name=re><INPUT type=hidden value=s 
+name=st><INPUT type=image height=20 width=38 src="本機安全性設定.files/blog024.gif" 
+border=0 name=image></FORM></DIV></DIV></DIV>
+<SCRIPT src="本機安全性設定.files/yahoo-min.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="本機安全性設定.files/event-min.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="本機安全性設定.files/treeview-min.js" type=text/javascript></SCRIPT>
+<LINK href="本機安全性設定.files/tree.css" type=text/css rel=stylesheet>
+<DIV class=sidetitle>
+<DIV class=categoryTitle>
+<LI>文章分類</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=categorySide><A onclick="javascript:label_click('expand')" 
+href="javascript:;">全部展開</A>|<A onclick="javascript:label_click('close')" 
+href="javascript:;">全部收合</A>
+<DIV id=treeDiv1></DIV></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+ 
+function label_click(type){
+
+var xxx = getCookie("_top"); 
+if(xxx == "" || isNaN(xxx))
+ var xxx = "0";
+ var yyy = 2;
+
+if(type == "expand"){
+  if((xxx&yyy) == 0){
+    xxx = parseInt(xxx,10)+2;
+    setCookie("_top",xxx);
+    tree.expandAll(); 
+  }
+}else{
+  if((xxx&yyy) != 0){ 
+    xxx = parseInt(xxx,10)-2;
+    setCookie("_top",xxx);
+    tree.collapseAll(); 
+   } 
+}  
+
+}
+
+
+var tree;  
+(function() {
+function treeInit() {  
+
+
+  var x = getCookie("_top"); 
+
+  if(x == "" || x == "NaN")
+    var x = "0";
+  var y = "2";
+
+ if((x&y) > 0)  
+    var click = "true";
+  else
+    var click = "false";  
+
+  tree = new YAHOO.widget.TreeView("treeDiv1");
+  var root = tree.getRoot();
+           
+  
+                                                                                                             if(click == "true"){
+     var DirNode_2 = new YAHOO.widget.TextNode("HiNet防毒防駭服務", root,true);
+   }else{
+     var DirNode_2 = new YAHOO.widget.TextNode("HiNet防毒防駭服務", root,false);
+   }  
+   
+  
+             var myobj = { label: "HiNet防毒防駭介紹(3)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=1125370"};  
+    var LabNode_1 = new YAHOO.widget.TextNode(myobj, DirNode_2,false);
+                       var myobj = { label: "促銷方案(3)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=1117474"};  
+    var LabNode_2 = new YAHOO.widget.TextNode(myobj, DirNode_2,false);
+                                                                                                     if(click == "true"){
+     var DirNode_3 = new YAHOO.widget.TextNode("Norton防毒防駭產品專區", root,true);
+   }else{
+     var DirNode_3 = new YAHOO.widget.TextNode("Norton防毒防駭產品專區", root,false);
+   }  
+   
+  
+                         var myobj = { label: "Norton常用工具(7)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=704853"};  
+    var LabNode_3 = new YAHOO.widget.TextNode(myobj, DirNode_3,false);
+                       var myobj = { label: "NAV / NIS 軟體問題(24)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=704855"};  
+    var LabNode_4 = new YAHOO.widget.TextNode(myobj, DirNode_3,false);
+                                                                                         if(click == "true"){
+     var DirNode_4 = new YAHOO.widget.TextNode("PC-cillin產品專區", root,true);
+   }else{
+     var DirNode_4 = new YAHOO.widget.TextNode("PC-cillin產品專區", root,false);
+   }  
+   
+  
+                                     var myobj = { label: "PC-cillin常用工具(6)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=1121068"};  
+    var LabNode_5 = new YAHOO.widget.TextNode(myobj, DirNode_4,false);
+                       var myobj = { label: "PC-cillin軟體問題(20)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=704856"};  
+    var LabNode_6 = new YAHOO.widget.TextNode(myobj, DirNode_4,false);
+                                                                             if(click == "true"){
+     var DirNode_5 = new YAHOO.widget.TextNode("Housecall線上掃毒專區", root,true);
+   }else{
+     var DirNode_5 = new YAHOO.widget.TextNode("Housecall線上掃毒專區", root,false);
+   }  
+   
+  
+                                                 var myobj = { label: "Housecall技術問題(2)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=704857"};  
+    var LabNode_7 = new YAHOO.widget.TextNode(myobj, DirNode_5,false);
+                                                                       if(click == "true"){
+     var DirNode_6 = new YAHOO.widget.TextNode("企業資安產品專區", root,true);
+   }else{
+     var DirNode_6 = new YAHOO.widget.TextNode("企業資安產品專區", root,false);
+   }  
+   
+  
+                                                       var myobj = { label: "SAV / SCS 軟體問題(9)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=859275"};  
+    var LabNode_8 = new YAHOO.widget.TextNode(myobj, DirNode_6,false);
+                       var myobj = { label: "HiNet入侵防護服務(1)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=1172957"};  
+    var LabNode_9 = new YAHOO.widget.TextNode(myobj, DirNode_6,false);
+                                                           if(click == "true"){
+     var DirNode_7 = new YAHOO.widget.TextNode("其他", root,true);
+   }else{
+     var DirNode_7 = new YAHOO.widget.TextNode("其他", root,false);
+   }  
+   
+  
+                                                                   var myobj = { label: "實用小幫手(9)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=829722"};  
+    var LabNode_10 = new YAHOO.widget.TextNode(myobj, DirNode_7,false);
+                       var myobj = { label: "最新資安新聞及弱點(1)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=829492"};  
+    var LabNode_11 = new YAHOO.widget.TextNode(myobj, DirNode_7,false);
+                       var myobj = { label: "知識文章(18)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=705100"};  
+    var LabNode_12 = new YAHOO.widget.TextNode(myobj, DirNode_7,false);
+                       var myobj = { label: "網路威脅新訊(7)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=1226945"};  
+    var LabNode_13 = new YAHOO.widget.TextNode(myobj, DirNode_7,false);
+                       var myobj = { label: "一般問題(14)", href:"http://blog.xuite.net/antivirus/hisecure?st=c&p=1&w=704854"};  
+    var LabNode_14 = new YAHOO.widget.TextNode(myobj, DirNode_7,false);
+                           
+       tree.draw();
+  
+}
+  $(document).ready(function(){
+    treeInit();
+  });    
+
+})();
+
+
+
+</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=customTitle>
+<LI>HiNet Symantec</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=customSide>
+<DIV class=articleSide>
+<LI><A href="http://www.symantec.com.tw/" target=_blank>中文官網</A> 
+<LI><A href="http://www.symantec.com/" target=_blank>英文官網</A> 
+<LI><A 
+href="http://www.symantec.com/zh/tw/norton/support/partner_faq.jsp?id=sos" 
+target=_blank>賽門鐵克防毒防駭產品知識庫</A>
+<LI><A class=style1 
+href="http://www.symantec.com/zh/tw/norton/support/kb/web_view.jsp?wv_type=public_web&amp;docurl=20080717022348TW&amp;environment=" 
+target=_blank>自動支援助手</A> 
+<LI><A class=style1 
+href="http://www.symantec.com/zh/tw/norton/support/kb/web_view.jsp?wv_type=public_web&amp;ssfromlink=true&amp;sprt_cid=4d7cd336-5e52-47c6-8a83-0ab65f63d2fc&amp;seg=hho&amp;ct=tw&amp;lg=zh&amp;docurl=20080925235319TW" 
+target=_blank>賽門鐵克工具</A> 
+<LI><A href="http://www.symantec.com/avcenter/download/pages/CH-N95.html" 
+target=_blank>病毒碼手動下載(中文)</A>
+<LI><A href="http://www.symantec.com/avcenter/download/pages/US-N95.html" 
+target=_blank>病毒碼手動下載(英文)</A></LI></DIV></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=customTitle>
+<LI>HiNet Trend</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=customSide>
+<DIV class=articleSide>
+<LI><A href="http://www.trendmicro.com/tw/home/enterprise.htm" 
+target=_blank>中文官網</A> 
+<LI><A href="http://us.trendmicro.com/us/home/" target=_blank>英文官網</A> 
+<LI><A href="http://hisecure.hinet.net/AntiVirus/" target=_blank>線上掃瞄</A> 
+<LI><A href="http://www.pcc-club.com.tw/index.asp" target=_blank>PC-cillin 
+Club</A></LI></DIV></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=linkTitle>
+<LI>最愛連結</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=LoveLinkSide><A onclick="javascript:link_click('expand')" 
+href="javascript:;">全部展開</A>|<A onclick="javascript:link_click('close')" 
+href="javascript:;">全部收合</A> <SPAN id=showAreaDiv></SPAN></DIV></DIV>
+<SCRIPT language=javascript>
+	var myLink=new Array();
+		
+			var o=new Object();
+			o.id="4017431";
+			o.blogID="796868";
+			o.title="HiNet首頁";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.hinet.net";	
+			o.order="0";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017412";
+			o.blogID="796868";
+			o.title="HiNet加值";
+			o.type = "label";
+			o.description = "";	
+			o.url = "";	
+			o.order="1";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017364";
+			o.blogID="796868";
+			o.title="HiNet防毒防駭";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://hisecure.hinet.net";	
+			o.order="2";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017474";
+			o.blogID="796868";
+			o.title="HiNet企業資安";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://soc365.hinet.net";	
+			o.order="3";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017436";
+			o.blogID="796868";
+			o.title="HiNet ADSL";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.promotion.hinet.net/index.htm";	
+			o.order="4";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017437";
+			o.blogID="796868";
+			o.title="色情守門員";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://hicare.hinet.net/";	
+			o.order="5";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017552";
+			o.blogID="796868";
+			o.title="資安新訊";
+			o.type = "label";
+			o.description = "";	
+			o.url = "";	
+			o.order="6";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017553";
+			o.blogID="796868";
+			o.title="ZDNet";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.zdnet.com.tw/news/";	
+			o.order="7";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017554";
+			o.blogID="796868";
+			o.title="iThome online";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.ithome.com.tw/";	
+			o.order="8";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4017555";
+			o.blogID="796868";
+			o.title="資安人";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.informationsecurity.com.tw/";	
+			o.order="9";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4414046";
+			o.blogID="796868";
+			o.title="資安之眼";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.itis.tw/";	
+			o.order="10";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4056558";
+			o.blogID="796868";
+			o.title="微軟技術論壇";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://forums.microsoft.com/technet-cht/default.aspx?siteid=23";	
+			o.order="11";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4020291";
+			o.blogID="796868";
+			o.title="行政院技服中心";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.icst.org.tw";	
+			o.order="12";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4020292";
+			o.blogID="796868";
+			o.title="資安論壇";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://forum.icst.org.tw/phpBB2";	
+			o.order="13";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4020298";
+			o.blogID="796868";
+			o.title="TWCert";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.cert.org.tw/index.php";	
+			o.order="14";
+			
+			myLink.push(o);
+			
+    
+			var o=new Object();
+			o.id="4020293";
+			o.blogID="796868";
+			o.title="刑事警察局偵九隊";
+			o.type = "link";
+			o.description = "";	
+			o.url = "http://www.cib.gov.tw/index.aspx";	
+			o.order="15";
+			
+			myLink.push(o);
+			
+     
+
+var table_array = new Array();
+table_array[0] = '<div class="linkSide">';
+table_array[1] = '</div>';
+
+var group_array = new Array();
+
+ 
+function link_click(type){
+
+var xxx = getCookie("_top"); 
+if(xxx == "" || isNaN(xxx))
+ var xxx = "0";
+ var yyy = 4;
+
+if(type == "expand"){
+  if((xxx&yyy) != 0){
+    xxx = parseInt(xxx,10)-4;
+    setCookie("_top",xxx); 
+    click ="open";
+    link_init(click); 
+  }
+}else{
+  if((xxx&yyy) == 0){ 
+    xxx = parseInt(xxx,10)+4;
+    setCookie("_top",xxx);
+    click ="default";
+    link_init(click);
+   } 
+}  
+
+}
+
+
+function buildToggle(no,btnType){
+	var middle_str;
+	
+	var moreStr0 = '<div class="morebtn"><img src="http://s.blog.xuite.net/_image/blog037.gif" width="14" height="18" align="middle"><a href="#groupA_';
+	var moreStr1 = '">more</a></div>';
+	var backStr0 = '<div class="backbtn"><img src="http://s.blog.xuite.net/_image/blog038.gif" width="14" height="18" align="middle"><a href="#groupA_';
+	var backStr1 = '">back</a></div>';	
+	
+	if (btnType == "more"){
+		middle_str = '<div id="toggle_'+no+'" align="right"><div onclick="doMore('+no+')">'+moreStr0+no+moreStr1+'</div></div>';
+	} else if (btnType == "back"){
+		middle_str = '<div id="toggle_'+no+'" align="right"><div onclick="doBack('+no+')">'+backStr0+no+backStr1+'</div></div>';
+	}
+	return middle_str;
+}
+
+function doMore (no){
+	var o = eval("group_"+no);
+	var str;
+	o.innerHTML = buildArea(no,"back");
+}
+
+function doBack (no){
+	var o = eval("group_"+no);
+	var str;
+	o.innerHTML = buildArea(no,"more");	
+}
+
+function buildArea(no,btnType,click){
+	var tmpStr = "";
+	var j,o;
+	o = group_array[no];
+	tmpStr += table_array[0];
+		
+	for (j = 0 ; j < o.length; j++) {
+		if (o[j].type == "link"){
+			var out_description = o[j].description.replace(/\"/g, '&quot;');
+			tmpStr+='<li><a href="'+o[j].url+'" target="_blank" title="'+out_description+'">'+o[j].title+'</a></li>';
+		} else if (o[j].type == "label"){
+			tmpStr+=o[j].title;
+		}
+		if(click != "open"){
+      if (j>5 && btnType=="more"){
+			  break;
+		  } 
+		}
+	}
+	if(click != "open"){
+    if (o.length>5){
+		  tmpStr+=buildToggle(no,btnType);
+	  }
+	}
+	tmpStr+=table_array[1];
+
+	return tmpStr;
+}
+
+
+function link_init(){
+	
+	var x = getCookie("_top"); 
+
+  if(x == "" || x == "NaN")
+    var x = "0";
+    var y = "4";
+
+ if((x&y) <= 0)  
+    var click = "open";
+  else
+    var click = "default";  
+  
+  var str = "";
+	var i,j;
+	var total = myLink.length;
+	var tmp_array,tmp_type = "";
+	var o,tmpStr;
+  if(group_array.length == 0){
+	//先分出組數 每組要做成一個table
+	for(i = 0 ; i <total; i++){
+		o = myLink[i];
+		//第一次進來
+		if (tmp_type == ""){
+			tmp_array = new Array();
+			tmp_type = o.type;
+			tmp_array.push(o);
+		} else {
+			if (o.type == "label"){
+				i--;
+				tmp_type = "";
+				group_array.push(tmp_array);
+				continue ;
+			} else if (o.type == "link"){
+				tmp_array.push(o);
+			}
+		}
+	}
+	
+	if (total>0){
+		group_array.push(tmp_array);
+	}
+  }
+	for (i = 0 ; i < group_array.length ; i++) {
+		o = group_array[i];
+		tmpStr = '<a name="groupA_'+i+'"></a><div id="group_'+i+'">';
+		tmpStr +=  buildArea(i,"more",click);
+		tmpStr += '</div>';
+		str+=tmpStr;
+	}
+
+	$("span#showAreaDiv").html(str);
+
+}
+click = "default";
+link_init(click);
+</SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+   		$.ajax({
+     type: "GET",
+     url: '/_theme/CountSideExp.php?bid=796868&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getCountSide
+    });
+
+ });
+ 
+   function getCountSide(json){
+     $("div#todayHit").html("今日人氣: "+json.now_hit);
+     $("div#totalHit").html("累積人氣: "+json.all_hit);
+   }
+   
+ </SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=countTitle>
+<LI>參觀人氣統計</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=countSide>
+<DIV id=todayHit></DIV>
+<DIV id=totalHit></DIV></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=customTitle>
+<LI>光世代爆紅達人</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=customSide>
+<CENTER><EMBED pluginspage=http://www.macrmedia.com/go/getflashplayer 
+src=http://space-network.myweb.hinet.net/hinet_photo/clock.swf width=160 
+height=250 type=application/x-shockwave-flash 
+wmode="transparent"></EMBED></CENTER></DIV></DIV></DIV>
+<DIV id=linksRight>
+<DIV class=sidetitle>
+<DIV class=customTitle>
+<LI>HiNet防毒防駭好康速報</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=customSide>
+<SCRIPT src="本機安全性設定.files/urchin.js" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>_uacct = "UA-1116336-4";urchinTracker();</SCRIPT>
+<IMG height=0 src="" width=0 border=0> 
+<CENTER>
+<P>
+<OBJECT 
+codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0 
+height=64 width=166 classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000><PARAM NAME="movie" VALUE="http://moscps.myweb.hinet.net/blogpics/safe_surf0317.swf"><PARAM NAME="quality" VALUE="high"><PARAM NAME="wmode" VALUE="transparent">
+                                        <embed 
+src="http://moscps.myweb.hinet.net/blogpics/safe_surf0317.swf" width="166" 
+height="64" quality="high" 
+pluginspage="http://www.macromedia.com/go/getflashplayer" 
+type="application/x-shockwave-flash" wmode="transparent"></embed>     
+</OBJECT></P>
+<P><A href="http://hisecure.hinet.net/product/promotion/symantec/norton/" 
+target=_blank><IMG height=50 src="本機安全性設定.files/index_img2.gif" width=190 
+border=0></A></P>
+<P><A href="http://hisecure.hinet.net/product/promotion/TrendMicro/PCCillin/" 
+target=_blank><IMG height=50 src="本機安全性設定.files/index_img1.gif" width=190 
+border=0></A> 
+<P><A href="http://hisecure.hinet.net/AntiVirus/service_intro.php" 
+target=_blank><IMG height=50 src="本機安全性設定.files/index_img3.gif" width=190 
+border=0></A> 
+<P><A href="http://adsl.hinet.net/3ip/" target=_blank><IMG height=68 
+src="本機安全性設定.files/ess21.jpg" width=179 border=0></A> </CENTER></P></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=hotArticleTitle>
+<LI>我的發燒文</LI></DIV></DIV>
+<DIV class=side><A onclick="getHot('history');" href="javascript:;">累積</A> | <A 
+onclick="getHot('today');" href="javascript:;">今日</A><BR>
+<DIV id=loading>loading......</DIV>
+<DIV class=hotArticleSide></DIV></DIV>
+<SCRIPT type=text/javascript>var loginID = 'antivirus';var blogUrl = 'hisecure';var bid = '796868';$("#loading").ajaxStart(function(){$(this).show();});$("#loading").ajaxStop(function(){$(this).hide();});$(document).ready(function() {getHot('history');});function getHot(hotType){$.ajax({type: "GET",url: "/_theme/HotArticleExp.php",data: "type="+hotType+"&bid="+bid,dataType: "json",success: function(json){$(".hotArticleSide").html('');for (var i = 0; i < json.length; i++) {$(".hotArticleSide").append('<li><a href="http://blog.xuite.net/' + loginID + '/' + blogUrl + '/' + json[i].id + '">' + json[i].title + '</a></li>');}if( json.length == 0)$(".hotArticleSide").append('今天生意不好喲~~');}});}</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=messageTitle>
+<LI>最新回應</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=messageSide>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/21393684#11792650">趨勢工具「iClean」讓您處理電腦中毒問題更加方便！</A>，by(HiNet防毒防駭)於</SPAN><SPAN 
+class=date>2009-01-26</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/17467988#11792587">安裝HiNet 
+防毒防駭軟體前，應如何移除舊版的防毒防駭軟體 ?</A>，by(HiNet防毒防駭)於</SPAN><SPAN 
+class=date>2009-01-26</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/19146816#11792525">無法進入安全模式該如何是好？</A>，by(HiNet防毒防駭)於</SPAN><SPAN 
+class=date>2009-01-26</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/17467988#11775255">安裝HiNet 
+防毒防駭軟體前，應如何移除舊版的防毒防駭軟體 ?</A>，by(李先生)於</SPAN><SPAN 
+class=date>2009-01-23</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/19146816#11766667">無法進入安全模式該如何是好？</A>，by(笨蛋)於</SPAN><SPAN 
+class=date>2009-01-22</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/17467988#11715530">安裝HiNet 
+防毒防駭軟體前，應如何移除舊版的防毒防駭軟體 ?</A>，by(HiNet防毒防駭)於</SPAN><SPAN 
+class=date>2009-01-15</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/21393684#11711950">趨勢工具「iClean」讓您處理電腦中毒問題更加方便！</A>，by(路人)於</SPAN><SPAN 
+class=date>2009-01-15</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/17467988#11700948">安裝HiNet 
+防毒防駭軟體前，應如何移除舊版的防毒防駭軟體 ?</A>，by(BAKERY)於</SPAN><SPAN 
+class=date>2009-01-13</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/15031906#11699377">如何完整移除PC-cillin 
+2008?</A>，by(HiNet防毒防駭)於</SPAN><SPAN class=date>2009-01-13</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/antivirus/hisecure/15031906#11699363">如何完整移除PC-cillin 
+2008?</A>，by(HiNet防毒防駭)於</SPAN><SPAN 
+class=date>2009-01-13</SPAN></DIV></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+function AddRss_test(blogID,title){
+			window.open('http://xuite.net/api/addrss/index.php?title='+title+'+&feedURL='+blogID,'_blank','height=615,width=520,status=no,toolbar=no,menubar=no,location=no','true');
+}
+</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=resourceTitle>
+<LI>日誌使用資源</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=resourceSide><A 
+onclick="javascript:AddFriend('antivirus');return false;" 
+href="javascript:;"><IMG height=19 src="本機安全性設定.files/addFriend.gif" width=82 
+border=0><IMG height=16 src="本機安全性設定.files/beta_label.gif" width=21 
+border=0></A><BR><A onclick="javascript:AddLoveBlog();return false;" 
+href="javascript:;"><IMG height=19 src="本機安全性設定.files/addFavorite.gif" width=82 
+border=0><IMG height=16 src="本機安全性設定.files/beta_label.gif" width=21 
+border=0></A><BR><A 
+onclick="javascript:AddRss_test('http://blog.xuite.net/antivirus/hisecure/rss.xml','HiNet%E9%98%B2%E6%AF%92%E9%98%B2%E9%A7%AD%E6%9C%8D%E5%8B%99');return false;" 
+href="javascript:;"><IMG height=19 src="本機安全性設定.files/Subscribe.gif" width=82 
+border=0></A><BR><A href="http://blog.xuite.net/antivirus/hisecure/rss.xml" 
+target=_blank><IMG height=15 src="本機安全性設定.files/rss01.gif" width=93 vspace=1 
+border=0></A><BR><A href="http://blog.xuite.net/antivirus/hisecure/atom.xml" 
+target=_blank><IMG height=15 src="本機安全性設定.files/atom01.gif" width=93 vspace=1 
+border=0></A><BR><A href="http://blog.xuite.net/antivirus/hisecure/message.xml" 
+target=_blank><IMG height=15 src="本機安全性設定.files/atom02.gif" width=93 vspace=1 
+border=0></A><BR><A 
+href="http://blog.xuite.net/faq1.phtml#a9">如何使用RSS</A><BR>Powered by 
+Xuite<BR></DIV></DIV></DIV>
+<DIV id=mid>
+<DIV id=content>
+<SCRIPT language=javascript>
+function Score_Set2(idx){
+	if(idx < 0 || idx > 5)return;
+	var i, line;line='';
+	for(i=1;i <=idx;i++){
+		line+='<img src="http://s.blog.xuite.net/_image/score_02.gif" width="15" height="14" border="0" onMouseOut="javascript:Score_Set2(0);" onClick="javascript:Score_Send2('+i+');">';
+	}
+	for(i=idx+1;i <=5;i++){
+		line+='<img src="http://s.blog.xuite.net/_image/score_021.gif" width="15" height="14" border="0" onMouseOver="javascript:Score_Set2('+i+');">';
+	}
+	document.getElementById('SelectScore2').innerHTML=line;
+	if(idx > 0)
+	{
+		window.status='給 '+idx+' 顆星';
+  }
+  else
+  {
+    window.status='';
+	}
+}
+
+function Score_Send2(score){
+	if( document.cookie.indexOf("otpw") == -1){
+		if(confirm("請先登入Xuite會員")){
+			document.location.href="/_members/login.php?furl="+location.href;
+			return;
+		}else{
+			return;
+		}
+		
+	}
+	if(!confirm('您已將這篇文章評分為 '+score+' 顆星。按一下 [確定] 表示確認。')){return;}
+	document.location.href='/_theme/doRank.php?type=article&relate_id=16707442&stars='+score;
+	
+}	
+
+function setarticleRank(inMen,inStars){
+ var Stars = document.all ? document.all('article_average_stars') : document.getElementById('article_average_stars');
+ Stars.innerHTML = inStars;
+ 
+ var Men = document.all ? document.all('article_men') : document.getElementById('article_men');
+ Men.innerHTML = inMen; 
+}
+
+function wopen(){
+ window.open("http://blog.xuite.net/_theme/item/item_auto_trackback.php?ping=http://blog.xuite.net/antivirus/hisecure/16707442/track","trackBack","location=no,toolbar=no,resizable=yes,scrollbars=yes,width=430,height=400")
+}
+
+
+function copy_clip(meintext)
+{
+ if (window.clipboardData) 
+   {
+   // the IE-manier
+   window.clipboardData.setData("Text", meintext);
+   } 
+}
+
+</SCRIPT>
+
+<DIV class=title><SPAN class=titledate>2008-04-17 16:40</SPAN><SPAN 
+class=titlename> 重灌電腦二三事（下）電腦安全性設定─基礎篇</SPAN> </DIV>
+<DIV class=blogrank><SPAN class=counter>
+<DIV id=article_counter>
+<LI>?</LI></DIV></SPAN><SPAN class=category>
+<LI><A 
+href="http://blog.xuite.net/antivirus/hisecure?st=c&amp;w=705100&amp;p=1">知識文章</A></SPAN><SPAN 
+class=mail>
+<LI><A 
+onclick="sendMail('%BAK%ADn%3A%C0%B0%A7%DA%AA%BA%B9q%B8%A3%A5%5B%A4W%AA%F7%C4%C1%B8n--%B4c%C6F%B0h%B4%B2%AB%E6%AB%E6%A6p%AB%DF%A5O%A1I%28%C4%7E%C4%F2%BE%5C%C5%AA%29....','http://blog.xuite.net/antivirus/hisecure/16707442','Xuite-Blog%A6n%A4%E5%C2%E0%B1H---%AD%AB%C4%E9%B9q%B8%A3%A4G%A4T%A8%C6%A1%5D%A4U%A1%5E%B9q%B8%A3%A6w%A5%FE%A9%CA%B3%5D%A9w%A2w%B0%F2%C2%A6%BDg','%A7%40%AA%CC%3AHiNet%A8%BE%ACr%A8%BE%C0b','%A4%E5%B3%B9%3A%AD%AB%C4%E9%B9q%B8%A3%A4G%A4T%A8%C6%A1%5D%A4U%A1%5E%B9q%B8%A3%A6w%A5%FE%A9%CA%B3%5D%A9w%A2w%B0%F2%C2%A6%BDg');" 
+href="javascript:;">好文轉寄 </A></SPAN><SPAN class=rank>平均分數：<SPAN 
+id=article_average_stars>0</SPAN> 顆星&nbsp;&nbsp;&nbsp;&nbsp;投票人數：<SPAN 
+id=article_men>0</SPAN> 人<BR>我要評分：<SPAN id=SelectScore2></SPAN>
+<SCRIPT>if( (typeof xuiteBlogPlugin_bookmark=="undefined") || (xuiteBlogPlugin_bookmark == null) || (xuiteBlogPlugin_bookmark == 'Y')){ document.write('&nbsp;&nbsp;&nbsp;<iframe src="http://funp.com/tools/buttoniframe.php?s=21" height="16" width="66" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe> &nbsp;'); }</SCRIPT>
+</SPAN>
+<DIV class=tags><IMG height=21 src="本機安全性設定.files/pen.png" width=33> 
+標籤&nbsp;：&nbsp;</DIV></LI></DIV>
+<DIV class=blogbody><BR><BR>
+<TABLE height=150 width=600 border=0>
+  <TBODY>
+  <TR>
+    <TD width=151 height=146><FONT size=3><IMG height=144 
+      src="本機安全性設定.files/0.gif" width=150></FONT></TD>
+    <TD width=439 bgColor=#ffffff>
+      <P><FONT color=#993300 size=5><STRONG><FONT 
+      size=4>重灌電腦二三事（下）<BR></FONT>　如何提升電腦的安全性？<FONT 
+      size=3>[基礎篇]</FONT></STRONG></FONT></P>
+      <P><FONT color=#993300 
+  size=2><STRONG>（文：克里斯）</STRONG></FONT></P></TD></TR></TBODY></TABLE>
+<P><SPAN class=style35><FONT color=#3366cc 
+size=3><STRONG>【適用環境】</STRONG></FONT></SPAN></P>
+<P><SPAN class=style30><FONT color=#000000 
+size=3>適合所有欲提升電腦安全性卻又不知從何下手的一般大眾使用。</FONT></SPAN></P>
+<P><FONT size=3>本文將介紹 
+Windows&nbsp;作業系統的「本機安全性原則」設定，本文僅選取較基本的安全性設定，設定後可能會影響</FONT><FONT 
+size=3>您先前的操作習慣，您可依您的需求，選擇自己想要的設定值，並且在設定時，應特別留意步驟說明，<STRONG><FONT 
+color=#ff0000>若設定不當將可能造成系統發生非預期的錯誤</FONT></STRONG>。</FONT></P>
+<P><FONT color=#3366cc size=3><STRONG>【本文大綱】</STRONG></FONT></P>
+<P><FONT size=3><A title=01 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#tool01">一、本機安全性原則簡介</A><BR><A 
+title=02 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#tool02">二、系統登入安全性設定</A><BR><A 
+title=03 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#tool03">三、密碼強度設定</A><BR><A 
+title=04 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#tool04">四、其他安全性設定</A></FONT></P>
+<P><FONT color=#3366cc size=3><STRONG>【如何設置】</STRONG></FONT></P>
+<P><FONT color=#ff0000 size=3><A id=tool01 name=tool01></A><IMG height=27 
+src="本機安全性設定.files/4.gif" width=27>&nbsp;本機安全性原則簡介</FONT></P>
+<P><FONT color=#000000 size=3><STRONG>「本機安全性原則」</STRONG>為 
+Windows&nbsp;作業系統用來提升系統安全的設定，主要包含四個安全性原則，帳戶原則、本機原則、公開金鑰原則及軟體限制原則，如下圖，本機安全性原則僅適用於工作群組中的電腦，且該設定只會套用在本機當中，若您為網域環境(Domain+AD 
+Server)，請利用 Group Policy Object (GPO) 群組原則來設定。</FONT></P>
+<P><FONT color=#000000 size=3>請擇一方式開啟「本機安全性設定值」：</FONT></P>
+<P><FONT color=#000000 size=3>A.開始→控制台→系統管理工具→本機安全性原則 
+(傳統檢視)<BR>B.開始→控制台→效能及維護→系統管理工具→本機安全性原則(類別目錄檢視)<BR><BR></FONT><IMG 
+src="本機安全性設定.files/5.jpg" border=0><BR></P><FONT size=3>
+<P>各項設定原則功能如下：</P>
+<OL>
+  <LI>帳戶原則：包括密碼及帳戶鎖定原則，可設定密碼最小長度、有效期限及帳戶登入失敗因應措施等。 
+  <LI>本機原則：包括稽核原則、使用者權限指派及安全性選項，可用來控制使用者登入環境、設定裝置的預設行為和存取性、控制網路存取的層級、控制「系統關機」的行為及日誌稽核設定等。 
+
+  <LI>公開金鑰原則：用來設定加密資料的修復代理，並分配憑證信任清單 (CTL)、信任授權單位等。 
+  <LI>軟體限制原則：提供系統管理者用以識別軟體，並控制其在本機電腦上執行的能力。 
+  <LI>在本機電腦上的IP安全性原則：用來設定IPSec規則。</LI></OL>
+<P><FONT size=3>本文僅介紹「帳戶原則」及「本機原則」中的安全性設定。</FONT></P>
+<P><A id=tool02 name=tool02></A><IMG height=27 src="本機安全性設定.files/4.gif" 
+width=27> <FONT color=#ff0000 size=3>系統登入安全性設定</FONT></P>
+<OL><FONT size=3>
+  <LI><STRONG>取消歡迎畫面<BR></STRONG>功能：設定此項後，系統會同時取消「顯示歡迎畫面」及使用者「快速切換」的功能，使用者於登入系統時會回復成傳統登入方式─「<FONT 
+  color=#0000ff>請按 Ctrl+Alt+Del 
+  開始</FONT>」，不會再顯示所有使用者的帳號，若與「清除上次登入者的名稱」搭配，如此可避免本機帳號洩露的風險。<BR><BR><IMG 
+  src="本機安全性設定.files/18.jpg" border=0><BR><BR>平台：XP Home、XP 
+  Professional。<BR>操作：開始→設定→控制台→使用者帳戶。<BR>設定：點選「變更使用者登入或登出的方式」→<FONT 
+  color=#ff0000><STRONG>勾消「使用歡迎畫面」。</STRONG></FONT><BR><BR><IMG 
+  src="本機安全性設定.files/17.jpg" border=0><BR>　 
+  <LI><STRONG>清除上次登入者的名稱<BR></STRONG>功能：啟用此設定後，系統於登入時，會同時要求輸入使用者名稱及密碼，而不再自動顯示上次登入的使用者名稱，如此可避免登入帳號洩露的風險。<BR>平台：XP 
+  Professional、2000、2003。<BR>操作：本機原則→安全性選項→<STRONG><FONT 
+  color=#ff0000>啟用「互動式登入：不要顯示上次登入的使用者名稱」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/6.jpg" border=0><BR>　 
+  <LI><STRONG>取消登入對話框上的關機按鈕</STRONG><BR>功能：停用此設定後，在登入的對話框中關機的按鍵就會消失，如此可避免重要系統被任意關機的風險。<BR>平台：XP 
+  Home、XP Professional、2000、2003。<BR>操作：本機原則→安全性選項→<STRONG><FONT 
+  color=#ff0000>停用「關機：允許不登入就將系統關機」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/9.jpg" border=0><BR>　 
+  <LI><STRONG>登入系統時，停用 CTRL+ALT+DEL 
+  鍵<BR></STRONG>功能：啟用此設定後，系統登入時即自動出現要求輸入使用者名稱及密碼的畫面，不須再按「CTRL+ALT+DEL 
+  鍵」，在某些情況下，對於一些入侵程式可以增加入侵系統的困難度。<BR>　<BR><IMG src="本機安全性設定.files/19.jpg" 
+  border=0><BR>　<BR>平台：XP Home、XP 
+  Professional、2000、2003。<BR>操作：本機原則→安全性選項→<STRONG><FONT 
+  color=#ff0000>啟用「互動式登入：不要求按 CTRL+ALT+DEL 鍵」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/10.jpg" border=0><BR>&nbsp; 
+  <LI><STRONG>關閉系統自動登入功能</STRONG><BR>功能：啟用此設定後，系統即關閉自動登入的功能，如此可以避免被重新開機，即可登入系統的風險。<BR>平台：XP 
+  Home、XP Professional、2003。<BR>操作：開始→執行→<FONT face=arial,helvetica,sans-serif 
+  color=#ff0000><STRONG>control userpasswords2</STRONG></FONT>→確定。<BR><BR><IMG 
+  src="本機安全性設定.files/7.jpg" border=0><BR><BR>設定：勾選 「<FONT 
+  color=#ff0000>必須輸入使用者名稱和密碼，才能使用這台電腦</FONT>」。<BR><BR><IMG 
+  src="本機安全性設定.files/8.jpg" border=0></FONT></LI></OL>
+<P><A id=tool03 name=tool03></A><IMG height=27 src="本機安全性設定.files/4.gif" 
+width=27> <FONT color=#ff0000 size=3>密碼強度設定</FONT></P>
+<OL><FONT size=3>
+  <LI><STRONG>密碼最小長度至少 8 碼</STRONG><BR>功能：設定此項後，使用者變更的密碼長度必須在&nbsp;8 
+  個字元以上，可避免密碼過短導致容易猜測的風險。<BR>平台：XP Home、XP 
+  Professional、2000、2003。<BR>操作：帳戶原則→密碼原則→<STRONG><FONT 
+  color=#ff0000>設定「最小密碼長度：8 個字元」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/11.jpg" border=0><BR>&nbsp; 
+  <LI><STRONG>密碼最大使用期限為 30 天</STRONG><BR>功能：設定此項後，系統會在&nbsp;30 
+  天後，要求使用者變更密碼，可避免密碼因長期未更換，遭致暴力破解。<BR>平台：XP Home、XP 
+  Professional、2000、2003。<BR>操作：帳戶原則→密碼原則→<STRONG><FONT 
+  color=#ff0000>設定「密碼最長有效期：30 
+  天」</FONT></STRONG>。<BR>(註：依系統的重要性來衡量天數，建議至少180天需更新一次)<BR><BR>&nbsp;<IMG 
+  src="本機安全性設定.files/12.jpg" border=0><BR>&nbsp; 
+  <LI><STRONG>使用強度複雜密碼</STRONG><BR>功能：啟用此設定後，系統會要求使用者變更的密碼必須包含英數及特殊符號混合的密碼，可避免密碼遭暴力破解。<BR>平台：XP 
+  Home、XP Professional、2000、2003。<BR>操作：帳戶原則→密碼原則→<STRONG><FONT 
+  color=#ff0000>啟用「密碼必須符合複雜性需求」</FONT></STRONG>。<BR>(註：可參考「<A 
+  href="http://blog.xuite.net/antivirus/hisecure/16136063" 
+  target=_blank>十分鐘教你設置安全又好記的密碼</A>」一文)<BR><BR><IMG src="本機安全性設定.files/13.jpg" 
+  border=0><BR>&nbsp; 
+  <LI><STRONG>密碼歷史紀錄 5 
+  次</STRONG><BR>功能：設定此項後，系統會記住五組您先前輸入過的帳號，且系統會要求使用者變更的密碼不能與先前五組相同。<BR>平台：XP 
+  Home、XP Professional、2000、2003。<BR>操作：帳戶原則→密碼原則→<STRONG><FONT 
+  color=#ff0000>設定「強制執行密碼歷程記錄：5 記憶的密碼」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/14.jpg" border=0></FONT></LI></OL>
+<P><A id=tool04 name=tool04></A><IMG height=27 src="本機安全性設定.files/4.gif" 
+width=27> <FONT color=#ff0000 size=3>其他安全性設定</FONT></P>
+<OL><FONT size=3>
+  <LI><STRONG>螢幕保護程式(以密碼保護)</STRONG><BR>功能：設定此項後，系統會在無人操作的情況下，於等候時間到時，自動跳入螢幕保護程式鎖住系統，如此可避免電腦資料洩露的風險。<BR>平台：98、ME、NT、2000、XP 
+  Home、XP Professional、2003。<BR>操作：於桌面空白處按滑鼠右鍵→內容→螢幕保護裝置。<BR>設定：等候 10 分鐘，<FONT 
+  color=#ff0000><STRONG>勾選「繼續後，以密碼保護」</STRONG></FONT>。<BR><BR><STRONG><IMG 
+  src="本機安全性設定.files/15.jpg" border=0><BR>&nbsp;</STRONG> 
+  <LI><STRONG>變更系統預設的管理者帳號 Administrator<BR></STRONG>功能：設定此項後，可修改系統預設的系統管理員帳號 
+  Administrator 為其他帳號，如下圖(Chris)，可增加惡意人士猜測系統管理員帳號密碼的困難度。<BR>平台：XP&nbsp; 
+  Home、XP&nbsp;Professional、2000、2003。<BR>操作：本機原則→安全性選項→<STRONG><FONT 
+  color=#ff0000>設定「帳戶：重新命名系統管理員帳戶」</FONT></STRONG>。<BR>&nbsp;<BR><IMG 
+  src="本機安全性設定.files/21.jpg" border=0><BR>&nbsp; 
+  <LI><STRONG>關閉來賓(Guest)帳戶</STRONG><BR>功能：設定此項，可查詢電腦中 Guest 帳戶是否已關閉，可避免 Guest 
+  帳戶遭利用而登入電腦。<BR>平台：XP Home、XP 
+  Professional、2000、2003。<BR>操作：在「我的電腦」圖示上按滑鼠右鍵→管理→本機使用者及群組→使用者。<BR>&nbsp; 
+  <BR><IMG src="本機安全性設定.files/20.jpg" border=0><BR>&nbsp;<BR>設定：在 Guest 
+  帳戶上按右鍵→內容→<STRONG><FONT color=#ff0000>勾選「帳戶已停用」</FONT></STRONG>。<BR><BR><IMG 
+  src="本機安全性設定.files/16.jpg" 
+border=0>&nbsp;</FONT><STRONG>&nbsp;</STRONG></LI></OL><STRONG><SPAN 
+class=style30><FONT color=#3366cc size=3>【關鍵字】</FONT></SPAN> </STRONG>
+<P><SPAN class=style30><FONT color=#000000 
+size=3>本機安全性原則、帳戶原則、本機原則、公開金鑰原則、軟體限制原則、安全性選項設定、LGPO。</FONT></SPAN></P></FONT><BR><BR>
+<SCRIPT language=javascript>if(getCookie("MemberInformation") != null){$.ajax({type: "GET",url: "/_theme/AuthorButtonExp.php?aid=16707442&bid=796868&mid=17375893&author_id=17375893&ga="+(new Date()).getTime(),async: false,dataType: 'json',success: getButton});}function getButton(json){document.write("<div id='owner_button'>"+json+"</div>");}</SCRIPT>
+
+<DIV class=articleExt>
+<SCRIPT language=javascript>if( (typeof xuiteBlogPlugin_history_today=="undefined") || (xuiteBlogPlugin_history_today == null) || (xuiteBlogPlugin_history_today == 'Y')){document.write("歷史上的今天:<div name=\"ArticleTodaySide\"><li><a href=\"/antivirus/hisecure/16479511\">近日MSN詐騙網頁流行，請小心勿上當。</a>(2008-04-17)</li></div>");}</SCRIPT>
+</DIV>
+<SCRIPT language=javascript>if( (typeof xuiteBlogPlugin_random_article=="undefined") || (xuiteBlogPlugin_random_article == null) || (xuiteBlogPlugin_random_article == 'Y')){$.get("/_theme/ArticleRandomExp.php?bid=796868", function(data){$(".articleExt").append(data);});}if( (typeof xuiteBlogPlugin_relate_article=="undefined") || (xuiteBlogPlugin_relate_article == null) || (xuiteBlogPlugin_relate_article == 'Y')){$(document).ready(function(){ 	$.ajax({ type: "POST", url: "/_theme/ArticleIdRelateExp.php", data: "id="+ 16707442, dataType: "json", success: function(json){ var relateString = ''; jQuery.each( json, function(index,poi){ relateString += '<li><a target="_blank" href="' + poi['url'] + '">' + poi['title'] + '</a></li>'; }); $(".articleExt").append('<div class="ArticleRelateSide">相關文章:<div>' + relateString + '</div></div>'); } }); });}</SCRIPT>
+
+<DIV class=posted><A href="http://xuite.net/antivirus">HiNet防毒防駭</A> / <A 
+href="http://blog.xuite.net/">Xuite日誌</A> / <A 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#message">回應(0)</A> / <A 
+href="http://blog.xuite.net/antivirus/hisecure/16707442#trackback">引用(0)</A> / 
+<A 
+onclick="sendMail('%BAK%ADn%3A%C0%B0%A7%DA%AA%BA%B9q%B8%A3%A5%5B%A4W%AA%F7%C4%C1%B8n--%B4c%C6F%B0h%B4%B2%AB%E6%AB%E6%A6p%AB%DF%A5O%A1I%28%C4%7E%C4%F2%BE%5C%C5%AA%29....','http://blog.xuite.net/antivirus/hisecure/16707442','Xuite-Blog%A6n%A4%E5%C2%E0%B1H---%AD%AB%C4%E9%B9q%B8%A3%A4G%A4T%A8%C6%A1%5D%A4U%A1%5E%B9q%B8%A3%A6w%A5%FE%A9%CA%B3%5D%A9w%A2w%B0%F2%C2%A6%BDg','%A7%40%AA%CC%3AHiNet%A8%BE%ACr%A8%BE%C0b','%A4%E5%B3%B9%3A%AD%AB%C4%E9%B9q%B8%A3%A4G%A4T%A8%C6%A1%5D%A4U%A1%5E%B9q%B8%A3%A6w%A5%FE%A9%CA%B3%5D%A9w%A2w%B0%F2%C2%A6%BDg');" 
+href="javascript:;">好文轉寄</A>
+<SCRIPT>if( (typeof xuiteBlogPlugin_bookmark=="undefined") || (xuiteBlogPlugin_bookmark == null) || (xuiteBlogPlugin_bookmark == 'Y')){ document.write('&nbsp;/&nbsp;<iframe src="http://funp.com/tools/buttoniframe.php?s=21" height="16" width="66" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe> &nbsp;'); }</SCRIPT>
+</DIV>
+<DIV class=selectbar><A 
+href="http://blog.xuite.net/antivirus/hisecure/16479511">近日MSN詐騙網頁流行，請小心...</A>|<A 
+href="http://blog.xuite.net/antivirus/hisecure">日誌首頁</A>|<A 
+href="http://blog.xuite.net/antivirus/hisecure/16598782">為什麼我安裝了HiNet防毒管...</A></DIV></DIV><A 
+name=trackBack_header></A>
+<DIV class=item_trackBack></DIV><A name=message_header></A>
+<DIV class=comment><SPAN class=commentbutton><A href="javascript:;"><IMG 
+onclick="MM_openBrWindow('/_theme/message/message_post.php?bid=796868&amp;aid=16707442','post_win','width=660,height=700,scrollbars=1')" 
+height=18 src="本機安全性設定.files/blog029_new.gif" width=72 border=0></A></SPAN><SPAN 
+class=commenttitle>
+<LI>回應</SPAN></LI></DIV>
+<DIV class=alertLoad 
+style="DISPLAY: none; Z-INDEX: 30; WIDTH: 50px; HEIGHT: 50px"><IMG 
+src="本機安全性設定.files/7.gif"></DIV>
+<DIV class=item_message></DIV>
+<DIV class=jqmWindow id=dialog></DIV>
+<SCRIPT language=javascript>
+    function doMsgDelete(mid,page){
+      if(confirm("是否確定要刪除")){
+         $("div.jqmWindow").html("<iframe style='display:none;' src='http://blog.xuite.net/_theme/message/message_delete.php?act=delete&mid="+mid+"&page="+page+"'></iframe>"); 
+      }
+    }
+		
+    function doTrackDelete(tid,lid,url,page){
+			if(confirm("是否確定要刪除")){ 
+       $("div.jqmWindow").html("<iframe style='display:none;' src='http://blog.xuite.net/_theme/trackback/track_delete.php?act=delete&tid="+tid+"&lid="+lid+"&url="+url+"&page="+page+"&track_flag=Y'></iframe>"); 
+		  }
+    }
+		
+		function doMsgEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=edit&mid="+mid+"&aid=16707442&bid=796868&page="+page;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doMsgReplyAdd(rel_id,page){
+			var l="/_theme/message/message_post.php?act=reply&rel_id="+rel_id+"&aid=16707442&bid=796868&page="+page;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doMsgReplyEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=reply_edit&mid="+mid+"&aid=16707442&bid=796868&page="+page;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doSummary(arg)
+		{
+       summarySwitch.innerHTML=summaryContent.innerHTML;	
+       summaryContent.innerHTML=summaryDisplay.innerHTML;
+       summaryDisplay.innerHTML=summarySwitch.innerHTML;
+    }
+    
+    function sendMail(content,link,title,author,e_title)
+    {	 
+      window.location.href = "mailto:?subject="+title+"&body=%B3o%ACO%A6n%AAB%A4%CD%C2%E0%B1H%AA%BAXuite%A6n%A4%E5%B3%B9%B3%E1%A1A%A7%D6%C2I%BF%EF%A4U%AD%B1%B3s%B5%B2%A1A%C0%B0%A5L%BCW%A5%5B%A4H%AE%F0%B3%E1%21%21"+escape('\n')+escape('\n')+e_title+escape('\n')+author+escape('\n')+content+escape('\n')+escape('\n')+link;			
+    }
+    
+    
+	</SCRIPT>
+
+<SCRIPT language=javascript>
+ $(document).ready(function(){
+   		$.ajax({
+     type: "GET",
+     url: '/_theme/ArticleDetailCounterExp.php?aid=16707442&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getArticleDetailCounter
+    });
+     
+    var index="";
+    Message(16707442,796868,17375893,17375893,index);  
+    TrackBack('16707442','antivirus','hisecure','17375893','796868','17375893','Y',index);  
+    
+    Score_Set2(0);
+    setarticleRank(1,5);
+    
+ });
+  
+   function getArticleDetailCounter(json){  
+    $("div#article_counter").html("<li>"+json[0].counter+"</li>");
+    
+   }
+   
+   function TrackBack(aid,b_login,b_url,mid,bid,a_author_id,track_flag,index){
+     $.ajax({
+     type: "GET",
+     url: '/_theme/TrackBackShowExp.php?aid='+aid+'&b_login='+b_login+'&b_url='+b_url+'&mid='+mid+'&bid='+bid+'&a_author_id='+a_author_id+'&track_flag='+track_flag+'&index='+index+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getTrackBackShow
+    });
+   }
+   
+   function Message(aid,bid,uid,a_author_id,index){
+     $("div.item_message").html("");
+     $("div.alertLoad").ajaxStart(function(){
+       $(this).show();
+     });
+     $("div.alertLoad").ajaxStop(function(){
+                $(this).hide();
+                $(this).unbind("ajaxStart");
+     });
+ 
+     $.ajax({
+     type: "GET",
+     url: '/_theme/MessageShowExp.php?aid='+aid+'&uid='+uid+'&bid='+bid+'&a_author_id='+a_author_id+'&index='+index+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getMessageShow
+    });
+   }
+   
+   function getMessageShow(json){
+      $("div.item_message").html(json['message'].content);
+       $("div.alertLoad").hide();
+      if(json['aside'].check != 0){
+        for( i =0; i < json['aside'].length; i++){		
+         $("div#authorname_"+json['aside'][i].id).html("<div class='commenttext'>(這則留言是<font color='#FF9933'>悄悄話</font>)</div>");
+         $("div#commenttext_"+json['aside'][i].id).html(json['aside'][i].content); 
+        }
+      }
+      
+      if(json['button'].check != 0){
+        for( i =0; i < json['button'].length; i++) {
+         if(json['button'][i].level == 'all'){ 
+         /*是回覆*/  
+           if(json['button'][i].relation_id != null && json['button'][i].relation_id != undefined){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+         /*是回應*/
+           }else{
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                 /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }
+                 }   
+           }
+          }else if(json['button'][i].level == 'one'){
+             /*是回覆*/
+             if(json['button'][i].relation_id != null && json['button'][i].relation_id != "undefined"){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+              /*是回應*/
+             }else{ 
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                  /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    } 
+                 }   
+             }
+          }else{
+            $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+          }
+			  }
+			 }
+			 if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#message_header";
+          }else{
+            location.href=ff+"#message_header";
+          }
+
+       }
+        bindBubbles();
+		}
+    
+    function getTrackBackShow(json){
+      $("div.item_trackBack").html(json['trackBack'].content);
+      if(json['button'].check != 1){
+       $("div.track_button").hide();
+      }
+      if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#trackBack_header";
+          }else{
+            location.href=ff+"#trackBack_header";
+          }
+
+       }
+      
+    }
+       
+</SCRIPT>
+</DIV></DIV>
+<DIV id=footer>
+<CENTER></CENTER>Copyright ©2009 Internet Service by Xuite.<BR><A 
+href="http://www.xuite.net/policy/privacy.htm">隱私保護</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/term.htm">會員條款</A>&nbsp;|&nbsp;<A 
+href="http://blog.xuite.net/hinet_marketing/blog">刊登廣告</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/feedback.htm">意見回饋</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/icra.htm">網站分級</A>&nbsp;&nbsp;&nbsp;</DIV></DIV></BODY></HTML>

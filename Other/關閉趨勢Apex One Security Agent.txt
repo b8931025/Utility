@@ -1,0 +1,4 @@
+1.按住Shift選擇重新啟動，進入安全模式重新開機
+2.開啟檔案總管進入 C:\Program Files (x86) 將目錄 Trend Micro 更名
+3.重新啟動即可關閉Apex One Security Agent，做完該做的事之後，再把Trend Micro的名稱改回來
+4.重新開機Apex One Security Agent即可正常運作

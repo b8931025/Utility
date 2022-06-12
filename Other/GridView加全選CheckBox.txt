@@ -1,0 +1,13 @@
+﻿  <asp:GridView ID="gvList" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" EnableModelValidation="True" AllowPaging="True">
+      <Columns>
+          <asp:TemplateField>
+							<!--加下面這兩個tag-->
+              <HeaderTemplate>
+                  <input id="Checkbox1" type="checkbox" onchange="var val = this.checked; $('input[type=checkbox]').each(function (i) { $(this).prop('checked', val); });" />
+              </HeaderTemplate>
+              <HeaderStyle CssClass="f_center" Width="20" />
+              
+         //onclick="selectAll(this);"  試務酬勞，gridview中如果有多個欄位是checkbox就加[name$='object name']才不會選到所有的checkbox
+        function selectAll(obj) {
+            $("input[type=checkbox][name$='CheckBoxed']").each(function (i) { $(this).prop('checked', obj.checked); });
+        }              

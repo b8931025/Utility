@@ -1,0 +1,29 @@
+﻿<%-- 註解 --%>
+
+<% 多行程式碼區塊 %>  
+<% Dim s as String 
+   s = "text" %>
+
+<%= 顯示單一的值 %> 
+<%=DateTime.Now.ToString() %>
+
+<%# DataBinding表示式 %>
+
+<%$ 取出configuration / resource的設定值 %>
+<asp:Literal runat="server" Text="<%$ConnectionStrings:ConnectionString.ProviderName%>" /> 
+
+<%: 對內容一些大於/小於/&的符號做HtmlEnCoding %>
+
+<%@ directive expression %>
+@ Page	Defines page-specific attributes that are used by the ASP.NET page parser and compiler. Can be included only in .aspx files.This directive name can be used only in ASP.NET Web Form pages.
+@ Control	Defines control-specific attributes that are used by the ASP.NET page parser and compiler. Can be included only in .ascx files (user controls).The directive name can be used only in User Control files.
+@ Import	Explicitly imports a namespace into a page or into a user control.    >> <%@ Import Namespace="System.Net.Mail"%>
+@ Implements	Declaratively indicates that a page or a user control implements a specified .NET Framework interface.
+@ Register	Associates aliases with namespaces and with class names. Which enables user controls and custom server controls to be rendered when they are included in a requested page or user control.
+@ Assembly	Links an assembly to the current page during compilation. It makes all the assembly's classes and interfaces available for use on the page.
+@ Master	Identifies an ASP.NET master page.
+@ WebHandler	Identifies an ASP.NET IHttpHandler page.
+@ PreviousPageType	Provides a way to obtain strong typing against the previous page as accessed through the PreviousPage property.
+@ MasterType	Assigns a class name to the Master property of an ASP.NET page. Provides a way to create a strongly typed reference to the ASP.NET master page.
+@ OutputCache	Declaratively controls the output caching policies of a page or of a user control.
+@ Reference	Declaratively links a page or user control to the current page or user control.

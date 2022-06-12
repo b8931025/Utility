@@ -1,0 +1,4069 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-tw">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<title>ASP 實例引導</title>
+<style>
+<!--
+body         { font-family: 標楷體; font-size:14 pt; line-height:150% }
+.st          { font-family: 標楷體; font-size: 14 pt }
+table        { width: 90%; border-collapse: collapse; border-width: 1; padding: 2 }
+td           { font-family: 標楷體; font-size: 14 pt; line-height: 150% }
+-->
+</style>
+</head>
+
+<body>
+
+<h1 align="center">ASP 實例引導</h1>
+
+<p align="right">
+<a href="mailto:shane@mail.spps.tp.edu.tw">李忠憲</a> 2004/12/10初稿</p>
+<p>請先閱讀 
+<a href="Jscript/jscript.htm">動態網頁程式設計</a> 
+學習怎樣利用 JScript 控制網頁、檢查表單傳值的內容。</p>
+<p>請先閱讀 
+<a href="IIS進階管理與應用/IIS進階管理與應用.htm">
+IIS進階管理與應用</a> 修補 IIS 安全漏洞、學習虛擬目錄與虛擬站台的進階應用、完成 SMTP 及其他相關設定。</p>
+<p>請先閱讀 
+<a href="asp_web_design.htm">ASP概論</a> 
+建立網頁應用程式三層開發概念，並了解 IIS 運作原理、六大物件的運作方式。</p>
+<p>　</p>
+<h2>如何寫 ASP 程式</h2>
+  <p>
+  ASP 程式預設使用 VBScript 來寫作，如果想改用其他語言也可以，但必須修改 IIS 設定。VBScript 有下列幾個特點：</p>
+  <ol>
+    <li>不區分大小寫</li>
+    <li>使用變數不需宣告</li>
+    <li>變數型別會自動轉換</li>
+    <li>呼叫副程式(Sub)，不寫小括弧，而呼叫函式(Function)必須寫小括弧</li>
+</ol>
+  <p>
+  當開發 ASP 程式時，必須將程式寫在 &lt;% 和 %&gt; 符號之間，以便與 HTML 語法區隔，底下這個寫法是採用傳統程式設計方法所寫的 ASP 程式：</p>
+  <table border="1" width="90%" id="AutoNumber1" style="border-collapse: collapse" bordercolor="#111111" cellpadding="2">
+    <tr>
+      <td width="100%">&lt;%<br>
+  &nbsp;&nbsp;&nbsp; mystr=&quot;Hello ASP&quot;<br>
+  &nbsp;&nbsp;&nbsp; Response.Write &quot;&lt;html&gt;&lt;body&gt;&quot;<br>
+  &nbsp;&nbsp;&nbsp; Response.Write mystr<br>
+      &nbsp;&nbsp;&nbsp; Response.Write &quot;&lt;/body&gt;&lt;/html&gt;&quot;<br>
+  %&gt;</td>
+    </tr>
+  </table>
+  <p>
+  傳統程式設計方法
+  將程式寫成一個區塊，這種寫法並不利於網頁應用程式的開發，因此最好是改用嵌入式(online)寫法，因為這樣寫出來的程式才可以使用網頁編輯器來排版：</p>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber3">
+    <tr>
+      <td width="100%">&lt;% mystr=&quot;Hello ASP&quot; %&gt;<br>
+      &lt;html&gt;<br>
+      &nbsp;&nbsp;&nbsp;&lt;body&gt;<br>
+  &nbsp;&nbsp; &lt;% =mystr %&gt;<br>
+      &nbsp;&nbsp;&nbsp;&lt;body&gt;<br>
+  &lt;/html&gt;</td>
+    </tr>
+</table>
+  <p>
+  使用嵌入式寫法有一點要特別注意，就是每個嵌入式語法中只能包含一行程式，否則將被直譯器 asp.dll 
+  視為文法錯誤。</p>
+  <p>
+  以下幾種 &lt;% %&gt; 符號的使用方法，都是合乎語法規定可被接受的：</p>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber4">
+    <tr>
+      <td width="100%">&lt;% Response.Write &quot;我來了!&quot; %&gt;</td>
+    </tr>
+    <tr>
+      <td width="100%">&lt;% Response.Write &quot;我來了!&quot;<br>
+      &nbsp; 
+    %&gt;</td>
+    </tr>
+    <tr>
+      <td width="100%">&lt;%<br>
+      &nbsp;&nbsp; Response.Write &quot;我來了!&quot;<br>
+    %&gt;</td>
+      </tr>
+    </table>
+  <p>
+  　</p>
+  <h2>
+  養成良好寫作習慣</h2>
+  <p>
+  VBScript 的語言特性有時候會造成一些閱讀上的困擾，例如變數與程式敘述就無法區分，可以說先天不足（反觀 PHP 你只要看到某個英文字前面有加 
+  $，就知道是一個變數，而沒有 $ 號就是程式敘述）</p>
+  <p>
+  為了讓程式清晰可讀，建議將程式敘述寫成大寫，變數寫成小寫，而內建物件或函式則採用首字大寫的方式，在為變數命名時，為了避免不小心使用到保留字，也建議在變數名稱前面加上 
+  my 兩個字作為區別。本文中的程式將採用這種寫法。</p>
+  <p>
+  除此之外，我們會在程式碼裡面加註一些說明文字，來增進程式的可讀性：</p>
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber5">
+      <tr>
+        <td width="100%">&lt;% 　<br>
+&nbsp;&nbsp;&nbsp;&nbsp; ' 這個是註解的符號，這行不會執行<br>
+&nbsp;&nbsp;&nbsp;&nbsp; Response.Write &quot;Hello World !&quot;　'這是行尾註解<br>
+        %&gt;</td>
+      </tr>
+    </table>
+  <p>
+  對於多行程式區塊建議使用定位鍵(Tab鍵)來縮排，例如：</p>
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber6">
+      <tr>
+        <td width="100%">&lt;%<br>
+&nbsp;&nbsp;&nbsp; IF mysex = &quot;boy&quot;&nbsp; THEN<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Response.Write &quot;你是男生&quot;<br>
+        &nbsp;&nbsp;&nbsp; 
+        ELSE<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        Response.Write &quot;你是女生&quot;<br>
+        &nbsp;&nbsp;&nbsp; 
+        END IF<br>
+    %&gt;</td>
+      </tr>
+    </table>
+  
+  <p>
+  　</p>
+  <h2>
+  使用 Response 物件輸出</h2>
+  <p>
+  在前面的許多範例中，我們看到了使用 Response 物件來輸出字串的方法，除此之外也可以利用 Response 物件來輸出函式運算的結果，例如：</p>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber7">
+    <tr>
+      <td width="100%">
+    <span style="vertical-align: baseline; letter-spacing: 1pt">&lt;% Response.Write 
+      Now() %&gt;</span></td>
+    </tr>
+</table>
+<p>這將會輸出 IIS Server 的系統時間。利用 Response 物件的輸出功能，我們也可以很方便的進行程式的除錯工作。</p>
+<p>當使用嵌入式寫法時，Response.Write 也可以簡寫為 =，例如：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber8">
+  <tr>
+    <td width="100%">
+    <span style="vertical-align: baseline; letter-spacing: 1pt">&lt;% =Now() %&gt;</span></td>
+  </tr>
+</table>
+<p>因此 = 在 VBScript 中共有三種不同意義，首先是 = 左邊沒有運算元，被視為 Response.Write 的縮寫。若 = 
+左右都有運算元，且寫在一行的開頭，視為指派變數值，同樣的語法倘若使用在程式敘述中，將被視為是比較運算子。</p>
+<p>依據 IIS 
+預設的運作模式，網頁輸出將被收集在緩衝區內，當成是全部執行完畢後，才會傳送給參觀者瀏覽，如果想要將程式執行過程透給參觀者看，則可以暫時將緩衝區關閉：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber9">
+  <tr>
+    <td width="100%"><font color="#FF0000">Server.Buffer=FALSE</font><br>
+    FOR i=1 TO 1000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Response.Write &quot;現在計算第&quot; &amp; i &amp; &quot;次&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    ......................................<br>
+    NEXT</td>
+  </tr>
+</table>
+<p>FALSE 和 TRUE 分別代表邏輯值真和假，某些語言將數值 0 和空字串都視同為 FALSE，非 0 值和非空字串視為 TRUE，但在 
+VBScript 中並非如此，這三種變數（數值、字串和邏輯）並無法進行比較，在寫條件判斷時需要特別小心，免得發生程式邏輯錯誤。</p>
+<p>上面的程式範例中使用 &amp; 運算子來連接字串和變數，由於 VBScript 會自動進行變數型別轉換，所以變數 i 會從整數自動變成字串。請再看底下的範例：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber10">
+  <tr>
+    <td width="100%">a=&quot;5&quot;<br>
+    Response.Write a + 10</td>
+  </tr>
+</table>
+<p>變數 a 將會從字串變成整數，執行結果為 15。請比較兩種運算元， &amp; 作字串合併，而 + 是數值相加。</p>
+<p>　</p>
+  <h2>
+  函式、副程式與自訂函式</h2>
+  <p>當我們想在網頁上顯示中文日期時，就不能很乾脆的使用 Now() 函式，而必須自己產生日期字串，底下程式將使用 Year()、Month() 和 
+  Day() 函式從日期字串中萃取年月日數值，然後轉換成中文：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber11">
+  <tr>
+    <td width="100%">&lt;%<br>
+    myyear=Year(Now())-1911<br>
+    mymonth=Month(Now())<br>
+    myday=Day(Now())<br>
+    %&gt;<br>
+    今天是中華民國&lt;% =myyear %&gt;年&lt;% =mymonth %&gt;月&lt;% =myday %&gt;日</td>
+  </tr>
+</table>
+<p>上面的程式碼把函式的輸出當成另一個函式的輸入，可改寫如下：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber12">
+  <tr>
+    <td width="100%">&lt;%<br>
+    mycurtime=Now()<br>
+    myyear=Year(mycurtime)<br>
+    %&gt;</td>
+  </tr>
+</table>
+<p>這樣寫雖然容易明白，但是失之於繁複，所以通常不採用這種寫法。其他時間函式還有：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber13">
+  <tr>
+    <td>Weekday()</td>
+    <td>取得星期，星期日為 1，星期一為 2，依此類推</td>
+  </tr>
+  <tr>
+    <td>Hour()</td>
+    <td>取得時數</td>
+  </tr>
+  <tr>
+    <td>Minute()</td>
+    <td>取得分鐘數</td>
+  </tr>
+  <tr>
+    <td>Second()</td>
+    <td>取得秒數</td>
+  </tr>
+</table>
+<p>當某段程式碼需要反覆執行時，我們可以將該程式碼抽離寫成副程式，例如：將西元日期改為中文日期，經常在不同應用場合都會使用到，我們可以將他寫成底下的副程式：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber18">
+  <tr>
+    <td width="100%">&lt;% SUB show_date<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    myyear=Year(Now())-1911<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    mymonth=Month(Now())<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    myday=Day(Now())<br>
+    %&gt;<br>
+    中華民國&lt;% =myyear %&gt;年&lt;% =mymonth %&gt;月&lt;% =myday %&gt;日<br>
+    &lt;% END SUB %&gt;<br>
+    &lt;font color=blue&gt;&lt;% show_date %&gt;&lt;/font&gt;</td>
+  </tr>
+</table>
+<p>上面這支副程式將 HTML 語法嵌在 ASP 程式碼中，這是被 ASP.DLL 支援的寫法，也就是不但 ASP 可以嵌在 HTML（包含 Client 
+Script）中，反之亦然。上面這支副程式的彈性是相當有限的，它只能用來顯示目前的中文日期，而不能將任一個日期顯示成中文格式，我們可以透過參數的運用來增加彈性：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber19">
+  <tr>
+    <td width="100%">&lt;% SUB show_date（mydate）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    myyear=Year(mydate)-1911<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    mymonth=Month(mydate)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    myday=Day(mydate)<br>
+    %&gt;<br>
+    中華民國&lt;% =myyear %&gt;年&lt;% =mymonth %&gt;月&lt;% =myday %&gt;日<br>
+    &lt;% END SUB %&gt;<br>
+    &lt;font color=blue&gt;&lt;% show_date Now() %&gt;&lt;/font&gt;</td>
+  </tr>
+</table>
+<p>由於副程式的輸入輸出是固定的，無法像 Year(Now()) 這樣組合起來應用，這時候就必須使用自訂函式：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber20">
+  <tr>
+    <td width="100%">&lt;%<br>
+    FUNCTION chinese_date（mydate）<br>
+&nbsp;&nbsp;&nbsp;
+    myyear=Year(mydate)-1911<br>
+    &nbsp;&nbsp;&nbsp;
+    mymonth=Month(mydate)<br>
+    &nbsp;&nbsp;&nbsp;
+    myday=Day(mydate)<br>
+&nbsp;&nbsp;&nbsp; chinese_date=&quot;中華民國&quot; &amp; myyear &amp; &quot;年&quot; &amp; mymonth &amp; &quot;月&quot; &amp; myday &amp; 
+    &quot;日&quot;<br>
+    END FUNCTION<br>
+    %&gt;<br>
+    &lt;font color=blue&gt;&lt;% =Mid(chinese_date(Now()),8) %&gt;&lt;/font&gt;</td>
+  </tr>
+</table>
+<p><font color="#808080">作業：請設計一個函式用來將時間改為中文格式。</font></p>
+<h2>　</h2>
+<h2>條件判斷</h2>
+<p>一般來說，條件判斷通常使用 IF 敘述，這個敘述相當具有彈性，從單一條件判斷，雙重分支判斷到多重分支判斷都可以使用。舉例如下：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber14">
+  <tr>
+    <td width="100%">&lt;%<br>
+    IF myweight&gt;(myheight-100)*0.8 THEN<br>
+&nbsp;&nbsp; mymsg=&quot;體重過重，該減肥了&quot;<br>
+    ELSEIF myweight&lt;(myheight-100)*0.8 THEN<br>
+&nbsp;&nbsp; mymsg=&quot;體重過輕，多吃點&quot;<br>
+    ELSE <br>
+&nbsp;&nbsp; mymsg=&quot;標準身材&quot;<br>
+    END IF<br>
+    %&gt;</td>
+  </tr>
+</table>
+<p>如果條件判斷式只是單純的比較是否相等，則可以改用底下的敘述語法：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber15">
+  <tr>
+    <td width="100%">&lt;%<br>
+    myweekday=Weekday(Now())<br>
+    SELECT CASE myweekday<br>
+&nbsp;&nbsp;&nbsp; CASE 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;日&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;一&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;二&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;三&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;四&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;五&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 7<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mystr=&quot;六&quot;<br>
+    END SELECT<br>
+    %&gt;<br>
+    今天是星期&lt;% =mystr %&gt;</td>
+  </tr>
+</table>
+<p>　</p>
+<h2>定量迴圈、不定量迴圈、無窮迴圈與巢狀迴圈</h2>
+<p>VBScript 提供豐富的迴圈敘述，可以適用於各種不同用途。其中最為人熟知的 FOR ... NEXT 
+迴圈用來處理定量迴圈，所謂定量迴圈意指在寫程式之初已經知道迴圈應該要跑幾次，而這個次數可以使用常數或透過變數取得，舉後者為例：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber16">
+  <tr>
+    <td width="100%">&lt;%<br>
+    max=Ubound(scores)<br>
+    FOR i=max TO 0 STEP -1<br>
+&nbsp;&nbsp;&nbsp; mysco=scores(i)<br>
+&nbsp;&nbsp;&nbsp; IF mysco&lt;60 THEN mysco=&quot;&lt;font color=red&gt;&quot; &amp; mysco &amp; &quot;&lt;/font&gt;&quot; 
+    '60分以下顯示為紅色<br>
+    NEXT<br>
+    %&gt;</td>
+  </tr>
+</table>
+<p>上面程式中 scores 是一個陣列變數，習慣上在使用陣列時，都會在名稱後面加上 s，也就是英文中的複數。Ubound() 
+函式用來讀取陣列的最大索引值，在本例中剛好是陣列大小。由於迴圈次數可以事先透過函式取得，因此直接使用 FOR ... NEXT 敘述即可。
+當迴圈變數是從數字大到數字小變化時，必須加上 STEP 敘述來定義增減量，如同上面的範例。FOR ... NEXT 
+迴圈在進行中，有時遇到某些情況必須做例外處理，可以使用 EXIT FOR 敘述來中斷迴圈。</p>
+<p>
+如果資料是來自外部檔案或後端資料庫，無法在取得資料之前計算出資料量，這種情況下必須使用不定量迴圈，所謂不定量迴圈意指在寫程式之初無法得知迴圈應該要跑幾次，因此必須透過條件判斷來決定是否結束迴圈，這部分的敘述語法種類很多，也各有不同用途。其中最為人熟知的是 
+WHILE ... WEND 迴圈：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber17">
+  <tr>
+    <td width="100%">&lt;table&gt;<br>
+    &lt;% WHILE NOT myrs.EOF %&gt;<br>
+&nbsp; &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =myrs(0) %&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =myrs(1) %&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =myrs(2) %&gt;&lt;/td&gt;<br>
+&nbsp; &lt;/tr&gt;<br>
+    &lt;%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myrs.MoveNext&nbsp; <br>
+&nbsp;&nbsp; WEND<br>
+    %&gt;</td>
+  </tr>
+</table>
+<p>無窮迴圈用來反覆執行同一工作，一直到使用者中斷它為止，通常出現在系統程式或遊戲程式的主回路中。在網頁應用程式的開發上，無窮迴圈的需求不大，語法如下：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber22">
+  <tr>
+    <td width="100%">DO [WHILE | UNTIL] 條件成立<br>
+&nbsp;&nbsp; ...........<br>
+&nbsp;&nbsp; IF 條件成立 THEN EXIT DO<p>LOOP [WHILE | UNTIL] 條件成立</td>
+  </tr>
+</table>
+<p>當 DO 和 LOOP 後面不接判斷條件時，就是無窮迴圈，這種情形下可以使用 EXIT DO 中斷迴圈。結束迴圈的判斷條件可分為 WHILE 和 
+UNTIL 兩種，前者條件不成立時結束迴圈，後者條件成立時結束迴圈，兩者可以透過 NOT 運算子互相轉換，例如： WHILE x&gt;10 就等於 UNTIL 
+NOT x&gt;10。把判斷條件寫在 DO 後面代表先判斷條件再決定要不要進行迴圈，把判斷條件寫在 LOOP 
+後面代表先執行一次程式，再判斷條件決定要不要繼續進行迴圈。</p>
+<p>最後一種迴圈是 FOR ... NEXT 迴圈的變形，稱為 FOR EACH 迴圈，在前面的範例中，我們利用 Ubound() 
+函式來偵測陣列大小，根據陣列大小來進行迴圈，但當陣列的下邊界不為 0 時，計算迴圈次數就會變得複雜，或者是引用 ASP 
+物件集合，它的大小是動態變化的，這些情況都很適合使用 FOR EACH 迴圈。</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber23">
+  <tr>
+    <td width="100%">
+    <p style="MARGIN-TOP: 8px; MARGIN-BOTTOM: 8px; WORD-SPACING: 1px; LINE-HEIGHT: 150%">
+    &lt;%<br>
+    FOR<span lang="en-us"> </span>EACH <span lang="en-us">data</span> IN
+    <span lang="en-us">Request.Form<br>
+    &nbsp;&nbsp;&nbsp; </span>Response.Write <span lang="en-us">&quot;</span>表單元件<span lang="en-us">&quot; 
+    &amp; data &amp; &quot;</span>的值是<span lang="en-us">&quot; &amp; Request</span>.Form<span lang="en-us">(data) 
+    &amp; &quot;&lt;br&gt;&quot;</span> <br>
+    NEXT</td>
+  </tr>
+</table>
+<p>以上所有迴圈都支援巢狀寫法，底下的範例將使用巢狀迴圈輸出九九乘法表：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber24">
+  <tr>
+    <td width="100%">
+    <p style="MARGIN-TOP: 8px; MARGIN-BOTTOM: 8px; WORD-SPACING: 1px; LINE-HEIGHT: 150%">
+    &lt;table&gt;<br>
+    &lt;% FOR i =1 TO 9 %&gt;<br>
+    &nbsp;&nbsp;&nbsp; &lt;tr&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&lt;% FOR j=1 TO 9 %&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =i %&gt; x &lt;% =j %&gt; = &lt;% =i*j %&gt;&lt;/td&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% NEXT %&gt;<br>
+    &nbsp;&nbsp;&nbsp; &lt;/tr&gt;<br>
+    &lt;% NEXT %&gt;<br>
+    &lt;/table&gt;</td>
+  </tr>
+</table>
+<p></p>
+<h2 style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+　</h2>
+<h2 style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+網頁轉向</h2>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+在 ASP 程式設計中，
+網頁轉向的做法有兩種，一種是用戶端轉向，一種是伺服端轉向。前者使用 Response.Redirect 副程式要求用戶端立即送出轉頁要求，後者則是由 IIS 
+伺服器代勞，使用 Server.Transfer 副程式把遠端網頁內容取回到伺服器緩衝區，然後推送給用戶端。</p>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+當使用 Response.Redirect 和 Server.Transfer 
+進行網頁轉向時，其效果是立即發生的，如果我們想要先蹦現一段訊息，然後再作網頁轉向，則必須使用 JavaScript 來設計：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber25">
+  <tr>
+    <td width="100%">&lt;%<br>
+    ............................<br>
+    %&gt;<br>
+    &lt;script&gt;<br>
+    alert(&quot;歡迎&lt;% =user %&gt;光臨！&quot;)<br>
+    location=&quot;&lt;% =next_page %&gt;&quot; <br>
+    &lt;/script&gt;<br>
+　</td>
+  </tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+利用網頁轉向我們就可以在不同節日顯示不同風格的網頁，讓網頁依照排程自動切換，而不必人工管理，底下程式將使用前面介紹過的日期函式取得系統日期，根據系統日期判斷要顯示哪一個首頁：</p>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+<strong>default.asp</strong></p>
+<table border="1" width="100%" id="table1">
+	<tr>
+		<td>&lt;%<br>
+		mymonth=Month(Now())<br>
+		myday=Day(Now())<br>
+		SELECT CASE mymonth<br>
+&nbsp;&nbsp;&nbsp; CASE 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF myday&lt;=15 THEN Response.Redirect 
+		&quot;過新年.htm&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 6<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF myday&gt;=10 THEN Response.Redirect 
+		&quot;畢業了.htm&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 7<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Response.Redirect &quot;放暑假.htm&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF myday&lt;=20 THEN Response.Redirect 
+		&quot;國慶日.htm&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 11<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF myday&gt;=10 AND myday&lt;=25 THEN 
+		Response.Redirect &quot;校慶.htm&quot;<br>
+&nbsp;&nbsp;&nbsp; CASE 12<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IF myday&gt;=15 THEN Response.Redirect 
+		&quot;聖誕節.htm&quot;<br>
+		END SELECT<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p><font color="#808080">作業：有一個網頁 games.htm 不希望學生於上課時間連結，請設計程式當參觀者於早上 8:00 到下午 
+4:00 這段時間連線時，自動轉向到 warring.htm。</font></p>
+<p>　</p>
+<h2>Application 物件的應用</h2>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+Application 物件可以用來保存總體變數，這些變數將保留到伺服器關機為止，由於這些變數在保存時不會去區分個別用戶端的連線編號（Session 
+ID），因此無論是哪個用戶端都可以讀寫，利用這個特性我們可以很容易開發出計數器與聊天室的功能。</p>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+下面的例子，當參觀者連線到首頁時，就累計人數：</p>
+<table border="1" width="100%" id="table2">
+	<tr>
+		<td>&lt;%<br>
+		Application.Lock<br>
+		Application(&quot;count&quot;)=Application(&quot;count&quot;)+1<br>
+		Application.Unlock<br>
+		%&gt;<br>
+		累計參觀人次：&lt;% =Application(&quot;count&quot;) %&gt;</td>
+	</tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+在操作 Application 物件時要特別注意寫入衝突的問題，當參觀者同時上線時，由於大家所存取的 Application 
+變數是同一個，如果不把它鎖定就直接寫入，會造成計數不正確的現象。Application.Lock 
+就是用來鎖定物件，防止他人寫入。當物件被鎖定時，其他人就會暫停執行程式，等到鎖定解除後才會繼續執行。</p>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+如果要製作的計數器是線上人數，則不可以只累加而不減少，正確的作法應該是在參觀者上線時加 1，離線時減 
+1，特別要注意的是參觀者上線時，並不一定都會去連首頁，所以進行計數的程式不能寫在首頁中，首頁頂多只是用來秀出人數而已。</p>
+  
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+要達到這個功能必須使用 Session 物件所提供的兩個事件處理器：onStart 和 onEnd，前者在參觀者連線時會自動觸發執行，後者在離線時觸發執行。而要定義這兩個事件處理器，只能將程式寫在 
+global.asa 檔案中，這個檔案必須建立在網站主目錄的根目錄中，而且一個虛擬站台只能有一份 global.asa。程式語法如下：</p>
+<table border="1" width="100%" id="table3">
+	<tr>
+		<td>&lt;script language=&quot;VBScript&quot; runat=&quot;SERVER&quot;&gt;<br>
+		SUB Session_onStart<br>
+&nbsp;&nbsp;&nbsp; Application.Lock<br>
+&nbsp;&nbsp;&nbsp; Application(&quot;online&quot;)=Application(&quot;online&quot;)+1<br>
+&nbsp;&nbsp;&nbsp; Application.Unlock<br>
+		END SUB<br>
+		<br>
+		SUB Session_onEnd<br>
+&nbsp;&nbsp;&nbsp; Application.Lock<br>
+&nbsp;&nbsp;&nbsp; Application(&quot;online&quot;)=Application(&quot;online&quot;)-1<br>
+&nbsp;&nbsp;&nbsp; Application.Unlock<br>
+		END SUB<br>
+		&lt;/script&gt;</td>
+	</tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+global.asa 程式存檔後就會立即生效，現在我們就可以找個適當的網頁，來顯示線上人數：</p>
+<table border="1" width="100%" id="table4">
+	<tr>
+		<td>現在有&lt;% =Application(&quot;online&quot;) %&gt;人上線</td>
+	</tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+補充說明：Application 物件也有提供 onStart 和 onEnd 事件處理器，前者在 IIS 啟動時自動執行，後者在 IIS 
+關閉時執行。進一步的應用在後文介紹。</p>
+  <h2>
+  　</h2>
+<h2>
+  使用 Request 物件取得變數</h2>
+  <p>當參觀者連上 IIS 伺服器時，除了傳輸所要求網頁的網址之外，也會附帶傳輸兩種參數，一種稱為          
+  URI ，另一種稱為 cookie 。伺服器必須去剖悉這些參數，才能夠得知使用者的要求與命令，而去進行相對應的處理，並將處理結果以網頁型式傳回給參觀者。</p>         
+  <p>URI 傳值主要用途是協調瀏覽器與伺服器的設定，例如：語系、傳值編碼方式、版本功能訊息、帳號認證、IP位址......等等。由於這些資訊可以決定伺服器將傳遞何種         
+  HTML 內容給瀏覽器，瀏覽器將以何種方式顯示伺服器送來的 HTML ，因此 URI 一般也被稱為 HTML 檔頭。</p>        
+  <p>其實以 ASP 程式開發的角度來看，我們比較關心的是，如何將程式執行時所需要的參數傳給伺服器，在這方面主要有兩種做法，一種稱為         
+  QueryString 傳值，另一種方法是透過 Form 表單傳值。前者的運作方式是，瀏覽器將參數（須先以         
+  URL-encoding 方式編碼）串接在 URL 網址後面，中間用 ? 隔開，然後要求伺服器以 GET 方式處理 URI         
+  ，伺服器接獲要求會從 URI 萃取 URL 網址 ? 以後的字串，將參數放置在 Request.QueryString 陣列中，提供給 ASP 程式。由於 URI 
+	欄位有大小限制，無法用來傳送大量資料，因此使用 QuerryString 傳值時，資料量不可以大於 2MB。</p>        
+  <p>Form 表單傳值則視場合而有不同，如果使用 GET 方式來傳遞，則做法與 QueryString         
+  完全相同，另一種方式是使用 POST 方式來傳遞。後者是使用資料串流的技術進行傳送，所以能夠擺脫 URI 的欄位大小限制，進而連大型檔案都可以透過表單上傳。
+	表單資料會儲存在 Request.Form 陣列中，等候 ASP 程式取出作進一步的處理。</p>        
+  <p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+	除此之外，Request 物件也可以用來取得系統環境變數。所謂系統環境變數，是指 IIS 伺服器的執行狀態及各種設定，如下表：</p>
+        <table border="1">
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">
+            系統環境變數</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            值</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            ALL_HTTP 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_ACCEPT:*/* HTTP_ACCEPT_LANGUAGE:zh-tw 
+            HTTP_CONNECTION:Keep-Alive HTTP_HOST:dd.ysps.tp.edu.tw 
+            HTTP_REFERER:http://dd.ysps.tp.edu.tw/html/2.asp 
+            HTTP_USER_AGENT:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; 
+            Q312461) HTTP_COOKIE:iscookies=0; ip=140%2E131%2E204%2E4; 
+            ASPSESSIONIDASTRDSCC=PCFDHPGBPDGCAEDPEILNPNKM 
+            HTTP_ACCEPT_ENCODING:gzip， deflate 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            ALL_RAW 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            Accept: */* Accept-Language: zh-tw Connection: 
+            Keep-Alive Host: dd.ysps.tp.edu.tw Referer: 
+            http://dd.ysps.tp.edu.tw/html//6.asp User-Agent: Mozilla/4.0 
+            (compatible; MSIE 6.0; Windows NT 5.0; Q312461) Cookie: iscookies=0; 
+            ip=140%2E131%2E204%2E4; 
+            ASPSESSIONIDASTRDSCC=PCFDHPGBPDGCAEDPEILNPNKM Accept-Encoding: gzip， 
+            deflate 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            APPL_MD_PATH 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            /LM/W3SVC/1/ROOT 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            APPL_PHYSICAL_PATH 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            d:\inetpub\wwwroot\ 
+            　</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="center">
+            ..................略..................</p>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            </td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            GATEWAY_INTERFACE 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            CGI/1.1 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            INSTANCE_META_PATH 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            /LM/W3SVC/1 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            LOCAL_ADDR 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            140.131.204.4 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            LOGON_USER 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            </td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            PATH_INFO 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            /ASP範例/server_variable.asp 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            PATH_TRANSLATED 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            d:\inetpub\wwwroot\ASP範例\server_variable.asp 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            QUERY_STRING 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            </td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            REMOTE_ADDR 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            140.131.204.4 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            REMOTE_HOST 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            140.131.204.4 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            REMOTE_USER 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            </td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            REQUEST_METHOD 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            GET 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SCRIPT_NAME 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            /ASP範例/server_variable.asp 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SERVER_NAME 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            dd.ysps.tp.edu.tw 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SERVER_PORT 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            80 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SERVER_PORT_SECURE 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            0 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SERVER_PROTOCOL 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP/1.1 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            SERVER_SOFTWARE 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            Microsoft-IIS/5.0 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            URL 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            /ASP範例/server_variable.asp 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_ACCEPT 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            */* 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_ACCEPT_LANGUAGE 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            zh-tw 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_CONNECTION 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            Keep-Alive 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_HOST 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            dd.ysps.tp.edu.tw 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_REFERER 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            http://dd.ysps.tp.edu.tw/html/2.asp 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_USER_AGENT 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; 
+            Q312461) 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_COOKIE 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            iscookies=0; ip=140%2E131%2E204%2E4; 
+            ASPSESSIONIDASTRDSCC=PCFDHPGBPDGCAEDPEILNPNKM 　</td>
+          </tr>
+          <tr>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            HTTP_ACCEPT_ENCODING 　</td>
+            <td>
+            <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+            gzip， deflate 　</td>
+          </tr>
+        </table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+在系統環境變數中有兩個變數特別值得注意，分別是：</p>
+<table border="1" width="100%" id="table6">
+	<tr>
+		<td>HTTP_REFERER</td>
+		<td>參觀者是透過哪個網頁的超連結連過來的</td>
+	</tr>
+	<tr>
+		<td>REMOTE_ADDR</td>
+		<td>參觀者的 IP</td>
+	</tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+利用 HTTP_REFERER 變數，我們可以保護特定網頁，不讓別的站台盜連：</p>
+<table border="1" width="100%" id="table7">
+	<tr>
+		<td>&lt;%<br>
+		myurl=Request.ServerVariables(&quot;HTTP_REFERER&quot;)<br>
+		myurl=Ucase(Left(myurl,25))<br>
+		IF myurl&lt;&gt;&quot;HTTP://WWW.SPPS.TP.EDU.TW&quot; THEN Response.End<br>
+		%&gt;<br>
+		.............(略)..............</td>
+	</tr>
+</table>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+上面程式中的 Response.End 用來中斷網頁輸出，這使得後面的網頁內容通通看不到。</p>
+<p style="word-spacing: 1px; line-height: 150%; margin-top: 8px; margin-bottom: 8px">
+如果要保護網頁僅提供給校內連線，則可以利用另一個變數 REMOTE_ADDR：</p>
+<table border="1" width="100%" id="table8">
+	<tr>
+		<td>&lt;%<br>
+		myip=Request.ServerVariables(&quot;REMOTE_ADDR&quot;)<br>
+		myip=Left(myip,7)<br>
+		IF myip&lt;&gt;&quot;172.16.&quot; THEN Response.End<br>
+		%&gt;<br>
+		.............(略)..............</td>
+	</tr>
+</table>
+<p>　</p>
+<h2>網址列傳值與表單傳值</h2>
+<p>前面在討論條件判斷時，曾經寫過一個檢查體重的程式片段，我們現在就把它完成，順便利用這個範例來比較網址列傳值與表單傳值的異同，先來看程式碼：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="table9">
+  <tr>
+    <td width="100%">&lt;%<br>
+	myheight=Request.QueryString(&quot;height&quot;)<br>
+	myweight=Request.QueryString(&quot;weight&quot;)<br>
+	<br>
+    IF myweight&gt;(myheight-100)*0.8 THEN<br>
+&nbsp;&nbsp; mymsg=&quot;體重過重，該減肥了&quot;<br>
+    ELSEIF myweight&lt;(myheight-100)*0.8 THEN<br>
+&nbsp;&nbsp; mymsg=&quot;體重過輕，多吃點&quot;<br>
+    ELSE <br>
+&nbsp;&nbsp; mymsg=&quot;標準身材&quot;<br>
+    END IF<br>
+    %&gt;</td>
+  </tr>
+</table>
+<p>請打開瀏覽器輸入網址，檔名後面接 ?height=170&amp;weight=70，按 Enter 
+查看結果。同樣的程式如果要改用表單讓參觀者輸入身高體重，請改寫前二行為：</p>
+<table border="1" width="100%" id="table10">
+	<tr>
+		<td>myheight=Request.Form(&quot;height&quot;)<br>
+		myweight=Request.Form(&quot;weight&quot;)</td>
+	</tr>
+</table>
+<p>表單的製作不在這裡討論，請注意表單標籤要加入 action 屬性，這是用來定義表單資料將傳送到哪一支程式，例如：</p>
+<table border="1" width="100%" id="table11">
+	<tr>
+		<td>&lt;form action=&quot;check_weight.asp&quot;&gt;<br>
+		身高：&lt;input type=&quot;text&quot; name=&quot;height&quot;&gt;<br>
+		體重：&lt;input type=&quot;text&quot; name=&quot;weight&quot;&gt;<br>
+		&lt;input type=&quot;submit&quot; value=&quot;送出&quot;&gt;<br>
+		&lt;/form&gt;</td>
+	</tr>
+</table>
+<p>比較兩種方式，我們發現：</p>
+<ol>
+	<li>網址列傳值使用簡便，而表單傳值還得額外製作一個網頁，比較麻煩。</li>
+	<li>網址列傳值會把變數顯示在網址列，容易被別的站台依樣畫葫蘆加以套用，表單傳值相對較為隱密。</li>
+</ol>
+<p>如果要同時允許兩種傳值方式，在讀取 Request 物件時可以省略陣列名稱，把程式改寫為：</p>
+<table border="1" width="100%" id="table12">
+	<tr>
+		<td>myheight=Request(&quot;height&quot;)<br>
+		myweight=Request(&quot;weight&quot;)</td>
+	</tr>
+</table>
+<p>這種寫法雖然簡潔，但卻無法改善網址列傳值的缺點，建議還是不要偷懶比較好。</p>
+<p><font color="#808080">作業：延續前例，當同時使用兩種傳值方式時，結果以何者為主？</font></p>
+<table border="1" width="100%" id="table13">
+	<tr>
+		<td><font color="#808080">&lt;form action=&quot;check_weight.asp?height=160&amp;weight=40&quot;&gt;<br>
+		身高：&lt;input type=&quot;text&quot; name=&quot;height&quot;&gt;<br>
+		體重：&lt;input type=&quot;text&quot; name=&quot;weight&quot;&gt;<br>
+		&lt;input type=&quot;submit&quot; value=&quot;送出&quot;&gt;<br>
+		&lt;/form&gt;</font></td>
+	</tr>
+</table>
+<p>　</p>
+<h2>Session 物件的應用</h2>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	Session 的功能改良自 
+  Cookie，與 Cookie 一樣用來紀錄用戶端與伺服端的連線資訊，因此很適合拿來作為儲存身分資訊及判斷使用者權限的用途。兩者的差異整理如下表：</p>
+<table border="1" width="100%" id="table15">
+	<tr>
+		<td>　</td>
+		<td width="46%">Session</td>
+		<td width="46%">Cookie</td>
+	</tr>
+	<tr>
+		<td>儲存方式</td>
+		<td width="46%">變數儲存在伺服器的主記憶體中，系統會自動產生 Session ID 作為索引值，該索引值以 Cookie 或 
+		URI 形式儲存於用戶端</td>
+		<td width="46%">儲存於用戶端的硬碟中</td>
+	</tr>
+	<tr>
+		<td>存活時間</td>
+		<td width="46%">到斷線為止（關閉瀏覽器），或連線超過 20 分鐘未更新</td>
+		<td width="46%">時間自訂，從斷線後清除，一直到保存一年以上都可以</td>
+	</tr>
+	<tr>
+		<td>安全性</td>
+		<td width="46%">Session ID 以 MD5 編密，安全性高</td>
+		<td width="46%">純文字資料，安全性差（可用程式技巧改善）</td>
+	</tr>
+	<tr>
+		<td>頻寬節流</td>
+		<td width="46%">僅傳送 Session ID，省頻寬</td>
+		<td width="46%">傳送所有變數，耗頻寬</td>
+	</tr>
+	<tr>
+		<td>系統資源</td>
+		<td width="46%">佔用主系統記憶體，連線數過多時容易造成伺服器當機</td>
+		<td width="46%">只耗用用戶端的記憶體，影響不大</td>
+	</tr>
+</table>
+<p>底下舉實例來說明 Session 物件如何應用在身分驗證與權限管理上：假設現有會員 mary 和 john 兩人，密碼分別為 123 和 abc，會員 
+mary 為管理員而 john 為一般會員。先來製作登入表單 logon.htm：</p>
+<table border="1" width="100%" id="table16">
+	<tr>
+		<td>&lt;form action=&quot;logon.asp&quot;&gt;<br>
+		帳號：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;<br>
+		密碼：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;<br>
+		&lt;input type=&quot;submit&quot; value=&quot;登入&quot;&gt;<br>
+		&lt;/form&gt;</td>
+	</tr>
+</table>
+<p>身分驗證程式 logon.asp 驗證完身分之後，將驗證結果和身份資訊儲存在 Session 物件中備用：</p>
+<table border="1" width="100%" id="table17">
+	<tr>
+		<td>&lt;%<br>
+		myuser=Request.Form(&quot;username&quot;)<br>
+		mypass=Request.Form(&quot;password&quot;)<br>
+		<br>
+		IF myuser=&quot;mary&quot; AND mypass=&quot;123&quot; THEN<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;user&quot;)=myuser<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;pass&quot;)=mypass<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;admin&quot;)=TRUE<br>
+		ELSEIF myuser=&quot;john&quot; AND mypass=&quot;abc&quot; THEN<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;user&quot;)=myuser<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;pass&quot;)=mypass<br>
+&nbsp;&nbsp;&nbsp; Session(&quot;admin&quot;)=FALSE<br>
+		END IF<br>
+		%&gt;<br>
+		歡迎&lt;% IF Session(&quot;admin&quot;) THEN %&gt;管理員&lt;% ELSE %&gt;會員&lt;% END IF %&gt;<br>
+		&lt;% =Session(&quot;user&quot;) %&gt;光臨本站！</td>
+	</tr>
+</table>
+<p>假設現有留言版程式一組，其中 manager.asp 用來給管理員刪除或回應留言，write.asp 用來給一般會員留言或回應留言。在 manager.asp 
+程式中我們可以利用 Session(&quot;admin&quot;) 來判斷權限，如果參觀者尚未登入則將它導向到登入網頁：</p>
+<table border="1" width="100%" id="table18">
+	<tr>
+		<td>&lt;%<br>
+		IF Session(&quot;user&quot;)=&quot;&quot; THEN Response.Redirect &quot;logon.htm&quot;<br>
+		IF NOT Session(&quot;admin&quot;) THEN<br>
+		%&gt;<br>
+		您不是管理員，沒有足夠權限使用本程式！！<br>
+		&lt;%<br>
+&nbsp;&nbsp;&nbsp; Response.End<br>
+		END IF<br>
+		%&gt;<br>
+		這是管理員介面，程式將在後文介紹 ADO 物件時完成</td>
+	</tr>
+	</table>
+<p>現在請假設您自己是忘記要登入的管理員，您直接連到 manager.asp，結果程式將您導向到登入畫面，您登入成功後看到了歡迎訊息，然後呢？然後居然還得自己再連一次 
+manager.asp！這樣的設計當然還有待改善，如果要讓系統自動跑回 manager.asp，該如何設計呢？當然不能直接轉向到 manager.asp，否則每個人登入完，都會跑來這裡！</p>
+<p>答案一樣是利用 Session 物件來解決，改寫身分驗證程式 logon.asp，請在最後一行加入：</p>
+<table border="1" width="100%" id="table19">
+	<tr>
+		<td>
+		<p>&lt;% =Session(&quot;user&quot;) %&gt;光臨本站！<br>
+		&lt;% IF Session(&quot;pid&quot;)&lt;&gt;&quot;&quot; THEN %&gt;<br>
+		&lt;script&gt;<br>
+		location=&quot;&lt;% =Session(&quot;pid&quot;) %&gt;&quot;<br>
+		&lt;/script&gt;<br>
+		&lt;% END IF %&gt;</td>
+	</tr>
+</table>
+<p>上面程式將檢查是否有 Session(&quot;pid&quot;) 
+變數，如果有則自動轉向到指定的網頁，從此以後，只要是想登入完自動轉向的程式，事先設定好轉向目標就可以了。同樣舉 manager.asp 為例，請在程式開頭加入：</p>
+<table border="1" width="100%" id="table20">
+	<tr>
+		<td>Session(&quot;pid&quot;)=&quot;manager.asp&quot;</td>
+	</tr>
+	</table>
+<p><font color="#808080">作業：請完成 write.asp 程式。</font></p>
+<p>　</p>
+  
+<h2>活用 SSI 的 Include 功能</h2>
+<p>當不同的 ASP 程式需要反覆使用同一段程式碼時，我們可以將該段程式碼抽離出來，單獨存成一個檔案，然後在每支 ASP 程式的開頭用 
+&lt;!--#include virtual=&quot;檔名&quot;--&gt; 語法匯入該檔案，就像是在撰寫副程式一樣。</p>
+<p>依照此原理，將前例中的管理員權限判斷程式，取出放入 check_priv.inc 中：</p>
+<table border="1" width="100%" id="table34">
+	<tr>
+		<td>&lt;%<br>
+		FUNCTION check_admin<br>
+&nbsp;&nbsp;&nbsp;
+		IF Session(&quot;user&quot;)=&quot;&quot; THEN Response.Redirect &quot;logon.htm&quot;<br>
+		&nbsp;&nbsp;&nbsp;
+		IF NOT Session(&quot;admin&quot;) THEN<br>
+		%&gt;<br>
+		您不是管理員，沒有足夠權限使用本程式！！<br>
+		&lt;%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Response.End<br>
+		&nbsp;&nbsp;&nbsp;
+		END IF<br>
+		END FUNCTION<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p>這樣 manager.asp 就可以修改為：</p>
+<table border="1" width="100%" id="table35">
+	<tr>
+		<td>&lt;%
+		Session(&quot;pid&quot;)=&quot;manager.asp&quot; %&gt;<br>
+		&lt;!--#include virtual=&quot;/include/check_priv.inc&quot;--&gt;<br>
+		這是管理員介面，程式將在後文介紹 ADO 物件時完成</td>
+	</tr>
+	</table>
+<p>當我們使用 *.inc 檔案來輸出訊息內容時，由於它不是網頁所以無法使用 FrontPage 
+編輯，在視覺設計上很麻煩，而且也不夠美觀。乾脆來設計一個顯示警告訊息的專用網頁，訊息部分用網址列傳值來設計，就可以更換顯示的內容了，我們把這個檔案命名為 
+warring.asp：</p>
+<table border="1" width="100%" id="table36">
+	<tr>
+		<td>&lt;html&gt;<br>
+		&lt;head&gt;&lt;title&gt;警告訊息&lt;/title&gt;&lt;/head&gt;<br>
+		&lt;body bgcolor=&quot;#000000&quot; style=&quot;font-size: 14pt; font-family: 標楷體&quot;&gt;<br>
+		&lt;table border=&quot;1&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;<br>
+&nbsp; &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td align=&quot;center&quot; valign=&quot;bottom&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;p align=&quot;center&quot; style=&quot;font-family: 標楷體; 
+		font-size: 24pt; color: #CCFF33&quot;&gt;&lt;% =Request(&quot;msg&quot;) %&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=&quot;javascript:history.go(-1)&quot;&gt;回上一頁&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;p&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;table border=&quot;1&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; 
+		bgcolor=&quot;#6582CD&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;tr&gt;&lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;p align=&quot;center&quot; 
+		style=&quot;font-family: 標楷體; font-size: 18pt; color: #FFFFFF&quot;&gt;ASP系統開發研習&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/td&gt;&lt;/tr&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/table&gt; <br>
+&nbsp;&nbsp;&nbsp; &lt;/td&gt;<br>
+&nbsp; &lt;/tr&gt;<br>
+		&lt;/table&gt;<br>
+		&lt;/body&gt; <br>
+		&lt;/html&gt;</td>
+	</tr>
+</table>
+<p>配合 warring.asp，將 check_priv.inc 修改如下：</p>
+<table border="1" width="100%" id="table37">
+	<tr>
+		<td>&lt;%<br>
+		FUNCTION check_admin<br>
+&nbsp;&nbsp;&nbsp;
+		IF Session(&quot;user&quot;)=&quot;&quot; THEN Response.Redirect &quot;logon.htm&quot;<br>
+		&nbsp;&nbsp;&nbsp;
+		IF NOT Session(&quot;admin&quot;) THEN Response.Redirect &quot;warring.asp?msg=您不是管理員，沒有足夠權限使用本程式！！&quot;<br>
+		END FUNCTION<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p><font color="#808080">作業：請比照上面範例，在 check_priv.inc 中加入函式 check_member ，並修改 write.asp 程式。</font></p>
+  
+<h2>　</h2>
+<h2>登出與重新登入</h2>
+<p>在前一小節我們已經完成了登入驗證程式，現在應該來設計登出程式。登出程式的工作，就是負責移除 Session 裡面的相關身分資訊，做法如下：</p>
+<table border="1" width="100%" id="table21">
+	<tr>
+		<td>&lt;%<br>
+		Session(&quot;user&quot;)=&quot;&quot;<br>
+		Session(&quot;pass&quot;)=&quot;&quot;<br>
+		Session(&quot;admin&quot;)=&quot;&quot;<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p>事實上 Session 物件還提供另一個更簡便的解決方案：</p>
+<table border="1" width="100%" id="table22">
+	<tr>
+		<td>&lt;% Session.Abandon %&gt;</td>
+	</tr>
+</table>
+<p>使用這個方法將會清除所有儲存在 Session 物件中的變數，因此如果站台上還有其它 ASP 程式也利用 Session 物件保存自己的變數，貿然使用 
+Session.Abandon 將造成該程式無法正確執行。現在大部分的站台都是下載安裝現成套件，套件裡面到底有哪些 Session 
+變數需要保留身為站長的你恐怕也搞不清楚，所以還是謹慎一點好！</p>
+<p>重新登入程式，其實就是登出之後，重新導向到登入網頁而已。</p>
+<p><font color="#808080">作業：延續前面的作業，請設計重新登入程式。</font></p>
+<p>　</p>
+<h2>個別化網站</h2>
+<p>所謂個別化網站是指參觀者可以自訂網站的版面，以便下次連上網站時顯示自己感興趣的資訊。像這種需要保留超過一天以上的資訊，必須使用 Cookie 
+來設計，而不能使用 Session 物件。</p>
+<p>Cookie 資料的讀寫可以透過 Request 和 Response 物件來進行：</p>
+<table border="1" width="100%" id="table53">
+	<tr>
+		<td><span lang="EN-US">Response.Cookies(&quot;變數名稱&quot;) = &quot;待寫入的資料&quot;<br>
+		</span>mycookie<span lang="EN-US"> = Request.Cookies(&quot;變數名稱&quot;)</span></td>
+	</tr>
+</table>
+<p>　</p>
+<h2>利用 FrontPage 自動產生資料庫應用程式</h2>
+<p>底下示範一個簡單的留言版程式，一行程式都不用寫，因為 FrontPage 幫我們寫好了！對於一般不會寫程式也不想學的老師來說，真是天大的福音：</p>
+<ol>
+	<li>以 Access 
+      開一個新的資料庫，並替檔案命名為 gbook.mdb，暫時先存在桌面上。</li>
+	<li>使用設計撿視新增一個資料表，欄位包含：<br>
+	姓名-&gt;文字格式，長度 20<br>
+	電子郵件-&gt;文字格式，長度50<br>
+	留言內容-&gt;文字格式，長度500<br>
+	留言日期-&gt;日期時間格式，預設值設定為 Now()</li>
+	<li>存檔時，請將資料表命名為 gbook。</li>
+	<li>ACCESS 會詢問要不要作索引？當然是要！</li>
+	<li>完成設計資料表後，隨便輸入一筆資料，您可看見 ID 欄位會自動產生。</li>
+	<li>關閉 ACCESS，打開 FrontPage，以開啟WEB方式打開網站的主目錄。</li>
+	<li>將桌面上的 gbook.mdb 複製到左側的資料夾清單中，放在最上層目錄。</li>
+	<li>
+      <p style="line-height: 150%; ">
+      FrontPage 會詢問要用什麼名稱來取名，請輸入 gbook。</li>
+	<li>
+	<p style="line-height: 150%; ">
+      FrontPage 會詢問要不要把 mdb 檔放到網頁根目錄的 /fpdb 中，請按確定，因為它可以保護 mdb 檔，讓所有的人不能下載。</li>
+	<li>
+	<p style="line-height: 150%; ">
+      現在開始製作留言版畫面，開一個空白網頁，插入超連結 &quot;我要留言&quot;，連結位置為 &quot;write_gbook.asp&quot;。</li>
+	<li>
+	<p style="line-height: 150%; ">
+      緊接者插入-&gt;資料庫-&gt;結果...，精靈跑出來後請依指示設定。完成後存檔為 show_gbook.asp。</li>
+	<li>
+      <p style="line-height: 150%; ">
+      開一個空白網頁，插入→表單，表單內須包含：姓名[單行文字方塊]、電子郵件[單行文字方塊]和留言內容[多行文字方塊]</p></li>
+	<li>
+	<p style="line-height: 150%; ">表單完成後，按右鍵選表單內容，指定→傳送到資料庫→按左下角的選項</p></li>
+	<li>
+	<p style="line-height: 150%; ">將連接之資料庫選為 gbook，跳到一個活頁：已儲存的欄位</p></li>
+	<li>
+	<p style="line-height: 150%; ">設定 T1-&gt;姓名、T2-&gt;電子郵件、S1-&gt;留言內容</p></li>
+	<li>
+	<p style="line-height: 150%; ">將檔案存為 write_gbook.asp</p></li>
+</ol>
+<p>完成這十六個步驟，留言版程式就完成了，FrontPage 除了幫我們撰寫 show_gbook.asp 和 write_gbook.asp 外，也會在 
+global.asp 中幫我們新增資料庫連結語法，稍後在討論 ADO 元件時，再詳細說明！</p>
+<p><font color="#808080">作業：請將這個留言版程式整合到前一個作業中，也就是說把 write_gbook.asp 和 write.asp 
+整合成同一個檔案。</font></p>
+<p>　</p>
+<h2>使用 CDONTS 元件寄信</h2>
+  <p style="line-height: 150%; ">
+  越來越多的<span lang="en-us"> </span>WEB<span lang="en-us"> </span>應用程式要利用到電子郵件寄發，例如：電子賀卡、電子報、申請會員、網頁郵寄...等。這時候就需要使用 
+	IIS 附贈的 ActiveX 元件：CDO<span lang="en-us">NTS</span>。它是由<span lang="en-us"> </span>
+	CDONTS.DLL 這個函式庫來負責處理。首先，必須使用 Internet 管理員先把<span lang="en-us"> 
+	</span>SMTP 
+伺服器設定好：</p>
+<ol>
+	<li>
+	<p style="line-height: 150%; ">打開 Internet 管理員，從左邊框架點選網域，在右邊框架按右鍵-&gt;新增網域</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; ">出現精靈後，選遠端網域-&gt;網域名稱填入自己學校網域-&gt;完成</p></li>
+	<li>
+	<p style="line-height: 150%; ">在右邊框架找到剛做好的網域，按右鍵選內容</p></li>
+	<li>
+	<p style="line-height: 150%; ">點選 &quot;轉送所有郵件至智慧主機&quot; -&gt;填入郵件伺服器的網址或 
+	IP，這樣大致上已經設定完成。</p></li>
+	<li>
+	<p style="line-height: 150%; ">如果你的郵件伺服器要求登入帳號，請點選 &quot;傳出安全性&quot; -&gt; 
+	&quot;純文字驗證&quot;，輸入郵件帳號及密碼。如果郵件伺服器要求使用 SSL 來傳輸帳號密碼，請加選 &quot;TLS 加密&quot;。</p></li>
+</ol>
+<p>SMTP 伺服器設定好後，就可以透過 CDONTS 元件來控制郵寄信件的功能，舉例如下：</p>
+<table border="1" width="100%" id="table23">
+	<tr>
+		<td>&lt;%<br>
+		SET mymail=Server.CreateObject(&quot;CDONTS.NewMail&quot;)<br>
+		mymail.From=&quot;webmaster@mail.spps.tp.edu.tw&quot;<br>
+		mymail.To=&quot;sean@tp.edu.tw&quot; <br>
+		mymail.Subject=&quot;石牌國小網站更新通知&quot;<br>
+		mymail.Body=&quot;親愛的訂戶：&quot; &amp; Chr(13) &amp; &quot;石牌國小網站新增 '影像館' 單元，歡迎您前往參觀！&quot;<br>
+		mymail.Send<br>
+		SET mymail=NOTHING<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p>前面提過 VBScript 
+變數是不需要宣告的，但是有一個例外就是物件變數，這是因為物件變數必須配合額外函式庫來產生執行實體，其性質與一般變數不同，為了區分兩者因此採用 SET 
+敘述語法。上面的程式使用 Server.CreateObject 函式來產生執行實體，有時候直接使用 CreateObject 
+函式，用哪個函式才對有一個簡單的判別方法：如果該 ActiveX 元件是提供給 IIS 專用的，使用 Server.CreateObject 函式。如果該 
+ActiveX 元件是提供給作業系統做廣泛用途，使用 CreateObject 函式，例如：FSO 就是屬於這種。</p>
+<p>在使用完物件變數後，如果要釋放執行實體所佔用的記憶體資源，可以將變數設定成 NOTHING。在 VBScript 中類似的關鍵字還有 EMPTY、NULL，用法都不同。NULL 
+用來表示型態不明的變數（通常來自資料庫的傳回值），EMPTY 用來表示 0 或空字串，而 NOTHING 使用在物件變數上，代表釋放記憶體。</p>
+<p>回到例子上來，上面範例所產生的郵件是純文字格式，因此必須使用 Enter 鍵來換行，這可以用 Chr(13) 來產生這個控制鍵。假如您想郵寄 HTML 
+格式的郵件必須在宣告完物件變數後，先設定內文格式，程式如下：</p>
+<table border="1" width="100%" id="table24">
+	<tr>
+		<td>&lt;%<br>
+		SET mymail=Server.CreateObject(&quot;CDONTS.NewMail&quot;)<br>
+		mymail.BodyFormat=0<br>
+		mymail.From=&quot;webmaster@mail.spps.tp.edu.tw&quot;<br>
+		mymail.To=&quot;shane@tp.edu.tw&quot;<br>
+		mymail.Subject=&quot;石牌國小網站更新通知&quot;<br>
+		mymail.Body=&quot;親愛的訂戶：&lt;br&gt;石牌國小網站新增&lt;a href = 
+		'http://mail.spps.tp.edu.tw:12000/potoweb.cgi'&gt;影像館&lt;/a&gt;單元，歡迎您前往參觀！&quot;<br>
+		mymail.Send<br>
+		SET mymail=NOTHING<br>
+		%&gt;</td>
+	</tr>
+</table>
+<p>你應該已經注意到郵件內文的變化，換行已經改用 &lt;br&gt; 標籤，而且還加入了一個超連結。</p>
+<p><font color="#808080">
+作業：請繼續發展上一個作業，將郵寄留言訊息的功能加入到 write.asp 程式中，假設訂戶有下列三人：mary@ms8.hinet.net、john@tp.edu.tw、jack@hotmail.com（提示：使用陣列和迴圈來簡化程式）</font></p>
+<p>　</p>
+<h2>使用 FSO 元件存取檔案</h2>
+    <p style="line-height: 150%; ">
+    IIS 上使用 [檔案系統物件] (File System 
+	Object)可以取得伺服器上的磁碟、資料夾和檔案內容資訊，例如：檔案名稱、大小、建檔日期等等屬性，當然也可以對檔案做讀寫動作，提供此元件的動態函式庫是：SCRRUN.DLL。</p>
+    <p style="line-height: 150%; ">FSO 元件提供的物件有：FileSystemObject、Driver、Folder、File、TextStream 
+	......等，以下是 FileSystemObject 物件常用的幾種方法:</p>
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="85%" id="table25">
+      <tr>
+        <td>CopyFile()<br>
+		CopyFolder()</td>
+        <td>複製檔案<br>
+		複製資料夾</td>
+      </tr>
+      <tr>
+        <td>CreatFolder()</td>
+        <td>建立新資料夾</td>
+      </tr>
+      <tr>
+        <td>DeleteFile()<br>
+		DeleteFolder()</td>
+        <td>刪除檔案<br>
+		刪除資料夾</td>
+      </tr>
+      <tr>
+        <td>DriveExists()<br>
+		FileExists()<br>
+		FolderExists()</td>
+        <td>判斷磁碟機、檔案或資料夾是否存在</td>
+      </tr>
+      <tr>
+        <td>MoveFile()<br>
+		MoveFolder()</td>
+        <td>搬移檔案<br>
+		搬移資料夾</td>
+      </tr>
+      <tr>
+        <td>GetFolder()</td>
+        <td>讀取資料夾內容</td>
+      </tr>
+      <tr>
+        <td>GetDriveName()</td>
+        <td>取得磁碟機名稱</td>
+      </tr>
+      <tr>
+        <td>GetExtensionName()</td>
+        <td>取得檔案的副檔名</td>
+      </tr>
+      <tr>
+        <td>GetParentFolderName()</td>
+        <td>取得上層資料夾名稱</td>
+      </tr>
+      </table>
+    <p style="line-height: 150%; ">
+    Folder 物件的屬性：</p>
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="85%" id="table27">
+      <tr>
+        <td>Name</td>
+        <td>資料夾名稱</td>
+      </tr>
+      <tr>
+        <td>DateLastModified</td>
+        <td>最後更新日期</td>
+      </tr>
+      <tr>
+        <td>SubFolders</td>
+        <td>資料夾內所有子目錄的集合</td>
+      </tr>
+      <tr>
+        <td>Files</td>
+        <td>資料夾內所有檔案的集合</td>
+      </tr>
+    </table>
+    <p style="line-height: 150%; ">
+    File 物件的屬性：</p>
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="85%" id="table28">
+      <tr>
+        <td>Name</td>
+        <td>檔案名稱</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td>檔案大小</td>
+      </tr>
+      <tr>
+        <td>DateLastModified</td>
+        <td>最後更新日期</td>
+      </tr>
+    </table>
+    <p style="line-height: 150%; ">
+    對於文字檔的讀寫，我們可以使用 TextStream 物件，下面是這個物件的屬性和方法：</p>
+    <table border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="85%" id="table26">
+      <tr>
+        <td width="42%">AtEndOfLine屬性</td>
+        <td width="58%">判斷是否為文字行的最後一個字元</td>
+      </tr>
+      <tr>
+        <td width="42%">AtEndOfStream屬性</td>
+        <td width="58%">判斷是否為文字檔內容的最後（結尾）</td>
+      </tr>
+      <tr>
+        <td width="42%">OpenTextFile()、Close方法</td>
+        <td width="58%">開啟／關閉文字檔</td>
+      </tr>
+      <tr>
+        <td width="42%">Read方法</td>
+        <td width="58%">讀取文字內容</td>
+      </tr>
+      <tr>
+        <td width="42%">ReadAll方法</td>
+        <td width="58%">讀取文字檔案內全部文字內容</td>
+      </tr>
+      <tr>
+        <td width="42%">ReadLine方法</td>
+        <td width="58%">逐行讀取</td>
+      </tr>
+      <tr>
+        <td width="42%">Write方法</td>
+        <td width="58%">寫入字串</td>
+      </tr>
+      <tr>
+        <td width="42%">WriteLine方法</td>
+        <td width="58%">寫入一行字串</td>
+      </tr>
+      <tr>
+        <td width="42%">WriteBlankLines方法</td>
+        <td width="58%">寫入一行空字串</td>
+      </tr>
+    </table>
+    <p>如果你的站台有開啟瀏覽目錄功能，那麼當參觀者連到一個沒有首頁的資料夾時，就會列出完整的子目錄和檔案清單，而 IIS 
+	所提供的顯示模式只有清單一種，並不能像資料夾檢視一樣顯示成圖示或縮圖模式。這個功能我們可以利用 FSO 自己來製作：</p>
+<table border="1" width="100%" id="table29">
+	<tr>
+		<td>&lt;%<br>
+		mydir=&quot;./&quot;<br>
+		mypath=Server.MapPath(mydir)<br>
+		SET myfso=CreateObject(&quot;Scripting.FileSystemObject&quot;)<br>
+		SET myfolder=myfso.GetFolder(mypath)<br>
+		i=1<br>
+		%&gt;<br>
+		&lt;table border=0&gt;&lt;tr&gt;<br>
+		&lt;% FOR EACH file IN myfolder.Files %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=&quot;&lt;% =file.Name %&gt;&quot;&gt;&lt;% =file.Name 
+		%&gt;&lt;/a&gt;&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% =Int(file.Size/102.4)*10 %&gt;k&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% =file.DateLastModified %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/td&gt;<br>
+		&lt;%&nbsp;&nbsp; IF i MOD 5=0 THEN %&gt;&lt;/tr&gt;&lt;tr&gt;&lt;% END IF %&gt;<br>
+		&lt;%&nbsp;&nbsp; i=i+1<br>
+&nbsp;&nbsp; NEXT %&gt;<br>
+		&lt;/tr&gt;&lt;/table&gt;</td>
+	</tr>
+</table>
+<p>上面程式將讀取目前所在目錄（./）下的所有檔案，以表格呈現出圖示模式（圖片部分省略，僅顯示檔名）。程式利用 Server 物件提供的 MapPath() 
+函式將網頁相對目錄轉換成磁碟絕對路徑，然後輸入給 FileSystemObject 物件的 GetFolder() 
+函式，以便從硬碟讀取完整目錄清單。接著把檔案逐一擺入表格中，程式利用變數 i 累計目前的檔案數，運算子 MOD 用來求取餘數，當 i 等於 5 的倍數時（除以 
+5 餘數為 0 時），就將表格換行，也就是說每行最多顯示 5 個檔案。</p>
+<p>如果只想顯示某些類型的檔案，則可以加入條件判斷式進行篩選：</p>
+<table border="1" width="100%" id="table30">
+	<tr>
+		<td>..................前略.........................<br>
+		&lt;table border=0&gt;&lt;tr&gt;<br>
+		&lt;% FOR EACH file IN myfolder.Files<br>
+&nbsp;&nbsp;&nbsp;&nbsp; IF Ucase(Left(file.Name,3))=&quot;ASP&quot; THEN %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; ..................略......................<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/td&gt;<br>
+		&lt;%&nbsp;&nbsp; END IF<br>
+&nbsp;&nbsp;&nbsp;&nbsp; IF i MOD 5=0 THEN %&gt;&lt;/tr&gt;&lt;tr&gt;&lt;% END IF %&gt;<br>
+		&lt;%&nbsp;&nbsp; i=i+1<br>
+&nbsp;&nbsp; NEXT %&gt;<br>
+		&lt;/tr&gt;&lt;/table&gt;</td>
+	</tr>
+</table>
+<p><font color="#808080">作業：請改寫上面的程式：移除表格，將 *.mid 音樂檔篩選出來，擺放在陣列 music 中，用 
+Int(RND*i) 取亂數做為索引值，隨機產生背景音樂（&lt;bgsound src=&quot;&quot;&gt;）</font></p>
+<p><font color="#808080">作業：請改寫先前利用 Application 物件所製作的計數器，改用 TextStream 物件來取代。</font></p>
+<p>　</p>
+<h2>使用 BASP 元件上傳檔案</h2>
+<p>BASP 元件的作者是 Tatsuo Baba，詳細內容請參閱 <a href="eng_BASP21.html">官方說明文件</a>。由於這個元件不是微軟公司開發的，您必須自行下載安裝。</p>
+<p>使用網頁進行檔案上傳工作，首先必須先製作上傳表單，與一般表單不同的是，上傳表單必需使用 multipart/form-data 
+來編碼，這種編碼格式當初是設計給 sendmail 伺服器郵寄附加檔案用的，它就跟 MIME 格式一樣廣為流傳，被後來的各種伺服器繼續引用。表單設計如下：</p>
+<table border="1" width="100%" id="table32">
+	<tr>
+		<td>&lt;form method=&quot;POST&quot; action=&quot;upload.asp&quot; enctype=&quot;multipart/form-data&quot;&gt;<br>
+		作者：&lt;input type=&quot;text&quot; name=&quot;author&quot;&gt;&lt;br&gt;<br>
+		檔案：&lt;input type=&quot;file&quot; name=&quot;upfile&quot;&gt;&lt;br&gt;<br>
+		&lt;input type=&quot;submit&quot; value=&quot;開始上傳&quot;&gt;<br>
+		&lt;/form&gt;</td>
+	</tr>
+</table>
+<p>上面表單的作者欄位，是為了避免上傳檔案因為檔名相同而互相覆蓋，我們希望在檔名前面，加上作者名字，以方便辨別檔案避免不同作者的檔案互相覆蓋。upload.asp 
+的程式範例如下：</p>
+<table border="1" width="100%" id="table31">
+	<tr>
+		<td>SET mybobj = Server.CreateObject(&quot;basp21&quot;)<br>
+		myform_size=Request.TotalBytes<br>
+		mybuffer=Request.BinaryRead(myform_size)<br>
+		myauthor=mybobj.Form(mybuffer,&quot;author&quot;)<br>
+		myfile_name=mybobj.FormFileName(mybuffer,&quot;upfile&quot;)<br>
+		myfile_size=mybobj.FormFileSize(mybuffer,&quot;upfile&quot;)<br>
+		myfile_name=Mid(myfile_name,InStrRev(myfile_name,&quot;\&quot;)+1)<br>
+		mypath=Server.MapPath(&quot;/temp&quot;) &amp; &quot;\&quot; &amp; myauthor &amp; &quot;_&quot; &amp; myfile_name<br>
+		myerror=mybobj.FormSaveAs(mybuffer,&quot;upfile&quot;,mypath)</td>
+	</tr>
+</table>
+<p>從表單上傳的資料會擺放在 Request 物件中，使用 Request.TotalBytes 來計算表單資料的大小，再使用 
+Request.BinaryRead() 函式以二進位的方式讀取表單資料，存放在 mybuffer 陣列中。對於一般表單欄位來說，由於資料已經編碼，所以不能使用 
+Request.Form(&quot;author&quot;) 來讀取，而必須改用 basp21 物件來進行解碼，語法與 Request 
+物件相似：mybobj.Form(mybuffer,&quot;author&quot;)。對於檔案欄位來說，basp21 物件也提供許多處理函式，如範例中的 
+FormFileName()、FormFileSize() 和 FormSaveAs()。特別要注意的是 FormFileName() 
+函式的傳回值包含完整的路徑和檔名（例如：c:\Documents and Settings\shane\shane的文件\簡報.ppt），而路徑是該檔案在用戶端的磁碟路徑，傳到伺服器上當然不能使用，所以先用 
+InStrRev() 函式尋找字串中的最後一個 \ 符號的所在位置，將這個位置後面的字串用 Mid() 函式取出，就可以取得檔名。</p>
+<p>有一個地方要特別注意，就是要把檔案存入磁碟必須要有適當權限，由於 IIS 是使用 IUSER_SERVERNAME 帳號來執行 ASP 
+程式，因此程式中用來存放檔案的 /temp 資料夾，必須設定成 IUSER_SERVERNAME 帳號可以讀寫才行。</p>
+<p>上面的範例程式在一般狀態下已經可以順利運作，但處理上傳檔案難免會遇到磁碟錯誤發生，因此最好再加上錯誤處理程序，以便應付突發狀況。請在最後一行加入：</p>
+  
+<table border="1" width="100%" id="table33">
+	<tr>
+		<td>&lt;%<br>
+		.......................前略...............................<br>
+		IF myerror=-1 THEN %&gt;<br>
+		檔案上傳失敗！&lt;br&gt;&lt;% =myfile_name %&gt; 是空白檔案！<br>
+		&lt;% ELSEIF myerror=-2 THEN %&gt;<br>
+		檔案上傳失敗！&lt;br&gt;硬碟故障，請聯絡管理員修復硬碟！<br>
+		&lt;% ELSEIF myerror=-3 THEN %&gt;<br>
+		檔案上傳失敗！&lt;br&gt;無法新增檔案，可能磁碟機空間不足！<br>
+		&lt;% ELSEIF myerror=-4 THEN %&gt;<br>
+		檔案上傳失敗！&lt;br&gt;&lt;% =myfile_name %&gt; 被禁止寫入硬碟！<br>
+		&lt;% ELSEIF myerror&gt;=0 THEN %&gt;<br>
+		檔案上傳成功！&lt;br&gt;檔名已經修改為：&lt;% =myauthor &amp; &quot;_&quot; &amp; myfile_name %&gt;&lt;br&gt;<br>
+		檔案大小為：&lt;% =myfile_size %&gt;<br>
+		&lt;% END IF %&gt;</td>
+	</tr>
+</table>
+<p><font color="#808080">作業：請改寫上面程式，當同檔名檔案已經存在時不要置換檔案，並顯示提示訊息：請先修改檔名！</font></p>
+<p>　</p>
+<h2>使用 ADO 元件連結資料庫</h2>
+<p>ADO 是微軟公司所開發的 ActiveX 元件中，相當知名的一個套件，它最早是設計給 VBA 使用，提供一組現成函式庫用來連結資料庫及操作資料，在 
+ASP 上我們也可以利用此元件。</p>
+<p>在資料連結部分，ADO 元件為了相容於各種後端資料庫，所以是採用 ODBC 標準來連結資料庫，幾乎市售所有資料庫軟體均支援 ODBC 標準，包括：MS 
+ACCESS、MS EXCEL、MS SQL、XML、MySQL......等等。在 ADO 元件中負責資料連結的物件稱為 Connection 
+物件，它的工作，就是把 ASP 程式中的連結字串（Connect String）傳送給 ODBC 處理，ODBC 收到後剖析該字串，並且使用專有的 TCP / UDP 
+  通訊協定來與資料庫溝通（MsSQL:1433Port／MySQL:3306Port ）。</p>
+  <p style="line-height: 150%">這個資料庫連結的字串，必須包含建立連結時所需要的一切資訊，像是：資料庫種類、Server 
+  名稱、資料庫名稱、登入的帳號密碼和認證方式、資料型態設定（語系、數字、貨幣設定...等等）。語法如下：</p>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber26">
+    <tr>
+      <td width="100%">檔案型資料庫：<br>
+      DRIVER={Microsoft Access Driver (*.mdb)} ; DBQ=c:\inetpub\wwwroot\fpdb\board.mdb ; PWD=123456</td>
+    </tr>
+    <tr>
+      <td width="100%">資料庫管理系統：<br>
+      DRIVER={SQL Server} ; SERVER=172.16.1.18 ; DATABASE=spps ; UID=sa ; PWD=xxxxxx</td>
+    </tr>
+</table>
+<p>連結字串會隨著作業系統或資料庫系統版本的不同而略有差異，為了相容我們可以使用控制台中的 ODBC 
+連結精靈幫我們產生連結字串，以避免發生資料庫無法連結的問題。在 ASP 中要建立資料庫連結，程式如下：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber30">
+  <tr>
+    <td width="100%">SET myconn=Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+    myconn.Open
+      <span style="vertical-align: baseline; letter-spacing: 1pt">&quot;ODBC 連結字串&quot;</span></td>
+  </tr>
+</table>
+<p>接著介紹 ADO 元件中的其它內建物件：</p>
+  
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber27">
+    <tr>
+      <td>物件</td>
+      <td>屬性／方法</td>
+    </tr>
+    <tr>
+      <td>Connection</td>
+      <td>屬性：ConnectionString、CommandTimeout、Mode<br>
+      方法：Open、Close、Execute</td>
+    </tr>
+    <tr>
+      <td>Command</td>
+      <td>屬性：CommandText、CommandType、CommandTimeout<br>
+      方法：Execute</td>
+    </tr>
+    <tr>
+      <td>Parameter</td>
+      <td>用來設定 Command 物件執行時的其它參數</td>
+    </tr>
+    <tr>
+      <td>RecordSet</td>
+      <td>屬性：AbsolutePage、PageCount、PageSize、<br>
+      AbsolutePosition、ActiveConnection、Bookmark、CacheSize、EditMode、EOF、BOF、MaxRecords、RecordCount<br>
+      物件集合：Fileds<br>
+      方法：Open、Close、Delete、AddNew、Update、GetRows、Move、MoveFirst、MoveLast、MoveNext、MovePrevious<br>
+      常數 CursorType：Dynamic、Keyset、Static、Forward-Only</td>
+    </tr>
+    <tr>
+      <td>Errors</td>
+      <td>是一個物件集合，用來存放 ADO 錯誤訊息</td>
+    </tr>
+    <tr>
+      <td>Property</td>
+      <td>ADO 元件相關屬性參數</td>
+    </tr>
+</table>
+<p>當我們使用 Connection 物件連結好資料庫後，就可以使用 RecordSet 
+物件來操作資料，包含：新增、刪除、更新、查詢、移動資料錄游標....等動作。</p>
+<p>RecordSet 物件的產生方式有兩種，最常用的方法是指定一個物件變數去承接 Connection 物件執行 SQL 語言的結果集。例如：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber28">
+  <tr>
+    <td width="100%">SET myrs=<span style="vertical-align: baseline; letter-spacing: 1pt">myconn.Excute(&quot;SQL命令&quot;)</span></td>
+  </tr>
+</table>
+<p>當我們想要在顯示資料時有換頁功能，則必須使用第二個方法。由於資料換頁功能是由資料錄游標（Cursor）而非 SQL 語言提供，所以使用換頁功能必須先宣告 
+RecordSet 物件變數，然後用 Open() 函式開啟，開啟時指定游標類型（CursorType）即可：</p>
+<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber29">
+  <tr>
+    <td width="100%">SET myrs=Server.CreateObject(&quot;ADODB.Recordset&quot;)<br>
+    myrs.Open myconn,&quot;SQL命令&quot;,3<br>
+    '3 就是游標類型　Forward-Only</td>
+  </tr>
+</table>
+<p>　</p>
+<h2>透過 SQL 語言操作資料</h2>
+<p>雖然 RecordSet 物件本身也提供許多內建函式來操作資料，但為了提供資料運算的效能，操作資料的工作還是給後端的資料庫管理系統來處理比較好，否則 
+IIS 伺服器不但要一邊執行 ASP 程式碼，一邊還要運算資料，當上限人數多時，CPU 會不堪負荷。所以我們建議不要使用 RecordSet 物件中的 Delete、AddNew、Update、GetRows 
+等函式，而是改用 SQL 語言中的相關命令的替代。</p>
+  <p style="line-height: 150%; ">
+  SQL 
+  是「結構化查詢語言」（Structured Query Language）的簡稱，是由 IBM 公司於 1970 年代所發展出來，用於關連式資料庫 
+  (Relational Databases) 當中的一種資料庫查詢語言，利用 SQL 
+  可以用來定義資料庫結構、指定資料庫表格與欄位型態與長度、新增資料、修改資料、刪除資料、查詢資料，以及建立各重複雜的表格關連，成為一個查詢資料庫的標準語言。</p>
+  <p style="line-height: 150%; ">
+  雖然各家資料庫所提供的 SQL 語法在功能上會略有差異，但基本的功能都是符合于 ANSI SQL-92。SQL 
+  的設計基本上是模仿英文的自然語法，因此在入門上較為容易。</p>
+  <p style="line-height: 150%; ">
+  SQL 指令最常用的四個基本查詢動作，即：查詢、新增、修改、刪除，因此將來所設計的 ASP 程式，也通常會包含這四種功能。
+  </p>
+    <p style="line-height: 150%; ">
+    （一）、查詢資料：若要查詢資料庫的資料，使用的 SQL 指令是「SELECT」，基本語法如下：</p>
+<p style="line-height: 150%; ">
+          SELECT 
+          欄位名稱1,欄位名稱2... FROM 資料表名稱1,資料表名稱2... WHERE 條件式 ORDER BY 
+          欄位名稱1<span lang="en-us">&nbsp;</span>DESC(降冪排序),欄位名稱2... </p>
+          <ul>
+            <li>
+            <p style="line-height: 150%; ">
+            SELECT：要查詢的資料欄位，各欄位之間以逗號隔開，若所有欄位都要讀取，可以使用通配字元 * 符號。</li>
+			<li>
+            <p style="line-height: 150%; ">
+            FROM：要查詢的資料表，各資料表之間以逗號隔開。</li>
+            <li>
+            <p style="line-height: 150%; ">
+            WHERE：設定查詢的條件式。</li>
+            <li>
+            <p style="line-height: 150%; ">
+            ORDER BY： 
+            設定要排序的欄位，可將查詢的資料依照想要排序的資料表欄位加予排序，指定多個欄位時，就要以欄位名稱1排序，若其資料相同則再依欄位名稱2排序，依此類推，各欄位名稱之間以逗號隔開。</li>
+          </ul>
+            <p style="line-height: 150%; ">
+            範例如下：</p><table border="1" width="100%" id="table39">
+	<tr>
+		<td>SQLString = &quot;select * from SEMP order by
+              <span lang="en-us">SEX</span> desc<span lang="en-us">,NAME</span>&quot;</td>
+	</tr>
+</table>
+            <p style="line-height: 150%; ">
+            →排序：區分為降冪與升冪兩種，上例為選取 SEMP 這個資料表的所有內容，並先照性別降冪排序（男生排前面）再依照姓名筆劃排序</p>
+            <p style="line-height: 150%; ">
+            在進行條件比對時，如果比對的欄位是數字欄位，則不加識別符號，例如：<span lang="en-us">where money &gt;= 
+            3000</span>，如果該欄位為文字欄位，必須使用<span lang="en-us"> ' </span>來標示，例如：<span lang="en-us">where 
+            NAME = </span>'張三'，如果是比對日期欄位，則用<span lang="en-us"> 
+            # </span>來標示，例如：<span lang="en-us">where post_date &gt;= </span>
+            #<span lang="en-us">2003/04/15</span>#</p>
+<table border="1" width="100%" id="table40">
+	<tr>
+		<td>SQLString = &quot;select * from SEMP where <span lang="en-us">NAME 
+		Like '</span>李%<span lang="en-us">'</span>&quot;</td>
+	</tr>
+</table>
+            <p style="line-height: 150%; ">
+            →文字欄位模糊比對：使用<span lang="en-us"> 
+            Like </span>敘述配合<span lang="en-us"> % </span>符號來比對，上例用來比對 NAME 
+			欄位中第一個字是&quot;李&quot;的所有記錄，如果要比對結尾是否為<span lang="en-us"> 
+            &quot;</span>憲<span lang="en-us">&quot;</span>，<span lang="en-us">where NAME
+            </span>Like<span lang="en-us"> 
+            '</span>%憲<span lang="en-us">'</span>，比對是否含有<span lang="en-us"> 
+            &quot;</span>忠<span lang="en-us">&quot;</span>，<span lang="en-us">where NAME
+            </span>Like <span lang="en-us">'</span>%忠%<span lang="en-us">'</span></p>
+<table border="1" width="100%" id="table41">
+	<tr>
+		<td>
+		<p style="line-height: 150%; ">
+              SQLString = &quot;select * from BCLASS where SYEAR='&quot; 
+              &amp; stryear &amp; &quot;' and SEME='&quot; 
+              &amp; strseme &amp; &quot;' and
+              <span lang="en-us">left(</span>CLASSNO<span lang="en-us">,1) in 
+              ('3','4','5','6')</span> &quot;</td>
+	</tr>
+</table>
+            <p style="line-height: 150%; ">
+            →集合比對：用來比對欄位的值是否為集合中所列舉的其中一個，這可以運用在任何資料類型的欄位上，上例選取 BCLASS 資料表內的所有資料但是 SYEAR 必須
+			等於 stryear 變數的值(學年)，且 SEME 必須等於 strseme 變數的值(學期),且 CLASSNO (班級代號)為<span lang="en-us"> 3,4,5,6 </span>
+            其中任一個字元</p>
+    <p style="line-height: 150%; ">
+    <font color="#808080">作業：請找出底下的語法哪裡錯誤：</font></p>
+    <p style="line-height: 150%; ">
+    <font color="#808080">SQLString = &quot;select * from <span lang="en-us">SEMP</span> where 
+    <span lang="en-us">NAME </span>=<span lang="en-us"> </span>'&quot; &amp; 
+    <span lang="en-us">firstname</span> &amp; &quot;<span lang="en-us">%</span>' and
+    <span lang="en-us">EMPID</span>=&quot;<span lang="en-us"> &amp; strid</span></font></p>
+    <p style="line-height: 150%; ">　</p>
+<p style="line-height: 150%; ">
+            （二）、合併查詢：當資料分布在多個資料表中，就必須使用合併查詢，合併查詢意思是將兩個資料表先合併成一個，然後再進行條件過濾，篩選出想找的資料記錄，依照合併方式的不同，又分為外部合併（<span lang="en-us">outter 
+            join</span>）和內部合併（<span lang="en-us">inner join</span>），假設有兩個資料表，前者有十筆紀錄，後者也有十筆紀錄，兩者以學號來互相關聯，進行外部合併時，會將兩個資料表相乘，得到一個<span lang="en-us"> 
+            100 </span>
+            筆紀錄的新資料表，接著再逐筆過濾學號是否一樣；如果進行內部合併，則先以學號作為索引，將兩資料表中相同索引的紀錄合併為一筆，最後得到一個十筆紀錄的資料表。</p>
+            <p style="line-height: 150%; ">
+            由於內部合併比較省記憶體，而且如果欄位索引事先已經做好，其合併效能遠高於外部合併，因此底下僅介紹內部合併的方法：</p>
+<table border="1" width="100%" id="table42">
+	<tr>
+		<td>SQLString = &quot;select A.CLASSNO,A.SEAT,B.NAME,B.SEX 
+              from BSTD_SEME
+              A join
+              BSTD B
+              on A.STDNO=B.STDNO 
+              where A.SYEAR='&quot; 
+              &amp; stryear &amp; &quot;' and A.SEME='&quot; 
+              &amp; strseme &amp; &quot;' and A.STD_STATUS='1' and right(B.BIRTHDAY,4) 
+              = '&quot; &amp; my_today &amp; &quot;' order by A.CLASSNO&quot;</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+            →把 BSTD_SEME 這個資料表命名為<span lang="en-us"> </span>A，把 BSTD 這個資料表命名做<span lang="en-us">
+            </span>B，我要以<span lang="en-us"> </span>A、B<span lang="en-us"> </span>資料表裡面都有的<span lang="en-us">
+            </span>STDNO<span lang="en-us"> </span>欄位(學號)當作索引來合併資料表。並篩選出<span lang="en-us">
+            </span>A<span lang="en-us"> </span>的學年期和現在的學年期相等，而且學生的狀況為在學<span lang="en-us">
+            </span>(A.STD_STATUS='1')<span lang="en-us">
+            </span>的學生，而且<span lang="en-us"> </span>B<span lang="en-us"> </span>資料表上的<span lang="en-us">
+            </span>BIRTHDAY<span lang="en-us"> </span>欄位的後四碼是今天，找出來以後照年級來排序。</p>
+    <p style="line-height: 150%; ">
+    <font color="#808080">作業：如果要從 BSTD 學生學籍資料表及 BSTD_SEME 
+	學生編班資料表，找出今天的所有壽星並顯示就讀班級和姓名， SQL 命令應該怎麼寫？（提示：可用 SQL 企業管理員中的資料表查詢精靈來自動產生）</font></p>
+    <p style="line-height: 150%; ">　</p>
+    <p style="line-height: 150%; ">
+    (三)、新增資料：若要新增資料庫的資料，使用的 SQL 指令是「INSERT」，基本語法如下：</p>
+          <p style="line-height: 150%; ">
+          INSERT 
+          INTO 資料表名稱(欄位名稱1,欄位名稱2,...) VALUES ('欄位1的資料','欄位2的資料',...) </p>
+          <ul>
+            <li>
+            <p style="line-height: 150%; ">
+            INSERT INTO：要插入資料的資料表，每次只能處理一個資料表。</li>
+			<li>
+            <p style="line-height: 150%; ">
+            （）：列舉要填入資料的欄位，有些欄位會根據預設值自行產生資料，例如：索引欄設為自動編號或日期欄設為 getdate()，又或是某些欄位允許 
+			NULL，像這樣的欄位都不須列舉。如果所有欄位都要填入資料，可以省略（）不寫。</li>
+            <li>
+            <p style="line-height: 150%; ">
+            VALUES：要寫入欄位的原始資料，請根據欄位類型使用適當的引號。</li>
+          </ul>
+            <p style="line-height: 150%; ">
+            範例如下：</p>
+            <table border="1" width="100%" id="table44">
+	<tr>
+		<td>SQL= &quot;INSERT INTO teacher (name,phone,address,birth) VALUES 
+            ('黃自強','28975966','新民路2號','19940101')&quot;</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+            →插入資料到 teacher 資料表中，在 name 欄位填入字串：黃自強，phone 欄位填入：28975966，依此類推。</p>
+<p  style="line-height: 150%; "></p>
+<p  style="line-height: 150%; "></p>
+<p  style="line-height: 150%; "></p>
+<p  style="line-height: 150%; "></p>
+<p style="line-height: 150%; ">
+    　</p>
+<p style="line-height: 150%; ">
+    (四)、修改資料： 若要修改資料庫的資料，使用的 SQL 指令是「UPDATE」，基本語法如下： </p>
+          <p style="line-height: 150%; ">
+          UPDATE 
+          資料表名稱 
+          SET 欄位名稱1='欄位1的資料',欄位名稱2='欄位2的資料',... WHERE 條件式 </p>
+          <ul>
+            <li>
+            <p style="line-height: 150%; ">
+            UPDATE：要修改資料的資料表，每次只能處理一個資料表。</li>
+			<li>
+            <p style="line-height: 150%; ">
+            SET：指派新資料給要修改資料的欄位，請根據欄位類型使用適當的引號。</li>
+            <li>
+            <p style="line-height: 150%; ">
+            WHERE：判斷哪一筆紀錄需要修改資料，如果條件判斷式忘記寫，那麼資料表內的所有紀錄都會被修改。</li>
+          </ul>
+            <p style="line-height: 150%; ">
+            範例如下：</p>
+            <table border="1" width="100%" id="table47">
+				<tr>
+					<td>SQL= 
+          &quot;UPDATE&nbsp; teacher SET name='黃自強' WHERE phone='28975966' AND 
+          			birth='640101' &quot;</td>
+				</tr>
+</table>
+<p style="line-height: 150%; ">
+            →找到 phone 欄位資料為 28975966 且 birth 欄位為 640101 的紀錄，將該紀錄 name 欄位改為黃自強。</p>
+    <p style="line-height: 150%; ">
+　</p>
+    <p style="line-height: 150%; ">
+    (四)、刪除資料： 
+    若要刪除資料庫的資料，使用的 SQL 指令是「DELETE」，基本語法如下：</p>
+<p style="line-height: 150%; ">
+          DELETE 
+          FROM 資料表名稱 WHERE 條件式</p>
+          <ul>
+            <li>
+            <p style="line-height: 150%; ">
+            DELETE FROM：要刪除資料的資料表。</li>
+            <li>
+            <p style="line-height: 150%; ">
+            WHERE：判斷要刪除哪些資料紀錄，如果條件判斷式忘記寫，那麼資料表內的所有紀錄都會被刪除。</li>
+          </ul>
+            <p style="line-height: 150%; ">
+    範例如下：</p>
+<table border="1" width="100%" id="table48">
+	<tr>
+		<td>sql = &quot;Delete from 
+          award_question where id=&quot; &amp; id</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+            →在 award_question 資料表中找到 id 欄位等於 id 變數值的記錄，將該紀錄刪除。</p>
+            <p style="line-height: 150%; ">
+    一次刪除多筆資料，範例如下：</p>
+<table border="1" width="100%" id="table49">
+	<tr>
+		<td>sql = &quot;Delete from 
+          emp where usename=password&quot;</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+            →在 emp 資料表中找到 username 欄位資料與 password 欄位資料相同的記錄，將符合條件的所有紀錄刪除。</p>
+    <p style="line-height: 150%; ">
+    <br>
+    (五)、注意事項：</p>
+      <ul>
+        <li>
+        <p style="line-height: 150%; ">
+        資料表及欄位名稱最好是使用英文命名，中間不要有空白，以增加平台遷移的相容性。</li>
+		<li>
+        <p style="line-height: 150%; ">
+        安裝 SQL 伺服器時如果使用二進位定序，將造成資料表及欄位名稱會區分大小寫，在寫作 ASP 程式時須特別小心。</li>
+        <li>
+        <p style="line-height: 150%; ">
+        欄位名稱最好使用意義完整的名稱，且避免和資料庫的內建關鍵字相衝。（例如 index 
+        就不是一個適合的欄位名稱，因為是資料庫的內建關鍵字。） </li>
+        <li>
+        <p style="line-height: 150%; ">
+        在 SQL 
+        伺服器上執行 SQL 指令時，可使用的通配字元如下： 「_」：代表一個任意字元 「%」：代表任意多個任意個字元。</li>
+        <li>
+        <p style="line-height: 150%; ">
+        在 Access 檔案上執行 
+        SQL 指令時，使用的通配字元為 「?」：比對一個任意字元 「*」：比對多個任意字元。</li>
+        <li>
+            <p style="line-height: 150%; ">
+            當在<span lang="en-us"> ASP </span>程式中組合<span lang="en-us"> </span>
+            SQL<span lang="en-us"> </span>敘述時，通常會使用變數來代入比對條件，這時候必須將<span lang="en-us">
+            </span>SQL<span lang="en-us"> </span>
+            字串與變數連接起來，方法是先用雙引號來標示兩段字串的範圍，然後用〝&amp;〞符號來連接字串，特別是在 SQL<span lang="en-us">
+            </span>敘述中進行文字欄位的比對時，不要忘記在變數值的前後，額外多用單引號來標示，此單引號為<span lang="en-us"> 
+            SQL </span>語法的一部分，因此必須放在雙引號之內。通常我們會先把整句 SQL 語法寫完整後，然後再將變數逐個放入整個 SQL 字串內，這樣一來就不容易出錯。
+			例如：</p>
+		<table border="1" width="100%" id="table51">
+			<tr>
+				<td>
+				<p style="line-height: 150%">SQLString = &quot;select * from BCLASS where SYEAR='&quot; &amp; stryear &amp; &quot;' and
+				<span lang="en-us">SEME</span>=<span lang="en-us">'</span>&quot;<span lang="en-us"> 
+            &amp; strseme &amp; &quot;'&quot;</span></td>
+			</tr>
+		</table>
+		</li>
+		<li>
+		<p style="line-height: 150%; ">當 SQL 字串太長可以分成兩段來連接：</p>
+		<table border="1" width="100%" id="table52">
+			<tr>
+				<td>SQLString = &quot;select * from BCLASS where SYEAR='&quot; &amp; stryear
+				<br>
+				SQLString = SQLString &amp; &quot;' and <span lang="en-us">SEME</span>=<span lang="en-us">'</span>&quot;<span lang="en-us"> 
+            &amp; strseme &amp; &quot;'&quot;</span></td>
+			</tr>
+		</table>
+		</li>
+		<li>
+		<p style="line-height: 150%; ">偵錯：當我們執行 SQL 語句發生錯誤時，會先把程式中的 SQL 字串印在網頁上，然後中止程式。例如：</p>
+		<table border="1" width="100%" id="table50">
+			<tr>
+				<td>&lt;%<br>SQLString = &quot;select * from BCLASS where SYEAR='&quot; &amp; stryear &amp; &quot;' and
+				<span lang="en-us">SEME</span>=<span lang="en-us">'</span>&quot;<span lang="en-us"> 
+            &amp; strseme &amp; &quot;'&quot;<br></span>response.write SQLString<br>response.end<br>%&gt;</td>
+			</tr>
+		</table></li>
+		<li>
+		<p style="line-height: 150%; ">MS Access 
+        並不是大型企業用的後端資料庫，因為效率並不是很好，但是對於小型的網路應用而言，Access 已經夠用了。MS SQL2000 Server 
+        是微軟推出的資料庫引擎，專門對付大型的網路應用，台北市每所國中小在校務行政標案中都有購買。</li>
+      </ul>
+<p style="line-height: 150%; ">底下的範例程式，將示範如何讀取校務行政資料庫，將教職員工清單顯示在網頁上：</p>
+<table border="1" width="100%" id="table86">
+	<tr>
+		<td>&lt;%<br>
+		conn_string=&quot;DRIVER={SQL Server};SERVER=172.16.1.18;&quot;<br>
+        conn_string=conn_string &amp; &quot;DATABASE=spps;UID=sa;PWD=xxxx&quot;<br>
+		SET myconn=Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+    myconn.Open
+      <span style="vertical-align: baseline; letter-spacing: 1pt">conn_string<br>
+        SET myrs=myconn.Execute(&quot;select * from SEMP&quot;)<br>
+        WHILE NOT myrs.EOF %&gt;<br>
+        姓名:&lt;% =myrs(&quot;NAME&quot;) %&gt;|身分證字號：&lt;% =myrs(&quot;ID&quot;) %&gt;&lt;br&gt;&nbsp; <br>
+        &lt;%&nbsp; myrs.MoveNext<br>
+        WEND<br>
+		%&gt;</span></td>
+	</tr>
+</table>
+<p style="line-height: 150%; "><font color="#808080">作業：請改寫上面的程式不要顯示 WINNER 和 
+ZZZZZ 兩筆記錄！提示：使用集合比對技巧　NOT 欄位名稱 IN ('WINNER','ZZZZZ')</font></p>
+<p style="line-height: 150%; ">　</p>
+<h2 style="line-height: 150%; ">專案實作</h2>
+  
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">作業：寫一套〔網站有獎徵答〕的程式，提供校內老師都可以出題，所有學生可挑選適合的問題來回答。</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">題目是以學校推動的宣導事項、圖書館利用教學、網路查資料等主題為主。以這個有獎徵答的程式寫作計劃來看，我們開發這一套程式的〝手順〞可以安排成：</p>
+<div style="border-style: solid; border-width: 1; padding-left: 4; padding-right: 4; padding-top: 1; padding-bottom: 1">
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="center">繪出程式運作流程 → 設計資料庫 → 設計網頁介面 → 填入 ASP 程式碼 → 實際測試程式</div>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">寫作 ASP 程式的步驟建議如下：</p>
+<ol>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">繪製程式運作流程圖，即使隨手只能取到餐巾紙。</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">根據程式需求，設計資料
+	表，決定資料表名稱、欄位名稱、各欄位的資料型態、索引鍵值...等相關設定。</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">先用 FrontPage 等 WYSWYG 網頁編輯軟體把會用到的網頁純 
+	HTML 
+    使用者介面設計好，例如：清單、新增、刪除、修改等網頁。</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">開始撰寫（填入）ASP 程式碼。</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">測試程式。</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8" align="left">美工配色等美化工程(通常交給美工管理人員)。</li>
+</ol>
+<h3 style="line-height: 150%; ">1.繪製流程圖:</h3>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <img border="0" src="ASP/images/chart.gif" width="761" height="547"></p>
+  <p style="line-height: 150%; ">　</p>
+    <h3 style="line-height: 150%; ">
+	2.設計有獎徵答的資料庫</h3>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">程式架構好了以後要做的就是把需要用的資料表設計完成。要直接用 SQL Server 開發資料庫程式的話，我們需要到 SQL Server 
+    主機上開資料庫和設計資料表，或使用遠端遙控軟體來開設資料庫。</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">請到有安裝 SQL Server 的機器上，從開始功能表開啟 SQL Enterprise Manager 
+    (企業管理員)，並按滑鼠右鍵，新增一個資料庫，例如：spps（spps是石牌國小的縮寫）。接著手動建立程式需要的兩個新資料表。</p>
+    <p style="line-height: 150%; ">
+    <img border="0" src="ASP/images/ASP.as1.jpg" width="286" height="338">&nbsp;
+    <img border="0" src="ASP/images/ASP.as11.jpg" width="318" height="430"></p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">根據程式提供的功能所需，設計各個資料的欄位屬性，如下：</p>
+<table border="1" width="100%" id="table57">
+	<tr>
+		<td colspan="5">資料表：award_answer</td>
+	</tr>
+	<tr>
+		<td>欄位名稱</td>
+		<td>資料型態</td>
+		<td>長度</td>
+		<td>可否 NULL</td>
+		<td>備註</td>
+	</tr>
+	<tr>
+		<td>id</td>
+		<td>int</td>
+		<td>4</td>
+		<td>NOT</td>
+		<td>題目編號，請設定此欄位為引鍵</td>
+	</tr>
+	<tr>
+		<td>stdno</td>
+		<td>nvarchar</td>
+		<td>12</td>
+		<td>NOT</td>
+		<td>學生學號</td>
+	</tr>
+	<tr>
+		<td>classno</td>
+		<td>char</td>
+		<td>5</td>
+		<td>NOT</td>
+		<td>學生班級</td>
+	</tr>
+	<tr>
+		<td>student</td>
+		<td>nvarchar</td>
+		<td>12</td>
+		<td>NOT</td>
+		<td>學生姓名</td>
+	</tr>
+	<tr>
+		<td>answer</td>
+		<td>nvarchar</td>
+		<td>100</td>
+		<td>NOT</td>
+		<td>學生填的答案</td>
+	</tr>
+	<tr>
+		<td>correct</td>
+		<td>bit</td>
+		<td>1</td>
+		<td>　</td>
+		<td>是否正確，這個欄位是邏輯值所以使用 bit 格式</td>
+	</tr>
+	<tr>
+		<td>ans_date</td>
+		<td>datetime</td>
+		<td>8</td>
+		<td>　</td>
+		<td>學生填答的日期，請把欄位預設值設為 getdate()</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+    <img border="0" src="ASP/images/ASP.as6.gif" width="610" height="366"></p>
+    <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+    請將資料表存檔並命名為award_answer</p>
+    <p style="line-height: 150%; ">
+    <img border="0" src="ASP/images/ASP.as8.gif" width="335" height="116"></p>
+    <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+    另外再依照以下範例，設計另一個老師出題用的資料表：</p>
+<table border="1" width="100%" id="table58">
+	<tr>
+		<td colspan="5">資料表：award_question</td>
+	</tr>
+	<tr>
+		<td>欄位名稱</td>
+		<td>資料型態</td>
+		<td>長度</td>
+		<td>可否 NULL</td>
+		<td>備註</td>
+	</tr>
+	<tr>
+		<td>id</td>
+		<td>int</td>
+		<td>4</td>
+		<td>NOT</td>
+		<td>題目編號，它是唯一索引鍵值，請設定此欄位為識別欄位</td>
+	</tr>
+	<tr>
+		<td>grade</td>
+		<td>int</td>
+		<td>1</td>
+		<td>NOT</td>
+		<td>題目給低中高年級哪個年級答?<br>
+		全校：0、 低年級：1、中年級：2、高年級：3</td>
+	</tr>
+	<tr>
+		<td>question</td>
+		<td>nvarchar</td>
+		<td>100</td>
+		<td>NOT</td>
+		<td>老師出的題目內容</td>
+	</tr>
+	<tr>	
+		<td>correct</td>
+		<td>nvarchar</td>
+		<td>100</td>
+		<td>NOT</td>
+		<td>正確答案</td>
+	</tr>
+	<tr>
+		<td>start_date</td>
+		<td>datetime</td>
+		<td>8</td>
+		<td>NOT</td>
+		<td>開始日期</td>
+	</tr>
+	<tr>
+		<td>end_date</td>
+		<td>datetime</td>
+		<td>8</td>
+		<td>NOT</td>
+		<td>結束日期</td>
+	</tr>
+	<tr>
+		<td>post_date</td>
+		<td>datetime</td>
+		<td>8</td>
+		<td>　</td>
+		<td>張貼日期，請把欄位預設值設為 getdate()</td>
+	</tr>
+	<tr>
+		<td>num</td>
+		<td>int</td>
+		<td>4</td>
+		<td>　</td>
+		<td>填答人數，請把欄位預設值設為 0</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+    <img border="0" src="ASP/images/ASP.as9.gif" width="610" height="366"></p>
+<p style="line-height: 150%; ">
+    　</p>
+<h3 style="line-height: 150%; ">
+3.有獎徵答網頁介面設計</h3>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">我們需根據程式運作流程圖，來設計製作各個頁面：</p>
+<table border="1" cellpadding="3" style="border-collapse: collapse" bordercolor="#111111" width="85%" id="table54" height="282">
+	<tr>
+		<td width="22%" align="left" height="27" bgcolor="#ECECFF">
+		<p align="center">ASP 檔名</td>
+		<td width="78%" align="center" height="27" bgcolor="#ECECFF">功能</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/default.asp</td>
+		<td width="78%" height="16">主網頁：秀出目前的題目／登入按鈕／管理員可新增題目。學生可登入／選答／看排行榜連結</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/sort.asp</td>
+		<td width="78%" height="16">目前已經結束徵答的答對的學生他們的答對次數排行榜</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/list.asp</td>
+		<td width="78%" height="16">列出某一題目答對的學生他們的答對次數排行榜</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/manager.asp</td>
+		<td width="78%" height="16">列出老師能新增、刪除、和修改問題的表單，點題目的話可以審核學生的答案是否正確</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/addnew.asp</td>
+		<td width="78%" height="16">新增有獎徵答的問題用的表單，需有題目、答案、張貼日、開始日期、結束日期等資訊</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/delete.asp</td>
+		<td width="78%" height="16">刪除一題</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/edit.asp</td>
+		<td width="78%" height="16">編輯已經出過的題目、答案和日期</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/check.asp</td>
+		<td width="78%" height="16">列出學生回答的答案，來讓老師查核學生答案的程式</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/answer.asp</td>
+		<td width="78%" height="16">學生填寫答案的表單頁面</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/thanx.asp</td>
+		<td width="78%" height="16">感謝語，寫入學生回答的答案、自動寄發電子郵件給管理老師的程式</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/award/save.asp</td>
+		<td width="78%" height="16">新增和修改資料後存入資料庫的程式</td>
+	</tr>
+	<tr>
+		<td width="22%" height="15" align="left">/check.asp</td>
+		<td width="78%" height="15">檢查使用者id 和 password 的表單</td>
+	</tr>
+	<tr>
+		<td width="22%" height="16" align="left">/check2.asp</td>
+		<td width="78%" height="16">利用校務行政資料庫來比對老師、學生的帳號密碼，和認證的Session 處理</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+請先把下面幾個ASP網頁介面製作完成:</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+<font color="#0000FF" face="Arial"><b><font size="5">default.asp</font></b></font><font size="2"><b><font color="#0000FF" face="Arial" size="5">：</font></b></font><font color="#0000FF" face="Arial"><b><font size="5">有獎徵答首頁</font></b></font></p>
+<p style="line-height: 150%; ">
+<img border="0" src="ASP/images/ASP.41.gif" width="453" height="375"></p>
+<table border="1" width="100%" id="table59">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;有獎徵答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;table id=&quot;AutoNumber1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+  &lt;td&gt;&lt;h1&gt;《網路有獎徵答》&lt;/h1&gt;&lt;/td&gt;<br>
+  &lt;a href=&quot;manager.asp&quot;&gt;&lt;/a&gt;&lt;/td&gt;<br>
+  &lt;/tr&gt;&lt;tr&gt;<br>
+  &lt;td&gt;&lt;font size=&quot;3&quot; color=&quot;#385B96&quot;&gt;§ &lt;a href=&quot;sort.asp&quot;&gt;得獎排行榜&lt;/a&gt;&lt;/td&gt;<br>
+  &lt;td&gt;&lt;a href=&quot;manager.asp&quot;&gt;管理&lt;/a&gt;<&lt;/td&gt;<br>
+  &lt;td&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;　&lt;/td&gt;<br>&lt;a href=&quot;answer.asp?id=1&quot;&gt;我要答&lt;/a&gt;&lt;br&gt;<br>
+  &lt;a href=&quot;list.asp?id=1&quot;&gt;得獎名單&lt;/a&gt;<br>
+  &lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</font></p>
+  		</td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; ">
+  <b>
+  <font color="#0000FF" face="Arial"><font size="5">manager.asp：老師的管理頁面</font></font></b></p>
+<p style="line-height: 150%; ">
+  <b>
+  <font size="2" color="#0000FF" face="Arial">
+	<img border="0" src="ASP/images/ASP.42.gif" width="480" height="417"></font></b></p>
+<table border="1" width="100%" id="table60">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;有獎徵答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;管理選項&lt;/h1&gt;<br>
+  &lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;<br>
+	&lt;table border=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;&lt;td&gt;<br>
+	期別&lt;/td&gt;&lt;td&gt;對象&lt;/td&gt;&lt;td&gt;題目（點題目審閱）&lt;/td&gt;&lt;td&gt;作答人數&lt;/td&gt;&lt;td&gt;&lt;a href=&quot;addnew.asp&quot;&gt;新增題&lt;/a&gt;<br>
+	&lt;/td&gt;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;　&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;a href=checkit.asp?id=1&gt;這裡是題目&lt;/a&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=edit.asp?id=1&gt;修改&lt;/a&gt;　<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=delete.asp?id=1&gt;刪除&lt;/a&gt;&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=list.asp?id=1&gt;得獎名單&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;<br>
+  &lt;/center&gt;&lt;/body&gt;&lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial"><b><font size="5">addnew.asp：新增題目</font></b></font></p>
+<p style="line-height: 150%; ">
+	<img border="0" src="ASP/images/ASP.43.gif" width="596" height="596"></p>
+<table border="1" width="100%" id="table61">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;新增題目&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;&lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;新增題目&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  第一期有獎徵答<br>
+  &lt;form method=&quot;POST&quot; action=&quot;save.asp&quot;&gt;<br>
+  &lt;input type=hidden name=id 
+  value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;&lt;td &gt;適用階段&lt;/td&gt;<br>
+  &lt;td &gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;grade&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;0&quot;&gt;低年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;1&quot;&gt;中年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;2&quot;&gt;高年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;3&quot;&gt;全校&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt; <br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt;<br>
+  &lt;td &gt;題目是&lt;/td&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;textarea rows=&quot;5&quot; name=&quot;quiz&quot; 
+  cols=&quot;33&quot;&gt;&lt;/textarea&gt; &lt;/td&gt; <br>
+  &lt;/tr&gt; <br>
+  &lt;tr&gt;&lt;td&gt;正確答案&lt;/td&gt;&lt;td &gt;&lt;input type=&quot;text&quot; name=&quot;correct&quot; size=&quot;35&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+  <br>
+  &lt;tr&gt;&lt;td &gt;開始日期&lt;/td&gt;&lt;td &gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option selected value=&quot;1
+&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt;&lt;td &gt;結束日期&lt;/td&gt;<br>
+&lt;td &gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option selected value=&quot;1&quot;&gt;
+1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+&lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt; <br>
+  &lt;td &gt;公告日期&lt;/td&gt; <br>
+  &lt;td &gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option selected value=&quot;
+1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/center&gt; <br>
+&lt;p align=&quot;center&quot;&gt; <br>
+  &lt;input type=&quot;submit&quot; value=&quot;存檔&quot; name=&quot;B1&quot;&gt;　&lt;input type=&quot;reset&quot; value=&quot;重寫&quot; 
+  name=&quot;B2&quot;&gt;&lt;/p&gt; <br>
+  &lt;/form&gt; <br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;&lt;/body&gt; &lt;/html&gt;</font></td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+<font size="2">
+  <b><font color="#0000FF" face="Arial" size="5">save.asp：各種動作的存檔程式</font></b></font></p>
+<table border="1" width="100%" id="table62">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%　&nbsp; ' 權限判斷<br>
+	&nbsp; ' 去除使用者輸入的表單傳來的資料中，潛藏有<span lang="en-us"> </span>SQL<span lang="en-us">
+  </span>隱碼攻擊可能的單引號字串<br>
+  &nbsp; ' 因為表單上使用國曆年給管理人員點選，寫入資料庫時，必須改為西元，因此要經過轉換<br>
+  &nbsp; ' 根據表單傳來的資料，組合<span lang="en-us"> </span>SQL<span lang="en-us">
+  </span>語法<br>
+  &nbsp; ' 如果資料記錄是空的(沒有這個 id ,表示資料庫中沒有這個題目,動作一定是新增)<br>
+  &nbsp; ' 
+  就把後面要執行的 sql 字串變數,寫成插入新的 id、年級、題目、答案、日期等資料到資料表 award_question 中<br>
+  &nbsp; ' 否則就寫成更新資料到資料表 award_question 中<br>
+  &nbsp; ' 
+  執行sql命令<br>
+  &nbsp; ' 
+  把網頁轉到〝管理頁面〞<br>
+  %&gt;</font></p>
+  		</td>
+	</tr>
+</table>
+<font size="2">
+  </font>
+  <p style="line-height: 150%; ">
+  　</p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="5" color="#0000FF" face="Arial"><b>answer.asp</b></font><font size="2"><b><font color="#0000FF" face="Arial" size="5">：</font></b></font><font size="5" color="#0000FF" face="Arial"><b>學生填答的表單</b></b></font></p>
+  <p><img border="0" src="ASP/images/ASP.44.gif" width="633" height="611"></p>
+<table border="1" width="100%" id="table63">
+	<tr>
+		<td>
+  <p style="word-spacing: 1px"><font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;我要回答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1&gt;我會回答問題&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  &lt;p&gt;&lt;font color=&quot;blue&quot;&gt;xx小朋友請注意以下規則：&lt;/p&gt;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.每人只能回答一次，無法反悔改答案&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.請多利用圖書館或網路尋找答案&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.請不要替他人作答或洩漏答案，影響比賽的公平性&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.所有的成績會在期末統計,並頒發獎品給答對最多題目的同學&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.現有獎品:李忠憲老師提供 PS2 五台 , XBOX 三台 &lt;br&gt;<br>
+  如果已經回答<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;marquee 
+  behavior=&quot;alternate&quot;&gt;你已經答過這題了，不可以修改或再次作答！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/marquee&gt;&lt;a 
+  href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本期題目：&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我的答案是：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form 
+  method=&quot;POST&quot; action=&quot;thanx.asp&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;input 
+  type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;textarea 
+  rows=&quot;5&quot; name=&quot;answer&quot; cols=&quot;45&quot; &gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  我是xxxx,我的答案是:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/textarea&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;input type=&quot;submit&quot; value=&quot;寫好了，幫我儲存&quot; name=&quot;B1&quot;&gt;　&lt;input 
+  type=&quot;reset&quot; value=&quot;重寫&quot; name=&quot;B2&quot;&gt;&lt;/form&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;</font></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5">
+  <b>
+  thanx.asp：寫入資料庫並寄發eamil 通知管理老師</b></font></p>
+  <p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.45.gif" width="653" height="563"></p>
+<table border="1" width="100%" id="table64">
+	<tr>
+		<td>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  ---------寄發email部分</p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;meta http-equiv='Content-Type' 
+  content='text/html; charset=big5'&gt;&lt;/head&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;body&gt;&lt;table border=0&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;tr&gt;&lt;td&gt; ■答題學生姓名：&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;&lt;td&gt;有獎徵答學生填答通知&lt;/td&gt;&lt;/tr&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;tr&gt;&lt;td&gt;■學生email：&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;&lt;td&gt;【題目=xxxxx】學生的答案：&lt;/td&gt;&lt;/tr&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;tr&gt;&lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;a href = 
+  'http://www.xxps.tp.edu.tw/checkt.asp?topage=/award/manager.asp'&gt;○請出題老師在活動截止前點這裡前往審核○&lt;/a&gt;<br>
+  &lt;/td&gt;&lt;/tr&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;tr&gt;&lt;td align=right&gt;&lt;font color= red &gt;寄發時間：&lt;/tr&gt;&lt;/table&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  ---------寄發email部分</p>
+  ---------網頁部分<font size="2" face="Arial"><font color="#FF0000"><br>
+  </font>&lt;html&gt;&lt;head&gt;&lt;title&gt;謝謝您的作答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;謝謝您參加xx國小有獎徵答作答&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;b&gt;&lt;font color=&quot;#385B96&quot;&gt;您的答案已經存入資料庫，請等待截止日期老師審查
+  ，於<font color="#800000">[結束日期]</font>後才會公佈正確答案及得獎名單！並於期末頒獎&lt;/b&gt;&lt;/p&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;<br>
+  </font>---------網頁部分</td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <b>
+  <font color="#0000FF" face="Arial" size="5">edit.asp</font></b><font color="#0000FF" face="Arial" size="5"><b>：</b></font><b><font color="#0000FF" face="Arial" size="5">出題老師編修題目用 </font></b>
+  <font face="Arial" size="5">(</font><font face="Arial">和addnew.asp很像，可以複製addnew.asp來修改)</font></p>
+  <p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.46.gif" width="592" height="603"></p>
+<table border="1" width="100%" id="table65">
+	<tr>
+		<td>
+  <font face="Arial" size="2">&lt;html&gt;&lt;head&gt;&lt;title&gt;編修題目&lt;/title&gt;&lt;/head&gt;<br>
+  		&lt;body&gt;<br>
+  		&lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;新增題目&lt;/font&gt;&lt;/h1&gt;&lt;hr&gt;<br>
+  		第一期有獎徵答<br>
+		&lt;form method=&quot;POST&quot; action=&quot;save.asp&quot;&gt;<br>
+  		&lt;input type=hidden name=id value=&quot;1&quot;&gt;<br>
+  		&lt;div align=&quot;center&quot;&gt;&lt;center&gt;<br>
+  		&lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  		&lt;tr&gt;<br>
+  		&lt;td&gt;適用年段&lt;/td&gt;<br>
+  		&lt;td&gt;<br>
+  		&lt;select size=&quot;1&quot; name=&quot;grade&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;0&quot;&gt;低年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;1&quot;&gt;中年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;2&quot;&gt;高年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;3&quot;&gt;全校&lt;/option&gt;<br>
+  		&lt;/select&gt; <br>
+  		&lt;/td&gt;&lt;/tr&gt; <br>
+  		&lt;tr&gt;<br>
+  		&lt;td&gt;題目是&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;textarea rows=&quot;5&quot; name=&quot;quiz&quot; cols=&quot;33&quot;&gt;資料庫裡的題目&lt;/textarea&gt;<br>
+  		&lt;/td&gt;<br>
+  		&lt;/tr&gt;<br>
+  		&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;input type=&quot;text&quot; name=&quot;correct&quot; size=&quot;35&quot; value=&quot;正確的答案&quot;&gt;<br>
+  		&lt;/td&gt;<br>
+  		&lt;/tr&gt;<br>
+  		&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;開始日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+		&nbsp;</font><font size="2"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年</font><p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+	selected value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日 </font></p>
+  </font>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial" size="2">&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;結束日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+  </font><font size="2">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+	selected value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日 </font></p>
+  </font>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial" size="2">&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;公告日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+  </font><font size="2">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&lt;option selected&nbsp; value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+	name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+	selected value=&quot;1&quot;&gt;1&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日 </font></p>
+  </font>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial" size="2">&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;&lt;/div&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;<br>
+  &lt;input type=&quot;submit&quot; value=&quot;存檔&quot; name=&quot;B1&quot;&gt;　&lt;input type=&quot;reset&quot; value=&quot;重寫&quot; 
+	name=&quot;B2&quot;&gt;&lt;/p&gt;<br>
+  &lt;/p&gt;&lt;/form&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;</font></p>
+    	</td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>checkit.asp：老師審查答案用</b></font></p>
+  <p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.47.gif" width="605" height="442"></p>
+<table border="1" width="100%" id="table66">
+	<tr>
+		<td>
+  <font face="Arial" size="2">&lt;html&gt;&lt;head&gt;&lt;title&gt;審閱答案&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;審閱答案&lt;/h1&gt;&lt;hr&gt;<br>
+  　</font><p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial" size="2">&lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;對　　象：&lt;/td&gt;&lt;td&gt;資料庫裡的哪個年級　&lt;/td&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;題　　目：&lt;/td&gt;&lt;td&gt;資料庫裡的題目&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案：&lt;/td&gt;&lt;td&gt;資料庫裡的正確的答案&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;學號&lt;/td&gt;&lt;td &gt;班級&lt;/td&gt;&lt;td &gt;姓名&lt;/td&gt;&lt;td &gt;答案&lt;/td&gt;&lt;td &gt;答對&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;form method=&quot;POST&quot; action=&quot;update.asp&quot;&gt;<br>
+  &lt;input type=&quot;hidden&quot; name=&quot;id&quot; v&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;審核完畢，請幫我儲存&quot; name=&quot;B1&quot;&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font face="Arial" size="2">&lt;input type=&quot;reset&quot; value=&quot;重新審核&quot; 
+  name=&quot;B2&quot;&gt;&lt;/p&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</font></p>
+    	</td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>update.asp：更新出題老師審核表單傳來的資料</b></font></p>
+<table border="1" width="100%" id="table67">
+	<tr>
+		<td>
+  <font size="2" face="Arial">&lt;% <br>
+		' 權限認證<br>
+  		' 先把答案都設為答錯<br>
+  		' 再把表單傳來的資料筆數數量，作為迴圈的圈數，逐筆取出<br>
+  ' 更新資料庫<br>
+  ' 轉向網頁到主網頁<br>
+  %&gt;</font></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <b><font color="#0000FF" face="Arial" size="5">delete.assp</font></b><font color="#0000FF" face="Arial" size="5"><b>：</b></font><b><font color="#0000FF" face="Arial" size="5">刪除題目</font></b></p>
+<table border="1" width="100%" id="table68">
+	<tr>
+		<td>
+  <font size="2" face="Arial">&lt;%<br>
+		'權限認證<br>
+  ' 選出題號<br>
+  ' 執行sql<br>
+  ' 轉向網頁到主網頁<br>
+  %&gt;</font></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>list.ap：列出某一題答對的學生清單</b></font></p>
+  <p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.48.gif" width="574" height="418"></p>
+<table border="1" width="100%" id="table69">
+	<tr>
+		<td>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;排行榜&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  第1期&lt;/b&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;對　　象：&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;年級　&lt;/td&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;題　　目：&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;老師出的題目　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案：&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確的答案　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;學號&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;班級&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;姓名&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;答案&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 選出題目資料表中，這題答對的同學，照年班級排序<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 如果資料錄不是空的,取出資料錄的資料<br>
+  %&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;印出學生學號　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;印出班級　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;印出姓名　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;印出答案　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/center&gt;&lt;/div&gt;<br>
+  &lt;center&gt;&lt;font size=&quot;5&quot; color=&quot;#FF0000&quot;&gt;得獎名單正在審核中，目前還無法公佈！&lt;/font&gt;&lt;/center&gt; <br>
+  &lt;/body&gt;&lt;/html&gt;</font></p>
+    	</td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>sort.asp：列出所有答對的學生的總排行榜</b></font></p>
+  <p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.49.gif" width="558" height="351"></p>
+<table border="1" width="100%" id="table70">
+	<tr>
+		<td>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;html&gt;&lt;head&gt;&lt;title&gt;排行榜&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;</font></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font size="2" face="Arial">&lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;學號&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;班級&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;姓名&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;答對次數&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  <br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;資料庫裡的學號　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;資料庫裡的班級　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;資料庫裡的姓名　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;資料庫裡的答對次數　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/center&gt;&lt;/body&gt; &lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<h3 style="line-height: 150%; ">
+  4.所謂〝權限認證〞</h3>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  除了主網頁和排行榜外，都要在程式中放入權限認證。以免玩家級的使用者在瀏覽器的網址列直接輸入值帶入程式。以下是需要設計權限認證的幾個動作：</p>
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber31">
+    <tr>
+      <td width="100%">只有學生權限才能回答問題。<br>
+      只有管理老師可以新增、編修和刪除題目。<br>
+      只有管理老師能審核答案。<br>
+      只有管理老師能執行存檔。<br>
+      只有透過表單傳來的值才寫入資料庫。</td>
+    </tr>
+</table>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  我們可以在主程式建構完成後，再加入認證功能。另外還要在撰寫程式時注意，所有從表單傳來的值，程式收到後都要過濾傳入值，以避免有心人作 SQL 資料隱碼攻擊。</p>
+<p style="line-height: 150%; ">
+  　</p>
+  <h3 style="line-height: 150%; ">
+  5.權限認證部分</h3>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  學生和老師登入的帳號密碼檢查表單，我們可以利用石牌國小李忠憲老師提供的程式，作為現成的校務行政帳號做認證機制。下載<a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/校務行政系統2.2jsmis.zip">校務行政系統2.2jsmis.zip</a>下載完畢後解開，依照說明拷貝到 
+  x:\inetpub\wwwroot 中。並依照以下步驟修改：</p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  1.global.asa 內容請先修改好:</p>
+<table border="1" width="100%" id="table71">
+	<tr>
+		<td>
+    <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+    <font face="Arial">
+    <span style="vertical-align: baseline"><font size="2">&lt;SCRIPT LANGUAGE=VBScript 
+    RUNAT=Server&gt;</font></span></font><font size="2"></p>
+    <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+    </font><font face="Arial">
+    <span style="vertical-align: baseline"><font size="2">Sub Application_OnStart<br>
+    Application(&quot;ysps1&quot;) = &quot;Driver={SQL 
+    Server};Server=ysps1;database=JSDB;uid=xxxxx;pwd=xxxxxx&quot;<br>
+    Application(&quot;spps&quot;) = &quot;Driver={SQL 
+    Server};Server=ysps1;database=spps;uid=xxxxx;pwd=xxxxxx&quot;<br>
+    Application(&quot;board&quot;) = &quot;Driver=driver={Microsoft Access Driver 
+    (*.mdb)};dbq=d:\inetpub\wwwroot\board\board.mdb;PWD=xxxxxxxx&quot;&nbsp;<font color="#FF0000">&nbsp; 
+    '站台上有mdb檔也可以放入Application 變數中</font><br>
+    END SUB<br>
+    &lt;/SCRIPT&gt;</font></span></font></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  2.不喜歡登入畫面的話也可以自己動手製作<span lang="en-us"> </span>check.asp 表單。</p>
+<p style="line-height: 150%; ">
+    <img border="0" src="ASP/images/ASP.as10.gif" width="629" height="416"></p>
+  <p style="line-height: 150%; ">
+  check.asp 程式碼說明：</p>
+<table border="1" width="100%" id="table72">
+	<tr>
+		<td>
+      <font face="Arial" size="2">
+      	&lt;%<br>
+      if session(&quot;passed&quot;)=1 then<br>
+&nbsp;&nbsp;&nbsp; session(&quot;topage&quot;)=request(&quot;topage&quot;)<br>
+&nbsp;&nbsp;&nbsp; response.redirect session(&quot;topage&quot;)<br>
+      	end if<br>
+		session(&quot;topage&quot;)=request(&quot;topage&quot;)<br>
+      %&gt;<br>
+      	&lt;html&gt;&lt;head&gt;&lt;title&gt;登入&lt;/title&gt;&lt;/head&gt;<br>
+      &lt;body&gt;<br>
+      &lt;form name=&quot;idpass&quot; method=&quot;POST&quot; action=&quot;/check2.asp&quot;&gt;<br>
+      &lt;input type=&quot;hidden&quot; name=&quot;topage&quot; value=&quot;&lt;%=session(&quot;topage&quot;)%&gt;&quot;&gt;<br>
+      &lt;input type=&quot;hidden&quot; name=&quot;act&quot; value&gt;<br>
+      &lt;div align=&quot;center&quot;&gt;<br>
+      &lt;center&gt;<br>
+      &lt;table&gt;<br>
+      &lt;tr&gt;&lt;td width=&quot;600&quot;&gt;<br>
+      &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;2&quot; width=&quot;423&quot; border=&quot;0&quot; 
+      style=&quot;border-collapse: collapse&quot; bordercolor=&quot;#111111&quot;&gt;<br>
+      &lt;tr&gt;&lt;th align=&quot;right&quot; width=&quot;256&quot;&gt;帳號（或學生名牌號碼） &lt;/th&gt;<br>
+      &lt;td width=&quot;160&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;&lt;b&gt;<br>
+      &lt;input type=&quot;text&quot; name=&quot;usrid&quot; 
+      size=&quot;13&quot;&gt;&lt;/b&gt;&lt;b&gt; &lt;/b&gt;<br>
+      &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;<br>
+      &lt;th align=&quot;right&quot; width=&quot;256&quot;&gt;密碼（或學生身分證號） &lt;/th&gt;<br>
+      &lt;td width=&quot;160&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;&lt;b&gt;<br>
+      &lt;input type=&quot;password&quot; name=&quot;pass&quot; 
+      size=&quot;13&quot;&gt;&lt;/b&gt;&lt;b&gt;<br>
+      &lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/center&gt;<br>
+      &lt;/div&gt;<br>
+      &lt;p align=&quot;center&quot;&gt;【&lt;a 
+      href=&quot;Javascript:checkempty(document.idpass)&quot;&gt;&lt;b&gt;登入主機&lt;/b&gt;&lt;/a&gt;&lt;b&gt;】&lt;/b&gt;　&lt;b&gt;【&lt;/b&gt;&lt;a 
+      href=&quot;Javascript:document.idpass.reset()&quot;&gt;&lt;b&gt;清除重填&lt;/b&gt;&lt;/a&gt;&lt;b&gt;】&lt;/b&gt;&lt;/p&gt;<br>
+      &lt;/form&gt;<br>
+      &lt;/body&gt;&lt;/html&gt;</font></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  check2.asp的程式碼說明：</p>
+<table border="1" width="100%" id="table73">
+	<tr>
+		<td>
+		<p style="word-spacing: 1; margin-top: 8; margin-bottom: 8">
+		<font face="Arial" size="2">&lt;!--#include file=&quot;jsmis/public.asp&quot;--&gt;<br>&lt;%<br>m_year=request(&quot;year&quot;)<br>m_month=request(&quot;month&quot;)<br>m_day=request(&quot;day&quot;)<br>m_class=request(&quot;class&quot;)<br>syear = year(now())-1911<br>smonth = month(now())<br>if smonth&gt;8 then<br>&nbsp;&nbsp;&nbsp; seme = 1<br>elseif smonth &lt;2 then<br>&nbsp;&nbsp;&nbsp; seme = 1<br>&nbsp;&nbsp;&nbsp; syear = syear-1<br>else<br>&nbsp;&nbsp;&nbsp; seme = 2<br>&nbsp;&nbsp;&nbsp; syear = syear-1
+		<br>end if<br><br>Set Conn1 = 
+      Server.CreateObject(&quot;ADODB.Connection&quot;)<br>conn1.open Application(&quot;spps1&quot;)<br>usrid=Ucase(request.form(&quot;usrid&quot;))<br>usrid=replace(usrid,&quot;'&quot;,&quot;&quot;)<br>usrid=replace(usrid,&quot;*&quot;,&quot;&quot;)<br>usrid=replace(usrid,&quot;%&quot;,&quot;&quot;)<br>usrid=replace(usrid,&quot;/&quot;,&quot;&quot;)<br>usrid=replace(usrid,&quot;=&quot;,&quot;&quot;)<br>usrid=left(usrid,5)<br>
+		<br>inputpass=Ucase(request.form(&quot;pass&quot;))<br>inputpass=replace(inputpass,&quot;'&quot;,&quot;&quot;)<br>inputpass=replace(inputpass,&quot;*&quot;,&quot;&quot;)<br>inputpass=replace(inputpass,&quot;%&quot;,&quot;&quot;)<br>inputpass=replace(inputpass,&quot;/&quot;,&quot;&quot;)<br>inputpass=replace(inputpass,&quot;=&quot;,&quot;&quot;)<br>inputpass=left(inputpass,12)<br>
+		<br>found=0<br>if found=0 then&nbsp;&nbsp;&nbsp;&nbsp; ' 比對帳號,一般老師用<br>&nbsp;&nbsp;&nbsp;
+      tea_pass=inputpass<br>&nbsp;&nbsp;&nbsp;
+      tea_id=usrid<br>&nbsp;&nbsp;&nbsp;
+      sqlstring=&quot;select * from SEMP where EMPNO='&quot; &amp; tea_id &amp; &quot;' and PWD='&quot; &amp; 
+      ucase(gTransPWD(tea_pass)) &amp; &quot;'&quot; <br>&nbsp;&nbsp;&nbsp; Set RS = Conn1.Execute(sqlstring)<br>&nbsp;&nbsp;&nbsp; if not RS.eof then found=2&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '身分是老師,比對帳號成功<br>end if<br>'---------比對身分是學生帳號開始---------<br>if found=0 then<br>&nbsp;&nbsp;&nbsp; '身分是學生家長或學生帳號<br>&nbsp;&nbsp;&nbsp; sqlstring=&quot;select *,BSTD_SEME.CLASSNO,BSTD_SEME.SEAT from BSTD,BSTD_SEME 
+      where BSTD.STDNO = BSTD_SEME.STDNO and BSTD.IDNO='&quot; &amp; inputpass &amp; &quot;' and 
+      BSTD_SEME.CLASSNO='&quot; &amp; left(usrid,3) &amp; &quot;' and BSTD_SEME.SEAT='&quot; &amp; 
+      right(usrid,2) &amp; &quot;' and BSTD_SEME.SYEAR=&quot; &amp; syear &amp; &quot; and BSTD_SEME.SEME=&quot; 
+      &amp; seme<br>&nbsp;&nbsp;&nbsp;
+      Set RS = Conn1.Execute(sqlstring)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if not RS.BOF then
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sid = 
+      RS(&quot;CLASSNO&quot;) &amp; RS(&quot;SEAT&quot;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; usrid = 
+      right(usrid,5)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; found=3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;'身分是學生<br>end if<br>
+		session(&quot;topage&quot;) = 
+    &quot;/msg.asp?msg=歡迎登入！&quot;<br>
+		if request(&quot;topage&quot;) &lt;&gt; &quot;&quot; then session(&quot;topage&quot;) = 
+    Request(&quot;topage&quot;)<br>
+    &nbsp;&nbsp;&nbsp; select case found<br>
+    &nbsp;&nbsp;&nbsp; case 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response.redirect 
+    &quot;/msg.asp?msg=身份確認失敗!&lt;br&gt;無法進入&quot;<br>
+&nbsp;&nbsp;&nbsp; case 1<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '系統保留未來用途,不做事<br>
+&nbsp;&nbsp;&nbsp; case 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glEmpname&quot;) &amp; &quot;'&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strseme &amp; &quot;' and TEA_NO ='&quot; &amp; 
+    session(&quot;glEmpid&quot;) &amp; &quot;'&quot;<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    ' ---老師認證通過後session處理<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glPS&quot;)=inputpass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glEmpname&quot;)=trim(RS(&quot;NAME&quot;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    sqlclass=&quot;select CLASSNO from BCLASS where SYEAR= '&quot; &amp; syear &amp; &quot;' and 
+    SEME='&quot; &amp; seme &amp; &quot;' and TEA_NO = '&quot; &amp; Ucase(usrid) &amp; &quot;' &quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set 
+    RS2=conn1.Execute(sqlclass)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if not 
+    RS2.EOF then session(&quot;glClass&quot;)=RS2(0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glEmpid&quot;)=usrid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glEmail&quot;)=Lcase(usrid) &amp; &quot;@webmail.ysps.tp.edu.tw&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glPS&quot;)=RS(&quot;PWD&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;glEmpname&quot;)=trim(RS(&quot;NAME&quot;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    session(&quot;passed&quot;)=3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+    	' ---學生認證通過後session處理<br>
+    	&nbsp;&nbsp;&nbsp;&nbsp; case 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;stuid&quot;)=usrid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glEmpid&quot;)=RS(&quot;STDNO&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glPS&quot;)=inputpass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glEmpname&quot;)=trim(RS(&quot;NAME&quot;))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glDepid&quot;)=RS(&quot;CLASSNO&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glClass&quot;)=session(&quot;glDepid&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glSeat&quot;)=RS(&quot;SEAT&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;glEmail&quot;)=&quot;cc&quot; &amp; usrid &amp; 
+    &quot;@stu.ysps.tp.edu.tw&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; session(&quot;passed&quot;)=4<br>
+    end select<br>
+    RS.Close<br>
+    Conn1.close<br>
+    response.write &quot;&lt;script&gt;&quot;<br>
+    response.write &quot;location='&quot; &amp; session(&quot;topage&quot;) &amp; &quot;';&quot;<br>
+    response.write &quot;&lt;/script&gt;&quot;<br>
+    %&gt;</font></p></td>
+	</tr>
+</table>
+  <p style="line-height: 150%; ">
+  　</p>
+<h3 style="line-height: 150%; ">
+  6.填入ASP程式碼</h3>
+<p style="line-height: 150%; ">
+  完成範例：<a style="font-style: normal; font-variant: normal; font-family: 新細明" href="http://www.spps.tp.edu.tw/award/">網路有獎徵答</a></p>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>default.asp</b></font></p>
+<table border="1" width="100%" id="table74">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%<br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  ' 直接叫用寫在global.asa 裡的 
+  Application變數<br>
+  conn.open Application(&quot;spps&quot;)<br>
+  ' 
+  把sql命令語法指定給sql變數：選擇award_question資料表,並按照結束日期欄位照降冪排序<br>
+  sql = &quot;select * from award_question order by end_date desc&quot;&nbsp;&nbsp;&nbsp; <br>
+  ' 執行sql字串並將結果放入資料錄<br>
+  set rs=conn.execute(sql)<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;有獎徵答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;table id=&quot;AutoNumber1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;h1&gt;《網路有獎徵答》&lt;/h1&gt;&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;a href=&quot;manager.asp&quot;&gt;&lt;/a&gt;&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td&gt;&lt;font size=&quot;3&quot; color=&quot;#385B96&quot;&gt;§ &lt;a href=&quot;sort.asp&quot;&gt;得獎排行榜&lt;/a&gt;&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td&gt;&lt;a href=&quot;manager.asp&quot;&gt;管理&lt;/a&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;&lt;center&gt;<br>
+  &lt;table border=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;&lt;td&gt;期別&lt;/td&gt;&lt;td&gt;對象&lt;/td&gt;&lt;td&gt;題目&lt;/td&gt;&lt;td&gt;活動期限&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;%<br>
+  ' 如果資料錄是空的<br>
+  if rs.eof then response.write &quot;&lt;tr&gt;&lt;td align=center&gt;目前沒有徵答活動&lt;/td&gt;&lt;/tr&gt;&quot;<br>
+  ' 如果資料錄不是空的[有出過題]<br>
+&nbsp;&nbsp;&nbsp; while not rs.eof<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = rs(&quot;id&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 把資料錄中的id欄位的值指定給變數id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grade = rs(&quot;grade&quot;)&nbsp; ' 把資料錄中的grade欄位的值指定給變數grade<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=0 then desc=&quot;低年級&quot;&nbsp;&nbsp;&nbsp; ' 判斷grade變數的值如果=0,指定desc變數=低年級<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=1 then desc=&quot;中年級&quot;&nbsp;&nbsp;&nbsp; ' 判斷grade變數的值如果=1,指定desc變數=中年級<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=2 then desc=&quot;高年級&quot;&nbsp;&nbsp;&nbsp; ' 判斷grade變數的值如果=2,指定desc變數=高年級<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=3 then desc=&quot;全校&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 判斷grade變數的值如果=3,指定desc變數=全校<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = rs(&quot;question&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 把資料錄中的question欄位的值指定給變數quiz<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = replace(quiz,chr(13),&quot;&lt;br&gt;&quot;) ' 用&lt;br&gt;字串替換掉換行字元<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdate = 
+  rs(&quot;start_date&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 把資料錄中的start_date欄位的值指定給變數sdate&nbsp;' 把資料錄中的edn_date欄位的值指定給變數edate' 把資料錄中的post_date欄位的值指定給變數pdate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if sdate&lt;=date() 
+  and edate&gt;=date() then ' 
+  如果今天還可以作答(介於開始日期和結束日期之間)' 把這列的背景色變數指定為#eeeeff<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elseif edate&lt;=date()then&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 如果超過了截止日期&nbsp; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  bgc = &quot;#aaaacc&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 把這列的背景色變數指定為#aaaacc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  bgc = &quot;#cceecc&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  ' 剩下就是尚未到期的題目<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+  %&gt;<br>
+  &lt;tr&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% ' 以下分別放入背景色、題號id、適用年級、題目、截止日期 %&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td bgcolor=&quot;&lt;% =bgc %&gt;&quot;&gt;&lt;% 
+  = id %&gt;　&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td bgcolor=&quot;&lt;% =bgc %&gt;&quot;&gt;&lt;% 
+  =desc %&gt;　&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td bgcolor=&quot;&lt;% =bgc %&gt;&quot;&gt;&lt;% 
+  =quiz %&gt;　&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td bgcolor=&quot;&lt;% =bgc %&gt;&quot;&gt;&lt;% 
+  = year(edate)-1911 &amp; &quot;/&quot; &amp; month(edate) &amp; &quot;/&quot; &amp; day(edate) %&gt;&lt;/td&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;td bgcolor=&quot;&lt;% =bgc %&gt;&quot;&gt;<br>
+  &nbsp;&nbsp;&nbsp; &lt;%  ' 判斷日期介於開始和結束之間，也就是還沒過期的話，放上〝我要答〞的超連結<br>
+	&nbsp;&nbsp;&nbsp; if sdate&lt;=date() and edate&gt;=date() then %&gt;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;a href=&quot;answer.asp?id=&lt;%=id%&gt;&quot;&gt;我要答&lt;/a&gt;<br>
+  &nbsp;&nbsp;&nbsp; &lt;%' 
+  判斷如果已經過期的話放上〝得獎名單〞的超連結<br>
+&nbsp;&nbsp;&nbsp;&nbsp; elseif edate &lt; date() then %&gt; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;a href=&quot;list.asp?id=&lt;%=id%&gt;&quot;&gt;得獎名單&lt;/a&gt;<br>
+  &nbsp;&nbsp;&nbsp; &lt;%' 
+  判斷日期尚未開始，就放上〝敬請期待〞的文字<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elseif sdate &gt; date() then%&gt; <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  尚未開始&lt;br&gt;敬請期待<br>
+  &nbsp;&nbsp;&nbsp; &lt;% end if %&gt;<br>
+  &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%　' 
+  移到下一筆資料錄的迴圈底部<br>
+  &nbsp;&nbsp;&nbsp;
+  rs.movenext<br>
+  &nbsp;&nbsp;&nbsp;
+  wend<br>
+  %&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</font></p>
+		</td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial"><b><font size="5"> 
+  manager.asp</font></b></font></p>
+<table border="1" width="100%" id="table75">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;% ' 權限認證部分等完成後後再補 %&gt;<br>
+	&lt;html&gt;&lt;head&gt;&lt;title&gt;有獎徵答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;管理選項&lt;/h1&gt;<br>
+  &lt;div align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;<br>
+	&lt;table border=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;&lt;td&gt;期別&lt;/td&gt;&lt;td&gt;對象&lt;/td&gt;&lt;td&gt;題目（點題目審閱）&lt;/td&gt;&lt;td&gt;作答人數&lt;/td&gt;&lt;td&gt;&lt;a href=&quot;addnew.asp&quot;&gt;新增題目&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;%<br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+  sql = &quot;select * from award_question order by id desc&quot;&nbsp;&nbsp;&nbsp; ’ 依照id來排序<br>
+  set rs=conn.execute(sql)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;’ 執行sql指令放入資料錄rs<br>
+  while not rs.EOF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 如果資料錄不是空的<br>
+&nbsp;&nbsp;&nbsp; id = rs(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp; grade = rs(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp; if grade=0 then desc=&quot;低年級&quot;<br>
+&nbsp;&nbsp;&nbsp; if grade=1 then desc=&quot;中年級&quot;<br>
+&nbsp;&nbsp;&nbsp; if grade=2 then desc=&quot;高年級&quot;<br>
+&nbsp;&nbsp;&nbsp; quiz = rs(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp; quiz = replace(quiz,chr(13),&quot;&lt;br&gt;&quot;)<br>
+&nbsp;&nbsp;&nbsp; total = rs(&quot;num&quot;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 統計回答人數<br>
+&nbsp;&nbsp;&nbsp; %&gt; <br>
+&nbsp;&nbsp;&nbsp; &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =id %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =desc %&gt;　&lt;/td&gt;<br>
+  &lt;% ' 點題目老師可以去審核答案的超連結 %&gt;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;a href=checkit.asp?id=&lt;% =id %&gt;&gt;&lt;% 
+  =quiz %&gt;&lt;/a&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =total %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;<br>
+  &lt;% ' 老師的管理選項 %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=edit.asp?id=&lt;% 
+  =id %&gt;&gt;修改&lt;/a&gt;　<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=delete.asp?id=&lt;% 
+  =id %&gt;&gt;刪除&lt;/a&gt;&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;a href=list.asp?id=&lt;% 
+  =id %&gt;&gt;得獎名單&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/tr&gt;<br>
+  &lt;%<br>
+&nbsp;&nbsp;&nbsp; rs.movenext<br>
+&nbsp;&nbsp;&nbsp; wend<br>
+  %&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;<br>
+  &lt;/center&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>addnew.asp</b></font></p>
+<table border="1" width="100%" id="table76">
+	<tr>
+		<td><font size="2" face="Arial">&lt;% ' 權限認證部分後補 %&gt;<br>
+		&lt;% ' 
+  取現在的年、月、日指定給變數，以便後面的比對<br>
+&nbsp;&nbsp;&nbsp; thisyear = year(now())-1911<br>
+&nbsp;&nbsp;&nbsp; thismonth = month(now())<br>
+&nbsp;&nbsp;&nbsp; thisday = day(now())<br>
+		&nbsp;&nbsp;&nbsp; Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+&nbsp;&nbsp;&nbsp; conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select max(id) from award_question&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 選出目前題號最大的值<br>
+&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if isnull(rs(0)) then&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 如果資料錄裡是空的&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id=1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 已經有題號,就把題號加一<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = rs(0) + 
+  1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;新增題目&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;&lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;新增題目&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  第&lt;% =id %&gt;期有獎徵答&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  '目前題號<br>
+  &lt;form method=&quot;POST&quot; action=&quot;save.asp&quot;&gt;<br>
+  &lt;input type=hidden name=id 
+  value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;&lt;td &gt;適用階段&lt;/td&gt;<br>
+  &lt;td &gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;grade&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;0&quot;&gt;低年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;1&quot;&gt;中年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;2&quot;&gt;高年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option value=&quot;3&quot;&gt;全校&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt; <br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt;<br>
+  &lt;td &gt;題目是&lt;/td&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;textarea rows=&quot;5&quot; name=&quot;quiz&quot; 
+  cols=&quot;33&quot;&gt;&lt;/textarea&gt; &lt;/td&gt; <br>
+  &lt;/tr&gt; <br>
+  &lt;tr&gt;&lt;td&gt;正確答案&lt;/td&gt;&lt;td &gt;&lt;input type=&quot;text&quot; name=&quot;correct&quot; size=&quot;35&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+  <br>
+  &lt;tr&gt;&lt;td &gt;開始日期&lt;/td&gt;&lt;td &gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;% for i=thisyear to thisyear+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 迴圈範圍只要今年和明年就可以了 %&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;% next %&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;smonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;% for i=1 to 12%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;option &lt;% if i=thismonth then&nbsp; ' 如果剛好是這個月 %&gt;selected&lt;% 
+  end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;% next %&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;sday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &lt;% for i=1 to 31%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option
+  &lt;% if i=thisday then&nbsp;&nbsp; ' 如果剛好是今天 %&gt;selected&lt;% 
+  end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&lt;% next %&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日 <br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt;&lt;td &gt;結束日期&lt;/td&gt;<br>
+		&lt;td &gt;&lt;select size=&quot;1&quot; name=&quot;eyear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=thisyear 
+  to thisyear+1%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;emonth&quot;&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 
+  12%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option
+  &lt;% if i=thismonth then %&gt;selected&lt;% 
+  end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i&nbsp;&nbsp;&nbsp;&nbsp; %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; 
+  name=&quot;eday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 
+  31%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option
+  &lt;% if i=thisday then %&gt;selected&lt;% 
+  end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日 <br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt; <br>
+  &lt;td &gt;公告日期&lt;/td&gt; <br>
+  &lt;td &gt; <br>
+&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;pyear&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=thisyear 
+  to thisyear+1%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;
+  <br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+		&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;pmonth&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 12%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if i=thismonth 
+  then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% 
+  =i %&gt;&quot;&gt;&lt;% =i&nbsp;&nbsp;&nbsp;&nbsp; %&gt;&lt;/option&gt;
+  <br>
+&nbsp;&nbsp;&nbsp; &lt;% next %&gt; <br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+		&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;pday&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 
+  31%&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option
+  &lt;% if i=thisday then %&gt;selected&lt;% 
+  end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% 
+  =i %&gt;&lt;/option&gt; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;
+  <br>
+  &lt;/select&gt;日 <br>
+  &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/center&gt;<br>
+		&lt;p align=&quot;center&quot;&gt; <br>
+  &lt;input type=&quot;submit&quot; value=&quot;存檔&quot; name=&quot;B1&quot;&gt;　&lt;input type=&quot;reset&quot; value=&quot;重寫&quot; 
+  name=&quot;B2&quot;&gt;&lt;/p&gt; <br>
+  &lt;/form&gt; <br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</font></td>
+	</tr>
+</table>
+<p>　</p>
+<font size="2"> 
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>save.asp</b></font></p>
+  </font>
+<table border="1" width="100%" id="table77">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%　&nbsp; ' 權限判斷不可忘記補上<br>
+  if session(&quot;glempid&quot;)=&quot;WINER&quot; then permtype=&quot;A&quot;<br>
+  if permtype&lt;&gt;&quot;A&quot; then response.redirect &quot;../msg.asp?msg=您無權使用此程式&quot;<br>
+&nbsp;&nbsp;&nbsp; Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+&nbsp;&nbsp;&nbsp; conn.open Application(&quot;spps&quot;)<br>
+  &nbsp; ' 去除使用者輸入的表單傳來的資料中，潛藏有SQL隱碼攻擊可能的單引號字串<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id=Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id=replace(id,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grade=Request(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz=Request(&quot;quiz&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz=replace(quiz,&quot;'&quot;,&quot;〝&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; correct=Request(&quot;correct&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; correct=replace(correct,&quot;'&quot;,&quot;〝&quot;)<br>
+  &nbsp; ' 因為標單上選的是國曆年，寫入資料庫的是民國西元要經過轉換、再把年月日連接起來，定給給變數<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdate = Request(&quot;syear&quot;)+1911 &amp; &quot;/&quot; &amp; 
+  Request(&quot;smonth&quot;) &amp; &quot;/&quot; &amp; Request(&quot;sday&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdate=replace(sdate,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edate = Request(&quot;eyear&quot;)+1911 &amp; &quot;/&quot; &amp; 
+  Request(&quot;emonth&quot;) &amp; &quot;/&quot; &amp; Request(&quot;eday&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edate=replace(edate,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdate = Request(&quot;pyear&quot;)+1911 &amp; &quot;/&quot; &amp; 
+  Request(&quot;pmonth&quot;) &amp; &quot;/&quot; &amp; Request(&quot;pday&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdate=replace(pdate,&quot;'&quot;,&quot;&quot;)<br>
+  &nbsp; ' 選出標單傳來的題號的SQL語法<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+  &nbsp; ' 如果資資料錄是空的(沒有這個id,表示資料庫中沒有這個題目,動作一定是新增)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if rs.eof then <br>
+	&nbsp; ' 
+  就把後面要執行的 sql 字串變數,寫成插入新的id、年級、題目、答案、日期等資料到資料表 award_question 中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Insert 
+  into award_question (id,grade,question,correct,start_date,end_date,post_date) 
+  values (&quot;<br>
+  sql = sql &amp; id &amp; &quot;,&quot; &amp; grade &amp; &quot;,'&quot; &amp; quiz &amp; &quot;','&quot; &amp; correct &amp; &quot;','&quot; &amp; sdate &amp; 
+  &quot;','&quot; &amp; edate &amp; &quot;','&quot; &amp; pdate &amp; &quot;')&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+  &nbsp; ' 否則就寫成更新資料到資料表award_question中<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Update 
+  award_question set grade=&quot; &amp; grade &amp; &quot;,question='&quot; &amp; quiz &amp; &quot;',correct='&quot; &amp; 
+  correct &amp; &quot;',start_date='&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = sql &amp; 
+  sdate &amp; &quot;',end_date='&quot; &amp; edate &amp; &quot;',post_date='&quot; &amp; pdate &amp; &quot;' where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if <br>
+  &nbsp; ' 
+  執行sql命令<br>
+&nbsp;&nbsp;&nbsp; conn.execute(sql)<br>
+	&nbsp; ' 
+  把網頁轉到〝管理頁面〞<br>
+  response.redirect &quot;manager.asp&quot;<br>
+  %&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial"><b><font size="5">answer.asp</font></b></font></p>
+<table border="1" width="100%" id="table78">
+	<tr>
+		<td><font size="2" face="Arial">&lt;%&nbsp; ' 權限判斷<br>
+  if session(&quot;passed&quot;)=0 then response.redirect 
+  &quot;/check.asp?pageto=/award/answer.asp&quot;<br>
+  if session(&quot;passed&quot;)&lt;&gt;4 then response.redirect 
+  &quot;/msg.asp?msg=很抱歉，只有學生可以參加有獎徵答活動！&quot;<br>
+  <br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+&nbsp; ' 取出表單傳來的id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question where id=&quot; &amp; id <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grade = rs(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = rs(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edate = rs(&quot;end_date&quot;)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; if grade &lt; 3 then&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 判斷題目中限定不是全校年段的話<br>
+  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if 
+  int((cint(left(session(&quot;glClass&quot;),1))-1)/2) &lt;&gt; grade then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 取回經過check2.asp檢查後，產生的 glClass 
+  session變數。左邊算起取一位，減去1、取整數後，再除以２就可以判斷學生帳號中的年級是低、中、或是高年級<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  response.redirect &quot;/msg.asp?msg=很抱歉，您不能回答這個題目！&quot; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 年段不合的話<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; end if<br>
+  sql = &quot;select * from award_answer where id=&quot; &amp; id &amp; &quot; and stdno='&quot; &amp; 
+  session(&quot;glEmpid&quot;) &amp; &quot;'&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '根據學生的學號 session，選出這個學生有回答過這題的紀錄<br>
+  set rs1 = conn.execute(sql)<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;我要回答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1&gt;我會回答問題&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  		&lt;% my_name = session(&quot;stuid&quot;) &amp; session(&quot;glempname&quot;) %&gt;　&nbsp;&nbsp;&nbsp; ' 把名牌號碼和姓名接起來<br>
+  		&lt;p&gt;&lt;font color=&quot;blue&quot;&gt;&lt;% =my_name %&gt;小朋友請注意以下規則：&lt;/p&gt;
+  <br>
+  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.每人只能回答一次，無法反悔改答案&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.請多利用圖書館或網路尋找答案&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.請不要替他人作答或洩漏答案，影響比賽的公平性&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.所有的成績會在期末統計,並頒發獎品給答對最多題目的同學&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.現有獎品:李忠憲老師提供 PS2 五台 , XBOX 三台 &lt;br&gt;<br>
+  		&lt;% if not rs1.EOF then 　&nbsp;&nbsp;&nbsp; ' 資料錄裡已經有學生回答過的資料了&nbsp;&nbsp;&nbsp; %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;marquee 
+  behavior=&quot;alternate&quot;&gt;你已經答過這題了，不可以修改或再次作答！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/marquee&gt;&lt;a 
+  href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  		&lt;% else %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本期題目：&lt;% =quiz 
+  %&gt;&lt;br&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我的答案是：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;form 
+  method=&quot;POST&quot; action=&quot;thanx.asp&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;input 
+  type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;textarea 
+  rows=&quot;5&quot; name=&quot;answer&quot; cols=&quot;45&quot; &gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  我是&lt;% =name %&gt;,我的答案是:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/textarea&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;input type=&quot;submit&quot; value=&quot;寫好了，幫我儲存&quot; name=&quot;B1&quot;&gt;　&lt;input 
+  type=&quot;reset&quot; value=&quot;重寫&quot; name=&quot;B2&quot;&gt;&lt;/form&gt;<br>
+  		&lt;% end if %&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;</font></td>
+	</tr>
+</table>
+<p>　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>thanx.asp</b></font></p>
+<table border="1" width="100%" id="table79">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%'權限認證部分候補 %&gt;<br>
+  &lt;%<br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question 
+  where id=&quot; &amp; id <br>
+&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = rs(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edate = rs(&quot;end_date&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdate = rs(&quot;post_date&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count=rs(&quot;num&quot;)+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 　&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  ' 回答過的計數器欄位+1 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; answer = Request(&quot;answer&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; answer = replace(answer,&quot;'&quot;,&quot;&quot;)<br>
+  　&nbsp;&nbsp;&nbsp; ' 
+  判斷資料表中有沒有題號和學生學號的sql<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_answer where stdno='&quot; &amp; 
+  session(&quot;glEmpid&quot;) &amp; &quot;' and id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp; Set rs1=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if rs1.EOF then&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 如果資料標裡面沒有紀錄 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;'sql 語句就寫成新增一筆<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Insert 
+  into award_answer (id,stdno,classno,student,answer) values (&quot; &amp; id &amp; &quot;,'&quot; &amp; 
+  session(&quot;glEmpid&quot;) &amp; &quot;','&quot; &amp; session(&quot;glClass&quot;) &amp; &quot;','&quot; &amp; session(&quot;glEmpname&quot;) 
+  &amp; &quot;','&quot; &amp; answer &amp; &quot;')&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  conn.execute(sql)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 　&nbsp;&nbsp;&nbsp; ' 
+  執行新增sql<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Update 
+  award_question set num=num+1 where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  conn.execute(sql)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; ' 執行修改已回答的人數sql<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+	'  自動寄發email給管理老師段落<br>
+  &nbsp;&nbsp;&nbsp; name = session(&quot;glempname&quot;) <br>
+&nbsp;&nbsp;&nbsp; email = &quot;cc&quot; &amp; session(&quot;stuid&quot;) &amp; &quot;@stu.xxps.tp.edu.tw&quot;&nbsp;&nbsp;&nbsp; 
+  ' 連接成學生的email<br>
+&nbsp;&nbsp;&nbsp; Subject = &quot;網站有獎徵答有同學填答了!&quot;<br>
+&nbsp;&nbsp;&nbsp; Words =answer<br>
+&nbsp;&nbsp;&nbsp; Body=&quot;&lt;html&gt;&lt;head&gt;&lt;meta http-equiv='Content-Type' 
+  content='text/html; charset=big5'&gt;&lt;/head&gt;&lt;body&gt;&lt;table border=0 bgcolor=#dfefff 
+  style=font-size:11pt width=550&gt;&lt;tr&gt;&lt;td bgcolor=#6699cc&gt;&lt;font color= white&gt;&lt;b&gt; 
+  ■答題學生姓名：&quot; &amp; Name &amp; &quot;&lt;/b&gt;&lt;/td&gt;&quot; &amp; chr(13)&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  ' chr(13)是換行字元&nbsp; <br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;tr&gt;&lt;td align=center &gt;&lt;font color=darkblue 
+  face=標楷體&gt;&lt;h2&gt;有獎徵答學生填答通知&lt;/h2&gt;&quot; &amp; &quot;&lt;/td&gt;&lt;/tr&gt;&quot; &amp; chr(13)<br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;tr&gt;&lt;td&gt;■學生email：&quot; &amp; email &amp; chr(13)<br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;/td&gt;&lt;/tr&gt;&quot;<br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;tr&gt;&lt;td&gt;【題目=&quot; &amp; id &amp; quiz &amp; &quot;】)&lt;/td&gt;&quot; &amp; chr(13) 
+  &amp; &quot;學生的答案：&quot; &amp; words &amp; chr(13)<br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;tr&gt;&lt;td&gt;&lt;a 
+  href = 'http://www.xxps.tp.edu.tw/checkt.asp?topage=/award/manager.asp'&gt;○請出題老師在活動截止前點這裡前往審核○&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot; 
+  &amp; chr(13)<br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;tr&gt;&lt;td align=right&gt;&lt;font color= red &gt;寄發時間：&quot; &amp; 
+  now() <br>
+&nbsp;&nbsp;&nbsp; Body=Body &amp; &quot;&lt;/tr&gt;&lt;/table&gt;&quot; &amp; chr(13)<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+  Set Mail=Server.CreateObject(&quot;CDONTS.NewMail&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.MailFormat=0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.BodyFormat=0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.From = &quot;ysps@mail.ysps.tp.edu.tw&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.to = &quot;teacher@xxpx.tp.edu.tw;&quot; 
+  &amp; email<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.Subject = subject<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.Body = Body<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mail.Send<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set Mail=Nothing<br>
+  ' -------自動寄發email 結束 %&gt;<br>
+	&lt;html&gt;&lt;head&gt;&lt;title&gt;謝謝您的作答&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;謝謝您參加xx國小有獎徵答作答&lt;/h1&gt;<br>
+  &lt;hr&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;b&gt;&lt;font color=&quot;#385B96&quot;&gt;您的答案已經存入資料庫，請等待截止日期老師審查
+  ，於&lt;% 
+  =edate %&gt;後才會公佈正確答案及得獎名單！並於期末頒獎&lt;/b&gt;&lt;/p&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>edit.asp</b></font></p>
+<table border="1" width="100%" id="table80">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%<br>
+  if session(&quot;glempid&quot;)=&quot;WINER&quot;&nbsp; then permtype=&quot;A&quot;<br>
+  if permtype&lt;&gt;&quot;A&quot; then response.redirect &quot;../msg.asp?msg=您無權使用此程式&quot;<br>
+&nbsp;&nbsp;&nbsp; thisyear = year(now())-1911<br>
+&nbsp;&nbsp;&nbsp; thismonth = month(now())<br>
+&nbsp;&nbsp;&nbsp; thisday = day(now())<br>
+&nbsp;&nbsp;&nbsp; id = request(&quot;id&quot;)<br>
+  <br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+  <br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grade = rs(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = rs(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; correct = rs(&quot;correct&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdate = rs(&quot;start_date&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; syear = year(sdate)<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smonth = month(sdate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sday = day(sdate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edate = rs(&quot;end_date&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eyear = year(edate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; emonth = month(edate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eday = day(edate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdate = rs(&quot;post_date&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pyear = year(pdate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pmonth = month(pdate)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pday = day(pdate)<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;編修題目&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;新增題目&lt;/font&gt;&lt;/h1&gt;&lt;hr&gt;<br>
+  第&lt;% =id %&gt;期有獎徵答<br>
+	&lt;form method=&quot;POST&quot; action=&quot;save.asp&quot;&gt;<br>
+  &lt;input type=hidden name=id value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+  &lt;div align=&quot;center&quot;&gt;&lt;center&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+  &lt;td&gt;適用年段&lt;/td&gt;<br>
+  &lt;td&gt;<br>
+  &lt;select size=&quot;1&quot; name=&quot;grade&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;0&quot; &lt;% if grade=0 then %&gt;selected&lt;% 
+  end if %&gt;&gt;低年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;1&quot; &lt;% if grade=1 then %&gt;selected&lt;% 
+  end if %&gt;&gt;中年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;2&quot; &lt;% if grade=2 then %&gt;selected&lt;% 
+  end if %&gt;&gt;高年級&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;option value=&quot;3&quot; &lt;% if grade=3 then %&gt;selected&lt;% 
+  end if %&gt;&gt;全校&lt;/option&gt;<br>
+  &lt;/select&gt; <br>
+  &lt;/td&gt;&lt;/tr&gt; <br>
+  &lt;tr&gt;<br>
+  &lt;td&gt;題目是&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;textarea rows=&quot;5&quot; name=&quot;quiz&quot; cols=&quot;33&quot;&gt;&lt;% 
+  =quiz %&gt;&lt;/textarea&gt;<br>
+  &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;input type=&quot;text&quot; name=&quot;correct&quot; size=&quot;35&quot; value=&quot;&lt;% 
+  =correct %&gt;&quot;&gt;<br>
+  &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;開始日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;syear&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=thisyear to thisyear+1%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  &lt;% if 
+  i=syear then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+	&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;smonth&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 12%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if i=smonth then 
+  %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+	&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;sday&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 31%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if i=sday then 
+  %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+  &lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font 
+  color=&quot;#FFFFFF&quot;&gt;結束日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;eyear&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;% for 
+  i=thisyear to thisyear+1%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  &lt;% if 
+  i=eyear then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select 
+  size=&quot;1&quot; name=&quot;emonth&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 
+  12%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if 
+  i=emonth then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select 
+  size=&quot;1&quot; name=&quot;eday&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 
+  31%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if 
+  i=eday then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+  &lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#33CCFF&quot;&gt;&lt;font color=&quot;#FFFFFF&quot;&gt;公告日期&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td bgcolor=&quot;#CCFFFF&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select size=&quot;1&quot; name=&quot;pyear&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for 
+  i=thisyear to thisyear+1%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  &lt;% if 
+  i=pyear then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;年<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select 
+  size=&quot;1&quot; name=&quot;pmonth&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% for i=1 to 12%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option &lt;% if i=pmonth then 
+  %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;月<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;select 
+  size=&quot;1&quot; name=&quot;pday&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;% for i=1 to 
+  31%&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;option 
+  &lt;% if 
+  i=pday then %&gt;selected&lt;% end if %&gt; value=&quot;&lt;% =i %&gt;&quot;&gt;&lt;% =i %&gt;&lt;/option&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  &lt;% next %&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/select&gt;日<br>
+  &lt;/td&gt;&lt;/tr&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;&lt;/div&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;<br>
+  &lt;input type=&quot;submit&quot; value=&quot;存檔&quot; name=&quot;B1&quot;&gt;　　　　&lt;input type=&quot;reset&quot; value=&quot;重寫&quot; 
+  name=&quot;B2&quot;&gt;&lt;/p&gt;<br>
+  &lt;/p&gt;&lt;/form&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/body&gt;&lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>checkit.asp</b></font></p>
+<table border="1" width="100%" id="table81">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%
+  if session(&quot;glempid&quot;)=&quot;WINER&quot; then permtype=&quot;A&quot;<br>
+  if permtype&lt;&gt;&quot;A&quot; then response.redirect &quot;/msg.asp?msg=您無權使用此程式&quot;<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;審閱答案&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+  &lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot;&gt;審閱答案&lt;/h1&gt;&lt;hr&gt;<br>
+  &lt;%<br>
+&nbsp;&nbsp;&nbsp; id = Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp; Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+&nbsp;&nbsp;&nbsp; conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question 
+  where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set rs1=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; grade = rs1(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=0 then desc=&quot;低年級&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=1 then desc=&quot;中年級&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=2 then desc=&quot;高年級&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quiz = rs1(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; correct = rs1(&quot;correct&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ' 選出所有學生已回答的答案sql<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_answer 
+  where id=&quot; &amp; id &amp; &quot; order by classno&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+  %&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;對　　象：&lt;/td&gt;&lt;td&gt;&lt;% =desc %&gt;　&lt;/td&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;題　　目：&lt;/td&gt;&lt;td&gt;&lt;% =quiz %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案：&lt;/td&gt;&lt;td&gt;&lt;% =correct %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;學號&lt;/td&gt;&lt;td &gt;班級&lt;/td&gt;&lt;td &gt;姓名&lt;/td&gt;&lt;td &gt;答案&lt;/td&gt;&lt;td &gt;答對&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;form method=&quot;POST&quot; action=&quot;update.asp&quot;&gt;<br>
+  &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;% =id %&gt;&quot;&gt;<br>
+  &lt;%<br>
+  while not rs.EOF&nbsp;&nbsp;&nbsp; ' 如果有資料的話<br>
+&nbsp;&nbsp;&nbsp; stdno = rs(&quot;stdno&quot;)<br>
+&nbsp;&nbsp;&nbsp; classno = rs(&quot;classno&quot;)<br>
+&nbsp;&nbsp;&nbsp; stdname = rs(&quot;student&quot;)<br>
+&nbsp;&nbsp;&nbsp; answer = rs(&quot;answer&quot;)<br>
+&nbsp;&nbsp;&nbsp; correct = rs(&quot;correct&quot;)<br>
+  %&gt; <br>
+  &lt;tr&gt;<br>
+  &lt;td&gt;&lt;% =stdno %&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;&lt;% =classno %&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;&lt;% =stdname %&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;&lt;% =answer %&gt;　&lt;/td&gt;<br>
+  &lt;td&gt;&lt;% ' 如果原先審核過答案的話，答對的CheckBox要打勾%&gt;<br>
+  &nbsp;&nbsp;&nbsp;
+  &lt;input type=&quot;checkbox&quot; name=&quot;&lt;% = &quot;a&quot; &amp; stdno %&gt;&quot; 
+  value=&quot;ON&quot; &lt;% if correct then %&gt;checked&lt;% 
+  end if %&gt;&gt;<br>
+  &lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%<br>
+&nbsp;&nbsp;&nbsp; rs.movenext<br>
+&nbsp;&nbsp;&nbsp; wend<br>
+  %&gt;<br>
+  &lt;/table&gt;&lt;/center&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;審核完畢，請幫我儲存&quot; name=&quot;B1&quot;&gt;</font></p>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;input type=&quot;reset&quot; value=&quot;重新審核&quot; 
+  name=&quot;B2&quot;&gt;&lt;/p&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;</font></p>
+    	</td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>update.asp</b></font></p>
+<table border="1" width="100%" id="table82">
+	<tr>
+		<td><font size="2" face="Arial">&lt;%<br>
+  if session(&quot;glempid&quot;)=&quot;WINER&quot;&nbsp; then permtype=&quot;A&quot;<br>
+  if permtype&lt;&gt;&quot;A&quot; then response.redirect &quot;../msg.asp?msg=您無權使用此程式&quot;<br>
+  <br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+  		' 先把答案都設為答錯<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;Update award_answer set correct=0 where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp; conn.execute(sql)<br>
+  		' 用for each .. in......next&nbsp;&nbsp; 
+  以表單傳來的資料筆數數量，作為迴圈的圈數，逐筆取出<br>
+&nbsp;&nbsp;&nbsp; for each x in Request.Form&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; answer = Request(x)&nbsp;&nbsp;&nbsp; ’ 取回答案（因為判斷是否被老師勾選了）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stdno = mid(x,2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;’ 學生學號<br>
+  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if answer=&quot;ON&quot; then&nbsp;&nbsp;&nbsp; ' 如果被勾選答對<br>
+  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Update award_answer set 
+  correct=1 where id=&quot; &amp; id &amp; &quot; and stdno='&quot; &amp; stdno &amp; &quot;'&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end if<br>
+&nbsp;&nbsp;&nbsp; next<br>
+  response.redirect &quot;manager.asp&quot;<br>
+  %&gt;</font></td>
+	</tr>
+</table>
+<p>　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>delete.asp</b></font></p>
+<table border="1" width="100%" id="table83">
+	<tr>
+		<td><font size="2" face="Arial">&lt;%<br>
+  if session(&quot;glempid&quot;)=&quot;WINER&quot;&nbsp; then permtype=&quot;A&quot;<br>
+  if permtype&lt;&gt;&quot;A&quot; then response.redirect &quot;../msg.asp?msg=您無權使用此程式&quot;<br>
+  <br>
+&nbsp;&nbsp;&nbsp; id = Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+  <br>
+&nbsp;&nbsp;&nbsp; Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+&nbsp;&nbsp;&nbsp; conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Delete from award_question 
+  where id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp; conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;Delete from award_answer where 
+  id=&quot; &amp; id<br>
+&nbsp;&nbsp;&nbsp; conn.execute(sql)<br>
+  response.redirect &quot;manager.asp&quot;<br>
+  %&gt;</font></td>
+	</tr>
+</table>
+<p style="line-height: 150%; ">
+  　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>list.asp</b></font></p>
+<table border="1" width="100%" id="table84">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%<br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = Request(&quot;id&quot;)<br>
+&nbsp;&nbsp;&nbsp; id = replace(id,&quot;'&quot;,&quot;&quot;)<br>
+&nbsp;&nbsp;&nbsp; if id=&quot;&quot; then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sql = &quot;select max(id) from 
+  award_question where post_date &lt; getdate()&quot;<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' 
+  SQL中要用getdate()函數來取日期，不可以用now() 函數<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set rs=conn.execute(sql)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; if not rs.eof then id = rs(0)<br>
+&nbsp;&nbsp;&nbsp; end if<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;得獎名單&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;&lt;h1 align=&quot;center&quot;&gt;&lt;font face=&quot;標楷體&quot; color=&quot;#000080&quot;&gt;得獎名單&lt;/font&gt;&lt;/h1&gt;&lt;hr&gt;<br>
+  &lt;% if id&lt;&gt;&quot;&quot; then&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  ’ 有題號的話<br>
+&nbsp;&nbsp;&nbsp; sql = &quot;select * from award_question where id=&quot; &amp; id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 從資料表裡找到這題<br>
+&nbsp;&nbsp;&nbsp; set rs1=conn.execute(sql)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; grade = rs1(&quot;grade&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=0 then desc=&quot;低年級&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=1 then desc=&quot;中年級&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if grade=2 then desc=&quot;高年級&quot;<br>
+&nbsp;&nbsp;&nbsp; quiz = rs1(&quot;question&quot;)<br>
+&nbsp;&nbsp;&nbsp; correct = rs1(&quot;correct&quot;)<br>
+  %&gt;<br>
+  第&lt;% =id %&gt;期&lt;/b&gt;<br>
+	&lt;table border=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;對　　象：&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =desc %&gt;　&lt;/td&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;題　　目：&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =quiz %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;正確答案：&lt;/font&gt;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =correct %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;學號&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;班級&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;姓名&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;答案&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 選出題目資料表中，這題答對的同學，照年班級排序<br>
+  sql = &quot;select * from award_answer where id=&quot; &amp; id &amp; &quot; and correct=1 order by 
+  classno&quot;<br>
+  set rs2=conn.execute(sql)<br>
+	while not rs2.EOF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ’ 如果資料錄不是空的<br>
+&nbsp;&nbsp;&nbsp; stdno = rs2(&quot;stdno&quot;)<br>
+&nbsp;&nbsp;&nbsp; classno = rs2(&quot;classno&quot;)<br>
+&nbsp;&nbsp;&nbsp; stdname = rs2(&quot;student&quot;)<br>
+&nbsp;&nbsp;&nbsp; answer = rs2(&quot;answer&quot;)<br>
+  %&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;&lt;% =stdno %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;&lt;% =classno %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;&lt;% =stdname %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td &gt;&lt;% =answer %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%<br>
+&nbsp;&nbsp;&nbsp; rs2.movenext<br>
+&nbsp;&nbsp;&nbsp; wend<br>
+  %&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/center&gt;&lt;/div&gt;<br>
+  &lt;% else %&gt;<br>
+  &lt;center&gt;&lt;font size=&quot;5&quot; color=&quot;#FF0000&quot;&gt;得獎名單正在審核中，目前還無法公佈！&lt;/font&gt;&lt;/center&gt; <br>
+  &lt;% end if %&gt; <br>
+  &lt;/body&gt;&lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  <font color="#0000FF" face="Arial" size="5"><b>sort.asp</b></font></p>
+<table border="1" width="100%" id="table85">
+	<tr>
+		<td>
+  <p style="line-height: 150%; ">
+  <font size="2" face="Arial">&lt;%<br>
+  Set Conn = Server.CreateObject(&quot;ADODB.Connection&quot;)<br>
+  conn.open Application(&quot;spps&quot;)<br>
+  <br>
+	sql = &quot;select stdno,classno,student,count(correct) as total 
+  from award_answer where correct=1 group by stdno,classno,student order by 
+  total desc,classno&quot;<br>
+  Set rs2=conn.execute(sql)<br>
+  %&gt;<br>
+  &lt;html&gt;&lt;head&gt;&lt;title&gt;排行榜&lt;/title&gt;&lt;/head&gt;<br>
+  &lt;body&gt;<br>
+	&lt;table border=&quot;1&quot; cellpadding=&quot;2&quot; cellspacing=&quot;1&quot;&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;學號&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;班級&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;姓名&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;答對次數&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%<br>
+  while not rs2.EOF<br>
+&nbsp;&nbsp;&nbsp; stdno = rs2(&quot;stdno&quot;)<br>
+&nbsp;&nbsp;&nbsp; classno = rs2(&quot;classno&quot;)<br>
+&nbsp;&nbsp;&nbsp; stdname = rs2(&quot;student&quot;)<br>
+&nbsp;&nbsp;&nbsp; total = rs2(&quot;total&quot;)<br>
+  %&gt;<br>
+  &lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =stdno %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =classno %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =stdname %&gt;　&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;td&gt;&lt;% =total %&gt;　&lt;/td&gt;<br>
+  &lt;/tr&gt;<br>
+  &lt;%<br>
+&nbsp;&nbsp;&nbsp; rs2.movenext<br>
+&nbsp;&nbsp;&nbsp; wend<br>
+  %&gt;<br>
+  &lt;/table&gt;<br>
+  &lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;default.asp&quot;&gt;回有獎徵答首頁&lt;/a&gt;&lt;/p&gt;<br>
+  &lt;/center&gt;&lt;/body&gt; &lt;/html&gt;</font></p></td>
+	</tr>
+</table>
+<p style="line-height: 150%">　</p>
+  <h3 style="line-height: 150%; ">
+八、測試程式和偵錯</h3>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  程式開發完畢之後，應該先進行程式測試，再上線運作。程式測試的目的主要是了解：</p>
+<ul>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	程式顯示訊息的方式是否可讀易懂</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	程式的操作介面是否直覺好用</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	是否有足夠的操作提示或說明</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	程式是否提供例外或錯誤處理功能</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	程式運算結果是否符合預期</p></li>
+</ul>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+程式的測試最好是交由實際負責業務的人員來進行，而非由程式開發者自行測試，程式開發者因為早已熟知程式的運作方式，在進行測試時經常會以符合程式邏輯的方式來操作，因此無法發現較細微的錯誤！</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  當程式被測試出不理想的情況時，就需要進行程式的偵錯與改寫。所謂偵錯，就是要發現程式錯誤的地方，一般說來，程式的錯誤有下列幾種：</p>
+<ul>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	語法錯誤：程式使用的敘述語法不符合該程式語言的規定，通常是字拼錯或某些關鍵字漏寫，或是有多餘的全行空白...等等。</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	邏輯錯誤：使用條件判斷或變數名稱衝突...等各種邏輯運算上的錯誤，導致執行結果與預期不合，這種情形由於偵錯程式無法判斷，所以必須依賴人工重新審視程式。</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	函式庫連結錯誤：程式中所使用的動態函式庫或 ActiveX 
+    元件未安裝或版本衝突，造成程式無法正常執行。此種錯誤需修改系統登錄或重新安裝函式庫以解決問題！</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	系統錯誤：程式所採用的演算法效能不佳，導致系統資源被過度使用或因超過時限被系統強制中斷。這種情況必須將程式分割或重新開發才能解決問題。</p></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+	硬體I/O錯誤：程式不當使用硬體週邊，導致的各種 I/O 衝突或違反使用權限...等錯誤。</p></li>
+</ul>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  在 IIS 伺服器上如何進行 ASP 程式的偵錯呢？首先必須設定好系統提供的偵錯工具。開啟IIS中的內容→應用程式名稱→設定：</p>
+<p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.31.gif" width="467" height="477"></p>
+<p style="line-height: 150%; ">
+  〝啟用ＡＳＰ用戶端指令偵錯〞和〝將詳細的ASP錯誤訊息傳送給用戶端〞選項勾選。</p>
+<p style="line-height: 150%; ">
+  <img border="0" src="ASP/images/ASP.32.gif" width="406" height="416"></p>
+<p style="line-height: 150%; ">底下就 ASP 程式常用的偵錯技巧逐一說明：</p>
+  <ol>
+    <li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">對於 SQL 語法錯誤的部分，我們可印出 SQL 字串來判斷。例如：<br>..........略..........<br>sql = &quot;select stdno,classno,student,count(correct) as total from award_answer 
+  where correct=1 group by stdno,classno,student order by total desc,classno&quot;<br>response.wriet sql<br>response.end<br>Set rs2=conn.execute(sql)<br>.........略...........</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">如果是程式運算中的變數值有錯，我們可以秀出來檢查。例如：<br>&lt;script&gt;alert('&lt;%=stdn<span lang="en-us">ame</span>%&gt;'<span lang="en-us">)</span>&lt;/script&gt;</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">需要模擬學生的帳號權限，我們可以〝小心地〞考慮使用一組萬用密碼作為開發程式測試用。<br>實
+	作上，可以修改 check2.asp 內容讓程式判斷密碼只要是特定字串，檢查就算通過。例如：</p>
+	<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="80%" id="table55">
+		<tr>
+			<td width="100%">.....略.......<br>&nbsp; &nbsp; if inputpass=&quot;54_Student&quot; then pwd_passed = 
+        1<br>&nbsp;&nbsp;&nbsp;&nbsp; .........<br>&nbsp;&nbsp;&nbsp; end if<p>.....略.......</td>
+		</tr>
+	</table></li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">使用萬用密碼時要特別注意：<br>選用文數字混用的無規則可循的密碼，不容易被猜到<br>此事需嚴格保密<br>使用後要清除ＩＥ的密碼記憶功能<br>限制網芳讀取該資料夾的權限</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">從網路抓回來了<span lang="en-us">
+	</span>ASP<span lang="en-us"> </span>程式，解壓縮開，拷貝放到自己網站上後，發現網頁出現類似〝資料庫必須使用更新查詢....〞等錯誤訊息畫面，這多半是<span lang="en-us"> 
+  MDB </span>檔寫入權限設定的問題。因為<span lang="en-us"> </span>WINDOWS 
+  NT/2000<span lang="en-us"> </span>的 IIS 伺服器它的執行的身分是：IUSER_SERVERNAME。ASP<span lang="en-us">
+	</span>程式要將資料寫入資料庫也是使用這個使用者身分，因此 <span lang="en-us">MDB</span> 
+  資料庫檔要記得給這個使用者能讀取和寫入的權限。使用<span lang="en-us"> </span>SQL Server 作為後端資料庫，則可以避免這類錯誤。</p>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">舉例來說，以學校神通標案的<span lang="en-us">
+	</span>WEB 
+  SEVER<span lang="en-us"> </span>來架站，電腦名稱叫做 WEB，網路上所有來<span lang="en-us">
+	</span>WEB<span lang="en-us"> </span>這台主機觀賞網頁的瀏覽者，身分都是&#65339;IUSER_WEB&#65341;。</p>
+	</li>
+	<li>
+	<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">在校內架設  IIS 伺服器時，
+    如果要讓校外也能連到，要處理以下事項：<ul>
+		<li>
+		<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+		需為伺服器配置一個 NIC IP，並設定 NAT 對應。</li>
+		<li>
+		<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+		在防火牆上將 TCP 80 埠放行。若有開放 FTP 服務還要再放 TCP 21 和 UDP 20 埠。</li>
+		<li>
+		<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+		因為架站要24小時開機，所以應該準備一台 UPS，並在&#65339;控制台&#65341;－&#65339;電源選項&#65341;－&#65339;UPS&#65341;中設定好選項，並將 UPS 服務啟動。 </li>
+		<li>
+		<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+		必須在校內、對外的兩台 DNS 上主機上登錄名稱，否則您的網站只能使用 IP 連結，而不能使用 Domain 
+		Name，這會導致大部分的網頁連結無法運作。</li>
+	</ul>
+	</li>
+  </ol>
+  
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">　</p>
+<h2 style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+安裝 WEB 版校務行政及相關套件</h2>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+剛開始自行開發 ASP 
+程式時，總是會遇到許多困難無法克服，而想要觀摩別人的作品，學習別人寫作程式的技巧。有時候則是因為承辦活動或任務有急需，沒有時間慢慢開發，我們就會到網路上去尋找別人寫好的程式套件回來安裝。</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+筆者在發展石牌國小網站的過程中也累積了許多為教育目的而設計比較獨特的程式，是一般坊間不提供的程式，全部不藏私提供給大家免費下載安裝
+（為表示尊重作者的著作財產權，請勿移除作者資訊）：</p>
+<table border="0" style="border-collapse: collapse" bordercolor="#111111" cellpadding="0" cellspacing="0" wigth="90%">
+	<tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/username版本線上傳呼online.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    線上傳呼online.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/快打高手1.1phon_in.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    快打高手1.1 phon_in.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/快樂信箱happy.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    快樂信箱happy.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/意見調查survey.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    意見調查survey.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版flash聊天室1.6.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版flash聊天室1.6.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版修繕登記repair.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版修繕登記repair.zip</a></td>
+  </tr>
+  <tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版場地借用room.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版場地借用room.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版心情留言gbook.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版心情留言gbook.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版榮譽榜glory.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版榮譽榜glory.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版系統日誌log.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版系統日誌log.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版網站索引links.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版網站索引links.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版行事曆calendar.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版行事曆calendar.zip</a></td>
+  </tr>
+  <tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版討論區talk.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版討論區talk.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/改版電子賀卡ecard2.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    改版電子賀卡ecard2.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/教學文件管理documents.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    教學文件管理documents.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/教材檔案eduplan.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    教材檔案eduplan.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/明日小作家writer.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    明日小作家writer.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/最新消息new.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    最新消息new.zip</a></td>
+  </tr>
+  <tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/有獎徵答2.5award.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    有獎徵答2.5award.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/校務行政系統2.53jsmis.rar">
+    <img src="ASP/images/rar.gif" border="0" width="40" height="40"><br>
+    校務行政系統2.53jsmis.rar</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/校外教學outschool.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    校外教學outschool.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/檔案管理員%202.91manager.rar">
+    <img src="ASP/images/rar.gif" border="0" width="40" height="40"><br>
+    檔案管理2.91 manager.rar</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/檔案總管選單left.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    檔案總管選單left.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/每日一句學英文(mp3版).zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    每日一句學英文(mp3).zip</a></td>
+  </tr>
+  <tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/班級經營2.4cmis.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    班級經營2.4cmis.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/石牌聯絡網mailer.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    石牌聯絡網mailer.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/石牌電子報paper.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    石牌電子報paper.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/研習報名training.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    研習報名training.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/研討會報名meeting.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    研討會報名meeting.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/純ASP碼upload.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    純ASP碼upload.zip</a></td>
+  </tr>
+  <tr>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/網路競賽報名netgame.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    網路競賽報名netgame.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/網路讀書會reading.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    網路讀書會reading.zip</a></td>
+    <td>
+    <a href="http://www.spps.tp.edu.tw/resource/asp/李忠憲老師私房程式/資訊設備管理系統product.zip">
+    <img src="ASP/images/zip.gif" border="0" width="40" height="40"><br>
+    資訊設備管理product.zip</a></td>
+    <td>　</td>
+    <td>　</td>
+<td></td>
+  </tr>
+</table>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+以上這些套件統一使用同一套身分驗證和權限管理程式，所以下載前必須先在您的 IIS 伺服器上安裝 WEB 版校務行政系統，程式可在上表取得，安裝說明請看這裡：<a href="web校務行政系統安裝說明.htm">web校務行政系統安裝說明</a>（課堂上會有應用演練，如果還有問題請在演練時當場提出）</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+這些程式下載解壓縮後，除了程式碼外，也提供資料庫指令稿 *.sql 和資料檔 *.mdb（有些程式不需預設資料，則不提供 *.mdb），而安裝步驟也分為安裝程式和安裝資料庫兩個部分，先介紹資料庫安裝：</p>
+<ul>
+  <li>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  打開 SQL 伺服器上的 Querry Analyzer 管理員，開啟資料庫指令稿 *.sql，將預設資料庫挑選為先前專案實作所建立的 spps 資料庫。</li>
+  <li>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  執行資料庫指令稿，這個步驟會將程式所需的資料表建立起來。</li>
+  <li>
+  <p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+  打開 SQL 伺服器上的企業管理員，找到 spps 資料庫，按右鍵選匯入匯出資料，精靈出現後依照提示操作，把資料檔 *.mdb 中的資料匯入到 MS SQL 
+  資料表中。</li>
+</ul>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">
+完成資料安裝後，將 *.sql 和 *.mdb 刪除，剩餘檔案及子資料夾拷貝到網站主目錄下，這樣就完成程式部分的安裝了！</p>
+<p style="line-height: 150%; word-spacing: 1; margin-top: 8; margin-bottom: 8">　</p>
+  
+</body>
+
+</html>

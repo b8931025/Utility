@@ -1,0 +1,483 @@
+HTML {
+	SCROLLBAR-FACE-COLOR: #fffde6; SCROLLBAR-HIGHLIGHT-COLOR: #f2b600; SCROLLBAR-SHADOW-COLOR: #f2b600; SCROLLBAR-3DLIGHT-COLOR: #fffde6; SCROLLBAR-ARROW-COLOR: #f2b600; scroll-track-color: #FFFDE6; scroll-darkshadow-color: #FFFDE6
+}
+BODY {
+	BACKGROUND-ATTACHMENT: fixed; BACKGROUND-IMAGE: url(http://s.blog.xuite.net/_image/skin/background/24/blogBg_1.jpg); MARGIN: 0px; BACKGROUND-REPEAT: repeat; TEXT-ALIGN: center
+}
+A {
+	COLOR: #999966; TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #19637d; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #19637d; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #4a8ba3; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #4a8ba3; TEXT-DECORATION: none
+}
+#container {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; ; BEHAVIOR: expression(	this.style.width =  (document.documentElement.offsetWidth<990)?"990px":"100%"); PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; TEXT-ALIGN: left; min-width: 990px
+}
+#banner {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 5px; PADDING-TOP: 0px; HEIGHT: 200px
+}
+#linksLeft {
+	LEFT: 0px; MARGIN: 5px; WIDTH: 205px; POSITION: absolute
+}
+#linksRight {
+	RIGHT: 0px; MARGIN: 5px; WIDTH: 205px; POSITION: absolute
+}
+#mid {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; MARGIN: 0px 215px; PADDING-TOP: 10px; POSITION: relative
+}
+#footer {
+	CLEAR: both; FONT-SIZE: 13px; COLOR: #76b6c0; LINE-HEIGHT: 16px; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-ALIGN: center
+}
+.sidetitle {
+	BORDER-RIGHT: #f8d038 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #f8d038 1px solid; MARGIN-TOP: 5px; PADDING-LEFT: 2px; FONT-WEIGHT: normal; FONT-SIZE: 15px; BACKGROUND: url(http://s.blog.xuite.net/_image/skin/windows/24/blog011_2.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #f8d038 1px solid; COLOR: #ff6600; PADDING-TOP: 2px; BORDER-BOTTOM: #f8d038 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; LETTER-SPACING: 0.1em
+}
+.side {
+	BORDER-RIGHT: #f8d038 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #f8d038 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #ffffff; PADDING-BOTTOM: 4px; BORDER-LEFT: #f8d038 1px solid; LINE-HEIGHT: 140%; PADDING-TOP: 4px; BORDER-BOTTOM: #f8d038 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.side LI {
+	LIST-STYLE-POSITION: outside; MARGIN-LEFT: 20px
+}
+.spacer {
+	CLEAR: both
+}
+.blogname {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 22px; COLOR: #455236; PADDING-TOP: 100px
+}
+.blogemotion {
+	
+}
+.description {
+	PADDING-LEFT: 10px; FONT-SIZE: 15px; COLOR: #0099cc
+}
+.menulist {
+	WIDTH: 100%; PADDING-TOP: 5px
+}
+.menu {
+	PADDING-RIGHT: 80px; FLOAT: right; PADDING-TOP: 5px
+}
+.logo {
+	VISIBILITY: visible
+}
+#content {
+	BORDER-RIGHT: #fff291 5px solid; PADDING-RIGHT: 10px; BORDER-TOP: #fff291 5px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; MARGIN: 0px; BORDER-LEFT: #fff291 5px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #fff291 5px solid; BACKGROUND-COLOR: #ffffff
+}
+.title {
+	BACKGROUND: #efefef; WIDTH: 100%; PADDING-TOP: 5px; HEIGHT: 25px
+}
+SPAN.titlename {
+	PADDING-LEFT: 5px; FONT-WEIGHT: normal; FONT-SIZE: 15px; COLOR: #185987
+}
+SPAN.titledate {
+	PADDING-RIGHT: 10px; FONT-SIZE: 11px; FLOAT: right; COLOR: #7a75b9; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; HEIGHT: 25px
+}
+.blogrank {
+	MARGIN-TOP: 10px; WIDTH: 100%; LINE-HEIGHT: 200%
+}
+SPAN.counter {
+	MARGIN-TOP: 15px; FONT-SIZE: 12px; FLOAT: right; COLOR: #999999
+}
+SPAN.counter LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletCounter.gif)
+}
+SPAN.category {
+	MARGIN-TOP: 15px; FLOAT: right
+}
+SPAN.category LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletContentArticle.gif)
+}
+.blogbody {
+	WIDTH: 100%; WORD-WRAP: break-word
+}
+.posted {
+	WIDTH: 100%; TEXT-ALIGN: right
+}
+.selectbar {
+	WIDTH: 100%; TEXT-ALIGN: center
+}
+.trackbacktitle {
+	BORDER-TOP: #cccccc 1px dotted; MARGIN-TOP: 20px; FONT-SIZE: 12px; BACKGROUND: #fefaed; MARGIN-BOTTOM: 5px; WIDTH: 100%; COLOR: #cc6600; BORDER-BOTTOM: #cccccc 1px dotted; POSITION: relative; HEIGHT: 24px
+}
+.trackbackurl {
+	BACKGROUND: #f2f2f2; PADDING-BOTTOM: 20px; WIDTH: 100%; TEXT-INDENT: 10px; PADDING-TOP: 20px
+}
+.trackbackdate {
+	FONT-SIZE: 11px; WIDTH: 100%; COLOR: #7a75b9; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-ALIGN: right
+}
+.trackbackcontent {
+	MARGIN-TOP: 5px; WIDTH: 100%; LINE-HEIGHT: 150%; BORDER-BOTTOM: #cccccc 1px dotted
+}
+.comment {
+	BORDER-TOP: #cccccc 1px dotted; MARGIN-TOP: 20px; FONT-SIZE: 12px; BACKGROUND: #fefaed; PADDING-BOTTOM: 5px; WIDTH: 100%; COLOR: #cc6600; PADDING-TOP: 5px; BORDER-BOTTOM: #cccccc 1px dotted; HEIGHT: 24px
+}
+SPAN.commenttitle {
+	
+}
+SPAN.commenttitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/bulletMessageList.gif)
+}
+SPAN.commentbutton {
+	FLOAT: right
+}
+.author {
+	WIDTH: 100%
+}
+SPAN.authorname {
+	
+}
+SPAN.commentdate {
+	FONT-SIZE: 11px; FLOAT: right; COLOR: #7a75b9; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-ALIGN: right
+}
+.commenttext {
+	MARGIN-TOP: 10px; MARGIN-BOTTOM: 10px; WIDTH: 100%; WORD-WRAP: break-word
+}
+.commentedit {
+	WIDTH: 100%; BORDER-BOTTOM: #cccccc 1px dotted
+}
+SPAN.email {
+	
+}
+SPAN.line {
+	
+}
+SPAN.urlicon {
+	
+}
+SPAN.url {
+	
+}
+.avatar {
+	BORDER-RIGHT: #f8d038 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #f8d038 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: normal; FONT-SIZE: 12px; BACKGROUND: #ffffff; PADDING-BOTTOM: 5px; BORDER-LEFT: #f8d038 1px solid; LINE-HEIGHT: 140%; PADDING-TOP: 5px; BORDER-BOTTOM: #f8d038 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.avatarPhoto {
+	TEXT-ALIGN: center
+}
+.avatarID {
+	
+}
+.avatarDesciption {
+	
+}
+.avatarbutton {
+	
+}
+.categoryTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletCategory.gif)
+}
+.categoryTitle {
+	
+}
+.categorySide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.categorySide {
+	
+}
+.calendarTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletCalendar.gif)
+}
+.calendarTitle {
+	
+}
+.calendarSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.calendarSide {
+	
+}
+.calMonth {
+	WIDTH: 95%
+}
+.calMonthNav {
+	
+}
+.calMonthBackward {
+	
+}
+.calMonthCurrent {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+.calMonthForward {
+	FONT-SIZE: 12px; COLOR: #ff0000; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+.calMonthHeader {
+	
+}
+.calMonthDay {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-ALIGN: center
+}
+.calMonthToday {
+	FONT-SIZE: 11px; TEXT-ALIGN: center
+}
+.calholiday {
+	FONT-SIZE: 11px; COLOR: #ff3300; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"; TEXT-ALIGN: center
+}
+.calendarbutton {
+	TEXT-ALIGN: right
+}
+.searchTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletSearch.gif)
+}
+.searchTitle {
+	
+}
+.searchSide {
+	TEXT-ALIGN: center
+}
+.searchbutton {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; TEXT-ALIGN: center
+}
+.chatTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletChat.gif)
+}
+.chatTitle {
+	
+}
+.chatSide {
+	
+}
+.bloglistTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletBlogList.gif)
+}
+.bloglistTitle {
+	
+}
+.bloglistSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.bloglistSide {
+	
+}
+.epaperTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletEpaper.gif)
+}
+.epaperTitle {
+	
+}
+.epaperSide {
+	TEXT-ALIGN: center
+}
+.epaperbutton {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; TEXT-ALIGN: center
+}
+.customTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletCustom.gif)
+}
+.customTitle {
+	
+}
+.customSide {
+	
+}
+.resourceTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletBlogResource.gif)
+}
+.resourceTitle {
+	
+}
+.resourceSide {
+	TEXT-ALIGN: center
+}
+.paintTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletPaint.gif)
+}
+.paintTitle {
+	
+}
+.paintSide {
+	TEXT-ALIGN: center
+}
+.musicTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletMusicBox.gif)
+}
+.musicTitle {
+	
+}
+.musicSide {
+	
+}
+.musicbutton {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; TEXT-ALIGN: left
+}
+.articleTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletArticleList.gif)
+}
+.articleTitle {
+	
+}
+.articleSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.articleSide {
+	
+}
+.messageTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletMessageList.gif)
+}
+.messageTitle {
+	
+}
+.messageSide {
+	MARGIN-LEFT: 3ex; TEXT-INDENT: -3ex
+}
+.date {
+	FONT-SIZE: 11px; COLOR: #7a75b9; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+.countTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletCounter.gif)
+}
+.countTitle {
+	
+}
+.countSide {
+	
+}
+.rssrollTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletRssRoll.gif)
+}
+.rssrollTitle {
+	
+}
+.rssrollSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.rssrollSide {
+	
+}
+.backbtn LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blog038.gif)
+}
+.backbtn {
+	TEXT-ALIGN: right
+}
+.morebtn LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blog037.gif)
+}
+.morebtn {
+	TEXT-ALIGN: right
+}
+.rankTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletRank.gif)
+}
+.rankTitle {
+	
+}
+.rankSide {
+	
+}
+.albumTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletAlbum.gif)
+}
+.albumTitle {
+	
+}
+.albumSide {
+	
+}
+.linkTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/bulletLink.gif)
+}
+.linkTitle {
+	
+}
+.linkSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.linkSide {
+	
+}
+.personallink {
+	DISPLAY: block; MARGIN: 0px; WIDTH: 190px
+}
+.plink LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.plink {
+	
+}
+.pphoto LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.pphoto {
+	
+}
+.pfriend LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.pfriend {
+	
+}
+.pboard LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.pboard {
+	
+}
+.pTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/bulletPersonal.gif)
+}
+.pTitle {
+	
+}
+.personaltitle {
+	BORDER-RIGHT: #f8d038 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #f8d038 1px solid; MARGIN-TOP: 5px; PADDING-LEFT: 2px; FONT-WEIGHT: normal; FONT-SIZE: 15px; BACKGROUND: url(http://s.blog.xuite.net/_image/skin/windows/24/blog011_2.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #f8d038 1px solid; COLOR: #ff6600; PADDING-TOP: 2px; BORDER-BOTTOM: #f8d038 1px solid; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; LETTER-SPACING: 0.1em
+}
+.pvlog UL {
+	PADDING-RIGHT: 2px; DISPLAY: block; PADDING-LEFT: 20px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; WORD-WRAP: break-word
+}
+.pvlog LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif); PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.pboard {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 90px; PADDING-TOP: 0px
+}
+.page {
+	MARGIN-TOP: 10px; FONT-SIZE: 12px; MARGIN-BOTTOM: 10px; VERTICAL-ALIGN: middle; COLOR: #4a8ba3; LINE-HEIGHT: 24px
+}
+.page A:link {
+	FONT-SIZE: 12px; COLOR: #19637d; LINE-HEIGHT: 24px; TEXT-DECORATION: none
+}
+.page A:visited {
+	FONT-SIZE: 12px; COLOR: #19637d; LINE-HEIGHT: 24px; TEXT-DECORATION: none
+}
+.page A:active {
+	FONT-SIZE: 12px; COLOR: #19637d; LINE-HEIGHT: 24px; TEXT-DECORATION: none
+}
+.page A:hover {
+	FONT-SIZE: 12px; COLOR: #4a8ba3; LINE-HEIGHT: 24px; TEXT-DECORATION: underline
+}
+.reply_info {
+	BORDER-RIGHT: #7a75b9 1px dotted; PADDING-RIGHT: 1.2em; BORDER-TOP: #7a75b9 1px dotted; PADDING-LEFT: 1.2em; PADDING-BOTTOM: 1.2em; MARGIN: 1.2em; BORDER-LEFT: #7a75b9 1px dotted; WIDTH: 70%; PADDING-TOP: 1.2em; BORDER-BOTTOM: #7a75b9 1px dotted
+}
+.friendTitle LI {
+	
+}
+.friendTitle {
+	
+}
+.LoveFriendSide {
+	
+}
+.LoveFriendSide SELECT {
+	FONT-SIZE: 13px; COLOR: #333333
+}
+.LoveBlogTitle LI {
+	
+}
+.LoveBlogTitle {
+	
+}
+.LoveBlogSide {
+	
+}
+.LoveBlogSide SELECT {
+	FONT-SIZE: 13px; COLOR: #333333
+}

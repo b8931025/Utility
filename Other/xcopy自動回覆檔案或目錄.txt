@@ -1,0 +1,16 @@
+讓 XCOPY 時候不要問「是否指定目標檔案 名稱或目標目錄名稱 (F = 檔案，D = 目錄)?」
+
+
+C:\>XCOPY S:\Temp\ABC.txt  C:\Temp\ABC.txt  /Y   
+C:\Temp\ABC.txt 是否指定目標檔案
+名稱或目標目錄名稱
+(F = 檔案，D = 目錄)
+
+
+解決辦法用 echo F
+C:\> echo F  |  XCOPY S:\Temp\ABC.txt  C:\Temp\ABC.txt  /Y   
+C:\Temp\ABC.txt 是否指定目標檔案
+名稱或目標目錄名稱
+(F = 檔案，D = 目錄)? F
+S:\Temp\ABC.txt
+已複製 1 個檔案

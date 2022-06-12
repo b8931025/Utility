@@ -1,0 +1,20 @@
+IIS:
+[服務及應用程式]->[Internet Information Services]->[網站]->[預設的網站]->
+網站專案按右鍵->[內容]->[ASP.NET]->[編輯組態]->[應用程式]->[全球化設定]
+
+Visual Studio:
+[檔案]->[進階儲存選項]->編碼方式
+
+Web.config:
+<globalization 
+fileEncoding="big5"
+requestEncoding="big5"
+responseEncoding="big5"
+culture="zh-TW"
+uiCulture="zh-TW"/>
+
+VB:
+Response.ContentEncoding = Response.ContentEncoding.Default
+Request.ContentEncoding = Request.ContentEncoding.Default
+
+

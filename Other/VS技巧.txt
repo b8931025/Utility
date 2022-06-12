@@ -1,0 +1,10 @@
+﻿格式化選取範圍 Ctrl+K / F
+格式化文件 Ctrl + K / D
+整行移動 Alt + Up or Down
+上方插入空白行 Ctrl + Enter
+下方插入空白行 Ctrl + Shift + Enter
+RightTrim Ctrl + K / \
+檢視空白區 Ctrl + R / W
+
+
+for / if / foreach 連續按兩下Tab

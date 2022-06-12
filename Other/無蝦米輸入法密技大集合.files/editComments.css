@@ -1,0 +1,36 @@
+.editableAuthor {
+	COLOR: #000; BACKGROUND-COLOR: #ffffd3
+}
+.editableComment {
+	COLOR: #000; BACKGROUND-COLOR: #ffffd3
+}
+.editAuthor {
+	BORDER-TOP-WIDTH: 0px; CLEAR: none; PADDING-RIGHT: 0px; DISPLAY: inline; PADDING-LEFT: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND-IMAGE: none; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent; BORDER-RIGHT-WIDTH: 0px
+}
+.textComment TEXTAREA {
+	WIDTH: 90%; HEIGHT: 100px
+}
+.editComment {
+	
+}
+.editableComment {
+	
+}
+.textComment {
+	
+}
+.ajax-edit {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 1em; PADDING-BOTTOM: 5px; COLOR: #fff; PADDING-TOP: 5px; FONT-STYLE: italic; BACKGROUND-COLOR: #333
+}
+.ajax-edit .ajax-timer {
+	FONT-SIZE: 0.8em; COLOR: #ffcc66
+}
+INPUT.ajax-error {
+	BORDER-RIGHT: #966 3px solid; BORDER-TOP: #966 3px solid; BORDER-LEFT: #966 3px solid; BORDER-BOTTOM: #966 3px solid
+}
+TEXTAREA.ajax-error {
+	BACKGROUND: #966
+}
+LI.ajax-error {
+	BACKGROUND: #966
+}

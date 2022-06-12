@@ -1,0 +1,15 @@
+刪除重複換行
+[^p][^t^p ]+   replace by ^p
+刪除有特定字串的行
+^p*特定字串*^p   replace by ^p
+or
+%*http://www.baidu.net/*^p　
+
+找出=後沒有用雙引號括起來的字串，加上雙引號※^1一定要是字母、數字或空白，不然在JavaScript裡!=  ==會被包含進去
+^([a-zA-Z0-9 ][=]^)^([a-zA-Z0-9_%:/.]+^)^([ >]^) replace ^1"^2"^3
+
+刪除$開頭的行
+%[$]*$ 					replace by empty
+
+刪除有css字串的行
+%*css*$					replace by empty

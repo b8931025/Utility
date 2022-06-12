@@ -1,0 +1,64 @@
+﻿    class Program
+    {
+        static void Main(string[] args)
+        {
+            //在執行緒中加入參數
+
+            //方法一
+            Thread t1 = new Thread(RacingStatic);
+            t1.Start("T1");
+
+            //方法二
+            Thread t2 = new Thread((new Program()).RacingInstance);
+            t2.Start("T2");
+
+            //方法三
+            RacingClass rac = new RacingClass("T3");
+            Thread t3 = new Thread(new ThreadStart(rac.RacingInstance));
+            t3.Start();
+
+            Console.WriteLine("按任意鍵結束");
+            Console.ReadLine();
+        }
+
+
+        public static void RacingStatic(object obj)
+        {
+            Random rdn = new Random();
+            for (int i = 1; i <= 20; i++) {
+                int Step = (int)(rdn.NextDouble() * 4000);
+                Thread.Sleep(Step);
+                Console.WriteLine(obj.ToString() + " " + i.ToString() + "%");
+            }
+            Console.WriteLine(obj.ToString() + " 結束");
+        }
+
+        public void RacingInstance(object obj) {
+            Random rdn = new Random();
+            for (int i = 1; i <= 20; i++)
+            {
+                int Step = (int)(rdn.NextDouble() * 4000);
+                Thread.Sleep(Step);
+                Console.WriteLine(obj.ToString() + " " + i.ToString() + "%");
+            }
+            Console.WriteLine(obj.ToString() + " 結束");
+        }
+
+        class RacingClass {
+            string _name = "";
+            public RacingClass(string name) {
+                _name = name;
+            }
+
+            public void RacingInstance() {
+                Random rdn = new Random();
+                for (int i = 1; i <= 20; i++)
+                {
+                    int Step = (int)(rdn.NextDouble() * 4000);
+                    Thread.Sleep(Step);
+                    Console.WriteLine(_name.ToString() + " " + i.ToString() + "%");
+                }
+                Console.WriteLine(_name.ToString() + " 結束");
+            }
+        }
+    }

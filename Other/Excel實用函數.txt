@@ -1,0 +1,4 @@
+取得檔案名稱
+=MID(CELL("filename"),FIND("[",CELL("filename"))+1,FIND("]",CELL("filename"))-FIND("[",CELL("filename"))-1)
+取得工作表名稱
+=RIGHT(CELL("filename"),LEN(CELL("filename"))-FIND("]",CELL("filename")))

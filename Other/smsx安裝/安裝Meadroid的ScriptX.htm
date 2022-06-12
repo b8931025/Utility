@@ -1,0 +1,951 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0046)http://kevyu.blogspot.com/2008/10/scriptx.html -->
+<HTML dir=ltr xmlns="http://www.w3.org/1999/xhtml" xmlns:b = 
+"http://www.google.com/2005/gml/b" xmlns:data = 
+"http://www.google.com/2005/gml/data" xmlns:expr = 
+"http://www.google.com/2005/gml/expr"><HEAD><TITLE>魚乾的筆記本: 安裝Meadroid的ScriptX</TITLE>
+<SCRIPT type=text/javascript>(function() { var a=window;function e(b){this.t={};this.tick=function(c,h,d){d=d?d:(new Date).getTime();this.t[c]=[d,h]};this.tick("start",null,b)}var f=new e;a.jstiming={Timer:e,load:f};try{a.jstiming.pt=a.gtbExternal&&a.gtbExternal.pageT()||a.external&&a.external.pageT}catch(g){};a.tickAboveFold=function(b){b=b;var c=0;if(b.offsetParent){do c+=b.offsetTop;while(b=b.offsetParent)}b=c;b<=750&&a.jstiming.load.tick("aft")};var i=false;function j(){if(!i){i=true;a.jstiming.load.tick("firstScrollTime")}}a.addEventListener?a.addEventListener("scroll",j,false):a.attachEvent("onscroll",j); })();</SCRIPT>
+
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META content=true name=MSSmartTagsPreventParsing>
+<META content="MSHTML 6.00.2900.5512" name=GENERATOR><LINK 
+href="http://www.blogger.com/favicon.ico" type=image/vnd.microsoft.icon 
+rel=icon><LINK href="http://kevyu.blogspot.com/2008/10/scriptx.html" 
+rel=canonical><LINK title="魚乾的筆記本 - Atom" 
+href="http://kevyu.blogspot.com/feeds/posts/default" type=application/atom+xml 
+rel=alternate><LINK title="魚乾的筆記本 - RSS" 
+href="http://kevyu.blogspot.com/feeds/posts/default?alt=rss" 
+type=application/rss+xml rel=alternate><LINK title="魚乾的筆記本 - Atom" 
+href="http://www.blogger.com/feeds/24036294/posts/default" 
+type=application/atom+xml rel=service.post><LINK title=RSD 
+href="http://www.blogger.com/rsd.g?blogID=24036294" type=application/rsd+xml 
+rel=EditURI><LINK title="魚乾的筆記本 - Atom" 
+href="http://kevyu.blogspot.com/feeds/2604130746213123981/comments/default" 
+type=application/atom+xml rel=alternate><LINK 
+href="安裝Meadroid的ScriptX.files/3796602922-widget_css_bundle.css" type=text/css 
+rel=stylesheet><LINK 
+href="安裝Meadroid的ScriptX.files/3727950723-blog_controls.css" type=text/css 
+rel=stylesheet><LINK 
+href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=24036294&amp;zx=2ea28769-c595-4449-b437-cf8ba231d6a7" 
+type=text/css rel=stylesheet>
+<STYLE type=text/css>#navbar-iframe {
+	DISPLAY: block
+}
+</STYLE>
+
+<STYLE id=page-skin-1 type=text/css>PRE {
+	BORDER-LEFT-COLOR: #458b74; BORDER-BOTTOM-COLOR: #458b74; COLOR: #292929; BORDER-TOP-STYLE: dashed; BORDER-TOP-COLOR: #458b74; BORDER-RIGHT-STYLE: dashed; BORDER-LEFT-STYLE: dashed; BACKGROUND-COLOR: #f0ffff; BORDER-RIGHT-COLOR: #458b74; BORDER-BOTTOM-STYLE: dashed
+}
+.subTitle {
+	COLOR: #838b8b; LINE-HEIGHT: 12pt
+}
+.subDescription {
+	BORDER-RIGHT: #458b74 1px solid; BORDER-TOP: #458b74 1px solid; BACKGROUND: #e0e0e0; BORDER-LEFT: #458b74 1px solid; COLOR: #666666; BORDER-BOTTOM: #458b74 1px solid
+}
+.hightLight {
+	COLOR: red
+}
+.tab {
+	PADDING-LEFT: 5px
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: small; BACKGROUND: #e0e0e0; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #333333; PADDING-TOP: 0px; TEXT-ALIGN: center
+}
+BLOCKQUOTE {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; FONT-SIZE: 88%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/quotes.gif) no-repeat left top; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px 30px; COLOR: #666; LINE-HEIGHT: 1.5em; PADDING-TOP: 10px
+}
+BLOCKQUOTE P {
+	MARGIN-TOP: 0px
+}
+abbr {
+	CURSOR: help; BORDER-BOTTOM: 1px dotted; FONT-STYLE: normal
+}
+ACRONYM {
+	CURSOR: help; BORDER-BOTTOM: 1px dotted; FONT-STYLE: normal
+}
+CODE {
+	BORDER-RIGHT: #104e8b 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #104e8b 1px solid; DISPLAY: block; PADDING-LEFT: 21px; FONT-SIZE: 9pt; BACKGROUND: url(http://pinktealeaf.googlepages.com/code.gif) #e0e0e0 repeat-y left top; PADDING-BOTTOM: 10px; OVERFLOW: auto; BORDER-LEFT: #104e8b 1px solid; COLOR: #000; LINE-HEIGHT: 1.2em; PADDING-TOP: 10px; BORDER-BOTTOM: #104e8b 1px solid; FONT-FAMILY: 'Courier New'; LETTER-SPACING: 0px; max-height: 1200px
+}
+HR {
+	DISPLAY: none
+}
+IMG {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-LEFT: 10px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+LI {
+	PADDING-LEFT: 14px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/tictac_blue.gif) no-repeat left 6px; MARGIN-BOTTOM: 3px; LIST-STYLE-TYPE: none
+}
+A:link {
+	COLOR: #6699cc
+}
+A:visited {
+	COLOR: #666699
+}
+A:hover {
+	COLOR: #5b739c
+}
+A:active {
+	COLOR: #5b739c; TEXT-DECORATION: none
+}
+#outer-wrapper {
+	BACKGROUND: url(http://www.blogblog.com/tictac_blue/tile.gif) repeat-y; MARGIN: 0px auto; FONT: 100% Verdana, sans-serif; WIDTH: 847px; TEXT-ALIGN: left
+}
+#content-wrapper {
+	MARGIN-LEFT: 42px; WIDTH: 763px
+}
+#main {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 1em; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 20px 0px 0px; OVERFLOW: hidden; WIDTH: 460px; LINE-HEIGHT: 1.5em; PADDING-TOP: 0px; WORD-WRAP: break-word
+}
+#sidebar {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 85%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/sidebar_bg.gif) no-repeat left top; FLOAT: right; PADDING-BOTTOM: 0px; OVERFLOW: hidden; WIDTH: 259px; COLOR: #999999; LINE-HEIGHT: 1.4em; PADDING-TOP: 20px; WORD-WRAP: break-word
+}
+#header-wrapper {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/top_div_blue.gif) #e0e0e0 no-repeat left top; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 100% 'Lucida Grande','Trebuchet MS'; PADDING-TOP: 0px
+}
+#header {
+	PADDING-RIGHT: 60px; PADDING-LEFT: 160px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/top_h1.gif) no-repeat left bottom; PADDING-BOTTOM: 35px; MARGIN: 0px; COLOR: #ffffff; PADDING-TOP: 25px
+}
+#header H1 {
+	FONT-SIZE: 200%; text-shadow: #4F73B6 2px 2px 2px
+}
+#header H1 A {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+#header H1 A:hover {
+	COLOR: #eee
+}
+H2.date-header {
+	MARGIN-TOP: 0px; PADDING-LEFT: 14px; FONT-SIZE: 90%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/date_icon_blue.gif) no-repeat left 50%; COLOR: #999999
+}
+.post H3 {
+	MARGIN-TOP: 0px; FONT: bold 130% 'Lucida Grande','Trebuchet MS'; COLOR: #993333; LETTER-SPACING: -1px
+}
+.post {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 1.5em; MARGIN: 0px 0px 1.5em; PADDING-TOP: 0px; BORDER-BOTTOM: #ddd 1px solid
+}
+.post H3 A {
+	COLOR: #993333; TEXT-DECORATION: none
+}
+.post H3 A:visited {
+	COLOR: #993333; TEXT-DECORATION: none
+}
+.post-footer {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; FONT-SIZE: 88%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/tictac_grey.gif) no-repeat left 8px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #999999; PADDING-TOP: 0px
+}
+.post IMG {
+	BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 6px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; BORDER-LEFT: #ddd 1px solid; PADDING-TOP: 6px; BORDER-BOTTOM: #c0c0c0 1px solid
+}
+.feed-links {
+	CLEAR: both; LINE-HEIGHT: 2.5em
+}
+#blog-pager-newer-link {
+	FLOAT: left
+}
+#blog-pager-older-link {
+	FLOAT: right
+}
+#blog-pager {
+	TEXT-ALIGN: center
+}
+#comments {
+	FONT-SIZE: 85%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/comments_curve.gif) #eee no-repeat left top; COLOR: #666; LINE-HEIGHT: 1.5em; PADDING-TOP: 10px
+}
+#comments H4 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 40px; FONT-SIZE: 130%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/bubbles.gif) no-repeat 10px 0px; PADDING-BOTTOM: 0px; MARGIN: 20px 0px 15px; COLOR: #666; PADDING-TOP: 8px; FONT-FAMILY: "Lucida Grande", "Trebuchet MS"; HEIGHT: 29px! important
+}
+#comments UL {
+	MARGIN-LEFT: 0px
+}
+#comments LI {
+	PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.comment-body {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 25px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/tictac_blue.gif) no-repeat 10px 5px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.comment-body P {
+	MARGIN-BOTTOM: 0px
+}
+.comment-author {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 60px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/comment_arrow_blue.gif) no-repeat 44px 2px; PADDING-BOTTOM: 0px; MARGIN: 4px 0px 0px; COLOR: #999; PADDING-TOP: 0px
+}
+.comment-footer {
+	PADDING-BOTTOM: 1em; BORDER-BOTTOM: #ddd 1px solid
+}
+.deleted-comment {
+	COLOR: gray; FONT-STYLE: italic
+}
+.sidebar H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 40px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/sidebar_icon.gif) no-repeat 10px 15px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 130% 'Lucida Grande','Trebuchet MS'; COLOR: #666666; PADDING-TOP: 25px; HEIGHT: 32px! important
+}
+.sidebar .widget {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: #ddd 1px solid
+}
+.sidebar LI {
+	BACKGROUND: url(http://www.blogblog.com/tictac_blue/tictac_blue.gif) no-repeat left 5px
+}
+.profile-textblock {
+	CLEAR: both; MARGIN-LEFT: 0px
+}
+.profile-img {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 4px; FLOAT: left; PADDING-BOTTOM: 4px; MARGIN: 0px 5px 5px 0px; BORDER-LEFT: #ddd 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #ddd 1px solid
+}
+.clear {
+	CLEAR: both
+}
+#footer-wrapper {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 85%; BACKGROUND: url(http://www.blogblog.com/tictac_blue/bottom_sill.gif) no-repeat left bottom; PADDING-BOTTOM: 9px; MARGIN: 0px; COLOR: #ddd; PADDING-TOP: 0px
+}
+#footer {
+	PADDING-RIGHT: 320px; PADDING-LEFT: 95px; BACKGROUND: url(http://www.blogblog.com/tictac_blue/bottom_sash.gif) no-repeat left top; PADDING-BOTTOM: 20px; MARGIN: 0px; PADDING-TOP: 20px
+}
+BODY#layout #outer-wrapper {
+	MARGIN-TOP: 0px; PADDING-TOP: 0px
+}
+BODY#layout #main {
+	MARGIN-TOP: 0px; PADDING-TOP: 0px
+}
+BODY#layout #sidebar {
+	MARGIN-TOP: 0px; PADDING-TOP: 0px
+}
+BODY#layout #outer-wrapper {
+	WIDTH: 740px
+}
+BODY#layout #content-wrapper {
+	WIDTH: 740px
+}
+BODY#layout #sidebar {
+	MARGIN-BOTTOM: 1em; MARGIN-RIGHT: 0px
+}
+BODY#layout #header {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+BODY#layout #footer {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+BODY#layout #main {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+BODY#layout #content-wrapper {
+	MARGIN: 0px
+}
+</STYLE>
+
+<SCRIPT type=text/javascript>
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</SCRIPT>
+</HEAD>
+<BODY>
+<DIV class="navbar section" id=navbar>
+<DIV class="widget Navbar" id=Navbar1>
+<SCRIPT type=text/javascript>
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </SCRIPT>
+<IFRAME id=navbar-iframe title="Blogger Navigation and Search" marginWidth=0 
+marginHeight=0 src="安裝Meadroid的ScriptX.files/CASL4PCB.htm" frameBorder=0 
+width="100%" scrolling=no height=30 allowTransparency></IFRAME>
+<DIV></DIV></DIV></DIV>
+<DIV id=outer-wrapper>
+<DIV id=wrap2><!-- skip links for text browsers --><SPAN id=skiplinks 
+style="DISPLAY: none"><A 
+href="http://kevyu.blogspot.com/2008/10/scriptx.html#main">skip to main </A>| <A 
+href="http://kevyu.blogspot.com/2008/10/scriptx.html#sidebar">skip to 
+sidebar</A> </SPAN>
+<DIV id=header-wrapper>
+<DIV class="header section" id=header>
+<DIV class="widget Header" id=Header1>
+<DIV id=header-inner>
+<DIV class=titlewrapper>
+<H1 class=title><A href="http://kevyu.blogspot.com/">魚乾的筆記本</A> </H1></DIV>
+<DIV class=descriptionwrapper>
+<P 
+class=description><SPAN>工作上學到什麼就寫什麼...</SPAN></P></DIV></DIV></DIV></DIV></DIV>
+<DIV id=content-wrapper>
+<DIV id=crosscol-wrapper style="TEXT-ALIGN: center">
+<DIV class="crosscol section" id=crosscol></DIV></DIV>
+<DIV id=main-wrapper>
+<DIV class="main section" id=main>
+<DIV class="widget AdSense" id=AdSense1>
+<DIV class=widget-content>
+<SCRIPT type=text/javascript><!--
+google_ad_client="pub-7153089774931833";
+google_ad_host="pub-1556223355139109";
+google_ad_host_channel="00000";
+google_ad_width=234;
+google_ad_height=60;
+google_ad_format="234x60_as";
+google_ad_type="text";
+google_color_border="6699CC";
+google_color_bg="FFFFFF";
+google_color_link="333333";
+google_color_url="999999";
+google_color_text="999999";
+//--></SCRIPT>
+
+<SCRIPT src="安裝Meadroid的ScriptX.files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+
+<DIV class=clear></DIV><SPAN class=widget-item-control><SPAN 
+class="item-control blog-admin"><A class=quickedit title=編輯 
+onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense1"));' 
+href="http://www.blogger.com/rearrange?blogID=24036294&amp;widgetType=AdSense&amp;widgetId=AdSense1&amp;action=editWidget" 
+target=configAdSense1><IMG height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_wrench_allbkg.png" width=18> 
+</A></SPAN></SPAN>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class="widget Blog" id=Blog1>
+<DIV class="blog-posts hfeed"><!-- google_ad_section_start(name=default) -->
+<H2 class=date-header>星期五, 十月 31, 2008</H2>
+<DIV class="post hentry uncustomized-post-template"><A 
+name=2604130746213123981></A>
+<H3 class="post-title entry-title"><A 
+href="http://kevyu.blogspot.com/2008/10/scriptx.html">安裝Meadroid的ScriptX</A> 
+</H3>
+<DIV class=post-header-line-1></DIV>
+<DIV class="post-body entry-content">Step1.下載smsx.cab<BR>載點：<A 
+href="http://www.meadroid.com/scriptx/sxdownload.asp">smsx.cab</A><BR>進入後的畫面如下<BR>有兩個載點，一個是可測試完整的功能<BR>另一個就是直接載smsx.cab,後面有說明，記得改version到6,4,xxx<BR><A 
+onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" 
+href="http://2.bp.blogspot.com/_tTSUnirsVco/SQp0sF3hqCI/AAAAAAAACn0/9RtFGdZhYDM/s1600-h/scriptx.JPG"><IMG 
+id=BLOGGER_PHOTO_ID_5263147415373981730 
+style="WIDTH: 200px; CURSOR: hand; HEIGHT: 97px" alt="" 
+src="安裝Meadroid的ScriptX.files/scriptx.JPG" 
+border=0></A><BR><BR>下載smsx.cab後<BR>將檔案放到你自己指定的Server位置<BR><BR>Step2.在網頁的body放入Object<BR><CODE>&lt;!-- 
+MeadCo Security Manager --&gt;<BR>&lt;object style="display: none;" 
+classid="clsid:5445be81-b796-11d2-b931-002018654e2e" codebase="http://[your path 
+here]/smsx.cab#<HIGHLIGHT>Version=6,4,438,06</HIGHLIGHT>"&gt;<BR>&lt;param 
+name="GUID" value="{19CF4AF5-CCD8-4840-BA3C-85EB66D69A6E}"&gt;<BR>&lt;param 
+name="Path" value="http://[your path here]/sxlic.mlf"&gt;<BR>&lt;param 
+name="Revision" value="0"&gt;<BR>&lt;/object&gt;<BR>&lt;!-- MeadCo ScriptX 
+--&gt;<BR>&lt;object id="factory" style="display: none;" 
+classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814"&gt;<BR>&lt;/object&gt;<BR></CODE><BR><BR>Step3.設定參數<BR>這裡有兩個地方需設定<BR>codebase及param的Path<BR>其中codebase指定到剛你設定的[Server 
+Url/smsx.cab]位置<BR><BR>而Path要放的是MeadCo的unique publishing 
+license(即sxlic.mlf的位置)<BR>只是用免費的功能話 就可以把拿掉Path及Revision這兩行拿掉<BR><CODE>&lt;!-- 
+MeadCo Security Manager --&gt;<BR>&lt;object style="display: none;" 
+classid="clsid:5445be81-b796-11d2-b931-002018654e2e" codebase="http://[your path 
+here]/smsx.cab#Version=6,4,438,06"&gt;<BR>&lt;param name="GUID" 
+value="{19CF4AF5-CCD8-4840-BA3C-85EB66D69A6E}"&gt;<BR>&lt;param name="Path" 
+value="http://[your path 
+here]/sxlic.mlf"&gt;<BR>&lt;/object&gt;</CODE><BR><BR>Step4.自定列印畫面配置<BR>用完就可以開心的用免費版的功能<BR><CODE>&lt;script 
+defer&gt;<BR>window.onload=function(){<BR>factory.printing.portrait = true; 
+//直印，false:橫印<BR>factory.printing.header = ""; 
+//頁首，空白為不印頁首，也就不會佔空間<BR>factory.printing.footer = ""; 
+//註腳，空白為不印註腳，也就不會佔空間<BR>factory.printing.leftMargin = 0; 
+//左邊界<BR>factory.printing.topMargin = 0; //上邊界<BR>factory.printing.rightMargin = 
+0; //右邊界<BR>factory.printing.bottomMargin = 0; 
+//下邊界<BR>}<BR>&lt;/Script&gt;</CODE> 
+<DIV style="CLEAR: both"></DIV></DIV>
+<DIV class=post-footer>
+<DIV class="post-footer-line post-footer-line-1"><SPAN 
+class="post-author vcard">張貼者： <SPAN class=fn>kevyu</SPAN> </SPAN><SPAN 
+class=post-timestamp>位於 <A class=timestamp-link title="permanent link" 
+href="http://kevyu.blogspot.com/2008/10/scriptx.html" rel=bookmark><ABBR 
+class=published title=2008-10-31T10:43:00+08:00>10:43 上午</ABBR></A> </SPAN><SPAN 
+class=reaction-buttons></SPAN><SPAN class=star-ratings></SPAN><SPAN 
+class=post-comment-link></SPAN><SPAN 
+class="post-backlinks post-comment-link"></SPAN><SPAN class=post-icons><SPAN 
+class="item-control blog-admin pid-810426028"><A title=編輯文章 
+href="http://www.blogger.com/post-edit.g?blogID=24036294&amp;postID=2604130746213123981"><IMG 
+class=icon-action height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_edit_allbkg.gif" width=18> 
+</A></SPAN></SPAN></DIV>
+<DIV class="post-footer-line post-footer-line-2"><SPAN class=post-labels>標籤： <A 
+href="http://kevyu.blogspot.com/search/label/Html" rel=tag>Html</A> 
+</SPAN></DIV>
+<DIV class="post-footer-line post-footer-line-3"><SPAN 
+class=post-location></SPAN></DIV></DIV></DIV>
+<DIV class=comments id=comments><A name=comments></A>
+<H4>0 意見: </H4>
+<DL class=avatar-comment-indent id=comments-block></DL>
+<P class=comment-footer><A onclick="" 
+href="https://www.blogger.com/comment.g?blogID=24036294&amp;postID=2604130746213123981">張貼意見</A> 
+</P>
+<DIV id=backlinks-container>
+<DIV id=Blog1_backlinks-container><A name=links></A>
+<H4></H4>
+<P class=comment-footer><A class=comment-link id=Blog1_backlinks-create-link 
+href="http://kevyu.blogspot.com/2008/10/" 
+target=_blank></A></P></DIV></DIV></DIV><!-- google_ad_section_end --></DIV>
+<DIV class=blog-pager id=blog-pager><SPAN id=blog-pager-newer-link><A 
+class=blog-pager-newer-link id=Blog1_blog-pager-newer-link title=較新的文章 
+href="http://kevyu.blogspot.com/2008/12/net-form.html">較新的文章</A> </SPAN><SPAN 
+id=blog-pager-older-link><A class=blog-pager-older-link 
+id=Blog1_blog-pager-older-link title=較舊的文章 
+href="http://kevyu.blogspot.com/2008/10/css-23.html">較舊的文章</A> </SPAN><A 
+class=home-link href="http://kevyu.blogspot.com/">首頁</A> </DIV>
+<DIV class=clear></DIV>
+<DIV class=post-feeds>
+<DIV class=feed-links>訂閱： <A class=feed-link 
+href="http://kevyu.blogspot.com/feeds/2604130746213123981/comments/default" 
+target=_blank type=application/atom+xml>張貼意見 (Atom)</A> 
+</DIV></DIV></DIV></DIV></DIV>
+<DIV id=sidebar-wrapper>
+<DIV class="sidebar section" id=sidebar>
+<DIV class="widget Label" id=Label1>
+<H2>學習筆記</H2>
+<DIV class="widget-content list-label-widget-content">
+<UL>
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Ajax">Ajax</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/browser">browser</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/C#ç&shy;è¨">C#筆記</A> <SPAN 
+  dir=ltr>(42)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ClickOnce">ClickOnce</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/CSS">CSS</A> <SPAN 
+  dir=ltr>(6)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/DataBase">DataBase</A> <SPAN 
+  dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/DOS">DOS</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/facebook">facebook</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/flash">flash</A> 
+  <SPAN dir=ltr>(5)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Grid%20Computing">Grid 
+  Computing</A> <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Html">Html</A> 
+  <SPAN dir=ltr>(10)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Java">Java</A> 
+  <SPAN dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Javascript">Javascript</A> <SPAN 
+  dir=ltr>(16)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/jQuery">jQuery</A> 
+  <SPAN dir=ltr>(29)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Linux">Linux</A> 
+  <SPAN dir=ltr>(6)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/MS%20Office">MS 
+  Office</A> <SPAN dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/MySQL">MySQL</A> 
+  <SPAN dir=ltr>(4)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Open%20Office">Open Office</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/PHP">PHP</A> <SPAN 
+  dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Python">Python</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/RS232">RS232</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Software">Software</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Software%20Engineer">Software 
+  Engineer</A> <SPAN dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/SQL">SQL</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/TDD">TDD</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/Ubuntu">Ubuntu</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/UML">UML</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/Windowsè¨&shy;å®">Windows設定</A> 
+  <SPAN dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/WQL">WQL</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/XMLç&shy;è¨">XML筆記</A> <SPAN 
+  dir=ltr>(7)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ä¼æ¥&shy;ç®¡ç">企業管理</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ä½¿ç¨ä»é¢è¨&shy;è¨">使用介面設計</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/å¥½åç">好吃的</A> 
+  <SPAN dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/å&shy;¸ç¿">學習</A> 
+  <SPAN dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/å®è£é¨ç½²">安裝部署</A> <SPAN 
+  dir=ltr>(3)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/å°æ¡ç®¡ç">專案管理</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/å½±åèç">影像處理</A> <SPAN 
+  dir=ltr>(2)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ç©ä»¶å°å">物件導向</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ç³»çµ±éç">系統重灌</A> <SPAN 
+  dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr 
+  href="http://kevyu.blogspot.com/search/label/ç¶²ç«éç¼">網站開發</A> <SPAN 
+  dir=ltr>(5)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/ç¾é£">美食</A> 
+  <SPAN dir=ltr>(1)</SPAN> 
+  <LI><A dir=ltr href="http://kevyu.blogspot.com/search/label/éé«">韌體</A> 
+  <SPAN dir=ltr>(1)</SPAN> </LI></UL>
+<DIV class=clear></DIV><SPAN class=widget-item-control><SPAN 
+class="item-control blog-admin"><A class=quickedit title=編輯 
+onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' 
+href="http://www.blogger.com/rearrange?blogID=24036294&amp;widgetType=Label&amp;widgetId=Label1&amp;action=editWidget" 
+target=configLabel1><IMG height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_wrench_allbkg.png" width=18> 
+</A></SPAN></SPAN>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class="widget BlogArchive" id=BlogArchive1>
+<H2>網誌存檔</H2>
+<DIV class=widget-content>
+<DIV id=ArchiveList>
+<DIV id=BlogArchive1_ArchiveList>
+<UL>
+  <LI class="archivedate collapsed"><A class=toggle 
+  href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+  class=post-count-link 
+  href="http://kevyu.blogspot.com/search?updated-min=2010-01-01T00%3A00%3A00%2B08%3A00&amp;updated-max=2011-01-01T00%3A00%3A00%2B08%3A00&amp;max-results=2">2010</A> 
+  <SPAN class=post-count dir=ltr>(2)</SPAN> 
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2010_01_01_archive.html">一月</A> <SPAN 
+    class=post-count dir=ltr>(2)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2010/01/blog-post.html">書 - 
+      完美程式設計指南</A> 
+      <LI><A href="http://kevyu.blogspot.com/2010/01/python.html">Python開發</A> 
+      </LI></UL></LI></UL></LI></UL>
+<UL>
+  <LI class="archivedate collapsed"><A class=toggle 
+  href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+  class=post-count-link 
+  href="http://kevyu.blogspot.com/search?updated-min=2009-01-01T00%3A00%3A00%2B08%3A00&amp;updated-max=2010-01-01T00%3A00%3A00%2B08%3A00&amp;max-results=50">2009</A> 
+  <SPAN class=post-count dir=ltr>(61)</SPAN> 
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_12_01_archive.html">十二月</A> <SPAN 
+    class=post-count dir=ltr>(3)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2009/12/blog-post.html">餐廳列表</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/12/facebook.html">Facebook 
+      二三事</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/12/refactoring-impoving-design-of-existing.html">筆計：Refactoring: 
+      Impoving The Design of Existing Co...</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_11_01_archive.html">十一月</A> <SPAN 
+    class=post-count dir=ltr>(3)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2009/11/blog-post_27.html">軟體工程</A> 
+
+      <LI><A href="http://kevyu.blogspot.com/2009/11/inf.html">INF檔結構</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/11/blog-post.html">資料庫索引</A> 
+      </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_10_01_archive.html">十月</A> <SPAN 
+    class=post-count dir=ltr>(5)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/10/com-microsoft-excel-11-objectcom-c.html">要先引用幾個COM元件查了一下還真麻煩後來發現直接引進Microsoft 
+      Excel 11 Ob...</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/10/jquery-drag-event.html">jQuery 
+      drag event</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/10/form.html">不規則 Form 
+      透背及拖曳</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/10/stored-data.html">facebook 
+      DataStoreAdmin怎麼搞</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/10/css.html">CSS去除連結虛線框,無法用輸入法,刪除,貼上</A> 
+      </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_09_01_archive.html">九月</A> <SPAN 
+    class=post-count dir=ltr>(6)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/09/htmllistbox.html">html做listbox單選</A> 
+
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/09/jquerytuts.html">即刻提升jQuery性能的十个技巧[TUTS+]</A> 
+
+      <LI><A href="http://kevyu.blogspot.com/2009/09/jqgrid-35.html">jqgrid 
+      3.5</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/09/jquery-autocomplete-ie.html">jquery 
+      autocomplete ie 無效</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/09/blog-post.html">帳號、密碼的管理</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/09/jquery.html">jQuery 套件 - 
+      廣告輪播跑馬燈</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_08_01_archive.html">八月</A> <SPAN 
+    class=post-count dir=ltr>(1)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/08/sqldatatime0.html">SQL讀出DataTime欄位為0時 
+      會失敗</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_07_01_archive.html">七月</A> <SPAN 
+    class=post-count dir=ltr>(1)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/07/divtaghover.html">div等其他tag做hover效果</A> 
+      </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_06_01_archive.html">六月</A> <SPAN 
+    class=post-count dir=ltr>(3)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2009/06/xml.html">特殊符號編碼</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/06/cmail.html">透過C#寄發mail</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/06/datatablebyte-columnaccess.html">將DataTable裡的Byte 
+      column存入access</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_05_01_archive.html">五月</A> <SPAN 
+    class=post-count dir=ltr>(1)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/05/browser.html">開啟預設Browser</A> 
+    </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_04_01_archive.html">四月</A> <SPAN 
+    class=post-count dir=ltr>(5)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2009/04/word.html">Word合併列印</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/04/c-word.html">C# 列印 Word</A> 
+
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/04/jqgrid-getrowdataid.html">jqGrid 
+      getRowData(id) 發生錯誤</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/04/database.html">DataBase 
+      加減日期時間</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/04/datagridviewcell.html">改變DataGridView的值或cell顏色</A> 
+      </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_03_01_archive.html">三月</A> <SPAN 
+    class=post-count dir=ltr>(15)</SPAN> 
+    <UL class=posts>
+      <LI><A href="http://kevyu.blogspot.com/2009/03/jquery-12x-13x.html">jQuery 
+      1.2.x 升級 1.3.x 需注意</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/jquerybrowser.html">jQuery取browser值</A> 
+
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/divheight100.html">取網頁的高(寬)</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/regular-expression.html">Regular 
+      Expression</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/blog-post_26.html">如何做行銷計劃</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/jqueryblockui.html">jQuery的BlockUI</A> 
+
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/html-public-w3cdtd-xhtml-1.html">jQuery的accordion 
+      會亂閃亂跳動</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/javascript-ie.html">Javascript開檔 
+      window.open 會跳ie視窗</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/autorun.html">如何讓光碟Autorun</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/03/jqgrid.html">jqgrid 特殊技</A> 
+
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/blog-post_07.html">玩遊戲會重開機</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/blog-post_7520.html">同儕建議</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/blog-post_05.html">軟體專案管理</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/03/clickonce-windows-installer.html">ClickOnce 
+      和 Windows Installer 的比較</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/03/blog-post.html">調完解析度 
+      字變糊的</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_02_01_archive.html">二月</A> <SPAN 
+    class=post-count dir=ltr>(11)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/02/installshield-source.html">InstallShield 
+      將'必要條件' 來源設為與source相同位置</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/02/blog-post_5889.html">當系統程式掛時 
+      給於使用者提示</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/02/blog-post_17.html">演講</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2009/02/jsloading-gif.html">js顯示loading 
+      gif 動畫不會動</A> 
+      <LI><A href="http://kevyu.blogspot.com/2009/02/net-process.html">.Net 
+      Process相關應用</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2009_01_01_archive.html">一月</A> <SPAN 
+    class=post-count dir=ltr>(7)</SPAN> </LI></UL></LI></UL>
+<UL>
+  <LI class="archivedate expanded"><A class=toggle 
+  href="javascript:void(0)"><SPAN class="zippy toggle-open">▼&nbsp;</SPAN> 
+  </A><A class=post-count-link 
+  href="http://kevyu.blogspot.com/search?updated-min=2008-01-01T00%3A00%3A00%2B08%3A00&amp;updated-max=2009-01-01T00%3A00%3A00%2B08%3A00&amp;max-results=50">2008</A> 
+  <SPAN class=post-count dir=ltr>(74)</SPAN> 
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_12_01_archive.html">十二月</A> <SPAN 
+    class=post-count dir=ltr>(2)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate expanded"><A class=toggle 
+    href="javascript:void(0)"><SPAN class="zippy toggle-open">▼&nbsp;</SPAN> 
+    </A><A class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_10_01_archive.html">十月</A> <SPAN 
+    class=post-count dir=ltr>(10)</SPAN> 
+    <UL class=posts>
+      <LI><A 
+      href="http://kevyu.blogspot.com/2008/10/scriptx.html">安裝Meadroid的ScriptX</A> 
+
+      <LI><A href="http://kevyu.blogspot.com/2008/10/css-23.html">css 23事</A> 
+      <LI><A href="http://kevyu.blogspot.com/2008/10/css.html">CSS設定</A> 
+      <LI><A href="http://kevyu.blogspot.com/2008/10/html.html">利用Html網頁列印</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2008/10/string.html">嘗試到string相加的威力了</A> 
+      <LI><A href="http://kevyu.blogspot.com/2008/10/net.html">.net部署</A> 
+      <LI><A href="http://kevyu.blogspot.com/2008/10/office.html">office小撇步</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2008/10/htmltable.html">html的table裡放圖片總會有空白</A> 
+
+      <LI><A href="http://kevyu.blogspot.com/2008/10/div.html">浮動div</A> 
+      <LI><A 
+      href="http://kevyu.blogspot.com/2008/10/iframejs-function.html">跨iframe呼叫js 
+      function</A> </LI></UL></LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_09_01_archive.html">九月</A> <SPAN 
+    class=post-count dir=ltr>(7)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_08_01_archive.html">八月</A> <SPAN 
+    class=post-count dir=ltr>(7)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_07_01_archive.html">七月</A> <SPAN 
+    class=post-count dir=ltr>(10)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_06_01_archive.html">六月</A> <SPAN 
+    class=post-count dir=ltr>(7)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_05_01_archive.html">五月</A> <SPAN 
+    class=post-count dir=ltr>(2)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_04_01_archive.html">四月</A> <SPAN 
+    class=post-count dir=ltr>(6)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_03_01_archive.html">三月</A> <SPAN 
+    class=post-count dir=ltr>(16)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_02_01_archive.html">二月</A> <SPAN 
+    class=post-count dir=ltr>(1)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2008_01_01_archive.html">一月</A> <SPAN 
+    class=post-count dir=ltr>(6)</SPAN> </LI></UL></LI></UL>
+<UL>
+  <LI class="archivedate collapsed"><A class=toggle 
+  href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+  class=post-count-link 
+  href="http://kevyu.blogspot.com/search?updated-min=2007-01-01T00%3A00%3A00%2B08%3A00&amp;updated-max=2008-01-01T00%3A00%3A00%2B08%3A00&amp;max-results=44">2007</A> 
+  <SPAN class=post-count dir=ltr>(44)</SPAN> 
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2007_12_01_archive.html">十二月</A> <SPAN 
+    class=post-count dir=ltr>(2)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2007_11_01_archive.html">十一月</A> <SPAN 
+    class=post-count dir=ltr>(6)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2007_10_01_archive.html">十月</A> <SPAN 
+    class=post-count dir=ltr>(30)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2007_09_01_archive.html">九月</A> <SPAN 
+    class=post-count dir=ltr>(6)</SPAN> </LI></UL></LI></UL>
+<UL>
+  <LI class="archivedate collapsed"><A class=toggle 
+  href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+  class=post-count-link 
+  href="http://kevyu.blogspot.com/search?updated-min=2006-01-01T00%3A00%3A00%2B08%3A00&amp;updated-max=2007-01-01T00%3A00%3A00%2B08%3A00&amp;max-results=23">2006</A> 
+  <SPAN class=post-count dir=ltr>(23)</SPAN> 
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2006_06_01_archive.html">六月</A> <SPAN 
+    class=post-count dir=ltr>(1)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2006_05_01_archive.html">五月</A> <SPAN 
+    class=post-count dir=ltr>(3)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2006_04_01_archive.html">四月</A> <SPAN 
+    class=post-count dir=ltr>(8)</SPAN> </LI></UL>
+  <UL>
+    <LI class="archivedate collapsed"><A class=toggle 
+    href="javascript:void(0)"><SPAN class=zippy>►&nbsp; </SPAN></A><A 
+    class=post-count-link 
+    href="http://kevyu.blogspot.com/2006_03_01_archive.html">三月</A> <SPAN 
+    class=post-count dir=ltr>(11)</SPAN> </LI></UL></LI></UL></DIV></DIV>
+<DIV class=clear></DIV><SPAN class=widget-item-control><SPAN 
+class="item-control blog-admin"><A class=quickedit title=編輯 
+onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' 
+href="http://www.blogger.com/rearrange?blogID=24036294&amp;widgetType=BlogArchive&amp;widgetId=BlogArchive1&amp;action=editWidget" 
+target=configBlogArchive1><IMG height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_wrench_allbkg.png" width=18> 
+</A></SPAN></SPAN>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class="widget LinkList" id=LinkList1>
+<H2>相關鏈結</H2>
+<DIV class=widget-content>
+<UL>
+  <LI><A href="http://kevyu.blogspot.com/search/label/ç¶²ç«éç¼">網站開發套件</A> 
+  <LI><A href="http://www.w3schools.com/default.asp">w3schools</A> 
+  <LI><A href="http://www.somacon.com/p142.php">Color內碼</A> 
+  <LI><A href="http://www.dofactory.com/Default.aspx">design pattern in C#</A> 
+  <LI><A href="http://www.umltw.com/">UML Blog</A> 
+  <LI><A href="http://www.cis.nctu.edu.tw/~is91056/css.htm">CSS 語法參考辭典</A> 
+  <LI><A href="http://www.kenming.idv.tw/">kenming</A> 
+  <LI><A href="http://kyle.jolin.info/">Kyle's Flash Blog</A> 
+  <LI><A href="http://blog.sina.com.tw/dotnet/">DotNet開發聖殿</A> </LI></UL>
+<DIV class=clear></DIV><SPAN class=widget-item-control><SPAN 
+class="item-control blog-admin"><A class=quickedit title=編輯 
+onclick='return _WidgetManager._PopupConfig(document.getElementById("LinkList1"));' 
+href="http://www.blogger.com/rearrange?blogID=24036294&amp;widgetType=LinkList&amp;widgetId=LinkList1&amp;action=editWidget" 
+target=configLinkList1><IMG height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_wrench_allbkg.png" width=18> 
+</A></SPAN></SPAN>
+<DIV class=clear></DIV></DIV></DIV>
+<DIV class="widget Profile" id=Profile1>
+<H2>關於我自己</H2>
+<DIV class=widget-content><A 
+href="http://www.blogger.com/profile/00231284922411887546"><IMG 
+class=profile-img height=74 alt=我的相片 src="" width=80></A> 
+<DL class=profile-datablock>
+  <DT class=profile-data>kevyu </DT></DL><A class=profile-link 
+href="http://www.blogger.com/profile/00231284922411887546">檢視我的完整簡介</A> 
+<DIV class=clear></DIV><SPAN class=widget-item-control><SPAN 
+class="item-control blog-admin"><A class=quickedit title=編輯 
+onclick='return _WidgetManager._PopupConfig(document.getElementById("Profile1"));' 
+href="http://www.blogger.com/rearrange?blogID=24036294&amp;widgetType=Profile&amp;widgetId=Profile1&amp;action=editWidget" 
+target=configProfile1><IMG height=18 alt="" 
+src="安裝Meadroid的ScriptX.files/icon18_wrench_allbkg.png" width=18> 
+</A></SPAN></SPAN>
+<DIV class=clear></DIV></DIV></DIV></DIV></DIV><!-- spacer for skins that want sidebar and main to be the same height-->
+<DIV class=clear>&nbsp;</DIV></DIV><!-- end content-wrapper -->
+<DIV id=footer-wrapper>
+<DIV class="footer section" id=footer></DIV></DIV></DIV></DIV><!-- end outer-wrapper -->
+<SCRIPT type=text/javascript>
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</SCRIPT>
+
+<SCRIPT src="安裝Meadroid的ScriptX.files/995923812-widgets.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+_WidgetManager._Init('http://www.blogger.com/rearrange?blogID=24036294', 'http://kevyu.blogspot.com/2008/10/scriptx.html','24036294');
+_WidgetManager._SetPageActionUrl('http://www.blogger.com/display?blogID=24036294', 'Cv0e_sYI_vxIXbUf18puoXZQXFg:1263142337195');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'title': '魚乾的筆記本', 'pageType': 'item', 'url': 'http://kevyu.blogspot.com/2008/10/scriptx.html', 'homepageUrl': 'http://kevyu.blogspot.com/', 'enabledCommentProfileImages': true, 'searchLabel': '', 'searchQuery': '', 'pageName': '安裝Meadroid的ScriptX', 'pageTitle': '魚乾的筆記本: 安裝Meadroid的ScriptX', 'encoding': 'UTF-8', 'locale': 'zh-TW', 'isPrivate': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42魚乾的筆記本 - Atom\42 href\75\42http://kevyu.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42魚乾的筆記本 - RSS\42 href\75\42http://kevyu.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42魚乾的筆記本 - Atom\42 href\75\42http://www.blogger.com/feeds/24036294/posts/default\42 /\76\n\74link rel\75\42EditURI\42 type\75\42application/rsd+xml\42 title\75\42RSD\42 href\75\42http://www.blogger.com/rsd.g?blogID\07524036294\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42魚乾的筆記本 - Atom\42 href\75\42http://kevyu.blogspot.com/feeds/2604130746213123981/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var a\75window;function e(b){this.t\75{};this.tick\75function(c,h,d){d\75d?d:(new Date).getTime();this.t[c]\75[d,h]};this.tick(\42start\42,null,b)}var f\75new e;a.jstiming\75{Timer:e,load:f};try{a.jstiming.pt\75a.gtbExternal\46\46a.gtbExternal.pageT()||a.external\46\46a.external.pageT}catch(g){};a.tickAboveFold\75function(b){b\75b;var c\0750;if(b.offsetParent){do c+\75b.offsetTop;while(b\75b.offsetParent)}b\75c;b\74\075750\46\46a.jstiming.load.tick(\42aft\42)};var i\75false;function j(){if(!i){i\75true;a.jstiming.load.tick(\42firstScrollTime\42)}}a.addEventListener?a.addEventListener(\42scroll\42,j,false):a.attachEvent(\42onscroll\42,j); })();\74/script\076'}}]);
+_WidgetManager._SetSystemMarkup({'layout': {'varName': '', 'template': '\74div class\75\47widget-wrap1\47\76\n\74div class\75\47widget-wrap2\47\76\n\74div class\75\47widget-wrap3\47\76\n\74div class\75\47widget-content\47\76\n\74div class\75\47layout-title\47\76\74data:layout-title\76\74/data:layout-title\76\74/div\76\n\74a class\75\47editlink\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 target\75\47chooseWidget\47\76\74data:edit-link\76\74/data:edit-link\76\74/a\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'quickedit': {'varName': '', 'template': '\74div class\75\47clear\47\76\74/div\76\n\74span class\75\47widget-item-control\47\76\n\74span class\75\47item-control blog-admin\47\76\n\74a class\75\47quickedit\47 expr:href\75\47data:widget.quickEditUrl\47 expr:onclick\75\47\46quot;return _WidgetManager._PopupConfig(document.getElementById(\\\46quot;\46quot; +       data:widget.instanceId + \46quot;\\\46quot;));\46quot;\47 expr:target\75\47\46quot;config\46quot; + data:widget.instanceId\47 expr:title\75\47data:edit-link\47\76\n\74img alt\75\47\47 height\75\04718\47 src\75\47http://img1.blogblog.com/img/icon18_wrench_allbkg.png\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/span\76\n\74div class\75\47clear\47\76\74/div\076'}, 'all-head-content': {'varName': 'page', 'template': '\74data:blog.latencyHeadScript\76\74/data:blog.latencyHeadScript\76\n\74meta expr:content\75\47\46quot;text/html; charset\75\46quot; + data:page.encoding\47 http-equiv\75\47Content-Type\47/\76\n\74meta content\75\47true\47 name\75\47MSSmartTagsPreventParsing\47/\76\n\74meta content\75\47blogger\47 name\75\47generator\47/\76\n\74link href\75\47http://www.blogger.com/favicon.ico\47 rel\75\47icon\47 type\75\47image/vnd.microsoft.icon\47/\76\n\74link expr:href\75\47data:blog.url\47 rel\75\47canonical\47/\76\n\74data:blog.feedLinks\76\74/data:blog.feedLinks\76\n\74data:blog.meTag\76\74/data:blog.meTag\76\n\74data:blog.openIdOpTag\76\74/data:blog.openIdOpTag\076'}});
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div expr:class\75\47\46quot;widget-content \46quot; + data:display + \46quot;-label-widget-content\46quot;\47\76\n\74b:if cond\75\47data:display \75\75 \46quot;list\46quot;\47\76\n\74ul\76\n\74b:loop values\75\47data:labels\47 var\75\47label\47\76\n\74li\76\n\74b:if cond\75\47data:blog.url \75\75 data:label.url\47\76\n\74span expr:dir\75\47data:blog.languageDirection\47\76\74data:label.name\76\74/data:label.name\76\74/span\76\n\74b:else\76\74/b:else\76\n\74a expr:dir\75\47data:blog.languageDirection\47 expr:href\75\47data:label.url\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\n\74/b:if\76\n\74b:if cond\75\47data:showFreqNumbers\47\76\n\74span dir\75\47ltr\47\76(\74data:label.count\76\74/data:label.count\76)\74/span\76\n\74/b:if\76\n\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:else\76\74/b:else\76\n\74b:loop values\75\47data:labels\47 var\75\47label\47\76\n\74span expr:class\75\47\46quot;label-size label-size-\46quot; + data:label.cssSize\47\76\n\74b:if cond\75\47data:blog.url \75\75 data:label.url\47\76\n\74span expr:dir\75\47data:blog.languageDirection\47\76\74data:label.name\76\74/data:label.name\76\74/span\76\n\74b:else\76\74/b:else\76\n\74a expr:dir\75\47data:blog.languageDirection\47 expr:href\75\47data:label.url\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\n\74/b:if\76\n\74b:if cond\75\47data:showFreqNumbers\47\76\n\74span class\75\47label-count\47 dir\75\47ltr\47\76(\74data:label.count\76\74/data:label.count\76)\74/span\76\n\74/b:if\76\n\74/span\76\n\74/b:loop\76\n\74/b:if\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74div id\75\47ArchiveList\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_ArchiveList\46quot;\47\76\n\74b:if cond\75\47data:style \75\75 \46quot;HIERARCHY\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;FLAT\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47flat\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:style \75\75 \46quot;MENU\46quot;\47\76\n\74b:include data\75\47data\47 name\75\47menu\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}, 'flat': {'varName': 'data', 'template': '\74ul\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74li class\75\47archivedate\47\76\n\74a expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76 (\74data:i.post-count\76\74/data:i.post-count\76)\n      \74/li\76\n\74/b:loop\76\n\74/ul\076'}, 'menu': {'varName': 'data', 'template': '\74select expr:id\75\47data:widget.instanceId + \46quot;_ArchiveMenu\46quot;\47\76\n\74option value\75\47\47\76\74data:title\76\74/data:title\76\74/option\76\n\74b:loop values\75\47data:data\47 var\75\47i\47\76\n\74option expr:value\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76 (\74data:i.post-count\76\74/data:i.post-count\76)\74/option\76\n\74/b:loop\76\n\74/select\076'}, 'interval': {'varName': 'intervalData', 'template': '\74b:loop values\75\47data:intervalData\47 var\75\47i\47\76\n\74ul\76\n\74li expr:class\75\47\46quot;archivedate \46quot; + data:i.expclass\47\76\n\74b:include data\75\47i\47 name\75\47toggle\47\76\74/b:include\76\n\74a class\75\47post-count-link\47 expr:href\75\47data:i.url\47\76\74data:i.name\76\74/data:i.name\76\74/a\76\n\74span class\75\47post-count\47 dir\75\47ltr\47\76(\74data:i.post-count\76\74/data:i.post-count\76)\74/span\76\n\74b:if cond\75\47data:i.data\47\76\n\74b:include data\75\47i.data\47 name\75\47interval\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:i.posts\47\76\n\74b:include data\75\47i.posts\47 name\75\47posts\47\76\74/b:include\76\n\74/b:if\76\n\74/li\76\n\74/ul\76\n\74/b:loop\076'}, 'toggle': {'varName': 'interval', 'template': '\74b:if cond\75\47data:interval.toggleId\47\76\n\74b:if cond\75\47data:interval.expclass \75\75 \46quot;expanded\46quot;\47\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy toggle-open\47\76\46#9660;\46#160;\74/span\76\n\74/a\76\n\74b:else\76\74/b:else\76\n\74a class\75\47toggle\47 href\75\47javascript:void(0)\47\76\n\74span class\75\47zippy\47\76\n\74b:if cond\75\47data:blog.languageDirection \75\75 \46quot;rtl\46quot;\47\76\n          \46#9668;\46#160;\n        \74b:else\76\74/b:else\76\n          \46#9658;\46#160;\n        \74/b:if\76\n\74/span\76\n\74/a\76\n\74/b:if\76\n\74/b:if\076'}, 'posts': {'varName': 'posts', 'template': '\74ul class\75\47posts\47\76\n\74b:loop values\75\47data:posts\47 var\75\47i\47\76\n\74li\76\74a expr:href\75\47data:i.url\47\76\74data:i.title\76\74/data:i.title\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\076'}}, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LinkListView', new _WidgetInfo('LinkList1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title\47\76\74h2\76\74data:title\76\74/data:title\76\74/h2\76\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74ul\76\n\74b:loop values\75\47data:links\47 var\75\47link\47\76\n\74li\76\74a expr:href\75\47data:link.target\47\76\74data:link.name\76\74/data:link.name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('LinkList1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'sidebar',{'main': {'varName': '', 'template': '\74b:if cond\75\47data:title !\75 \46quot;\46quot;\47\76\n\74h2\76\74data:title\76\74/data:title\76\74/h2\76\n\74/b:if\76\n\74div class\75\47widget-content\47\76\n\74b:if cond\75\47data:team \75\75 \46quot;true\46quot;\47\76\n\74ul\76\n\74b:loop values\75\47data:authors\47 var\75\47i\47\76\n\74li\76\74a expr:href\75\47data:i.userUrl\47\76\74data:i.display-name\76\74/data:i.display-name\76\74/a\76\74/li\76\n\74/b:loop\76\n\74/ul\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:photo.url !\75 \46quot;\46quot;\47\76\n\74a expr:href\75\47data:userUrl\47\76\74img class\75\47profile-img\47 expr:alt\75\47data:photo.alt\47 expr:height\75\47data:photo.height\47 expr:src\75\47data:photo.url\47 expr:width\75\47data:photo.width\47/\76\74/a\76\n\74/b:if\76\n\74dl class\75\47profile-datablock\47\76\n\74dt class\75\47profile-data\47\76\74data:displayname\76\74/data:displayname\76\74/dt\76\n\74b:if cond\75\47data:showlocation \75\75 \46quot;true\46quot;\47\76\n\74dd class\75\47profile-data\47\76\74data:location\76\74/data:location\76\74/dd\76\n\74/b:if\76\n\74b:if cond\75\47data:aboutme !\75 \46quot;\46quot;\47\76\74dd class\75\47profile-textblock\47\76\74data:aboutme\76\74/data:aboutme\76\74/dd\76\74/b:if\76\n\74/dl\76\n\74a class\75\47profile-link\47 expr:href\75\47data:userUrl\47\76\74data:viewProfileMsg\76\74/data:viewProfileMsg\76\74/a\76\n\74/b:if\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense1', 'main',{'main': {'varName': '', 'template': '\74div class\75\47widget-content\47\76\n\74data:adCode\76\74/data:adCode\76\n\74b:include name\75\47quickedit\47\76\74/b:include\76\n\74/div\076'}}, document.getElementById('AdSense1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main',{'main': {'varName': 'top', 'template': '\74div class\75\47blog-posts hfeed\47\76\n\74b:include data\75\47top\47 name\75\47status-message\47\76\74/b:include\76\n\74data:defaultAdStart\76\74/data:defaultAdStart\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.dateHeader\47\76\n\74h2 class\75\47date-header\47\76\74data:post.dateHeader\76\74/data:post.dateHeader\76\74/h2\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47post\47\76\74/b:include\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;static_page\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.pageType \75\75 \46quot;item\46quot;\47\76\n\74b:include data\75\47post\47 name\75\47comments\47\76\74/b:include\76\n\74/b:if\76\n\74b:if cond\75\47data:post.includeAd\47\76\n\74b:if cond\75\47data:post.isFirstPost\47\76\n\74data:defaultAdEnd\76\74/data:defaultAdEnd\76\n\74b:else\76\74/b:else\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/b:if\76\n\74div class\75\47inline-ad\47\76\n\74data:adCode\76\74/data:adCode\76\n\74/div\76\n\74data:adStart\76\74/data:adStart\76\n\74/b:if\76\n\74b:if cond\75\47data:post.trackLatency\47\76\n\74data:post.latencyJs\76\74/data:post.latencyJs\76\n\74/b:if\76\n\74/b:loop\76\n\74data:adEnd\76\74/data:adEnd\76\n\74/div\76\n\74b:include name\75\47nextprev\47\76\74/b:include\76\n\74b:include name\75\47feedLinks\47\76\74/b:include\76\n\74b:if cond\75\47data:top.showStars\47\76\n\74script src\75\47http://www.google.com/jsapi\47 type\75\47text/javascript\47\76\74/script\76\n\74script type\75\47text/javascript\47\76\n      google.load(\46quot;annotations\46quot;, \46quot;1\46quot;, {\46quot;locale\46quot;: \46quot;\74data:top.languageCode\76\74/data:top.languageCode\76\46quot;});\n      function initialize() {\n        google.annotations.setApplicationId(\74data:top.blogspotReviews\76\74/data:top.blogspotReviews\76);\n        google.annotations.createAll();\n        google.annotations.fetch();\n      }\n      google.setOnLoadCallback(initialize);\n    \74/script\76\n\74/b:if\076'}, 'nextprev': {'varName': '', 'template': '\74div class\75\47blog-pager\47 id\75\47blog-pager\47\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74span id\75\47blog-pager-newer-link\47\76\n\74a class\75\47blog-pager-newer-link\47 expr:href\75\47data:newerPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-newer-link\46quot;\47 expr:title\75\47data:newerPageTitle\47\76\74data:newerPageTitle\76\74/data:newerPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:olderPageUrl\47\76\n\74span id\75\47blog-pager-older-link\47\76\n\74a class\75\47blog-pager-older-link\47 expr:href\75\47data:olderPageUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_blog-pager-older-link\46quot;\47 expr:title\75\47data:olderPageTitle\47\76\74data:olderPageTitle\76\74/data:olderPageTitle\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:if cond\75\47data:blog.homepageUrl !\75 data:blog.url\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:newerPageUrl\47\76\n\74a class\75\47home-link\47 expr:href\75\47data:blog.homepageUrl\47\76\74data:homeMsg\76\74/data:homeMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/div\76\n\74div class\75\47clear\47\76\74/div\076'}, 'post': {'varName': 'post', 'template': '\74div class\75\47post hentry uncustomized-post-template\47\76\n\74a expr:name\75\47data:post.id\47\76\74/a\76\n\74b:if cond\75\47data:post.title\47\76\n\74h3 class\75\47post-title entry-title\47\76\n\74b:if cond\75\47data:post.link\47\76\n\74a expr:href\75\47data:post.link\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.url\47\76\n\74a expr:href\75\47data:post.url\47\76\74data:post.title\76\74/data:post.title\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:post.title\76\74/data:post.title\76\n\74/b:if\76\n\74/b:if\76\n\74/h3\76\n\74/b:if\76\n\74div class\75\47post-header-line-1\47\76\74/div\76\n\74div class\75\47post-body entry-content\47\76\n\74data:post.body\76\74/data:post.body\76\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/div\76\n\74b:if cond\75\47data:post.hasJumpLink\47\76\n\74div class\75\47jump-link\47\76\n\74a expr:href\75\47data:post.url + \46quot;#more\46quot;\47 expr:title\75\47data:post.title\47\76\74data:post.jumpText\76\74/data:post.jumpText\76\74/a\76\n\74/div\76\n\74/b:if\76\n\74div class\75\47post-footer\47\76\n\74div class\75\47post-footer-line post-footer-line-1\47\76\n\74span class\75\47post-author vcard\47\76\n\74b:if cond\75\47data:top.showAuthor\47\76\n\74data:top.authorLabel\76\74/data:top.authorLabel\76\n\74span class\75\47fn\47\76\74data:post.author\76\74/data:post.author\76\74/span\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-timestamp\47\76\n\74b:if cond\75\47data:top.showTimestamp\47\76\n\74data:top.timestampLabel\76\74/data:top.timestampLabel\76\n\74b:if cond\75\47data:post.url\47\76\n\74a class\75\47timestamp-link\47 expr:href\75\47data:post.url\47 rel\75\47bookmark\47 title\75\47permanent link\47\76\74abbr class\75\47published\47 expr:title\75\47data:post.timestampISO8601\47\76\74data:post.timestamp\76\74/data:post.timestamp\76\74/abbr\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47reaction-buttons\47\76\n\74b:if cond\75\47data:top.showReactions\47\76\n\74table border\75\0470\47 cellpadding\75\0470\47 cellspacing\75\0470\47 width\75\047100%\47\76\74tr\76\n\74td class\75\47reactions-label-cell\47 nowrap\75\47nowrap\47 valign\75\47top\47 width\75\0471%\47\76\n\74span class\75\47reactions-label\47\76\n\74data:top.reactionsLabel\76\74/data:top.reactionsLabel\76\74/span\76\46#160;\74/td\76\n\74td\76\74iframe allowtransparency\75\47true\47 class\75\47reactions-iframe\47 expr:src\75\47data:post.reactionsUrl\47 frameborder\75\0470\47 name\75\47reactions\47 scrolling\75\47no\47\76\74/iframe\76\74/td\76\n\74/tr\76\74/table\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47star-ratings\47\76\n\74b:if cond\75\47data:top.showStars\47\76\n\74div expr:g:background-color\75\47data:backgroundColor\47 expr:g:text-color\75\47data:textColor\47 expr:g:url\75\47data:post.absoluteUrl\47 g:height\75\04742\47 g:type\75\47RatingPanel\47 g:width\75\047280\47\76\74/div\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74b:if cond\75\47data:post.numComments \75\75 1\47\0761 \74data:top.commentLabel\76\74/data:top.commentLabel\76\74b:else\76\74/b:else\76\74data:post.numComments\76\74/data:post.numComments\76\n\74data:top.commentLabelPlural\76\74/data:top.commentLabelPlural\76\74/b:if\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-backlinks post-comment-link\47\76\n\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.url + \46quot;#links\46quot;\47\76\74data:top.backlinkLabel\76\74/data:top.backlinkLabel\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74span class\75\47post-icons\47\76\n\74b:if cond\75\47data:post.emailPostUrl\47\76\n\74span class\75\47item-action\47\76\n\74a expr:href\75\47data:post.emailPostUrl\47 expr:title\75\47data:top.emailPostMsg\47\76\n\74img alt\75\47\47 class\75\47icon-action\47 height\75\04713\47 src\75\47http://www.blogger.com/img/icon18_email.gif\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74b:include data\75\47post\47 name\75\47postQuickEdit\47\76\74/b:include\76\n\74/span\76\n\74/div\76\n\74div class\75\47post-footer-line post-footer-line-2\47\76\n\74span class\75\47post-labels\47\76\n\74b:if cond\75\47data:post.labels\47\76\n\74data:postLabelsLabel\76\74/data:postLabelsLabel\76\n\74b:loop values\75\47data:post.labels\47 var\75\47label\47\76\n\74a expr:href\75\47data:label.url\47 rel\75\47tag\47\76\74data:label.name\76\74/data:label.name\76\74/a\76\74b:if cond\75\47data:label.isLast !\75 \46quot;true\46quot;\47\76,\74/b:if\76\n\74/b:loop\76\n\74/b:if\76\n\74/span\76\n\74/div\76\n\74div class\75\47post-footer-line post-footer-line-3\47\76\n\74span class\75\47post-location\47\76\n\74b:if cond\75\47data:top.showLocation\47\76\n\74b:if cond\75\47data:post.location\47\76\n\74data:postLocationLabel\76\74/data:postLocationLabel\76\n\74a expr:href\75\47data:post.location.mapsUrl\47 target\75\47_blank\47\76\74data:post.location.name\76\74/data:post.location.name\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/span\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'postQuickEdit': {'varName': 'post', 'template': '\74b:if cond\75\47data:post.editUrl\47\76\n\74span expr:class\75\47\46quot;item-control \46quot; + data:post.adminClass\47\76\n\74a expr:href\75\47data:post.editUrl\47 expr:title\75\47data:top.editPostMsg\47\76\n\74img alt\75\47\47 class\75\47icon-action\47 height\75\04718\47 src\75\47http://www.blogger.com/img/icon18_edit_allbkg.gif\47 width\75\04718\47/\76\n\74/a\76\n\74/span\76\n\74/b:if\076'}, 'commentDeleteIcon': {'varName': 'comment', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:comment.adminClass\47\76\n\74a expr:href\75\47data:comment.deleteUrl\47 expr:title\75\47data:top.deleteCommentMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'backlinkDeleteIcon': {'varName': 'backlink', 'template': '\74span expr:class\75\47\46quot;item-control \46quot; + data:backlink.adminClass\47\76\n\74a expr:href\75\47data:backlink.deleteUrl\47 expr:title\75\47data:top.deleteBacklinkMsg\47\76\n\74img src\75\47http://www.blogger.com/img/icon_delete13.gif\47/\76\n\74/a\76\n\74/span\076'}, 'comments': {'varName': 'post', 'template': '\74div class\75\47comments\47 id\75\47comments\47\76\n\74a name\75\47comments\47\76\74/a\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74h4\76\n\74b:if cond\75\47data:post.numComments \75\75 1\47\76\n          1 \74data:commentLabel\76\74/data:commentLabel\76:\n        \74b:else\76\74/b:else\76\n\74data:post.numComments\76\74/data:post.numComments\76\n\74data:commentLabelPlural\76\74/data:commentLabelPlural\76:\n        \74/b:if\76\n\74/h4\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\74/a\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\74/a\76\n\74/span\76\n\74/b:if\76\n\74dl expr:class\75\47data:post.avatarIndentClass\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.comments\47 var\75\47comment\47\76\n\74dt expr:class\75\47\46quot;comment-author \46quot; + data:comment.authorClass\47 expr:id\75\47data:comment.anchorName\47\76\n\74b:if cond\75\47data:comment.favicon\47\76\n\74img expr:src\75\47data:comment.favicon\47 height\75\04716px\47 style\75\47margin-bottom:-2px;\47 width\75\04716px\47/\76\n\74/b:if\76\n\74a expr:name\75\47data:comment.anchorName\47\76\74/a\76\n\74b:if cond\75\47data:blog.enabledCommentProfileImages\47\76\n\74data:comment.authorAvatarImage\76\74/data:comment.authorAvatarImage\76\n\74/b:if\76\n\74b:if cond\75\47data:comment.authorUrl\47\76\n\74a expr:href\75\47data:comment.authorUrl\47 rel\75\47nofollow\47\76\74data:comment.author\76\74/data:comment.author\76\74/a\76\n\74b:else\76\74/b:else\76\n\74data:comment.author\76\74/data:comment.author\76\n\74/b:if\76\n\74data:commentPostedByMsg\76\74/data:commentPostedByMsg\76\n\74/dt\76\n\74dd class\75\47comment-body\47\76\n\74b:if cond\75\47data:comment.isDeleted\47\76\n\74span class\75\47deleted-comment\47\76\74data:comment.body\76\74/data:comment.body\76\74/span\76\n\74b:else\76\74/b:else\76\n\74p\76\74data:comment.body\76\74/data:comment.body\76\74/p\76\n\74/b:if\76\n\74/dd\76\n\74dd class\75\47comment-footer\47\76\n\74span class\75\47comment-timestamp\47\76\n\74a expr:href\75\47data:comment.url\47 title\75\47comment permalink\47\76\n\74data:comment.timestamp\76\74/data:comment.timestamp\76\n\74/a\76\n\74b:include data\75\47comment\47 name\75\47commentDeleteIcon\47\76\74/b:include\76\n\74/span\76\n\74/dd\76\n\74/b:loop\76\n\74/dl\76\n\74b:if cond\75\47data:post.commentPagingRequired\47\76\n\74span class\75\47paging-control-container\47\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.oldestLinkUrl\47\76\n\74data:post.oldestLinkText\76\74/data:post.oldestLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.oldLinkClass\47 expr:href\75\47data:post.olderLinkUrl\47\76\n\74data:post.olderLinkText\76\74/data:post.olderLinkText\76\n\74/a\76\n          \46#160;\n          \74data:post.commentRangeText\76\74/data:post.commentRangeText\76\n          \46#160;\n          \74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newerLinkUrl\47\76\n\74data:post.newerLinkText\76\74/data:post.newerLinkText\76\n\74/a\76\n\74a expr:class\75\47data:post.newLinkClass\47 expr:href\75\47data:post.newestLinkUrl\47\76\n\74data:post.newestLinkText\76\74/data:post.newestLinkText\76\n\74/a\76\n\74/span\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74b:if cond\75\47data:post.embedCommentForm\47\76\n\74b:if cond\75\47data:post.allowNewComments\47\76\n\74b:include data\75\47post\47 name\75\47comment-form\47\76\74/b:include\76\n\74b:else\76\74/b:else\76\n\74data:post.noNewCommentsText\76\74/data:post.noNewCommentsText\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74a expr:href\75\47data:post.addCommentUrl\47 expr:onclick\75\47data:post.addCommentOnclick\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/a\76\n\74/b:if\76\n\74/b:if\76\n\74/p\76\n\74/b:if\76\n\74div id\75\47backlinks-container\47\76\n\74div expr:id\75\47data:widget.instanceId + \46quot;_backlinks-container\46quot;\47\76\n\74b:if cond\75\47data:post.showBacklinks\47\76\n\74b:include data\75\47post\47 name\75\47backlinks\47\76\74/b:include\76\n\74/b:if\76\n\74/div\76\n\74/div\76\n\74/div\076'}, 'comment-form': {'varName': 'post', 'template': '\74div class\75\47comment-form\47\76\n\74a name\75\47comment-form\47\76\74/a\76\n\74h4 id\75\47comment-post-message\47\76\74data:postCommentMsg\76\74/data:postCommentMsg\76\74/h4\76\n\74p\76\74data:blogCommentMessage\76\74/data:blogCommentMessage\76\74/p\76\n\74data:blogTeamBlogMessage\76\74/data:blogTeamBlogMessage\76\n\74a expr:href\75\47data:post.commentFormIframeSrc\47 id\75\47comment-editor-src\47\76\74/a\76\n\74iframe allowtransparency\75\47true\47 class\75\47blogger-iframe-colorize blogger-comment-from-post\47 frameborder\75\0470\47 height\75\047410\47 id\75\47comment-editor\47 name\75\47comment-editor\47 src\75\47\47 width\75\047100%\47\76\74/iframe\76\n\74data:post.friendConnectJs\76\74/data:post.friendConnectJs\76\n\74data:post.cmtfpIframe\76\74/data:post.cmtfpIframe\76\n\74script type\75\47text/javascript\47\76\n      BLOG_CMT_createIframe(\46#39;\74data:post.appRpcRelayPath\76\74/data:post.appRpcRelayPath\76\46#39;, \46#39;\74data:post.communityId\76\74/data:post.communityId\76\46#39;);\n    \74/script\76\n\74/div\076'}, 'backlinks': {'varName': 'post', 'template': '\74a name\75\47links\47\76\74/a\76\74h4\76\74data:post.backlinksLabel\76\74/data:post.backlinksLabel\76\74/h4\76\n\74b:if cond\75\47data:post.numBacklinks !\75 0\47\76\n\74dl class\75\47comments-block\47 id\75\47comments-block\47\76\n\74b:loop values\75\47data:post.backlinks\47 var\75\47backlink\47\76\n\74div class\75\47collapsed-backlink backlink-control\47\76\n\74dt class\75\47comment-title\47\76\n\74span class\75\47backlink-toggle-zippy\47\76\46#160;\74/span\76\n\74a expr:href\75\47data:backlink.url\47 rel\75\47nofollow\47\76\74data:backlink.title\76\74/data:backlink.title\76\74/a\76\n\74b:include data\75\47backlink\47 name\75\47backlinkDeleteIcon\47\76\74/b:include\76\n\74/dt\76\n\74dd class\75\47comment-body collapseable\47\76\n\74data:backlink.snippet\76\74/data:backlink.snippet\76\n\74/dd\76\n\74dd class\75\47comment-footer collapseable\47\76\n\74span class\75\47comment-author\47\76\74data:post.authorLabel\76\74/data:post.authorLabel\76\n\74data:backlink.author\76\74/data:backlink.author\76\74/span\76\n\74span class\75\47comment-timestamp\47\76\74data:post.timestampLabel\76\74/data:post.timestampLabel\76\n\74data:backlink.timestamp\76\74/data:backlink.timestamp\76\74/span\76\n\74/dd\76\n\74/div\76\n\74/b:loop\76\n\74/dl\76\n\74/b:if\76\n\74p class\75\47comment-footer\47\76\n\74a class\75\47comment-link\47 expr:href\75\47data:post.createLinkUrl\47 expr:id\75\47data:widget.instanceId + \46quot;_backlinks-create-link\46quot;\47 target\75\47_blank\47\76\74data:post.createLinkLabel\76\74/data:post.createLinkLabel\76\74/a\76\n\74/p\076'}, 'feedLinks': {'varName': '', 'template': '\74b:if cond\75\47data:blog.pageType !\75 \46quot;item\46quot;\47\76\n\74b:if cond\75\47data:feedLinks\47\76\n\74div class\75\47blog-feeds\47\76\n\74b:include data\75\47feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/div\76\n\74/b:if\76\n\74b:else\76\74/b:else\76\n\74div class\75\47post-feeds\47\76\n\74b:loop values\75\47data:posts\47 var\75\47post\47\76\n\74b:if cond\75\47data:post.allowComments\47\76\n\74b:if cond\75\47data:post.feedLinks\47\76\n\74b:include data\75\47post.feedLinks\47 name\75\47feedLinksBody\47\76\74/b:include\76\n\74/b:if\76\n\74/b:if\76\n\74/b:loop\76\n\74/div\76\n\74/b:if\076'}, 'feedLinksBody': {'varName': 'links', 'template': '\74div class\75\47feed-links\47\76\n\74data:feedLinksMsg\76\74/data:feedLinksMsg\76\n\74b:loop values\75\47data:links\47 var\75\47f\47\76\n\74a class\75\47feed-link\47 expr:href\75\47data:f.url\47 expr:type\75\47data:f.mimeType\47 target\75\47_blank\47\76\74data:f.name\76\74/data:f.name\76 (\74data:f.feedType\76\74/data:f.feedType\76)\74/a\76\n\74/b:loop\76\n\74/div\076'}, 'status-message': {'varName': '', 'template': '\74b:if cond\75\47data:navMessage\47\76\n\74div class\75\47status-msg-wrap\47\76\n\74div class\75\47status-msg-body\47\76\n\74data:navMessage\76\74/data:navMessage\76\n\74/div\76\n\74div class\75\47status-msg-border\47\76\n\74div class\75\47status-msg-bg\47\76\n\74div class\75\47status-msg-hidden\47\76\74data:navMessage\76\74/data:navMessage\76\74/div\76\n\74/div\76\n\74/div\76\n\74/div\76\n\74div style\75\47clear: both;\47\76\74/div\76\n\74/b:if\076'}}, document.getElementById('Blog1'), {'showBacklinks': true, 'postId': '2604130746213123981'}, 'displayModeFull'));
+</SCRIPT>
+</BODY></HTML>

@@ -1,0 +1,11 @@
+﻿Imports System.Configuration  ※專案必需加入System.Configuration.dll
+
+System.Configuration.ConfigurationManager.ConnectionStrings("EMRMSRecord_ConnectionString")
+System.Configuration.ConfigurationManager.AppSettings("Administrator")
+
+
+System.Web.Configuration.WebConfigurationManager.AppSettings("ServiceId")
+System.Web.Configuration.WebConfigurationManager.ConnectionStrings("EMRMSRecord_ConnectionString")
+
+WebConfigurationManager只針對web form的web.config，可讀取特定目錄下的web.config如WebConfigurationManager.GetSection("sectionName","path")
+ConfigurationManager可以用在window form和web form的web.config或 exe.config

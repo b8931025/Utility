@@ -1,0 +1,1 @@
+cat file_1.txt file_2.txt|sort|uniq -u

@@ -1,0 +1,88 @@
+windows XP 系統關閉不必要的服務
+
+在xp系統中，有近90個服務，默認開啟了30多個服務，而事實上我們只需要其中幾個就夠用了。禁止所有不必要的服務可以為您節省n多的內存和大量系統資源 不過，由於默認安裝完Windows XP後，系統會開啟很多服務，其中不少對於普通用戶根本用不到或暫時用不到，反而浪費了相當多的內存和系統資源，特別是內存，影響了系統啟動和運行的速度。但是迫於水平實在有限 不敢亂關 一些服務 所以找了好多地方 找了一寫相關文章過來 希望能給那些和我一樣痛苦著用xp的朋友一些幫助部分做了相關修改： 
+
+在 「開始」 的 「運行」 中 輸入： services.msc 
+進入XP自帶服務修改列表 
+
+可以選擇關閉，手動，還是自動： 
+自動為跟ｗｉｎｄｏｗｓ一起啟動。 
+手動為需要時它自行啟動。 
+關閉為永遠不啟動。 
+
+＊就把它關掉 
+
+＊alerter -錯誤警報器，垃圾，關閉。 
+application layer gateway service -給與第三者網絡共享/防火牆支持的服務，有些防火牆/網絡共享軟件需要。佔用１。５ｍｂ內存。 
+application management-用於設定，發佈和刪除軟件服務。 
+＊automatic updates -windows自動更新，K，滾！ 
+background intelligent transfer service -這個服務原是用來實現http1.1服務器之間的信息傳輸，微軟稱支持windows更新時斷點續傳 
+＊clipbook - 用與局域網電腦來共享 粘貼/剪貼的內容。（K，想得出！） 
+com+Event system　-一些 COM+　軟件需要，檢查你的 c:\program files\ComPlus Applications 目錄，沒東西可以把這個服務關閉． 
+COM+Event system application　－同上 
+COmputer browser　－　用來瀏覽局域網電腦的服務，但關了也不影響瀏覽！垃圾 
+cryptographic services -windows更新時用來確認windows 文件指紋的，我更新時才開啟一下。 
+DHCP client－靜態ＩＰ者需要（ｘＤＳＬ　等）小貓就不用了！！ 
+Distributed link tracking client－用於局域網更新連接信息，比如在電腦Ａ有個文件，在Ｂ做了個連接，如果文件移動了，這個服務將會更新信息。佔用４兆內存。 
+＊Distributed Transaction coordinator－無聊的東西。 
+DNS Client－ＤＮＳ解析服務。。無聊～～ 
+＊Error reporting service -錯誤報告器，把windows中錯誤報告給微軟，無聊～～～～～ 
+Event Log- 系統日誌紀錄服務，很有用於查找系統毛病． 
+＊Fast user switching compatibility－多用戶快速切換服務．．無聊 
+＊help and support -幫助，無聊，還是無聊幫助．．哈哈 
+Human interface device access－支持」弱智「電腦配件的。。比如鍵盤上調音量的按鈕等等。。 
+＊IMAPI CD-burning COM service　－ｘｐ刻牒服務，用軟件就不用了佔用１。６兆內存 
+＊Indexing service -恐怖的xp減速的東東！！！關關關！！！ 
+Internet Connection Firewall(ICF).........-xp防火牆。。不用就關。 
+＊IPSEC Services－大眾用戶連邊都沾不上。 
+Logical Disk manager　－磁盤管理服務。。需要時它會通知你，所以一般關。 
+Logical Disk manager administrative service－同上。 
+＊messenger -不是msn，不想被騷擾的話就關。註：妖刺就是利用這個。 
+＊MS software shadow copy provider－無用，據說是備份用的。。我看什麼用都沒。 
+＊Net Logon－登陸　Ｄｏｍａｉｎ　Ｃｏｎｔｒｏｌｌｅｒ　用的，大眾用戶快關！ 
+＊Netmeeting remote desktop sharing－用ｎｅｔｍｅｅｔｉｎｇ　實現電腦共享。。暈！關！！ 
+Network Connections - 上網／局域網要用的東東！ 
+＊Network DDE　－和ｃｌｉｐｂｏｏｋ一起用的，無聊～～～～ 
+＊Network DDE DSDM　－同上 
+Network Location Awareness－如有網絡共享或ICS/ICF可能需要.(服務器端） 
+＊NT LM Security support provider－telnet　服務用的東東，關！！ 
+＊NVIDIA Driver Helper service -nvidia 顯卡幫助，關！ 
+PDEngine - perfectdisk 引擎 
+PDScheduler -perfectdisk 計劃服務 
+PerFORMance logs and alerts－記錄機器運行狀況而且定時寫入日誌或發警告，內容可能過於專業，所以。。自己決定。 
+Plug and Play- 自動查測新裝硬件，即插即用，開著吧～～～ 
+＊Portable media serial number－絕對無用，無聊之及。 
+Print Spooler -打印機用的，我打印時才開一下。 
+Protected Storage－儲存本地密碼和網上服務密碼的服務，包括填表時的「自動完成」功能。 
+＊QoS RSVP -關！就是那個２０％的　ＱｏＳ 
+Remote access auto connection manager－寬帶者／網絡共享可能需要！！ 
+Remote desktop help session manager－遠程幫助服務，傻透，佔用４兆內存。 
+Remote Procedure Call (RPC) -系統核心服務！ 
+Remote Procedure Call LOCATOR－這個倒沒什麼用，管理　ＲＰＣ　數據庫服務，佔用１兆內存。 
+＊remote registry －遠程註冊表運行／修改。大漏洞，還不快關！！ 
+＊removable storage　－一般情況下不用，磁帶備份用的。 
+＊routing and remote access－哈哈。。不知者關！ 
+＊secondary logon－給與administrator 以外的用戶分配指定**作權．暈～～～ 
+security accounts manager－像 Protected Storage,　IIS Admin 才需要。 
+server -局域網文件／打印共享需要的。 
+shell hardware detection－給有些配置自動啟動，像內存棒，和有些ｃｄ驅動等 
+＊smart card -關！１。４兆內存 
+＊smart card helper -關！ 
+＊SSDP Discovery service－沒有什麼硬件利用這個服務。。 
+system event notification－記錄用戶登錄／註銷／重起／關機信息。。誰管這些。。 
+system restore service -系統還原服務，吃資源和內存的怪獸。。雖然有時用到，自己決定。 
+＊task scheduler－windows 計劃服務啦，垃圾． 
+＊TCP/IP NetBIOS helper－如果你的網絡不用　Netbios 或WINS，關了． 
+＊Telephony - 撥號服務，如果你的寬帶不用撥號，那麼關了它。 
+＊telnet -大漏洞，我第一個關的就是這個．這根dos中　ｔｅｌｎｅｔ　命令沒關係。２兆內存。 
+terminal services－實現遠程登錄本地電腦，快速用戶切換和遠程桌面功能需要，不用這些功能就關了吧。 
+＊themes -給ｘｐ打扮的東東，不要太花鍬的就關了。 
+uninterruptible power supply－停電保護設備用的。。。沒有的就關。 
+＊universal plug and play device host－同SSDP Discovery Service ，沒用． 
+upload manager－用來實現服務器和客戶端輸送文件的服務，簡單文件傳輸不需要這個！ 
+＊volume shadow copy－同MS Software Shadow Copy Provider，無用． 
+webclient－可能和以後的．ｎｅｔ技術有聯繫，安全起見，我關得實實的！ 
+Windows Audio -　控制著你聽到的聲音。關了就沒聲音了！！ 
+Windows Installer -windows的ＭＳＩ安裝服務，建議設成手動。 
+＊windows image acquisition (WIA) -有些數碼相機和掃瞄器用的，我的掃瞄器覺得它沒用。 
+Windows Management Instrumentation - 滿重要的服務，是管」服務依K」的，但關了會出現奇怪的問題

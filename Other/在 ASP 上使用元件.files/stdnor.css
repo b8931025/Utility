@@ -1,0 +1,15 @@
+A:active {
+	COLOR: red
+}
+A:hover {
+	BACKGROUND: highlight; COLOR: highlighttext
+}
+.standardsButton:link {
+	BORDER-RIGHT: #7d3302 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #ffc8a4 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 10px verdana,sans-serif; VERTICAL-ALIGN: middle; BORDER-LEFT: #ff9a57 1px solid; COLOR: #ffffff; PADDING-TOP: 0px; BORDER-BOTTOM: #3f1a01 1px solid; BACKGROUND-COLOR: #ff6600; TEXT-DECORATION: none
+}
+.standardsButton:hover {
+	BORDER-RIGHT: #7d3302 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #ffc8a4 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 10px verdana,sans-serif; VERTICAL-ALIGN: middle; BORDER-LEFT: #ff9a57 1px solid; COLOR: #ffffff; PADDING-TOP: 0px; BORDER-BOTTOM: #3f1a01 1px solid; BACKGROUND-COLOR: #ff6600; TEXT-DECORATION: none
+}
+.standardsButton:visited {
+	BORDER-RIGHT: #7d3302 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #ffc8a4 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: bold 10px verdana,sans-serif; VERTICAL-ALIGN: middle; BORDER-LEFT: #ff9a57 1px solid; COLOR: #ffffff; PADDING-TOP: 0px; BORDER-BOTTOM: #3f1a01 1px solid; BACKGROUND-COLOR: #ff6600; TEXT-DECORATION: none
+}
