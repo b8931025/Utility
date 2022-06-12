@@ -1,0 +1,13 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+
+[Required(ErrorMessage = "密碼必輸")]
+
+
+[StringLength(5,ErrorMessage = "不可超過5個字")]    
+
+
+[Range( 0,100,ErrorMessage = "範圍限0到100")]
+
+
+[RegularExpression(@"\d{5}")]

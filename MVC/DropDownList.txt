@@ -1,0 +1,69 @@
+[方法一]
+View
+    @Html.DropDownList("ddlFrut",new List<SelectListItem>() {
+        new SelectListItem() { Text="apple", Value="1" },
+        new SelectListItem() { Text="banana", Value="2", Selected=true},
+        new SelectListItem() { Text="watermelon", Value="3" },
+    })
+    
+[方法一]
+DropDownList只有一個參數時，就要跟ViewBag裡面的變數名稱一樣
+
+Ctrler
+public ActionResult Index()
+{
+    List<SelectListItem> items = new List<SelectListItem>
+    {
+        new SelectListItem() { Text = "項目一", Value = "1" },
+        new SelectListItem() { Text = "項目二", Value = "2", Selected=true },
+        new SelectListItem() { Text = "項目三", Value = "3" }
+    };
+    ViewBag.DDL1 = items;
+    return View();
+}  
+    
+View
+@Html.DropDownList("DDL1")    
+
+[方法二]
+Ctrler
+public ActionResult Index()
+{
+    List<SelectListItem> items = new List<SelectListItem>
+    {
+        new SelectListItem() { Text = "項目一", Value = "1" },
+        new SelectListItem() { Text = "項目二", Value = "2", Selected=true },
+        new SelectListItem() { Text = "項目三", Value = "3" }
+    };
+    ViewBag.DDL1 = items;
+    return View();
+}  
+
+View
+@{
+    var items = (List<SelectListItem>)ViewBag.DDL1;        
+ }    
+@Html.DropDownList("ddlTest", items,new {style="width:200px;color:blue", onclick="JavaScript:alert('Hello');"})
+
+[方法三]用IDictionary加入屬性
+Ctrler
+public ActionResult Index()
+{
+    List<SelectListItem> items = new List<SelectListItem>
+    {
+        new SelectListItem() { Text = "項目一", Value = "1" },
+        new SelectListItem() { Text = "項目二", Value = "2", Selected=true },
+        new SelectListItem() { Text = "項目三", Value = "3" }
+    };
+    ViewBag.DDL1 = items;
+    return View();
+} 
+
+View
+@{
+    var items = (List<SelectListItem>)ViewBag.DDL1;
+}
+@Html.DropDownList("ddlTest", @items, new Dictionary<string, object>() {
+                                        { "style", "width:150px" },
+                                        { "class","myclass"}}
+)
