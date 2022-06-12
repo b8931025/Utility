@@ -1,0 +1,30 @@
+﻿DATEDIFF ( datepart , startdate , enddate )
+DATEDIFF是算兩個日期間的間隔，傳回帶正負號的整數  
+datepart為間隔的單位
+
+SELECT DATEDIFF(DAY, '2010-10-03','2010-10-04')
+結果為1天
+
+DATEADD (datepart , number , date )
+DATEADD是計算某日期加上一個數值，傳回的日期 
+datepart是單位，number是指定的數值，date是要被加上的原始日期
+
+SELECT DATEADD(MONTH,2,'2010-10-06')
+結果為2010-12-06 00:00:00.000
+
+
+不過還是要再解釋一個東西，如果今天將0轉為datetime，如 select CONVERT(datetime,0,112)
+出來的結果會是1900-01-01 00:00:00.000
+
+SELECT DATEDIFF(MONTH,0,GETDATE())
+結果為1329，代表相差了1329個月
+
+
+該月的第一天
+SELECT  DATEADD(MONTH,  DATEDIFF(MONTH,0,GETDATE()) ,0)
+
+該月最後一天
+SELECT DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE() ), -1)
+
+當季最後一天
+SELECT DATEADD(QUARTER, DATEDIFF(QUARTER, -1,GETDATE() ), -1)

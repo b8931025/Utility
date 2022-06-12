@@ -1,0 +1,22 @@
+﻿下面的命令可更改identity(Sequence)
+
+TableName:表格名稱
+CurrentValue:現有的值
+DBCC CHECKIDENT( TableName, RESEED, CurrentValue)
+
+下一個insert的Identity就是CurrentValue+1
+
+
+取得目前identify 
+select IDENT_CURRENT('TableName')
+
+
+insert想要的identify  範例
+
+declare @NowValue int = (select IDENT_CURRENT('exm14')) ; --先保留原來的indentify
+DBCC CHECKIDENT('exm14', RESEED, 49999);--欲insert的值-1
+insert into exm14 (m14_account,m14_id,m14_cname) values('test','test','test'); --insert into
+DBCC CHECKIDENT('exm14', RESEED, @NowValue);--回復原來的identify
+SELECT top 10 * FROM exm14 order by m14_seq desc ;
+
+insert前要先確認該identity是否已存在

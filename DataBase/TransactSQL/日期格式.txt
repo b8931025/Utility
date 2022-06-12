@@ -1,0 +1,32 @@
+
+輸出格式：2008-02-27 00:25:13
+SELECT CONVERT(char(19), getdate(), 120)
+
+
+‧ 輸出格式：2008-02-27
+SELECT CONVERT(char(10), getdate(), 20)
+  
+
+‧ 輸出格式：2008.02.27
+SELECT CONVERT(char(10), getdate(), 102)
+
+
+
+‧ 輸出格式：08.02.27
+SELECT CONVERT(char(8), getdate(), 2)
+
+
+‧ 輸出格式：2008/02/27
+SELECT CONVERT(char(10), getdate(), 111)
+
+
+‧ 輸出格式：08/02/27
+SELECT CONVERT(char(8), getdate(), 11)
+
+
+‧ 輸出格式：20080227
+SELECT CONVERT(char(8), getdate(), 112)
+
+
+‧ 輸出格式：080227
+SELECT CONVERT(char(6), getdate(), 12)

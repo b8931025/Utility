@@ -1,0 +1,5 @@
+select REPLACE(STR(ROW_NUMBER() OVER (ORDER BY com, cmno, sno, batchDetailID), 3), SPACE(1), '0') AS SEQ,
+com, cmno, sno, batchDetailID
+from salaryBatchDetail t
+where batchMainID = '4356'  
+ORDER BY com, cmno, sno, batchDetailID
