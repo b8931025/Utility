@@ -1,0 +1,9 @@
+﻿SqlParameter like寫法
+
+方法一
+cmd.commandText="Select * From Emp Where EmpName like @EmpName ;"; 
+cmd.parameters.add("@EmpName",sqldvtype.nvarchar,20).value= "%" + txtEmpName.Text.Trim() + "%"; //過濾前後空白 
+
+方法二
+cmd.commandText="Select * From Emp Where EmpName like  '%' + @EmpName + '%';";
+cmd.parameters.add("@EmpName",sqldvtype.nvarchar,20).value=txtEmpName.Text.Trim() ; //過濾前後空白 

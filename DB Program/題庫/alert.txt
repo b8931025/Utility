@@ -1,0 +1,18 @@
+﻿				try{
+
+						//產生alert
+						throw new ValidateException("請上傳離線命妥之題套檔(檔案格式為經由本系統下載之.docx 格式的題套檔)!"); 
+						
+						or 
+						
+						//產生alert
+            returnMessage.Text = "<script> alert('請上傳離線命妥之題套檔(檔案格式為經由本系統下載之.docx 格式的題套檔)!')</script>";
+            Page.Controls.Add(returnMessage);
+            
+            or 
+            WebUtility.WindowAlert(Page, "請上傳離線命妥之題套檔(檔案格式為經由本系統下載之.docx 格式的題套檔)!");
+				}
+        catch (Exception ex)
+        {
+            ExceptionHandle(ex);
+        }

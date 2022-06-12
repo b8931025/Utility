@@ -1,0 +1,12 @@
+﻿        Dim sqParam As New List(Of SqlParameter)               ※要用List的泛型
+
+        Cname = " AND WriteOffHistory.UserName in ("
+        For i As Integer = 0 To Lines.Length - 1
+            Cname &= "@Name" & CStr(i) & ","
+            sqParam.Add(New SqlParameter("@Name" & CStr(i), Lines(i).Trim()))   ※加SqlParameter
+        Next
+        Cname = Cname.Trim(",") + ")"
+        
+        Dim cmd As New SqlCommand()
+        cmd.CommandText = Sql
+        cmd.Parameters.AddRange(sqParam.ToArray())        ※這裡要用AddRange

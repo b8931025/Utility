@@ -1,0 +1,24 @@
+            StorageTicket ticket = new StorageTicket();
+            ticket.FolderType = FolderType.SAMPLE_FOLDER;
+            ticket.ActorID = actor.SubjectId;
+            ticket.Timestamp = DateTime.Now;
+            ticket.SourceFileID = Util.TemplateFile.GetQuestionFileID();
+            ticket.StoragePath = (new SourceFileStrategy()).GetPath(ticket);//SAMPLE_FOLDER + SourceFileID
+
+            取得完成路徑
+            DirectoryInfo d = GetFullPath(ticket.StoragePath);
+            
+        產生暫存路徑    
+        private DirectoryInfo GetExportFilePath(QBUser actor)
+        {
+            IStorageManager storageManager = (new RepositoryFactory()).GetStorageManager();
+            //#取得下載的暫存路徑
+            ticketExport = new StorageTicket();
+            ticketExport.StorageTicketStrategy = new AnnoDominiTimeTickStrategy();
+            ticketExport.FolderType = FolderType.EXPORT_FOLDER;
+            ticketExport.ActorID = actor.SubjectId;
+            ticketExport.Timestamp = DateTime.Now;
+            storageManager.AcquireStorageTicket(ticketExport, true);//產生目錄
+            DirectoryInfo dir = storageManager.GetFullPath(ticketExport.StoragePath);
+            return dir;
+        }            

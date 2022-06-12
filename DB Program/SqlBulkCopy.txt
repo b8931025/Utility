@@ -1,0 +1,68 @@
+https://blog.gss.com.tw/index.php/2018/08/08/sqlbulkcopy/
+https://blog.csdn.net/yenange/article/details/35837247      SqlBulkCopyOptions»¡©ú
+
+        Dim dtSave As New DataTable()
+        dtSave.Columns.Add("StaffSettingDetailID", GetType(String))
+        dtSave.Columns.Add("UserEmail", GetType(String))
+        dtSave.Columns.Add("ExamNo", GetType(String))
+        dtSave.Columns.Add("DistricID", GetType(String))
+        dtSave.Columns.Add("EmailTo", GetType(String))
+        dtSave.Columns.Add("Main", GetType(String))
+        dtSave.Columns.Add("Contents", GetType(String))
+        dtSave.Columns.Add("att1", GetType(String))
+        dtSave.Columns.Add("att2", GetType(String))
+        dtSave.Columns.Add("lot", GetType(String))
+        dtSave.Columns.Add("txtpath", GetType(String))
+        dtSave.Columns.Add("createdate", GetType(String))
+        dtSave.Columns.Add("SMTP", GetType(String))
+        dtSave.Columns.Add("SendOK", GetType(String))
+        dtSave.Columns.Add("quit", GetType(String))
+        
+        Dim db As DataTable = bll.GetPlaceTaskEmail_ToSend(ExamNo, DistricNo)
+        For Each dr As DataRow In db.Rows
+            EmailTo = dr("Email").ToString().Trim()
+            StaffSettingDetailID = dr("ID").ToString().Trim()
+            Dim drSave As DataRow = dtSave.NewRow()
+            drSave("StaffSettingDetailID") = StaffSettingDetailID
+            drSave("UserEmail") = UserEmail
+            drSave("ExamNo") = ExamNo
+            drSave("DistricID") = DistricNo
+            drSave("EmailTo") = EmailTo
+            drSave("Main") = Maintxt.Text
+            drSave("Contents") = Content.Text
+            drSave("att1") = filePath
+            drSave("att2") = filePath1
+            drSave("lot") = TableName
+            drSave("txtpath") = txtpath
+            drSave("createdate") = DateTime.Now.ToString("yyyy/MM/dd")
+            drSave("SMTP") = ""
+            drSave("SendOK") = ""
+            drSave("quit") = ""
+            dtSave.Rows.Add(drSave)
+        Next        
+        
+        Using conn As New SqlConnection(ConnectionStrings("EMRMS_ConnectionString").ConnectionString)
+            conn.Open()
+            Using sqltransaction = conn.BeginTransaction
+                Using bulkCopy As New SqlBulkCopy(conn, SqlBulkCopyOptions.Default, sqltransaction)
+                    bulkCopy.ColumnMappings.Add("StaffSettingDetailID", "StaffSettingDetailID")
+                    bulkCopy.ColumnMappings.Add("UserEmail", "UserEmail")
+                    bulkCopy.ColumnMappings.Add("ExamNo", "ExamNo")
+                    bulkCopy.ColumnMappings.Add("DistricID", "DistricID")
+                    bulkCopy.ColumnMappings.Add("EmailTo", "EmailTo")
+                    bulkCopy.ColumnMappings.Add("Main", "Main")
+                    bulkCopy.ColumnMappings.Add("Contents", "Contents")
+                    bulkCopy.ColumnMappings.Add("att1", "att1")
+                    bulkCopy.ColumnMappings.Add("att2", "att2")
+                    bulkCopy.ColumnMappings.Add("lot", "lot")
+                    bulkCopy.ColumnMappings.Add("txtpath", "txtpath")
+                    bulkCopy.ColumnMappings.Add("createdate", "createdate")
+                    bulkCopy.ColumnMappings.Add("SMTP", "SMTP")
+                    bulkCopy.ColumnMappings.Add("SendOK", "SendOK")
+                    bulkCopy.ColumnMappings.Add("quit", "quit")
+                    bulkCopy.DestinationTableName = "PlaceTaskEmail_Plan"
+                    bulkCopy.WriteToServer(dt)
+                End Using
+                sqltransaction.Commit()
+            End Using
+        End Using        

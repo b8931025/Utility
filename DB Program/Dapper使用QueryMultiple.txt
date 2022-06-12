@@ -1,0 +1,14 @@
+﻿using Dapper;
+using System.Collections.Generic;
+
+  protected string cnStr = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+	
+	using (var cn = new SqlConnection(cnStr))
+	{
+		using (var gridReader = cn.QueryMultiple(@"select 1; 
+		                                           select 2;"))
+		{
+			Console.WriteLine(gridReader.Read<int>()); //result : 1
+			Console.WriteLine(gridReader.Read<int>()); //result : 2
+		}
+	}

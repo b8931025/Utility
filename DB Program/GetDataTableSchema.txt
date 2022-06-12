@@ -1,0 +1,59 @@
+[C#]
+        /// <summary>
+        /// 取得資料表schema
+        /// </summary>
+        /// <param name="tableName">表格名稱</param>
+        /// <param name="cn">SqlConnection</param>
+        /// <returns>DataTable</returns>
+        public static DataTable getSchema(string tableName,SqlConnection cn) {
+            DataTable dt = new DataTable();
+
+            //簡略的白名單，避免sql injection
+            if (tableName.Contains(" ") || tableName.Contains("(") || tableName.Contains(")") || tableName.Contains(";")) throw new Exception($"{tableName} is not valid table name");
+            try
+            {
+                string sql = "declare @sql varchar(max) = 'select * from ' + @tblName + ' where 1=0';exec(@sql);";
+                SqlDataAdapter adpt = new SqlDataAdapter(sql, cn);
+                adpt.SelectCommand.Parameters.AddWithValue("tblName", tableName);
+                adpt.Fill(dt);
+            }
+            catch (SqlException ex) {
+                if (ex.Message.IndexOf("無效的物件") > -1) throw new Exception($"表格{tableName}不存在");
+                throw ex;
+            }
+            catch (Exception ex){
+                throw ex;
+            }
+
+            dt.TableName = tableName;
+            return dt;
+        }
+        
+[VB]
+    ''' <summary>
+    ''' 取得資料表schema
+    ''' </summary>
+    ''' <param name="tableName">表格名稱</param>
+    ''' <param name="cn">SqlConnection</param>
+    ''' <returns>DataTable</returns>
+    Public Shared Function getDataTableSchema(ByVal tableName As String, ByVal cn As SqlConnection) As DataTable
+        Dim dt As DataTable = New DataTable()
+
+        '簡略的白名單，避免sql injection
+        If tableName.Contains(" ") OrElse tableName.Contains("(") OrElse tableName.Contains(")") OrElse tableName.Contains(";") Then Throw New Exception(tableName + " is not valid table name")
+        Try
+            Dim sql As String = "declare @sql varchar(max) = 'select * from ' + @tblName + ' where 1=0';exec(@sql);"
+            Dim adpt As SqlDataAdapter = New SqlDataAdapter(sql, cn)
+            adpt.SelectCommand.Parameters.AddWithValue("tblName", tableName)
+            adpt.Fill(dt)
+        Catch ex As SqlException
+            If ex.Message.IndexOf("無效的物件") > -1 Then Throw New Exception("表格" + tableName + "不存在")
+            Throw ex
+        Catch ex As Exception
+            Throw ex
+        End Try
+
+        dt.TableName = tableName
+        Return dt
+    End Function
+        

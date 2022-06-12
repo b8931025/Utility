@@ -1,0 +1,38 @@
+﻿            SqlConnection cn;
+            SqlTransaction tran;
+            
+            
+            //不用cn.open可直接使用Dapper的Excute
+            using (cn = new SqlConnection(cnStr))                    
+            {
+                cn.Execute(" update exm14 set m14_tel = 'no tran' where m14_seq = 36639");
+                cn.Execute(" update exm14 set m14_tel = 'tran' where m14_seq = 36640");
+            }  
+            
+            
+            using (cn = new SqlConnection(cnStr))                    
+            {
+                cn.Execute(" update exm14 set m14_tel = 'no tran' where m14_seq = 36639");//不用cn.open可直接使用Dapper的Excute
+                
+                cn.Open();//如果要使用Transaction就要先把connection open
+                using (tran = cn.BeginTransaction())
+                {
+                    try
+                    {
+                        //cn.Execute(" update exm14 set m14_tel = 'no tran' where m14_seq = 36639"); //tran打開後如果沒加進去就會出錯
+                        cn.Execute(" update exm14 set m14_tel = 'tran' where m14_seq = 36640", null, tran);
+                        throw new Exception("error");
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (tran != null) tran.Rollback();
+                        throw;
+                    }
+                    finally {
+                        if (cn != null && cn.State != System.Data.ConnectionState.Closed) cn.Close();
+                    }
+                }
+            }            
+            
+                      

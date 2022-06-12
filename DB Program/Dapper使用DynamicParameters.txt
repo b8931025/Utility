@@ -1,0 +1,16 @@
+            using (var cn = new SqlConnection(cnStr)) {
+                string sql = @"select * from exc44 where 1=1 ";
+                DynamicParameters param = new DynamicParameters();
+                
+                if (dwQ_c44_type.SelectedValue != "") {
+                    sql += " and c44_type = @c44_type";
+                    param.Add("c44_type", dwQ_c44_type.SelectedValue);
+                }
+
+                if (dwQ_c44_code.Text.Trim() != "") {
+                    sql += " and c44_code = @c44_code";
+                    param.Add("c44_code", dwQ_c44_code.Text.Trim());
+                }
+
+                IList<d_exc44> list = cn.Query<d_exc44>(sql, param).AsList();
+            }

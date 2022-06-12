@@ -1,0 +1,9 @@
+            IFileCompress fileCompress = QBUtility.ApplicationContext["SharpZipLibFileCompressStrategy"] as IFileCompress;
+
+            FileInfo[] files = new FileInfo[list.Count];
+            for (int i = 0; i < files.Length; i++) { files[i] = list[i]; }
+            
+            //產生壓縮檔
+            string zipFilePath = Path.Combine(DirTmp.FullName, YearExamCode + "_" + actor.LoginId + ".zip");//建立壓縮檔名
+            FileInfo zipFile = new FileInfo(zipFilePath);
+            zipFile = fileCompress.Pack(files, zipFile);//壓縮檔案            

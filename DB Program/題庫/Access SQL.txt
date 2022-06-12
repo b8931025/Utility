@@ -1,0 +1,69 @@
+            IDbProvider oldProvider = base.AdoTemplate.DbProvider;
+            IDbProvider provider = DbProviderFactory.GetDbProvider("OleDb-2.0");
+            provider.ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + fileTmp.FullName;
+            base.AdoTemplate.DbProvider = provider;
+            
+            //add data
+            string sqlCommands = @"INSERT INTO YEAR_EXAM( exam_no, 
+                                                            exam_name, 
+                                                            exam_sdate, 
+                                                            exam_edate, 
+                                                            undertakerid)
+                                                    VALUES (@exam_no, 
+                                                            @exam_name, 
+                                                            @exam_sdate, 
+                                                            @exam_edate, 
+                                                            @undertakerid);";
+
+            IDbParameters dbParameters = CreateDbParameters();
+            dbParameters.Add("exam_no", DbType.String).Value = "999999";
+            dbParameters.Add("exam_name", DbType.String).Value = "testName";
+            dbParameters.Add("exam_sdate", DbType.String).Value = DateTime.Now.ToString("MM/dd");
+            dbParameters.Add("exam_edate", DbType.String).Value = DateTime.Now.ToString("MM/dd");
+            dbParameters.Add("undertakerid", DbType.String).Value = "testID";
+            AdoTemplate.ExecuteNonQuery(CommandType.Text, sqlCommands.ToString(), dbParameters);            
+            
+            //get data table
+            sqlCommands = @"select * from YEAR_EXAM";
+            dbParameters = CreateDbParameters();
+            dbParameters.Add("exam_no", DbType.String).Value = "999999";
+            DataTable dt = AdoTemplate.DataTableCreateWithParams(CommandType.Text, sqlCommands, dbParameters);            
+            
+            //get single value
+            sqlCommands = @"select count(1) from YEAR_EXAM";
+            object cnt = AdoTemplate.ExecuteScalar(CommandType.Text, sqlCommands, dbParameters);
+            int iCnt = (int)cnt;            
+            
+            //Query
+            sqlCommands = @"select '11111' as YearExamID,
+                                    exam_no,
+                                    exam_name,
+                                    undertakerid,
+                                    #2005/01/01# as exam_sdate,
+                                    now() as exam_edate, 
+                                    now() as CreationDateTime, 
+                                    'willy' as CreatorID, 
+                                    now() as ModifyDateTime, 
+                                    'willy' as ModifierID, 
+                                    null, 
+                                    null
+                                    from YEAR_EXAM";
+            //欄位匿名一定要有as，access的getdate()要換成now()，日期格式是#yyyy/mm/dd#
+            IList list = AdoTemplate.QueryWithRowMapper(CommandType.Text, sqlCommands, new MOEX.QuestBank.Core.Persistence.ADO.Mapper.YearExaminationRowMapper(), dbParameters);
+            foreach (YearExamination ye in list)
+            {
+                string yeID = ye.YearExamID;
+            }
+            
+            //create table
+            sqlCommands = @"CREATE TABLE tblCustomers  
+                            (CustomerID INTEGER, 
+                            [Last Name] TEXT(50), 
+                            [First Name] TEXT(50), 
+                            Phone TEXT(10), 
+                            Email TEXT(50)) ";
+            AdoTemplate.ExecuteNonQuery(CommandType.Text, sqlCommands);            
+            
+            
+            //把Provider回復成Sql Server
+            base.AdoTemplate.DbProvider = oldProvider;            
