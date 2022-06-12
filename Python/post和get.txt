@@ -1,0 +1,26 @@
+import requests
+
+#取得Session
+rs = requests.session()
+
+#post的取法
+payload = {
+    "revAvailabilitySearch.SearchInfo.AdultCount" : "1",
+    "revAvailabilitySearch.SearchInfo.ChildrenCount" : "0",
+    "revAvailabilitySearch.SearchInfo.InfantCount" : "0",
+    "revAvailabilitySearch.SearchInfo.Direction" : "Return",
+    "revAvailabilitySearch.SearchInfo.PromoCode" : "",
+    "revAvailabilitySearch.SearchInfo.SalesCode" : "",
+    "revAvailabilitySearch.SearchInfo.SearchStations[0].DepartureStationCode" : "TPE",
+    "revAvailabilitySearch.SearchInfo.SearchStations[0].ArrivalStationCode" : "NRT",
+    "revAvailabilitySearch.SearchInfo.SearchStations[0].DepartureDate" : "07/02/2019",
+    "revAvailabilitySearch.SearchInfo.SearchStations[1].DepartureStationCode" : "NRT",
+    "revAvailabilitySearch.SearchInfo.SearchStations[1].ArrivalStationCode" : "TPE",
+    "revAvailabilitySearch.SearchInfo.SearchStations[1].DepartureDate" : "07/06/2019",
+    "revAvailabilitySearch.DeepLink.OrganisationCode" : "",
+    "revAvailabilitySearch.DeepLink.Locale" : ""
+}
+req = rs.post("https://makeabooking.flyscoot.com/Book/?culture=zh-tw",data=payload)
+
+#get的取法
+req = rs.get("https://www.coingecko.com/price_charts/1/twd/365_days.json")

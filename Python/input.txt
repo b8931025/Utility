@@ -1,0 +1,3 @@
+from_addr = input('輸入寄件者位址:')
+to_addr = input('輸入收件者位址:')
+print(from_addr,to_addr)

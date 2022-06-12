@@ -1,0 +1,52 @@
+資料結構set，是無排序且不可重覆的資料結構
+
+my_set={1,2,2,3}
+print(my_set)
+顯示 ※重覆的會distinct掉
+{1, 2, 3}
+
+範例 確認元素是否存在於Set之中
+my_set={1,2,2,3}
+print(2 in my_set)
+顯示
+True
+
+範例 差集(Difference) SetA – SetB，輸出結果為SetA有，而SetB沒有的元素
+set1={"A","B","C"}
+set2={"B","C","D"}
+print(set1-set2)
+顯示
+{'A'}
+
+範例 聯集(Union) 回傳兩個Set所有的元素
+set1={"A","B","C"}
+set2={"B","C","D"}
+print(set1|set2)
+顯示
+{'D', 'A', 'B', 'C'}
+
+範例 交集(Intersection)回傳兩個Set都要存在的元素
+set1={"A","B","C"}
+set2={"B","C","D"}
+print(set1&set2)
+顯示
+{'B', 'C'}
+
+範例 對稱差集合(Symmetric Difference) 聯集的相反
+set1={"A","B","C"}
+set2={"B","C","D"}
+print(set1^set2)
+顯示
+{'A', 'D'}
+
+
+
+
+
+
+
+
+
+
+
+

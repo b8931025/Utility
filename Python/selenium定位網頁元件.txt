@@ -1,0 +1,7 @@
+from selenium import webdriver
+driver = webdriver.Chrome()
+web = driver.get("https://www.google.com")
+driver.find_element_by_id("gb192") #用id定位
+driver.find_element_by_name("q") #用name定位
+driver.find_element_by_class_name("gLFyf") #用class name定位
+driver.find_element_by_css_selector("input[name='source']") #用css selector定位

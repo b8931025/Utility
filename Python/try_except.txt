@@ -1,0 +1,14 @@
+    try:
+        raise Exception("查無法人資料")
+    except:   
+        print('{}:{}:{}'.format(sys.exc_info()[0],sys.exc_info()[1],sys.exc_info()[2]))
+        sys.exit()
+        
+        
+        
+    try:
+        d = 10/0
+    except:   
+        raise
+        
+       

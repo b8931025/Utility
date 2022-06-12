@@ -1,0 +1,59 @@
+資料結構dicary
+
+dic={"A":1,"B":2,"C":3}
+print(dic)
+dic["A"]=10 #修改值
+print(dic)
+顯示
+{'A': 1, 'B': 2, 'C': 3}
+{'A': 10, 'B': 2, 'C': 3}
+
+範例 確認key是否存在字典中
+dic={"A":1,"B":2,"C":3}
+print("A" in dic)
+顯示
+True
+
+範例 刪除元素
+dic={"A":1,"B":2,"C":3}
+del(dic["C"])
+print(dic)
+顯示
+{'A': 1, 'B': 2}
+
+範例
+dic={"A":1,"B":2,"C":3}
+a=dic.get("G", "Nothing")  # 如果key不存在，返回“Nothing
+print(dic,a)
+dic.setdefault("G",5) # 如果key不存在，就用5建立
+print(dic)
+{'A': 1, 'B': 2, 'C': 3} Nothing
+{'A': 1, 'B': 2, 'C': 3, 'G': 5}
+
+範例
+dic={"A":1,"B":2,"C":3}
+d=dic.pop("A")
+print(dic,d)
+顯示
+{'B': 2, 'C': 3} 1
+
+範例
+dic={"A":1,"B":2,"C":3}
+dic_new={"D":4,"E":5}
+dic.update(dic_new)
+print(dic)
+顯示
+{'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5}
+
+範例 用index取key和value
+dic = {'A':'Apple','B':'Banana','C':'Coconut'}
+
+for i in range(0,len(dic)):
+    key = list(dic.keys())[i]
+    value = list(dic.values())[i]
+    print('index {} is key {} and value {}'.format(i,key,value))
+
+顯示
+index 0 is key A and value Apple
+index 1 is key B and value Banana
+index 2 is key C and value Coconut

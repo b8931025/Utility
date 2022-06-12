@@ -1,0 +1,33 @@
+列表解析式list comprehension
+
+範列一
+doubled_odds = []
+for n in range(6):
+    doubled_odds.append(n * 2)
+    
+轉換成列表解析式如下        
+doubled_odds = [n * 2 for n in range(6)]      
+
+範列二 if功能
+doubled_odds = []
+for n in range(6):
+    if n % 2 == 1:
+        doubled_odds.append(n * 2)
+
+轉換成列表解析式如下        
+doubled_odds = [n * 2 for n in range(6) if n % 2 == 1]       
+
+範列三 巢狀列表解析式
+flattened = []
+for i in matrix:
+    for j in i:
+        flattened.append(j) 
+        
+轉換成列表解析式如下 
+      flattened = [n for i in matrix for j in i]  
+
+範列四 集合解析
+flipped = {a % 3 for a in range(8)}
+      
+範列五 字典解析
+flipped = {value: key for key, value in original.items()}      

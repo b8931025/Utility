@@ -1,0 +1,4 @@
+    wait = WebDriverWait(driver, 15, 0.5)
+    sErr = "Can't find element"
+    elem = wait.until(EC.presence_of_element_located((By.XPATH ,"xpath....")),sErr)
+		driver.execute_script("arguments[0].innerHTML = '" + sDate + "';",elem)

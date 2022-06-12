@@ -1,0 +1,45 @@
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from smtplib import SMTP
+import smtplib
+import sys
+ 
+mail_from = 'b8931025@gmail.com'
+#該密碼從https://myaccount.google.com/security的[安全性]/[登入Google]/[應用程式密碼]取得，不是用登入密碼 for gmail
+passwd = 'wsjgmbwxwmovjlrk' 
+receivers = ['b8931025@gmail.com']
+mail_to = [elem.strip().split(',') for elem in receivers]
+
+#郵件基本設定
+msg = MIMEMultipart()
+msg['Subject'] = "郵件標題"
+msg['From'] = mail_from
+msg['To'] = ','.join(receivers)
+msg.preamble = 'Multipart massage.\n'
+
+#加入郵件本文
+part = MIMEText("YOUR_MAIL_CONTENT \n new line", 'plain', 'utf-8')
+msg.attach(part)
+
+#加入附加檔
+part = MIMEApplication(open('C:\Socket_Error.txt',"rb").read())
+part.add_header('Content-Disposition', 'attachment', filename='attach_new_name.txt')
+msg.attach(part)
+
+#加入圖片附加檔
+with open('rainbow.jpg', 'rb') as fp:
+    msgImage = MIMEImage(fp.read())
+    msgImage.add_header('Content-ID', '<image1>')
+    msg.attach(msgImage)
+
+#連線smtp server
+smtp = smtplib.SMTP("smtp.gmail.com:587")
+#smtp.set_debuglevel(1) #列印出和SMTP伺服器互動的所有資訊
+smtp.ehlo()
+smtp.starttls()
+smtp.login(mail_from, passwd)
+#寄信
+smtp.sendmail(msg['From'], mail_to , msg.as_string())
+
+print('Send mails to',msg['To']) 

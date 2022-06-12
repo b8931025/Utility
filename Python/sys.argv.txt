@@ -1,0 +1,7 @@
+import sys
+print sys.argv
+
+°õ¦æ
+$ python test.py hello world
+¿é¥X
+['test.py', 'hello', 'world']

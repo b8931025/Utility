@@ -1,0 +1,127 @@
+範例 len 取得list元素數目
+lst=[1,2,3,4]
+print(len(lst))
+顯示
+4
+
+lst=[1,2,3]
+print(list)
+顯示
+[1,2,3]
+
+
+範例 append
+lst=[1,2,3]
+lst.append(99)
+print(lst)
+顯示
+[1, 2, 3, 99]
+
+範例 append的另一種方法
+lst=[1,2,3]
+lst[len(lst):]=[99]
+print(lst)
+顯示
+[1, 2, 3, 99]
+
+範例 append加入另一list
+lst=[1,2,3]
+lst.append([98,99])
+print(lst)
+顯示
+[1, 2, 3, [98, 99]]
+
+範例 extend加入另一list的所有元素到目的list
+lst=[1,2,3]
+lst.extend([98,99])
+print(lst)
+顯示
+[1, 2, 3, 98, 99]
+
+範例 insert
+lst=[1,2,3]
+lst.insert(1,99)
+print(lst)
+顯示
+[1, 99, 2, 3]
+
+範例 remove 刪除list中第一個元素
+lst=[1,2,2,2,3,[1,2]]
+lst.remove(2)
+print(lst)
+lst.remove(2)
+print(lst)
+lst.remove([1,2])
+print(lst)
+顯示
+[1, 2, 2, 3, [1, 2]]
+[1, 2, 3, [1, 2]]
+[1, 2, 3]
+
+範例 pop
+lst=[1,2,3,4]
+a=lst.pop()
+print(lst,a)
+a=lst.pop(1)
+print(lst,a)
+[1, 2, 3] 4
+[1, 3] 2
+
+範例 index找出元素的第一個位置，如果找不到會丟出
+lst=[1,2,3,4]
+print(lst.index(3))
+顯示
+2
+
+範例 count 計算特定元素在list中的數目
+lst=[1,3,2,3,4]
+print(lst.count(3))
+顯示
+2
+
+範例 sort()由小至大排序
+lst=[1,3,2,3,4]
+lst.sort()
+print(lst)
+顯示
+[1, 2, 3, 3, 4]
+
+範例reverse()將list反向排列  ※並非反向排序
+lst=[1,3,2,3,4]
+lst.reverse()
+print(lst)
+顯示
+[4, 3, 2, 3, 1]
+
+範例clear 清除所有資料
+lst=[1,3,2,3,4]
+lst.clear()
+print(lst)
+顯示
+[]
+
+範例copy 拷貝一個list
+lst=[1,3,2,3,4]
+lst2=lst.copy()
+lst.append(5)
+print(lst,lst2)
+顯示
+[1, 3, 2, 3, 4, 5] [1, 3, 2, 3, 4]
+
+範例 用冒號:索引 x[startAt:endBefore:skip]
+lst=[0,1,2,3,4,5,6,7,8,9,10]
+print(lst[5:]) 只取index之後的元素
+顯示
+[5, 6, 7, 8, 9, 10]
+
+範例 用冒號:均分 x[startAt:endBefore:skip]
+lst=[0,1,2,3,4,5,6,7,8,9,10]
+print(lst[::2]) 每2個元素取一個
+顯示
+[0, 2, 4, 6, 8, 10]
+
+範例負值索引，從尾端倒數的元素
+lst=[0,1,2,3,4,5,6,7,8,9,10]
+print(lst[-2:]) 只取最後兩個
+顯示
+[9, 10]

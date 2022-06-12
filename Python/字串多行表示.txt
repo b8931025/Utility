@@ -1,0 +1,14 @@
+sHtml = """
+<html> 
+<head><title>用三個雙引號可以直接斷行</title></head> 
+<body></body> 
+</html>
+"""
+
+
+sHtml = ' <html> \
+<head><title>用一個雙引號需要用反斜線斷行</title></head> \
+<body></body> \
+</html>'
+
+print(sHtml)

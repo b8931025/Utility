@@ -1,0 +1,46 @@
+1.舊式 %s 是以字串輸出，%f 是以浮點數輸出、%d 是以十進位整數輸出
+text = 'world'
+print('hello %s' % text)
+output: hello world
+
+轉成十六進位
+print('%x' % 23)
+output: 17
+
+多個變數用 tuple 
+print('hello %s %s' % ('world', 'go'))
+output: hello world go
+
+2.新式字串格式化
+一般用法
+text = 'world'
+print('hello {}'.format(text))
+output: hello world
+
+指定名稱
+name = 'Jack'
+text = 'world'
+print('hello {name}, hello {text}'.format(name=name, text=text))
+output: hello Jack, hello world
+
+轉成十六進位
+print('{:x}'.format(23))
+output: 17
+
+3.字串插值(Formatted String Literal) Python 3.6 之後的話建議可以使用字串插值
+一般用法
+text = 'world'
+print(f'Hello, {text}')
+
+嵌入任何 Python 的運算式
+x = 10
+y = 27
+print(f'x + y = {x + y}')
+output: x + y = 37
+
+4.樣板字串(Template String) 比較安全
+from string import Template
+text = 'world'
+t = Template('hello, $text')
+t.substitute(text=text)
+output: hello, world

@@ -1,0 +1,42 @@
+#sorted會產生一個新的排序list
+a = [5,9,2]
+b = sorted(a)
+print(a,b)
+輸出:[5, 9, 2] [2, 5, 9]
+
+#sort會將原本的list排序
+a.sort()
+print(a)
+輸出:[2, 5, 9]
+
+#sort只能用在list,sorted可用在list,tuple,string,dictionary
+dict = {1: 'D', 3: 'B', 2: 'B', 6: 'E', 5: 'A'}
+sorted(dict)
+輸出:[1, 2, 3, 5, 6]
+
+#sorted可反向排序
+dict = {1: 'D', 3: 'B', 2: 'B', 6: 'E', 5: 'A'}
+sorted(dict,reverse=True)
+輸出:[6, 5, 3, 2, 1]
+
+#可以設定一個function給key這個參數，在排序之前會自動對每個element call一次key所指定的function
+#透過這個方法可以做一些比較複雜一點的排序
+sorted("aa BB cc ZZ".split())                       #['BB', 'ZZ', 'aa', 'cc']   (case sensitive)
+sorted("aa BB cc ZZ".split(), key=str.lower)        #['aa', 'BB', 'cc', 'ZZ']   (case-insensitive)
+
+#可以用key這個參數如果要根據某些欄位來做sort,下列範例使用lambda來傳入一個匿名函式
+students = [
+        ('john', 'A', 15),
+        ('jane', 'B', 12),
+        ('dave', 'B', 10)]
+sorted(students, key = lambda x : x[2])   # sort by age
+#[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+#使用operator module中的itemgetter()排序
+rom operator import itemgetter, attrgetter
+students = [
+        ('john', 'A', 15),
+        ('jane', 'B', 12),
+        ('dave', 'B', 10)]
+sorted(students, key=itemgetter(2))
+輸出:[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]

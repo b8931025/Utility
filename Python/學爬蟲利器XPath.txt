@@ -1,0 +1,399 @@
+學爬蟲利器XPath https://zhuanlan.zhihu.com/p/29436838
+
+XPath常用規則
+
+表達式描述
+nodename選取此節點的所有子節點
+/從當前節點選取直接子節點
+//從當前節點選取子孫節點
+.選取當前節點
+..選取當前節點的父節點
+@選取屬性
+
+例如：
+//title[@lang=’eng’]
+這就是一個XPath 規則，它就代表選擇所有名稱為title，同時屬性lang 的值為eng 的節點。
+
+例如：
+from lxml import etree
+text = '''
+<div>
+    <ul>
+         <li class="item-0"><a href="https://ask.hellobi.com/link1.html">first item</a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link2.html">second item</a></li>
+         <li class="item-inactive"><a href="https://ask.hellobi.com/link3.html">third item</a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link4.html">fourth item</a></li>
+         <li class="item-0"><a href="https://ask.hellobi.com/link5.html">fifth item</a>
+     </ul>
+ </div>
+'''
+html = etree.HTML(text)
+result = etree.tostring(html)
+print(result.decode('utf-8'))
+
+在這裡我們首先導入了LXML 庫的etree 模塊，然後聲明了一段HTML 文本，調用HTML 類進行初始化，這樣我們就成功構造了一個XPath 解析對象，
+在這裡註意到HTML 文本中的最後一個li 節點是沒有閉合的，但是etree 模塊可以對HTML 文本進行自動修正。
+在這裡我們調用tostring() 方法即可輸出修正後的HTML 代碼，但是結果是bytes 類型，在這裡我們利用decode() 方法轉成str 類型，結果如下：
+<html><body><div>
+    <ul>
+         <li class="item-0"><a href="link1.html">first item</a></li>
+         <li class="item-1"><a href="link2.html">second item</a></li>
+         <li class="item-inactive"><a href="link3.html">third item</a></li>
+         <li class="item-1"><a href="link4.html">fourth item</a></li>
+         <li class="item-0"><a href="link5.html">fifth item</a>
+     </li></ul>
+ </div>
+</body></html>
+我們可以看到經過處理之後li 節點標籤被補全，並且還自動添加了body、html 節點。
+
+
+另外我們也可以直接讀取文本文件進行解析，示例如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = etree.tostring(html)
+print(result.decode('utf-8'))
+其中test.html 的內容就是上面例子中的HTML 代碼，內容如下：
+<div>
+    <ul>
+         <li class="item-0"><a href="link1.html">first item</a></li>
+         <li class="item-1"><a href="link2.html">second item</a></li>
+         <li class="item-inactive"><a href="link3.html">third item</a></li>
+         <li class="item-1"><a href="link4.html">fourth item</a></li>
+         <li class="item-0"><a href="link5.html">fifth item</a>
+     </ul>
+ </div>
+ 
+這次的輸出結果略有不同，多了一個DOCTYPE 的聲明，不過對解析無任何影響，結果如下：
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><div>
+    <ul>
+         <li class="item-0"><a href="link1.html">first item</a></li>
+         <li class="item-1"><a href="link2.html">second item</a></li>
+         <li class="item-inactive"><a href="link3.html">third item</a></li>
+         <li class="item-1"><a href="link4.html">fourth item</a></li>
+         <li class="item-0"><a href="link5.html">fifth item</a>
+     </li></ul>
+ </div></body></html>
+ 
+
+所有節點
+我們一般會用// 開頭的XPath 規則來選取所有符合要求的節點，以上文的HTML 文本為例，如果我們要選取所有節點，可以這樣實現：
+
+from lxml import etree
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//*')
+print(result)
+運行結果：
+
+[<Element html at 0x10510d9c8>, <Element body at 0x10510da08>, <Element div at 0x10510da48>, <Element ul at 0x10510da88>, <Element li at 0x10510dac8>, <Element a at 0x10510db48>, <Element li at 0x10510db88>, <Element a at 0x10510dbc8>, <Element li at 0x10510dc08>, <Element a at 0x10510db08>, <Element li at 0x10510dc48>, <Element a at 0x10510dc88>, <Element li at 0x10510dcc8>, <Element a at 0x10510dd08>]  
+
+我們在這裡使用* 代表匹配所有節點，也就是整個HTML 文本中的所有節點都會被獲取，可以看到返回形式是一個列表，每個元素是Element 類型，其後跟了節點的名稱，如html、body 、div、ul、li、a 等等，所有的節點都包含在列表中了。
+
+
+當然此處匹配也可以指定節點名稱，如果我們想獲取所有li 節點，示例如下：
+
+from lxml import etree
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li')
+print(result)
+print(result[0])
+
+在這裡我們要選取所有li 節點可以使用//，然後直接加上節點的名稱即可，調用時直接調用xpath() 方法即可提取。
+
+運行結果：
+
+[<Element li at 0x105849208>, <Element li at 0x105849248>, <Element li at 0x105849288>, <Element li at 0x1058492c8>, <Element li at 0x105849308>]
+<Element li at 0x105849208>
+在這裡我們可以看到提取結果是一個列表形式，其每一個元素都是一個Element 對象，如果要取出其中一個對象可以直接用中括號加索引即可取出，如[0]。
+
+
+子節點
+我們通過/ 或// 即可查找元素的子節點或子孫節點，加入我們現在想選擇li 節點所有直接a 子節點，可以這樣來實現：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li/a')
+print(result)
+在這裡我們通過追加一個/a 即選擇了所有li 節點的所有直接a 子節點，因為//li 是選中所有li節點， /a 是選中li節點的所有直接子節點a，二者組合在一起即獲取了所有li節點的所有直接a 子節點。
+
+運行結果：
+[<Element a at 0x106ee8688>, <Element a at 0x106ee86c8>, <Element a at 0x106ee8708>, <Element a at 0x106ee8748>, <Element a at 0x106ee8788>]
+但是此處的/ 是選取直接子節點，如果我們要獲取所有子孫節點就該使用// 了，例如我們要獲取ul 節點下的所有子孫a 節點，可以這樣來實現：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//ul//a')
+print(result)
+運行結果是相同的。
+
+但是這裡如果我們用//ul/a 就無法獲取任何結果了，因為/ 是獲取直接子節點，而在ul 節點下沒有直接的a 子節點，只有li 節點，所以無法獲取任何匹配結果，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//ul/a')
+print(result)
+運行結果：
+[]
+
+因此在這裡我們要注意/ 和// 的區別，/ 是獲取直接子節點，// 是獲取子孫節點。
+
+
+父節點
+我們知道通過連續的/ 或// 可以查找子節點或子孫節點，那假如我們知道了子節點怎樣來查找父節點呢？在這裡我們可以用.. 來獲取父節點。
+比如我們現在首先選中href 是link4.html 的a 節點，然後再獲取其父節點，然後再獲取其class 屬性，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//a[@href="https://ask.hellobi.com/link4.html"]/../@class')
+print(result)
+運行結果：
+['item-1']
+檢查一下結果，正是我們獲取的目標li 節點的class，獲取父節點成功。
+
+同時我們也可以通過parent:: 來獲取父節點，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//a[@href="https://ask.hellobi.com/link4.html"]/parent::*/@class')
+print(result)
+
+
+屬性匹配
+在選取的時候我們還可以用@ 符號進行屬性過濾，比如在這裡如果我們要選取class 為item-1 的li 節點，可以這樣實現:
+
+from lxml import etree
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li[@class="item-0"]')
+print(result)
+在這裡我們通過加入[@class="item-0"] 就限制了節點的class 屬性為item-0，而HTML 文本中符合條件的li 節點有兩個，
+所以返回結果應該返回兩個匹配到的元素，結果如下：
+[<Element li at 0x10a399288>, <Element li at 0x10a3992c8>]
+
+可見匹配結果結果正是兩個，至於是不是那正確的兩個，我們在後面驗證一下。
+
+文本獲取
+我們用XPath 中的text() 方法可以獲取節點中的文本，我們接下來嘗試獲取一下上文li 節點中的文本，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li[@class="item-0"]/text()')
+print(result)
+運行結果如下：
+['\n     ']
+
+很奇怪的是我們並沒有獲取到任何文本，而是只獲取到了一個換行符，這是為什麼呢？因為XPath 中text() 前面是/，而此/ 的含義是選取直接子節點，
+而此處很明顯li 的直接子節點都是a 節點，文本都是在a 節點內部的，所以這裡匹配到的結果就是被修正的li 節點內部的換行符，因為自動修正的li節點
+的尾標籤換行了。
+
+即選中的是這兩個節點：
+<li class="item-0"><a href="link1.html">first item</a></li>
+<li class="item-0"><a href="link5.html">fifth item</a>
+</li>
+其中一個節點因為自動修正，li 節點的尾標籤添加的時候換行了，所以提取文本得到的唯一結果就是li 節點的尾標籤和a 節點的尾標籤之間的換行符。
+因此，如果我們想獲取li 節點內部的文本就有兩種方式，一種是選取到a 節點再獲取文本，另一種就是使用//，我們來看下二者的區別是什麼。
+首先我們選取到a 節點再獲取文本，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li[@class="item-0"]/a/text()')
+print(result)
+運行結果：
+['first item', 'fifth item']
+可以看到這裡返回值是兩個，內容都是屬性為item-0 的li 節點的文本，這也印證了我們上文中屬性匹配的結果是正確的。
+在這裡我們是逐層選取的，先選取了li 節點，又利用/ 選取了其直接子節點a，然後再選取其文本，得到的結果恰好是符合我們預期的兩個結果。
+我們再來看下用另一種方式// 選取的結果，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li[@class="item-0"]//text()')
+print(result)
+
+運行結果：
+['first item', 'fifth item', '\n     ']
+
+不出所料，這裡返回結果是三個，可想而知這裡是選取所有子孫節點的文本，其中前兩個就是li 的子節點a 節點內部的文本，
+另外一個就是最後一個li 節點內部的文本，即換行符。
+所以說，如果我們要想獲取子孫節點內部的所有文本，可以直接用// 加text() 的方式獲取，這樣可以保證獲取到最全面的文
+本信息，但是可能會夾雜一些換行符等特殊字符。如果我們想獲取某些特定子孫節點下的所有文本，可以先選取到特定的子孫
+節點，然後再調用text() 方法獲取其內部文本，這樣可以保證獲取的結果是整潔的。
+
+
+屬性獲取
+我們知道了用text() 可以獲取節點內部文本，那麼節點屬性該怎樣獲取呢？其實還是用@ 符號就可以，例如我們想獲取所有li 節點下所有a 節點
+的href 屬性，代碼如下：
+
+from lxml import etree
+
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//li/a/@href')
+print(result)
+在這裡我們通過@href即可獲取節點的href屬性，注意此處和屬性匹配的方法不同，屬性匹配是中括號加屬性名和值來限定某個屬性，如[@href=" https:// ask .hellobi.com/link1.h tml"]，而此處的@href 指的是獲取節點的某個屬性，二者需要做好區分。
+運行結果：
+['link1.html', 'link2.html', 'link3.html', 'link4.html', 'link5.html']
+
+可以看到我們成功獲取了所有li 節點下的a 節點的href 屬性，以列表形式返回。
+
+
+屬性多值匹配
+有時候某些節點的某個屬性可能有多個值，例如下面例子：
+
+from lxml import etree
+text = '''
+<li class="li li-first"><a href="https://ask.hellobi.com/link.html">first item</a></li>
+'''
+html = etree.HTML(text)
+result = html.xpath('//li[@class="li"]/a/text()')
+print(result)
+在這裡HTML 文本中的li 節點的class 屬性有兩個值li 和li-first，但是此時如果我們還想用之前的屬性匹配獲取就無法匹配了，代碼運行結果：
+[]
+
+這時如果屬性有多個值就需要用contains() 函數了，代碼可以改寫如下：
+
+from lxml import etree
+text = '''
+<li class="li li-first"><a href="https://ask.hellobi.com/link.html">first item</a></li>
+'''
+html = etree.HTML(text)
+result = html.xpath('//li[contains(@class, "li")]/a/text()')
+print(result)
+這樣我們通過contains() 方法，第一個參數傳入屬性名稱，第二個參數傳入屬性值，這樣只要此屬性包含所傳入的屬性值就可以完成匹配了。
+運行結果：
+['first item']
+
+此種選擇方式在某個節點的某個屬性有多個值的時候經常會用到，如某個節點的class 屬性通常有多個。
+
+
+多屬性匹配
+另外我們可能還遇到一種情況，我們可能需要根據多個屬性才能確定一個節點，這是就需要同時匹配多個屬性才可以，那麼這裡可以使用運算符and 來連接，示例如下：
+
+from lxml import etree
+text = '''
+<li class="li li-first" name="item"><a href="https://ask.hellobi.com/link.html">first item</a></li>
+'''
+html = etree.HTML(text)
+result = html.xpath('//li[contains(@class, "li") and @name="item"]/a/text()')
+print(result)
+在這裡HTML 文本的li 節點又增加了一個屬性name，這時候我們需要同時根據class 和name 屬性來選擇，就可以and 運算符連接兩個條件，
+兩個條件都被中括號包圍，運行結果如下：
+['first item']
+
+這裡的and 其實是XPath 中的運算符，另外還有很多運算符，如or、mod 等等，在此總結如下：
+
+運算符描述實例返回值
+or或price=9.80 or price=9.70如果price是9.80，則返回true。如果price是9.50，則返回false。
+and與price>9.00 and price<9.90如果price是9.80，則返回true。如果price是8.50，則返回false。
+mod計算除法的餘數5 mod 21 
+\計算兩個節點集//book \//cd返回所有擁有book和cd元素的節點集
++加法6 + 410 
+-減法6 - 42 
+*乘法6 * 424 
+div除法8 div 42 
+=等於price=9.80如果price是9.80，則返回true。如果price是9.90，則返回false。
+!=不等於price!=9.80如果price是9.90，則返回true。如果price是9.80，則返回false。
+<小於price<9.80如果price是9.00，則返回true。如果price是9.90，則返回false。
+<=小於或等於price<=9.80如果price是9.00，則返回true。如果price是9.90，則返回false。
+>大於price>9.80如果price是9.90，則返回true。如果price是9.80，則返回false。
+>=大於或等於price>=9.80如果price 是9.90，則返回true。如果price 是9.70，則返回false。
+
+
+按序選擇
+有時候我們在選擇的時候可能某些屬性同時匹配了多個節點，但是我們只想要其中的某個節點，如第二個節點，或者最後一個節點，這時該怎麼辦呢？
+這時可以利用中括號傳入索引的方法獲取特定次序的節點，示例如下：
+
+from lxml import etree
+
+text = '''
+<div>
+    <ul>
+         <li class="item-0"><a href="https://ask.hellobi.com/link1.html">first item</a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link2.html">second item</a></li>
+         <li class="item-inactive"><a href="https://ask.hellobi.com/link3.html">third item</a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link4.html">fourth item</a></li>
+         <li class="item-0"><a href="https://ask.hellobi.com/link5.html">fifth item</a>
+     </ul>
+ </div>
+'''
+html = etree.HTML(text)
+result = html.xpath('//li[1]/a/text()')
+print(result)
+result = html.xpath('//li[last()]/a/text()')
+print(result)
+result = html.xpath('//li[position()<3]/a/text()')
+print(result)
+result = html.xpath('//li[last()-2]/a/text()')
+print(result)
+第一次選擇我們選取了第一個li 節點，中括號中傳入數字1即可，注意這里和代碼中不同，序號是以1 開頭的，不是0 開頭的。
+第二次選擇我們選取了最後一個li 節點，中括號中傳入last() 即可，返回的便是最後一個li 節點。
+第三次選擇我們選取了位置小於3 的li 節點，也就是位置序號為1 和2 的節點，得到的結果就是前2 個li 節點。
+第四次選擇我們選取了倒數第三個li 節點，中括號中傳入last()-2即可，因為last() 是最後一個，所以last()-2 就是倒數第三個。
+
+運行結果如下：
+['first item']
+['fifth item']
+['first item', 'second item']
+['third item']
+
+在這裡我們使用了last()、position()等函數，XPath中提供了100多個函數，包括存取、數值、字符串、邏輯、節點、序列等處理功能，
+具體所有的函數作用可以參考：http://www. w3school.com.cn/xpath/x path_functions.asp。
+
+
+節點軸選擇
+XPath 提供了很多節點軸選擇方法，英文叫做XPath Axes，包括獲取子元素、兄弟元素、父元素、祖先元素等等，
+在一定情況下使用它可以方便地完成節點的選擇，我們用一個實例來感受一下：
+
+from lxml import etree
+
+text = '''
+<div>
+    <ul>
+         <li class="item-0"><a href="https://ask.hellobi.com/link1.html"><span>first item</span></a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link2.html">second item</a></li>
+         <li class="item-inactive"><a href="https://ask.hellobi.com/link3.html">third item</a></li>
+         <li class="item-1"><a href="https://ask.hellobi.com/link4.html">fourth item</a></li>
+         <li class="item-0"><a href="https://ask.hellobi.com/link5.html">fifth item</a>
+     </ul>
+ </div>
+'''
+html = etree.HTML(text)
+result = html.xpath('//li[1]/ancestor::*')
+print(result)
+result = html.xpath('//li[1]/ancestor::div')
+print(result)
+result = html.xpath('//li[1]/attribute::*')
+print(result)
+result = html.xpath('//li[1]/child::a[@href="https://ask.hellobi.com/link1.html"]')
+print(result)
+result = html.xpath('//li[1]/descendant::span')
+print(result)
+result = html.xpath('//li[1]/following::*[2]')
+print(result)
+result = html.xpath('//li[1]/following-sibling::*')
+print(result)
+運行結果：
+[<Element html at 0x107941808>, <Element body at 0x1079418c8>, <Element div at 0x107941908>, <Element ul at 0x107941948>]
+[<Element div at 0x107941908>]
+['item-0']
+[<Element a at 0x1079418c8>]
+[<Element span at 0x107941948>]
+[<Element a at 0x1079418c8>]
+[<Element li at 0x107941948>, <Element li at 0x107941988>, <Element li at 0x1079419c8>, <Element li at 0x107941a08>]
+
+第一次選擇我們調用了ancestor 軸，可以獲取所有祖先節點，其後需要跟兩個冒號，然後是節點的選擇器，這裡我們直接使用了*，表示匹配所有節點，因此返回結果是第一個li 節點的所有祖先節點，包括html，body，div，ul。
+第二次選擇我們又加了限定條件，這次在冒號後面加了div，這樣得到的結果就只有div 這個祖先節點了。
+第三次選擇我們調用了attribute 軸，可以獲取所有屬性值，其後跟的選擇器還是*，這代表獲取節點的所有屬性，返回值就是li 節點的所有屬性值。
+第四次選擇我們調用了child 軸，可以獲取所有直接子節點，在這裡我們又加了限定條件選取href 屬性為link1.html 的a 節點。
+第五次選擇我們調用了descendant 軸，可以獲取所有子孫節點，這裡我們又加了限定條件獲取span 節點，所以返回的就是只包含span 節點而沒有a 節點。
+第六次選擇我們調用了following 軸，可以獲取當前節點之後的所有節點，這裡我們雖然使用的是* 匹配，但又加了索引選擇，所以只獲取了第二個後續節點。
+第七次選擇我們調用了following-sibling 軸，可以獲取當前節點之後的所有同級節點，這裡我們使用的是* 匹配，所以獲取了所有後續同級節點。
+
+以上是XPath軸的簡單用法，更多的軸的使用可以參考：http://www. w3school.com.cn/xpath/x path_axes.asp。

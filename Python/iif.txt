@@ -1,0 +1,7 @@
+a = 1 if 2 < 1 else 2
+print(a)
+
+顯示 2
+
+等於vb  a = iif(2<1,1,2)
+等於javascript a = 2<1?1:2

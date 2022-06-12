@@ -1,0 +1,9 @@
+from io import StringIO
+
+s = StringIO()
+s.write("Yes\nYes")
+s.seek(0) #將游標移到最開頭，否則s.read()讀不到資料
+
+content = s.read()
+print(content)
+s.close() #將內存釋放

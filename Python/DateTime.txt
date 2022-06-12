@@ -1,0 +1,216 @@
+https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369869/
+
+import datetime,time,calendar
+
+#增加天數 timedelta沒有Month,Year的增加參數
+def addDays(d,addDay):
+    d += datetime.timedelta(days=addDay)
+    return d
+
+#取得上一工作日 d:基準日 forward:遇假日提前(True)或延後(False)
+#只排除六日，國定假日暫時沒排除
+def getWorkDay(d,forward = True):
+    wkDay = d.weekday()
+    if wkDay < 5:return d
+    if forward :
+        if wkDay == 5 : delta=2
+        elif wkDay == 6 : delta=1       
+    else:
+        if wkDay == 5 :  delta=-1    
+        elif wkDay == 6 : delta=-2
+    return addDays(d,delta)
+
+#String to Date
+def strTodatetime(datestr, format):
+    return datetime.datetime.strptime(datestr, format)        
+
+#Datetime
+dToday = datetime.datetime(2019,7,21)
+#Date
+dToday = datetime.datetime(2019,7,21).date()
+
+#星期幾 Monday=0
+print(dToday.weekday())
+#當日
+print(datetime.datetime.now(),"當日")
+#Date to String ps:Sunday=0
+print(dToday.strftime("%Y-%m-%d %w %a"),"Date to String")
+#String to Date 
+print(strTodatetime("2019/7/6","%Y/%m/%d"),"String to Date")
+#取得提前工作日
+print(getWorkDay(dToday,False),"getWorkDay")
+#取得延後工作日
+print(getWorkDay(dToday))
+
+1.獲取到此時的準確時間
+# 獲取此時的時間
+print time.localtime()
+
+//輸出格式為：
+time.struct_time(tm_year=2015, tm_mon=12, tm_mday=29, tm_hour=1, tm_min=10, tm_sec=25, tm_wday=1, tm_yday=363, tm_isdst=0)
+
+2.獲取當天的日期
+# 獲取當天的日期
+print datetime.datetime.now()
+print datetime.date.today()
+
+3.獲取昨天的日期
+# 獲取昨天的日期
+def getYesterday():
+today = datetime.date.today()
+oneday = datetime.timedelta(days=1)
+yesterday = today - oneday
+print type(today)  # 檢視獲取到時間的型別
+print type(yesterday)
+return yesterday
+yesterday = getYesterday()
+print "昨天的時間：", yesterday
+
+4.獲取n天以前的日期
+這個應該就不用給出程式碼了吧，稍微想想就可以得出結果了。
+
+5.字串轉換為時間和日期
+# 字串轉換為時間
+def strTodatetime(datestr, format):
+return datetime.datetime.strptime(datestr, format)
+print time.strftime("%Y-%m-%d", time.localtime())
+print strTodatetime("2014-3-1","%Y-%m-%d")
+print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+print strTodatetime("2005-2-16","%Y-%m-%d")-strTodatetime("2004-12-31","%Y-%m-%d")
+輸出結果：
+2015-12-29
+2014-03-01 00:00:00
+2015-12-29 01:10:25
+47 days, 0:00:00
+
+6.獲取日曆相關資訊
+# 獲取某個月的日曆，返回字串型別
+cal = calendar.month(2015, 12)
+print cal
+calendar.setfirstweekday(calendar.SUNDAY) # 設定日曆的第一天
+cal = calendar.month(2015, 12)
+print cal
+# 獲取一年的日曆
+cal = calendar.calendar(2015)
+print cal
+cal = calendar.HTMLCalendar(calendar.MONDAY)
+print cal.formatmonth(2015, 12)
+
+7.calendar模組還可以處理閏年的問題
+# 判斷是否閏年、兩個年份之間閏年的個數
+print calendar.isleap(2012)
+print calendar.leapdays(2010, 2015)
+針對Python時間模組datetime\time進行詳細探討。
+
+轉義符對應意義如下
+
+%a 本地簡化星期名稱
+
+%A 本地完整星期名稱
+
+%b 本地簡化的月份名稱
+
+%B 本地完整的月份名稱
+
+%c 本地相應的日期表示和時間表示
+
+%d 月內中的一天（0-31）
+
+%H 24小時制小時數（0-23）
+
+%I 12小時制小時數（01-12）
+
+%j 年內的一天（001-366）
+
+%m 月份（01-12）
+
+%M 分鐘數（00=59）
+
+%p 本地A.M.或P.M.的等價符
+
+%S 秒（00-59）
+
+%U 一年中的星期數（00-53）星期天為星期的開始
+
+%w 星期（0-6），星期天為星期的開始
+
+%W 一年中的星期數（00-53）星期一為星期的開始
+
+%x 本地相應的日期表示
+
+%X 本地相應的時間表示
+
+%y 兩位數的年份表示（00-99）
+
+%Y 四位數的年份表示（000-9999）
+
+%Z 當前時區的名稱
+
+%% %號本身
+
+程式碼：
+
+
+import time 
+import datetime 
+#兩日期相減 
+d1 = datetime.datetime(2005, 2, 16) 
+d2 = datetime.datetime(2004, 12, 31) 
+print (d1 - d2).days
+#執行時間： 
+starttime = datetime.datetime.now() 
+endtime = datetime.datetime.now() 
+print (endtime - starttime).seconds
+#計算當前時間向後10天的時間。 
+# 如果是小時 days 換成 hours 
+d1 = datetime.datetime.now() 
+d3 = d1 datetime.timedelta(days =10) 
+print str(d3) 
+print d3.ctime()
+time.ctime([sec])#把秒數轉換成日期格式，如果不帶引數，則顯示當前的時間。
+>>> import time
+>>> time.ctime()
+>>> "Wed Jun 14 15:02:50 2006"
+>>> time.ctime(1138068452427683)
+"Sat Dec 14 04:51:44 1901" 
+>>> import time
+>>> time.strftime("%Y-%m-%d %X",time.localtime())
+"2011-03-15 20:42:12"
+>>> time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
+"2011-03-15 20:03:47"
+DateTime模組
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+datetime 將日期轉化為秒
+>>> import datetime,time
+>>> time.mktime(datetime.datetime(2009,1,1).timetuple())
+1230739200.0
+>>> cc=[2000,11,3,12,43,33] #Attributes: year, month, day, hour, minute, second
+>>> time.mktime(datetime.datetime(cc[0],cc[1],cc[2],cc[3],cc[4],cc[5]).timetuple())
+973226613.0
+time.time()取得當前時間；
+time.localtime()取得本地時間；
+time.strftime()格式化日期；
+time.strptime(timeString)把字串轉化為日期；
+判斷輸入的日期是星期幾
+>>> datetime.datetime(2011,02,15).weekday()
+1
+>>> datetime.datetime(2011,02,15).weekday()
+1
+>>> datetime.datetime(2011,02,16).weekday()
+2
+>>> datetime.datetime(2011,02,17).weekday()
+3
+>>>
+datetime模組獲取當前時間
+>>> datetime.datetime.utcnow()
+datetime.datetime(2011, 3, 15, 13, 19, 32, 264194)
+>>> datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") 格式化
+'2011-03-15 13:19:27'
+>>>
+
+不補零
+#Linux 用-
+mydatetime.strftime('%-m/%d/%Y)
+
+#Windows 用#
+mydatetime.strftime('%#m/%d/%Y')

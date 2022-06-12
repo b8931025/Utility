@@ -1,0 +1,11 @@
+#取得內政部行事曆
+schd = pd.read_json('https://data.ntpc.gov.tw/api/v1/rest/datastore/382000000A-000077-002')
+schd = pd.DataFrame(schd.iloc[2,1]).iloc[:,[0,3]].tail(200).reset_index(drop=True)
+
+#是否為假日 schedule:DataFrame sToday:西元 yyyy/mm/dd
+def isHoliday(schedule,date):
+    getDate = schedule[schedule['date']==date]
+    if getDate.size > 0 and getDate.iloc[0,1] == '是':
+        return True
+    else:
+        return False

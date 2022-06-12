@@ -1,0 +1,19 @@
+from bs4 import BeautifulSoup
+
+html_sample = """<html>
+<body>
+	<h1 id="title">Hello World</h1>
+	<a href="#" class="link">This is link1</a>
+	<a href="# link2" class="link">This is link2</a>
+</body>
+</html>"""
+
+#用BeautifulSoup將純文字的html組成Dom tree元件
+soup = BeautifulSoup(html_sample)
+#取得的元件分別是list,bs4.element.Tag,string
+print(type(soup.select("html")),type(soup.select("html")[0]),type(soup.select("html")[0].text))
+
+#用id取得
+print(soup.select("#title"))
+#用class取得
+print(soup.select(".link"))

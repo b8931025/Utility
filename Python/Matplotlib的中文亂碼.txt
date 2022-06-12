@@ -1,0 +1,19 @@
+方法一:matplotlib所有字型都會改
+開啟 C:\Users\willy\Anaconda3\Anaconda3\Lib\site-packages\matplotlib\mpl-data\matplotlibrc
+把axes.unicode_minus的#拿掉，後面的值改成False
+把font.family的#拿掉，後面的值改成下面字體的英文名
+如要使用標楷體:  font.family: DFKai-SB
+再將python重啟即可
+
+方法二:matplotlib所有字型都會改
+plt.rcParams['font.family'] = ['DFKai-SB']
+plt.rcParams['axes.unicode_minus'] = False  #解決座標軸負數的負號顯示問題
+
+方法三: 只改部份標籤
+plt.ylabel("y軸", fontproperties="DFKai\-SB") 
+plt.title("標題", fontproperties="DFKai\-SB") 
+plt.show()
+
+微軟正黑體	Microsoft JhengHei
+細明體	MingLiU
+標楷體	DFKai-SB  ※這裡如果用方法三要改成DFKai\-SB

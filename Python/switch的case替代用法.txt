@@ -1,0 +1,49 @@
+Python沒有switch/case，但可用字典替代
+
+範例一
+def num_to_string(num):
+    return {
+        0 : "zero",
+        1 : "one",
+        2 : "two",
+        3 : "three"
+    }.get(num, None)
+
+print(num_to_string(2))
+print(num_to_string(5))
+
+顯示
+two
+None
+
+範例二
+def success(msg):print(msg)
+def debug(msg):print(msg)
+def error(msg):print(msg)
+def warning(msg):print(msg)
+def other(msg):print(msg)
+
+def notify_result(num, msg):
+    numbers = {
+        0 : success,
+        1 : debug,
+        2 : warning,
+        3 : error
+    }
+ 
+    method = numbers.get(num, other)
+    if method:
+        method(msg)
+        
+notify_result(0, "success")
+notify_result(1, "debug")
+notify_result(2, "warning")
+notify_result(3, "error")
+notify_result(4, "other")
+        
+顯示
+success
+debug
+warning
+error
+other        
