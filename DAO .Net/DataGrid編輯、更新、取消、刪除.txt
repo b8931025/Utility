@@ -1,0 +1,88 @@
+Asp DataGrid裡的寫法
+			<asp:datagrid id="dg" Runat="server" AutoGenerateColumns="False">
+					<Columns>
+						<asp:BoundColumn DataField="Id" ReadOnly="True" HeaderText="身份證字號"></asp:BoundColumn>
+						<!--ReadOnly="True" 表示該欄無法編輯-->
+						<asp:BoundColumn DataField="Name" HeaderText="姓名"></asp:BoundColumn>
+						<asp:BoundColumn DataField="Local" HeaderText="地點"></asp:BoundColumn>
+						<asp:BoundColumn DataField="Phone" HeaderText="電話"></asp:BoundColumn>
+						<!--以下兩行可以用屬性產生器產生-->
+						<asp:EditCommandColumn ButtonType="PushButton" UpdateText="更新" CancelText="取消" EditText="修改"></asp:EditCommandColumn>
+						<!--ButtonType="PushButton" 指定該EditCommandColumn為按鈕型態，預設為"LinkButton"-->
+						<asp:ButtonColumn Text="刪除" CommandName="Delete"></asp:ButtonColumn>
+					</Columns>
+			 </asp:datagrid>
+			 
+VB 的寫法
+在"類別名稱"下拉式列表選自已定義的DataGrid ID(這裡用dg)，
+"方法名稱"下拉式列表選擇EditCommand,CancelCommand,UpdateCommand,DeleteCommand這四個方法去編輯
+
+編輯
+    Private Sub dg_EditCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles dg.EditCommand
+        Dim dtTemp As DataTable
+        Dim dr As DataRow
+        '指定哪一行進入編輯狀態
+        dg.EditItemIndex = e.Item.ItemIndex
+        '把資料再重新讀入，這裡的列子是用ViewState儲存資料，如果是用DB就用從新讀取DB的方式，來取回資料
+        dtTemp = ViewState("DT")
+        If Not IsNothing(dtTemp) Then
+            'Binding
+            dg.DataSource = dtTemp
+            dg.DataBind()
+        End If
+    End Sub
+
+取消
+    Private Sub dg_CancelCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles dg.CancelCommand
+        Dim dtTemp As DataTable
+        '關閉編輯狀態
+        dg.EditItemIndex = -1
+        '把資料再重新讀入，這裡的列子是用ViewState儲存資料，如果是用DB就用從新讀取DB的方式，來取回資料
+        dtTemp = ViewState("DT")
+        If Not IsNothing(dtTemp) Then
+            'Binding
+            dg.DataSource = dtTemp
+            dg.DataBind()
+        End If
+    End Sub
+
+更新
+    Private Sub dg_UpdateCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles dg.UpdateCommand
+        Dim dtTemp As DataTable
+        '把資料再重新讀入，這裡的列子是用ViewState儲存資料，如果是用DB就用從新讀取DB的方式，來取回資料
+        dtTemp = ViewState("DT")
+        If Not IsNothing(dtTemp) Then
+            '將可編輯的欄位，裡的TextBox取出，讀取資料，存入
+            dtTemp.Rows(e.Item.ItemIndex)("Name") = CType(e.Item.Cells(1).Controls(0), TextBox).Text
+            dtTemp.Rows(e.Item.ItemIndex)("Local") = CType(e.Item.Cells(2).Controls(0), TextBox).Text
+            dtTemp.Rows(e.Item.ItemIndex)("Phone") = CType(e.Item.Cells(3).Controls(0), TextBox).Text
+            '關閉編輯狀態
+            dg.EditItemIndex = -1
+            '將修改過後的資料存回資料來源
+            ViewState("DT") = dtTemp
+            'Binding
+            dg.DataSource = dtTemp
+            dg.DataBind()
+        End If
+    End Sub
+
+刪除
+    Private Sub dg_DeleteCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles dg.DeleteCommand
+        Dim dtTemp As DataTable
+        '把資料再重新讀入，這裡的列子是用ViewState儲存資料，如果是用DB就用從新讀取DB的方式，來取回資料
+        dtTemp = ViewState("DT")
+        If Not IsNothing(dtTemp) Then
+            '將該筆資料從DataTable刪除
+            dtTemp.Rows.Remove(dtTemp.Rows(e.Item.ItemIndex))
+            '關閉編輯狀態
+            dg.EditItemIndex = -1
+            '將刪除後的結果，存回資料來源
+            ViewState("DT") = dtTemp
+            'Binding
+            dg.DataSource = dtTemp
+            dg.DataBind()
+        End If
+    End Sub
+			 
+			 
+			 

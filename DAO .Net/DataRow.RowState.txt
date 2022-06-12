@@ -1,0 +1,27 @@
+可以反悔的編輯功能與 DataRow 狀態
+
+DataRow 物件隨時都在 DataRow.RowState 
+中保持一個 DataRowState 列舉值(詳細內容請參考 MSDN) 以記錄它目前處於何種狀態 -
+
+Detached - 已經建立資料列，但不是任何 DataRowCollection 的一部分。
+DataRow 在已經建立後、加入至集合前，或如果已經從集合移除後，會立即處在這個狀態中。
+Unchanged - 自從上次呼叫 AcceptChanges 之後，資料列尚未變更。
+Added - 資料列已經加入至 DataRowCollection，並且尚未呼叫 AcceptChanges。
+Deleted - 使用 DataRow 的 Delete 方法來刪除資料列。
+Modified - 已經修改資料列，並且尚未呼叫 AcceptChanges。
+此外, 你可以透過 DataRow 的 AcceptChanges() 和 RejectChanges() 方法以決定是否接受或拒絕變更。
+拿以下程式來做例子, 我把 dr 這個 DataRow 的 RowState 變化和逐步執行的結果標注如下:
+
+dr = dt.NewRow(); // 建立 DataRow 後, dr.RowState 變成 DataRowState.Detached
+dr["LastName"] = "Fitzgeralson";
+dt.Rows.Add(dr); // 將 DataRow 加入 DataTable, dr.RowState 變成 DataRowState.Added
+dr.RejectChanges(); // 拒絕變更, 現在  dr.RowState 變回 DataRowState.Detached
+dr["LastName"] = "Fitzgeralson"; // 上面 RejectChanges() 已將 dr 重設, 所以必須重設其值
+dt.Rows.Add(dr); // 重新加回 DataRow, dr.RowState 變回 DataRowState.Added
+dr.AcceptChanges(); // dr 接受變更, 現在  dr.RowState 變成 DataRowState.Unchanged
+dr["LastName"] = "McShane"; // 變更 dr 的值, 現在  dr.RowState 變成 DataRowState.Modified
+dr.AcceptChanges(); // dr 接受變更, 現在  dr.RowState 又變成 DataRowState.Unchanged
+dr.Delete(); //現在 dr.RowState 變成 DataRowState.Deleted
+dr.RejectChanges(); // 拒絕變更, 現在 dr.RowState 變回 DataRowState.Unchanged
+dr.Delete(); //再次刪除 dr, 現在 dr.RowState 又變成 DataRowState.Deleted
+dr.AcceptChanges(); // 接受變更, 現在 dr.RowState 變回 DataRowState.Detached, 而且內容值被清除

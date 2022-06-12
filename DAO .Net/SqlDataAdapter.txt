@@ -1,0 +1,5 @@
+  DataTable dk = new DataTable();
+  SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM exm18 WHERE m18_cerw = @cerw  and m18_cerno = @cerno order by m18_issue desc", new SqlConnection(cnStr));
+  da.SelectCommand.Parameters.AddWithValue("cerw", cerw);
+  da.SelectCommand.Parameters.AddWithValue("cerno", cerno);
+  da.Fill(dk);

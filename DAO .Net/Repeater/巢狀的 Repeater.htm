@@ -1,0 +1,1019 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://support.microsoft.com/kb/326338/zh-tw -->
+<HTML lang=zh-tw><HEAD><TITLE>HOW TO： 顯示階層式資料使用巢狀的 Repeater 控制項和 Visual Basic.NET</TITLE><LINK 
+title="Microsoft 支援搜尋" href="/common/opensearchdescriptor.aspx?ln=zh-tw" 
+type=application/opensearchdescription+xml rel=search>
+<META content=326338 name=DCSext.sup_cid>
+<META content=zh-tw name=DCSext.sup_cln>
+<META content=kb name=DCSext.sup_ct>
+<META content=zh-tw name=DCSext.sup_ln>
+<META content=gn name=DCSext.sup_sd>
+<SCRIPT src="巢狀的 Repeater.files/common.js" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>setCookie("gssSITE","gn",'',true);</SCRIPT>
+
+<SCRIPT type=text/javascript>setCookie("gssTHEME","gn",'',true);</SCRIPT>
+
+<SCRIPT type=text/javascript>setCookie("gssTOOLBAR","gn",'',true);</SCRIPT>
+
+<SCRIPT type=text/javascript>SaveToFavoritesData.savingMsg='\u6b63\u5728\u5132\u5b58\u6211\u7684\u6700\u611b';SaveToFavoritesData.connectionErrorMsg='\u7121\u6cd5\u9023\u63a5';SaveToFavoritesData.savedMsg='\u6211\u7684\u6700\u611b\u5df2\u5132\u5b58';SaveToFavoritesData.noSaveErrorMsg='\u7121\u6cd5\u5132\u5b58';SaveToFavoritesData.surveyUrl='\x2fcommon\x2fsurvey.aspx\x3fscid\x3dsw\x3bzh-tra\x3b1167\x26surveystyle\x3dpopup\x26showpage\x3d1\x26site\x3dgn\x26siteregion\x3dzh-tw\x26url\x3d%2fdefault.aspx%2fkb%2f326338%2fzh-tw\x26p0\x3dkb\x26p1\x3dzh-tw\x26p2\x3d326338';SaveToFavoritesData.noCookieUrl='\x2fgp\x2fnocookies';</SCRIPT>
+
+<SCRIPT 
+type=text/javascript>var g_currentContent='kb\x3bzh-tw\x3b326338';</SCRIPT>
+
+<SCRIPT src="巢狀的 Repeater.files/survey.js" type=text/javascript></SCRIPT>
+
+<META content=nofollow,noarchive name=robots>
+<META content=1 name=Search.Assets>
+<META 
+content="本文將告訴您，如何使用巢狀的 Repeater Web 控制項來顯示階層式資料。 您可以將這個概念套用至其他清單繫結控制項。 繫結至父資料表 啟動 Microsoft Visual Studio .NET。. 在 [ 檔案 ] 功能表上, 指向 [ 新增 ] ，然後再按一下 [ 專案 。 在 [ 專案類型 下, 按一下 [ Visual Basic 專案 ] ，然後在 [ 範本 ] 下按一下 [ 。 在 [ 位置 ] 方塊，刪除 WebApplication ，然後型別 NestedRepeater..." 
+name=Search.Description>
+<META content=2003-07-30T21:38:00 name=Search.DateModified>
+<META content=kb;zh-tw;326338 name=Search.scid>
+<META content="HOW TO： 顯示階層式資料使用巢狀的 Repeater 控制項和 Visual Basic.NET" 
+name=Search.Title>
+<META content="193343 193342 181911 181910" name=Search.Products>
+<META content="6548 6351 6245 6547 6350 5563 2965 1105 5562 2964" 
+name=Search.KBParents>
+<META content="6548 6351 6245 6547 6350 5563 2965 1105 5562 2964" 
+name=KBParents>
+<META content=kbAudDeveloper name=Search.Audiences>
+<META content=kb name=Search.ContentType>
+<META content=0 name=Search.Retire>
+<META content=326338 name=Search.ContentID>
+<META 
+content="kbmt kbdatabinding kbhowtomaster kbservercontrols KB326338 KbMtzh" 
+name=Search.KeyWords>
+<META content=1 name=Search.MT>
+<META content=0 name=Search.KB3>
+<META 
+content="kbmt kbdatabinding kbhowtomaster kbservercontrols KB326338 KbMtzh" 
+name=Keywords>
+<META 
+content="本文將告訴您，如何使用巢狀的 Repeater Web 控制項來顯示階層式資料。 您可以將這個概念套用至其他清單繫結控制項。 繫結至父資料表 啟動 Microsoft Visual Studio .NET。. 在 [ 檔案 ] 功能表上, 指向 [ 新增 ] ，然後再按一下 [ 專案 。 在 [ 專案類型 下, 按一下 [ Visual Basic 專案 ] ，然後在 [ 範本 ] 下按一下 [ 。 在 [ 位置 ] 方塊，刪除 WebApplication ，然後型別 NestedRepeater..." 
+name=Description>
+<META content=zh-tw name=MS.LOCALE>
+<META http-equiv=content-type content="text/html; charset=utf-8">
+<SCRIPT src="巢狀的 Repeater.files/search.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="巢狀的 Repeater.files/ac.js" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>var gCookieDomain='';</SCRIPT>
+<XMLREADER><LINK href="巢狀的 Repeater.files/default.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/xmlContent.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/dbcsOverride.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/dbcsRightNav.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/chromeDBCS.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/LHNSWidthChrome.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/override.css" type=text/css 
+rel=stylesheet><LINK href="巢狀的 Repeater.files/pngFilter.css" type=text/css 
+rel=stylesheet>
+<SCRIPT src="巢狀的 Repeater.files/IE6PNGFilter.js" type=text/javascript></SCRIPT>
+<LINK href="巢狀的 Repeater.files/branding.css" type=text/css rel=stylesheet><LINK 
+href="巢狀的 Repeater.files/brandingPngFilter.css" type=text/css 
+rel=stylesheet></XMLREADER><!-- RESG: 8/30/2008 11:14:09 PM - RESX: 1/1/0001 12:00:00 AM --><!-- (c) 2008 Microsoft Corporation. All Rights Reserved -->
+<SCRIPT type=text/javascript>var PersonalizationInfo='a2IzMjYzMzgIemgtdHcISE9XIFRP77yaIOmhr-ekuumajuWxpOW8j-izh-aWmeS9v-eUqOW3oueLgOeahCBSZXBlYQ__';</SCRIPT>
+
+<SCRIPT type=text/javascript>var enableSiteSurvey = true;</SCRIPT>
+<LINK href="巢狀的 Repeater.files/surveytrigger.css" type=text/css rel=stylesheet>
+<SCRIPT src="巢狀的 Repeater.files/surveycookieutil.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="巢狀的 Repeater.files/surveytrigger.js" type=text/javascript></SCRIPT>
+
+<SCRIPT>animationDuration = 0.5;</SCRIPT>
+
+<SCRIPT>var embedSurveyPrompt='nothing';var Exp=90;var Delay=10000;var Freq=17;var SurveyStyle='popup';var DisplayIntroPage=1;var EmailStyle=0;var EmailSurveyID='';var ReferringURL='';var TrEvent='onunload';var TriggerId='12030';var IntervalType = 'session';var surveyTrigger = new MS.Support.Fms.Gsfx.SurveyTrigger();</SCRIPT>
+
+<META content="MSHTML 6.00.2900.2523" name=GENERATOR></HEAD>
+<BODY onload=thisLoad(); onunload=thisUnload();>
+<STYLE type=text/css>BODY {
+	BACKGROUND: url(/library/images/support/cn/gsfx_brnd_gn_top_bgrd.gif) #c8e3f1 repeat-x
+}
+#gsfx_brnd_SiteHeaderImage {
+	HEIGHT: 0px
+}
+.gsfx_brnd_NetworkLink {
+	COLOR: #cdcbce
+}
+.gsfx_brnd_NetworkLink:visited {
+	COLOR: #cdcbce
+}
+.gsfx_brnd_NetworkLink A {
+	COLOR: #cdcbce
+}
+.gsfx_brnd_NetworkLink A:visited {
+	COLOR: #cdcbce
+}
+.gsfx_brnd_NetworkLink:hover {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+.gsfx_brnd_NetworkLink:active {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+.gsfx_brnd_NetworkLink:unknown {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+.gsfx_brnd_NetworkLink A:hover {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+.gsfx_brnd_NetworkLink A:active {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+.gsfx_brnd_NetworkLink A:unknown {
+	BORDER-BOTTOM-COLOR: #f9d060; COLOR: #f9d060
+}
+#gsfx_brnd_NetworkHeader {
+	COLOR: #ffffff
+}
+#gsfx_brnd_NetworkHeaderLinks {
+	COLOR: #ffffff
+}
+#gsfx_brnd_SiteHeader {
+	COLOR: #ffffff
+}
+#gsfx_brnd_PageLogoWrapper {
+	COLOR: #ffffff
+}
+#gsfx_brnd_PageTitle {
+	COLOR: #ffffff
+}
+#gsfx_brnd_SearchWrapper A {
+	COLOR: #ffffff
+}
+#gsfx_bsrch_poweredbycell SPAN {
+	COLOR: #ffffff
+}
+#gsfx_bsrch_catsel A {
+	BORDER-LEFT-COLOR: #ffffff; BORDER-BOTTOM-COLOR: #ffffff; BORDER-TOP-COLOR: #ffffff; BORDER-RIGHT-COLOR: #ffffff
+}
+#gsfx_bsrch_catsel SPAN {
+	BORDER-LEFT-COLOR: #ffffff; BORDER-BOTTOM-COLOR: #ffffff; BORDER-TOP-COLOR: #ffffff; BORDER-RIGHT-COLOR: #ffffff
+}
+#gsfx_brnd_SiteFooter {
+	COLOR: #ffffff
+}
+#gsfx_brnd_SiteFooterWrap {
+	COLOR: #ffffff
+}
+#gsfx_brnd_NetworkFooter {
+	COLOR: #ffffff
+}
+#gsfx_brnd_FooterLinkContainer {
+	COLOR: #ffffff
+}
+#gsfx_brnd_FooterLinkContainer SPAN {
+	COLOR: #ffffff
+}
+#gsfx_brnd_copyright_container {
+	COLOR: #ffffff
+}
+#gsfx_brnd_copyright_container SPAN {
+	COLOR: #ffffff
+}
+</STYLE>
+<!--[if lte IE 6]>
+<STYLE type=text/css>#gsfx_brnd_PageHeaderImage {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='', sizingMethod='image')
+}
+#gsfx_brnd_SiteImgWedge {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='', sizingMethod='scale')
+}
+#gsfx_brnd_PageLogo {
+	VISIBILITY: hidden
+}
+#gsfx_brnd_legacy_PageLogo {
+	FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_ms_logo.png', sizingMethod='image')
+}
+#gsfx_brnd_MSLogo {
+	VISIBILITY: hidden
+}
+#gsfx_brnd_legacy_MSLogo {
+	FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_ms_logo_sml_wht.png', sizingMethod='image')
+}
+</STYLE>
+<![endif]-->
+<DIV id=gsfx_brnd_CenterContent>
+<DIV id=gsfx_brnd_PageWrapper>
+<DIV id=gsfx_brnd_PageContainer>
+<DIV id=gsfx_brnd_PageHeaderImage></DIV>
+<DIV id=gsfx_brnd_HeaderContainer>
+<DIV id=gsfx_brnd_NetworkHeader>
+<DIV class=gsfx_brnd_NetworkLeft id=gsfx_brnd_CorpMarketingContainer>
+<DIV class=gsfx_brnd_NetworkLeft id=gsfx_brnd_CorpMarketingSpace></DIV></DIV><!--Table is used here in order to properly order the links for LTR and RTL while maintaining the correct tab order-->
+<TABLE class=gsfx_brnd_NetworkRight id=gsfx_brnd_NetworkHeaderLinks 
+summary="Network Header Links">
+  <TBODY>
+  <TR>
+    <TD class=gsfx_brnd_NetworkLinkContainer><SPAN id=gsfx_brnd_LocalName>台灣 
+      </SPAN></TD>
+    <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+      id=L_156801 
+      href="http://support.microsoft.com/common/international.aspx">變更</A> </TD>
+    <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_HeaderSeperator">|</TD>
+    <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+      id=L_156800 
+      href="http://www.microsoft.com/library/toolbar/3.0/sitemap/zh-tw.mspx">所有微軟網站</A> 
+    </TD></TR></TBODY></TABLE></DIV>
+<DIV id=gsfx_brnd_SiteHeader>
+<DIV id=gsfx_brnd_SiteHeaderImageContainer>
+<DIV id=gsfx_brnd_SiteHeaderImage></DIV></DIV><!--[if lte IE 6]>
+<DIV class=gsfx_brnd_NetworkLeft id=gsfx_brnd_legacy_PageLogo></DIV><![endif]-->
+<DIV class=gsfx_brnd_NetworkLeft id=gsfx_brnd_PageLogoWrapper><A 
+id=gsfx_brnd_PageLogoLink href="http://www.microsoft.com/"><IMG 
+id=gsfx_brnd_PageLogo alt=Microsoft 
+src="巢狀的 Repeater.files/gsfx_brnd_ms_logo.png"></A> <SPAN 
+id=gsfx_brnd_PageTitle>技術支援服務</SPAN> </DIV>
+<DIV class=gsfx_brnd_NetworkRight id=gsfx_brnd_SearchWrapper>
+<FORM id=frmsrch onsubmit=SaveSimpleSearch(); action=/search/default.aspx 
+method=get>
+<DIV id=gsfx_bsrch_catsel>
+<SCRIPT type=text/javascript>setACStartChars('2:4:');</SCRIPT>
+<NOSCRIPT><INPUT id=catalog type=hidden value=LCID=1028 name=catalog></NOSCRIPT> 
+<A class=gsfx_bsrch_highlight 
+onclick="gsfx_bsrch_changeCatSelection(this,'LCID=1028');changeLcidForSelect(this, 'gsfx_bsrch_query', 'LCID=1028', '0');" 
+href="javascript:%20void(0);" catalog="LCID=1028">中文</A> <SPAN 
+class=cat_seperator>|</SPAN> <A class="" 
+onclick="gsfx_bsrch_changeCatSelection(this,'LCID=1033');changeLcidForSelect(this, 'gsfx_bsrch_query', 'LCID=1033', '1');" 
+href="javascript:%20void(0);" catalog="LCID=1033">英文</A> &nbsp;</DIV>
+<DIV id=gsfx_bsrch_divQuery><INPUT id=gsfx_bsrch_query maxLength=200 name=query 
+autocomplete="off"><SPAN class=gsfx_bsrch_buttonwrap id=gsfx_bsrch_srch><INPUT id=gsfx_bsrch_srchbtn type=submit value=搜尋></SPAN> 
+<SPAN class=gsfx_bsrch_buttonwrap id=gsfx_bsrch_websrch><INPUT id=gsfx_bsrch_websrchbtn onclick="submitSimpleSearch('http://search.live.com/results.aspx?mkt=zh-TWs&amp;q=', document.getElementById('gsfx_bsrch_query').value);" type=button value=網際網路></SPAN><BR></DIV>
+<SCRIPT type=text/javascript>try{MS.Support.AC.MakeAutoComplete({id:'gsfx_bsrch_query', lcid:'1028', acURL:'http://autocomplete.support.microsoft.com', statsObj:StatsDotNet, startChar:'2', bubbleside:'left'});}catch(e){}</SCRIPT>
+
+<DIV class=gsfx_brnd_NetworkTextRight 
+id=gsfx_bsrch_poweredbycell><SPAN>使用</SPAN><SPAN id=liveimg><IMG 
+class=gsfx_img_png style="WIDTH: 24px; HEIGHT: 24px" alt="" 
+src="巢狀的 Repeater.files/gsfx_bsrch_live_logo.png"><!--[if lte IE 6]>
+<DIV class=gsfx_div_png 
+style="FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/en-US/gsfx_bsrch_live_logo.png', sizingMethod='scale'); WIDTH: 24px; HEIGHT: 24px" 
+alt=""></DIV><![endif]--></SPAN><SPAN>Live Search</SPAN> </DIV>
+<DIV class=hiddenformels><INPUT type=hidden value=r name=mode> </DIV><NOSCRIPT>
+<STYLE type=text/css>#gsfx_bsrch_catsel A {
+	DISPLAY: none
+}
+#gsfx_bsrch_websrch {
+	DISPLAY: none
+}
+</STYLE>
+</NOSCRIPT></FORM>
+<SCRIPT type=text/javascript>
+InitSrch();
+InitAC('gsfx_bsrch_query');MS_AddEvent(window, 'load', function() {gsfx_bsrch_InitCatSelection('gsfx_bsrch_query', '2:4:');});
+</SCRIPT>
+</DIV></DIV></DIV>
+<DIV class=gsfx_brnd_CornerContainer id=gsfx_brnd_TopCorners>
+<DIV class="gsfx_brnd_TBBorders gsfx_brnd_TransBG" id=gsfx_brnd_TopBorder></DIV>
+<DIV class=gsfx_brnd_Corner id=gsfx_brnd_LUpperCorner></DIV></DIV>
+<DIV class="gsfx_brnd_TransBG gsfx_brnd_SideBorder" id=gsfx_brnd_LocalToolBar>
+<UL id=gsfx_brnd_LocalLinks>
+  <LI class=gsfx_brnd_LocalLink><A id=L_156806 
+  href="http://support.microsoft.com/"><SPAN>技術支援服務首頁</SPAN></A></LI>
+  <LI class=gsfx_brnd_LocalSeperator></LI>
+  <LI class=gsfx_brnd_LocalLink><A id=L_156807 
+  href="http://support.microsoft.com/select/?target=hub"><SPAN>選取一項產品</SPAN></A></LI>
+  <LI class=gsfx_brnd_LocalSeperator></LI>
+  <LI class=gsfx_brnd_LocalLink><A id=L_156808 
+  href="http://support.microsoft.com/search/?adv=1"><SPAN>進階搜尋</SPAN></A></LI>
+  <LI class=gsfx_brnd_LocalSeperator></LI>
+  <LI class=gsfx_brnd_LocalLink><A id=L_158071 
+  href="http://support.microsoft.com/lifecycle"><SPAN>產品技術支援週期</SPAN></A></LI>
+  <LI class=gsfx_brnd_LocalSeperator></LI>
+  <LI class=gsfx_brnd_LocalLink><A id=L_158070 
+  href="http://support.microsoft.com/gp/Subscription_Online/zh-tw"><SPAN>訂閱中文知識庫電子報</SPAN></A></LI></UL></DIV>
+<DIV class="gsfx_brnd_TransBG gsfx_brnd_SideBorder" id=gsfx_brnd_ToolbarShadow>
+<DIV id=gsfx_brnd_shadow></DIV></DIV>
+<DIV class="gsfx_brnd_TransBG gsfx_brnd_SideBorder" 
+id=gsfx_brnd_ContentContainer>
+<DIV id=contentArea>
+<DIV id=mainRow>
+<DIV class=primaryTable>
+<TABLE class=primaryTable cellSpacing=0 cellPadding=0>
+  <TBODY>
+  <TR>
+    <TD class=primaryMainColumn>
+      <DIV id=mainColumn>
+      <DIV class=kb id=kb>
+      <DIV class=default id=default><!-- - -KB 3 start- - --><A id=top></A>
+      <H1 class=title>HOW TO： 顯示階層式資料使用巢狀的 Repeater 控制項和 Visual Basic.NET</H1>
+      <DIV class=appliesToLink><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#appliesto">檢視此文章適用的產品。</A></DIV>
+      <SCRIPT type=text/javascript>function loadTOCNode(){}</SCRIPT>
+
+      <DIV class=mtDisclaimerLink><IMG alt=機器翻譯 
+      src="巢狀的 Repeater.files/mt_16.png"><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#mtDisclaimer">檢視機器翻譯免責聲明</A></DIV>
+      <DIV class=articleProperty>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD>文章編號</TD>
+          <TD>:</TD>
+          <TD>326338</TD></TR>
+        <TR>
+          <TD>上次校閱</TD>
+          <TD>:</TD>
+          <TD>2003年7月30日</TD></TR>
+        <TR>
+          <TD>版次</TD>
+          <TD>:</TD>
+          <TD>4.2</TD></TR></TBODY></TABLE></DIV>
+      <DIV class=toc id=tocDiv>
+      <H5>在此頁中</H5></DIV>
+      <SCRIPT type=text/javascript>
+      var sectionFilter = "type != 'notice' && type != 'securedata' && type != 'querywords'";
+      var tocArrow = "/library/images/support/kbgraphics/public/en-us/downarrow.gif";
+      var depthLimit = 10;
+      var depth3Limit = 10;
+      var depth4Limit = 5;
+      var depth5Limit = 3;
+      var tocEntryMinimum = 1;
+    </SCRIPT>
+
+      <SCRIPT src="巢狀的 Repeater.files/kbtoc.js" type=text/javascript></SCRIPT>
+      <NOSCRIPT>
+      <STYLE>.toc {
+	DISPLAY: none
+}
+</STYLE>
+      </NOSCRIPT>
+      <DIV class=section>
+      <H2 class=subTitle id=tocHeadRef>結論</H2>
+      <SCRIPT type=text/javascript>loadTOCNode(1, 'summary');</SCRIPT>
+
+      <DIV class=sbody>本文將告訴您，如何使用巢狀的 <B>Repeater </B>Web 控制項來顯示階層式資料。 
+      您可以將這個概念套用至其他清單繫結控制項。<BR><BR>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P>
+      <H3 id=tocHeadRef><SPAN><A id=1></A></SPAN>繫結至父資料表</H3>
+      <SCRIPT type=text/javascript>loadTOCNode(2, 'summary');</SCRIPT>
+
+      <TABLE class="list ol">
+        <TBODY>
+        <TR>
+          <TD class=number>1.</TD>
+          <TD class=text>啟動 Microsoft Visual Studio .NET。. </TD></TR>
+        <TR>
+          <TD class=number>2.</TD>
+          <TD class=text>在 [ <B>檔案 </B>] 功能表上, 指向 <B>[ 新增 ] </B>，然後再按一下 [ 
+            <B>專案 </B>。 </TD></TR>
+        <TR>
+          <TD class=number>3.</TD>
+          <TD class=text>在 [ <B>專案類型 </B>下, 按一下 [ <B>Visual Basic 專案 ] 
+            </B>，然後在 <B>[ 範本 ] </B>下按一下 [ <STRONG class=uiterm>ASP.NET Web 應用程式 
+            </STRONG>。 </TD></TR>
+        <TR>
+          <TD class=number>4.</TD>
+          <TD class=text>在 [ <B>位置 ] </B>方塊，刪除 WebApplication 
+            <VAR>#</VAR>，然後型別 
+            <DIV class=indent>NestedRepeater </DIV>. 如果您使用本機伺服器，您可以將伺服器名稱保留為 
+            <B>http:// localhost </B>。 路徑會出現在 [ 位置 ] 方塊，如下所示： <B>http:// 
+            localhost / NestedRepeater </B></TD></TR>
+        <TR>
+          <TD class=number>5.</TD>
+          <TD class=text>在 [ 方案總管 ]，專案名稱節點 (<B> NestedRepeater </B>) 
+            上按一下滑鼠右鍵，按一下 <B>[ 新增 </B>，然後按一下 <B>[ 加入 Web Form ] </B>。</TD></TR>
+        <TR>
+          <TD class=number>6.</TD>
+          <TD class=text>在 [ <B>名稱 ] </B>方塊，輸入 <SPAN 
+            class=userInput>NestedRepeater </SPAN>，並按一下 [ <B>開啟 </B>]。</TD></TR>
+        <TR>
+          <TD class=number>7.</TD>
+          <TD class=text>會建立新的 Web Form。 它會在 [ 設計 ] 檢視在 IDE 的 Microsoft Visual 
+            Studio.NET 中開啟。 從工具箱，選取 <B>Repeater </B>控制項，並將它拖曳至 Web Form 
+頁面。</TD></TR>
+        <TR>
+          <TD class=number>8.</TD>
+          <TD class=text>將這個 <B>Repeater </B>控制項的 <B>識別碼 </B>屬性變更為 <STRONG 
+            class=uiterm>parentRepeater </STRONG>。</TD></TR>
+        <TR>
+          <TD class=number>9.</TD>
+          <TD class=text>切換至 HTML 檢視此 Web Form。 若要執行這項操作，請按一下 [ <B>HTML </B>] 
+            索引標籤在 [ 專案設計工具 ] 的左下角。 <B>Repeater </B>控制項產生的 HTML 是，如下所示： <CODE><PRE class=code>&lt;asp:Repeater id="parentRepeater" runat="server"&gt;&lt;/asp:Repeater&gt;
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>10.</TD>
+          <TD class=text>在 [ <B>Repeater </B>標記中加入下列程式碼： <CODE><PRE class=code>&lt;itemtemplate&gt;
+     &lt;b&gt;&lt;%# DataBinder.Eval(Container.DataItem, "au_id") %&gt;&lt;/b&gt;&lt;br&gt;
+&lt;/itemtemplate&gt;
+					</PRE></CODE>您加入程式碼之後，<B> Repeater </B>的 HTML 程式碼是，如下所示： <CODE><PRE class=code>&lt;asp:Repeater id="parentRepeater" runat="server"&gt;
+	&lt;itemtemplate&gt;
+	     &lt;b&gt;&lt;%# DataBinder.Eval(Container.DataItem, "au_id") %&gt;&lt;/b&gt;&lt;br&gt;		
+        &lt;/itemtemplate&gt;
+&lt;/asp:Repeater&gt;
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>11.</TD>
+          <TD class=text>在 [ 方案總管 ]，<B> NestedRepeater.aspx </B>上, 
+            按一下滑鼠右鍵，然後按一下 <B>[ 檢視程式碼 ] </B>以切換至程式碼後置頁面 
+          (NestedRepeater.aspx.vb)。</TD></TR>
+        <TR>
+          <TD class=number>12.</TD>
+          <TD class=text>將下列命名空間宣告加入至檔案的最上方： <CODE><PRE class=code>Imports System.Data
+Imports System.Data.SqlClient
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>13.</TD>
+          <TD class=text>將下列程式碼加入至 <B>Page_Load </B>事件建立連線至 <B>Pubs 
+            </B>資料庫，並要繫結至 <B>Repeater </B>控制項 <B>Authors </B>資料表： <CODE><PRE class=code>Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Dim cnn As SqlConnection = New SqlConnection("server=(local);database=pubs;Integrated Security=SSPI")
+    Dim cmd1 As SqlDataAdapter = New SqlDataAdapter("select * from authors", cnn)
+    Dim ds As DataSet = New DataSet()
+    cmd1.Fill(ds, "authors")
+
+    'Insert code in step 4 of the next section here.
+
+    parentRepeater.DataSource = ds.Tables("authors")
+    Page.DataBind()
+    cnn.Close()
+End Sub
+					</PRE></CODE><B>請注意 </B>： 您可能需要修改資料庫連線字串適用於您的環境。<BR><BR></TD></TR>
+        <TR>
+          <TD class=number>14.</TD>
+          <TD class=text>儲存所有的檔案。</TD></TR>
+        <TR>
+          <TD class=number>15.</TD>
+          <TD class=text>在 [ <B>建置 </B>] 功能表上, 按一下 [ <B>建置方案 </B>] 
+以編譯專案。</TD></TR>
+        <TR>
+          <TD class=number>16.</TD>
+          <TD class=text>在瀏覽器中, 檢視.aspx 頁面，然後確認頁面運作到目前為止。 輸出應該會出現，如下所示：
+            <DIV class=indent><B>172-32-1176 </B><BR><B>213-46-8915 
+            </B><BR><B>238-95-7766 </B><BR><B>267-41-2394 </B><BR>... 
+        </DIV></TD></TR></TBODY></TABLE>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P>
+      <H3 id=tocHeadRef><SPAN><A id=2></A></SPAN>繫結至子資料表</H3>
+      <SCRIPT type=text/javascript>loadTOCNode(2, 'summary');</SCRIPT>
+
+      <TABLE class="list ol">
+        <TBODY>
+        <TR>
+          <TD class=number>1.</TD>
+          <TD class=text>在 NestedRepeater.aspx 頁面的 HTML 檢視中, 找出下列程式碼： <CODE><PRE class=code>&lt;b&gt;&lt;%# DataBinder.Eval(Container.DataItem, "au_id") %&gt;&lt;/b&gt;&lt;br&gt;.&lt;BR/&gt;
+						</PRE></CODE>在這行程式碼之後, 加入下列程式碼，以將第二個 <B>Repeater </B>控制項加入至 
+            <B>ItemTemplate </B>父代 <B>Repeater </B>控制項的： <CODE><PRE class=code>&lt;asp:repeater id="childRepeater" runat="server"&gt;
+		&lt;itemtemplate&gt;
+	            &lt;%# Container.DataItem("title_id") %&gt;
+		    &lt;br&gt;
+		&lt;/itemtemplate&gt;
+&lt;/asp:repeater&gt;
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>2.</TD>
+          <TD class=text>設定 <B>DataSource </B>屬性的子系 <B>Repeater </B>控制項，如下所示： 
+            <CODE><PRE class=code>&lt;asp:repeater ... datasource='&lt;%# Container.DataItem.Row.GetChildRows("myrelation") %&gt;'&gt;
+					</PRE></CODE>您設定 <B>DataSource </B>屬性的子系 <B>Repeater 
+            </B>控制項之後，HTML 程式碼之兩個 <B>Repeater </B>控制項 (父和子系) 會顯示，如下所示：<BR><CODE><PRE class=code>&lt;asp:Repeater id="parentRepeater" runat="server"&gt;
+	&lt;itemtemplate&gt;
+		&lt;b&gt;
+		 &lt;%# DataBinder.Eval(Container.DataItem, "au_id") %&gt;
+		&lt;/b&gt;
+		&lt;br&gt;
+		&lt;asp:repeater id="childRepeater" runat="server" 
+                    datasource='&lt;%#
+                    Container.DataItem.Row.GetChildRows("myrelation")%&gt;'&gt;
+			&lt;itemtemplate&gt;
+				&lt;%# Container.DataItem("title_id") %&gt;&lt;br&gt;	
+			&lt;/itemtemplate&gt;
+		&lt;/asp:Repeater&gt; 
+	&lt;/itemtemplate&gt;
+&lt;/asp:Repeater&gt;
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>3.</TD>
+          <TD class=text>加入下列頁面指示詞至頁面的頂端： <CODE><PRE class=code>&lt;%@ Import Namespace="System.Data" %&gt;
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>4.</TD>
+          <TD class=text>在程式碼後置頁面，取代下列行在 <B>Page_Load </B>事件 <CODE><PRE class=code>'Insert code in step 4 of the next section here.
+						</PRE></CODE>以下列程式碼，它將 [ <B>標題 ] </B>資料表加入至 <B>資料集 </B>，然後將加入 
+            <B>作者 」 </B>及 <B>標題 </B>資料表之間的關聯性： <CODE><PRE class=code>Dim cmd2 As SqlDataAdapter = New SqlDataAdapter("select * from titleauthor", cnn)
+cmd2.Fill(ds, "titles")
+ds.Relations.Add("myrelation", _
+ds.Tables("authors").Columns("au_id"), _
+ds.Tables("titles").Columns("au_id"))
+parentRepeater.DataSource = ds.Tables("authors")
+					</PRE></CODE></TD></TR>
+        <TR>
+          <TD class=number>5.</TD>
+          <TD class=text>儲存所有的檔案，然後再建置專案。</TD></TR>
+        <TR>
+          <TD class=number>6.</TD>
+          <TD class=text>在瀏覽器中, 檢視頁面，然後確認頁面運作到目前為止。 輸出應該會出現，如下所示：
+            <DIV class=indent><B>172-32-1176 </B><BR>PS3333<BR><B>213-46-8915 
+            </B><BR>BU1032<BR>BU2075<BR><B>238-95-7766 
+            </B><BR>PC1035<BR><B>267-41-2394 </B><BR>BU1111<BR>TC7777<BR>... 
+            </DIV></TD></TR></TBODY></TABLE>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P>
+      <H3 id=tocHeadRef><SPAN><A id=3></A></SPAN>完成程式碼 ] 清單</H3>
+      <SCRIPT type=text/javascript>loadTOCNode(2, 'summary');</SCRIPT>
+
+      <H4 id=tocHeadRef>Nestedrepeater.aspx</H4>
+      <SCRIPT type=text/javascript>loadTOCNode(3, 'summary');</SCRIPT>
+      <CODE><PRE class=code>&lt;%@ Import Namespace="System.Data" %&gt;
+&lt;%@ Page Language="vb" AutoEventWireup="false" Codebehind="NestedRepeater.aspx.vb" Inherits="yourprojectnamespace.NestedRepeater"%&gt;
+
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;HTML&gt;
+	&lt;HEAD&gt;
+		&lt;title&gt;NestedRepeater&lt;/title&gt;
+		&lt;meta name="GENERATOR" content="Microsoft Visual Studio.NET 7.0"&gt;
+		&lt;meta name="CODE_LANGUAGE" content="Visual Basic 7.0"&gt;
+		&lt;meta name="vs_defaultClientScript" content="JavaScript"&gt;
+		&lt;meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5"&gt;
+	&lt;/HEAD&gt;
+	&lt;body MS_POSITIONING="GridLayout"&gt;
+		&lt;form id="Form1" method="post" runat="server"&gt;
+			&lt;asp:Repeater id="parentRepeater" runat="server"&gt;
+				&lt;itemtemplate&gt;
+					&lt;b&gt;
+						&lt;%# DataBinder.Eval(Container.DataItem, "au_id") %&gt;
+					&lt;/b&gt;
+					&lt;br&gt;
+					&lt;asp:repeater id="childRepeater" 
+                                         runat="server" datasource='&lt;%# Container.DataItem.Row.GetChildRows("myrelation") %&gt;'&gt;
+
+						&lt;itemtemplate&gt;
+							&lt;%# Container.DataItem("title_id") %&gt;&lt;br&gt;	
+						&lt;/itemtemplate&gt;
+					&lt;/asp:Repeater&gt; 
+				&lt;/itemtemplate&gt;
+			&lt;/asp:Repeater&gt;
+		&lt;/form&gt;
+	&lt;/body&gt;
+&lt;/HTML&gt;
+
+				</PRE></CODE>
+      <H4 id=tocHeadRef>Nestedrepeater.aspx.vb</H4>
+      <SCRIPT type=text/javascript>loadTOCNode(3, 'summary');</SCRIPT>
+      <CODE><PRE class=code>Imports System.Data
+Imports System.Data.SqlClient
+
+Public Class NestedRepeater
+    Inherits System.Web.UI.Page
+    Protected WithEvents childRepeater As System.Web.UI.WebControls.Repeater
+    Protected WithEvents parentRepeater As System.Web.UI.WebControls.Repeater
+
+#Region " Web Form Designer Generated Code "
+
+    'This call is required by the Web Form Designer.
+    &lt;System.Diagnostics.DebuggerStepThrough()&gt; Private Sub InitializeComponent()
+
+    End Sub
+
+    Private Sub Page_Init(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Init
+        'CODEGEN: This method call is required by the Web Form Designer
+        'Do not modify it using the code editor.
+        InitializeComponent()
+    End Sub
+
+#End Region
+
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim cnn As SqlConnection = New SqlConnection("server=(local);database=pubs;Integrated Security=SSPI")
+        Dim cmd1 As SqlDataAdapter = New SqlDataAdapter("select * from authors", cnn)
+        Dim ds As DataSet = New DataSet()
+        cmd1.Fill(ds, "authors")
+
+        Dim cmd2 As SqlDataAdapter = New SqlDataAdapter("select * from titleauthor", cnn)
+        cmd2.Fill(ds, "titles")
+        ds.Relations.Add("myrelation", _
+        ds.Tables("authors").Columns("au_id"), _
+        ds.Tables("titles").Columns("au_id"))
+        parentRepeater.DataSource = ds.Tables("authors")
+
+        parentRepeater.DataSource = ds.Tables("authors")
+        Page.DataBind()
+        cnn.Close()
+
+    End Sub
+
+End Class
+
+				</PRE></CODE><SPAN><A id=references></A></SPAN>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P></DIV>
+      <H2 class=subTitle id=tocHeadRef>参考</H2>
+      <SCRIPT type=text/javascript>loadTOCNode(1, 'references');</SCRIPT>
+
+      <DIV class=sbody>如需詳細資訊，請造訪 Microsoft.NET Framework Software Development 
+      Kit (SDK) 中的下列主題： 
+      <DIV class=indent>新增資料表之間的關聯性<BR><SPAN class=ll><A 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconaddingrelationshipbetweentwotables.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconaddingrelationshipbetweentwotables.asp</A></SPAN><SPAN 
+      class=pLink> 
+      (http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconaddingrelationshipbetweentwotables.asp)</SPAN><BR><BR>巡覽資料表之間的關聯性<BR><SPAN 
+      class=ll><A 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconnavigatingrelationshipbetweentwotables.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconnavigatingrelationshipbetweentwotables.asp</A></SPAN><SPAN 
+      class=pLink> 
+      (http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpconnavigatingrelationshipbetweentwotables.asp)</SPAN><BR><BR>Repeater 
+      Web 伺服器控制項 (英文)<BR><SPAN class=ll><A 
+      href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpgenref/html/cpconrepeaterwebservercontrol.asp">http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpgenref/html/cpconrepeaterwebservercontrol.asp</A></SPAN><SPAN 
+      class=pLink> 
+      (http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpgenref/html/cpconrepeaterwebservercontrol.asp)</SPAN></DIV>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P></DIV></DIV>
+      <DIV class=appliesTo>
+      <HR>
+      <A id=appliesto></A>
+      <H5>這篇文章中的資訊適用於:</H5>
+      <TABLE class=list>
+        <TBODY>
+        <TR>
+          <TD class=bullet>•</TD>
+          <TD class=text>Microsoft ASP.NET 1.1</TD></TR>
+        <TR>
+          <TD class=bullet>•</TD>
+          <TD class=text>Microsoft ASP.NET 1.0</TD></TR>
+        <TR>
+          <TD class=bullet>•</TD>
+          <TD class=text>Microsoft Visual Basic .NET 2003 Standard 
+        Edition</TD></TR>
+        <TR>
+          <TD class=bullet>•</TD>
+          <TD class=text>Microsoft Visual Basic .NET 2002 Standard 
+        Edition</TD></TR></TBODY></TABLE></DIV>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P>
+      <DIV class=keywords>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD class=header>
+            <H5>關鍵字：&nbsp;</H5></TD>
+          <TD class=text>kbmt kbdatabinding kbhowtomaster kbservercontrols 
+            KB326338 KbMtzh</TD></TR></TBODY></TABLE>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P></DIV>
+      <DIV class="disclaimer mt"><A id=mtDisclaimer></A><IMG alt=機器翻譯 
+      src="巢狀的 Repeater.files/mt_16.png"><SPAN class=label>重要：本文是以 Microsoft 
+      機器翻譯軟體翻譯而成，而非使用人工翻譯而成。Microsoft 
+      同時提供使用者人工翻譯及機器翻譯兩個版本的文章，讓使用者可以依其使用語言使用知識庫中的所有文章。但是，機器翻譯的文章可能不盡完美。這些文章中也可能出現拼字、語意或文法上的錯誤，就像外國人在使用本國語言時可能發生的錯誤。Microsoft 
+      不為內容的翻譯錯誤或客戶對該內容的使用所產生的任何錯誤或損害負責。Microsoft也同時將不斷地就機器翻譯軟體進行更新。如果您發現錯誤，並想要協助我們進行改善，請填寫本篇文章下方的問卷。</SPAN>
+      <DIV class=text>按一下這裡查看此文章的英文版本：<A class=KBlink 
+      href="http://support.microsoft.com/kb/326338/en-us/">326338</A><SPAN 
+      class=pLink> 
+      (http://support.microsoft.com/kb/326338/en-us/)</SPAN></DIV></DIV>
+      <P class=topOfPage><A 
+      href="http://support.microsoft.com/kb/326338/zh-tw#top"><IMG alt="" 
+      src="巢狀的 Repeater.files/uparrow.gif">回此頁最上方</A></P>
+      <DIV 
+      class="disclaimer text">Microsoft及(或)其供應商不就任何在本伺服器上發表的文字資料及其相關圖表資訊的恰當性作任何承諾。所有文字資料及其相關圖表均以「現狀」供應，不負任何擔保責任。Microsoft及(或)其供應商謹此聲明，不負任何對與此資訊有關之擔保責任，包括關於適售性、適用於某一特定用途、權利或不侵權的明示或默示擔保責任。Microsoft及(或)其供應商無論如何不對因或與使用本伺服器上資訊或與資訊的實行有關而引起的契約、過失或其他侵權行為之訴訟中的特別的、間接的、衍生性的損害或任何因使用而喪失所導致的之損害、資料或利潤負任何責任。</DIV><!-- - -KB 3 end- - --></DIV></DIV><SPAN 
+      class=bookmark><A id=survey name=survey>&nbsp;</A></SPAN>
+      <DIV class=wp id=fmsSurvey style="DISPLAY: none">
+      <DIV class=fms><IFRAME id=submitframe 
+      style="DISPLAY: inline; WIDTH: 0px; HEIGHT: 0px" border=0 
+      src="about:blank" frameBorder=0></IFRAME><NOSCRIPT>
+      <DIV class=SURVEYNOSCRIPT></DIV></NOSCRIPT><INPUT id=surveyname 
+      type=hidden name=surveyname><INPUT id=showpage type=hidden value=1 
+      name=showpage>
+      <DIV id=SURVEYSECTIONCONTAINER>
+      <DIV class=SURVEYSECTION id=SURVEYSECTION_1 style="DISPLAY: none" 
+      xmlns:sw="urn:schemas-microsoft-com/PSS/PSS_Survey01"><INPUT type=hidden 
+      value=1 name=id><INPUT type=hidden name=CompoundingBranchRules><INPUT 
+      type=hidden name=NextSectionByTopicRef>
+      <DIV class=QUESTIONCONTAINER id=SURVEYQUESTION_7861><INPUT type=hidden 
+      value=7861 name=id><INPUT type=hidden value=LABEL name=type><INPUT 
+      type=hidden value=0 name=required>
+      <DIV class=QUESTIONTEXT>
+      <H5>請對此文章提供您的意見</H5></DIV>
+      <DIV class=QUESTIONINSTRUCTION></DIV>
+      <DIV class=QUESTIONREQUIRED></DIV></DIV>
+      <DIV class=QUESTIONCONTAINER id=SURVEYQUESTION_7832><INPUT type=hidden 
+      value=7832 name=id><INPUT type=hidden value=CHOICE name=type><INPUT 
+      type=hidden value=0 name=required>
+      <DIV class=QUESTIONTEXT>此文章有幫助您解決問題嗎？</DIV>
+      <DIV class=QUESTIONINSTRUCTION></DIV>
+      <DIV class=QUESTIONREQUIRED></DIV><INPUT type=hidden name=randomization>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=2 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top><INPUT id=8167 type=radio value=0 
+                  name=QUESTION_1_78327832></TD>
+                <TD class=ANSWERTEXT>是</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=2 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top><INPUT id=13111 type=radio value=0 
+                  name=QUESTION_1_78327832></TD>
+                <TD class=ANSWERTEXT>否</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=2 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top><INPUT id=12862 type=radio value=0 
+                  name=QUESTION_1_78327832></TD>
+                <TD class=ANSWERTEXT>有部分幫助</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=2 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top><INPUT id=13082 type=radio value=0 
+                  name=QUESTION_1_78327832></TD>
+                <TD 
+      class=ANSWERTEXT>我還不知道</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=QUESTIONCONTAINER id=SURVEYQUESTION_7708><INPUT type=hidden 
+      value=7708 name=id><INPUT type=hidden value=CHOICE-SEQ name=type><INPUT 
+      type=hidden value=0 name=required>
+      <DIV class=QUESTIONTEXT></DIV>
+      <DIV class=QUESTIONINSTRUCTION></DIV>
+      <DIV class=QUESTIONREQUIRED></DIV><INPUT type=hidden 
+      name=randomization><INPUT type=hidden value=9 name=columns>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR class=GHR_LEGENDTEXT>
+          <TD height=20></TD>
+          <TD vAlign=top align=left colSpan=9 height=20>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%">
+              <TBODY>
+              <TR class=GHR_LEGENDTEXT>
+                <TD width="10%">非常同意</TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%"></TD>
+                <TD width="10%">非常不同意</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD class=GHR_LEGENDTEXT width="25%"></TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">9</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">8</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">7</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">6</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">5</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">4</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">3</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">2</TD>
+          <TD class=GHR_LEGENDTEXT align=middle width="8%">1</TD></TR>
+        <TR class=GHR_ODDROW>
+          <TD vAlign=center>
+            <DIV class=GHR_QUESTIONTEXT>此文章容易理解</DIV></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=9 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=8 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=7 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=6 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=5 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=4 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=3 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=2 
+            name=QUESTION_1_7708_13131></TD>
+          <TD align=middle><INPUT id=13131 type=radio value=1 
+            name=QUESTION_1_7708_13131></TD></TR>
+        <TR class=GHR_EVENROW>
+          <TD vAlign=center>
+            <DIV class=GHR_QUESTIONTEXT>此文章內容正確</DIV></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=9 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=8 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=7 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=6 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=5 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=4 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=3 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=2 
+            name=QUESTION_1_7708_13132></TD>
+          <TD align=middle><INPUT id=13132 type=radio value=1 
+            name=QUESTION_1_7708_13132></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=QUESTIONCONTAINER id=SURVEYQUESTION_7812><INPUT type=hidden 
+      value=7812 name=id><INPUT type=hidden value=TEXT-BLOCK name=type><INPUT 
+      type=hidden value=0 name=required>
+      <DIV class=QUESTIONTEXT>其他意見：</DIV>
+      <DIV class=QUESTIONINSTRUCTION></DIV>
+      <DIV class=QUESTIONREQUIRED></DIV><TEXTAREA class=ANSWERBOX onpaste=enforceMaxLength(this,500,event) onkeydown=enforceMaxLength(this,500,event) name=TEXTBLOCK_7812 rows=6 cols=80></TEXTAREA></DIV>
+      <DIV class=QUESTIONCONTAINER id=SURVEYQUESTION_7813><INPUT type=hidden 
+      value=7813 name=id><INPUT type=hidden value=LABEL name=type><INPUT 
+      type=hidden value=0 name=required>
+      <DIV class=QUESTIONTEXT>為確保您的隱私權，在意見表中請勿包含您的連絡資訊。</DIV>
+      <DIV class=QUESTIONINSTRUCTION></DIV>
+      <DIV class=QUESTIONREQUIRED></DIV></DIV>
+      <DIV class=NAVIGATION>
+      <TABLE class=NAVBUTTONCONTAINER>
+        <TBODY>
+        <TR>
+          <TD class=PADDINGCELL></TD>
+          <TD class=NAVBUTTONCELL><INPUT class=NAVBUTTON onclick=kbSurvey.next();this.blur(); type=button value=送出></TD>
+          <TD class=ENDPADDINGCELL></TD></TR></TBODY></TABLE></DIV></DIV>
+      <DIV id=DIV_CLOSE style="DISPLAY: none" 
+      xmlns:sw="urn:schemas-microsoft-com/PSS/PSS_Survey01">
+      <DIV class=SURVEYTHANKYOUCONTAINER>
+      <DIV class=SURVEYINTROTEXT>謝謝您！您的意見將協助我們改進支援內容。如需取得協助選項，請造訪<A 
+      href="http://support.microsoft.com/">技術支援服務首頁</A>。</DIV></DIV>
+      <DIV class=NAVIGATION>
+      <TABLE class=NAVBUTTONCONTAINER nowrap="yes">
+        <TBODY>
+        <TR>
+          <TD class=PADDINGCELL></TD>
+          <TD class=NAVBUTTONCELL></TD>
+          <TD 
+      class=ENDPADDINGCELL></TD></TR></TBODY></TABLE></DIV></DIV></DIV></DIV></DIV>
+      <SCRIPT type=text/javascript>
+			var kbSurvey = new MS.Support.Fms.Survey("fmsSurvey");
+			kbSurvey.isKBEmbedded = true;
+			kbSurvey.addSubmitField('REGIONID', 'zh-tw');
+			kbSurvey.addSubmitField('SITE', 'gn');
+			kbSurvey.addSubmitField('SURVEYSCID', 'sw;zh-tra;1361');
+			kbSurvey.addSubmitField('SURVEYID', '1361');
+			kbSurvey.addSubmitField('SURVEYNAME', '');
+			kbSurvey.addSubmitField('BROWSERLANGCODE', 'zh-tw');
+			kbSurvey.addSubmitField('SURVEYLANGCODE', 'zh-tra');
+			kbSurvey.addSubmitField('FMSURL', '%252fdefault.aspx%252fkb%252f326338%252fzh-tw');
+			kbSurvey.parameters = ['kb','zh-tw','326338','','','','','','machine',''];
+			kbSurvey.maxKBsInCookie = '10';
+			kbSurvey.kbvisited = '';
+		</SCRIPT>
+      </DIV></TD>
+    <TD class=primaryThinColumn>
+      <DIV id=thinColumn style="FLOAT: none">
+      <DIV class="wp articleTrans">
+      <H1>文章翻譯</H1>
+      <FORM name=frmArticleTrans onsubmit="return SwitchLanguage(29803);" 
+      action=/>
+      <DIV>
+      <TABLE cellSpacing=0 cellPadding=0>
+        <TBODY>
+        <TR>
+          <TD><SELECT name=scid><OPTION 
+              value=kb;ja;326338>日文</OPTION><OPTION 
+              value=kb;es;326338>西班牙文</OPTION><OPTION 
+              value=kb;fr;326338>法文</OPTION><OPTION 
+              value=kb;ar;326338>阿拉伯文</OPTION><OPTION value=kb;en-us;326338 
+              selected>英文 (美國)</OPTION><OPTION 
+              value=kb;it;326338>義大利文</OPTION><OPTION value=kb;pt-br;326338>葡萄牙文 
+              (巴西)</OPTION><OPTION value=kb;pt;326338>葡萄牙文(葡萄牙)</OPTION><OPTION 
+              value=kb;de;326338>德文</OPTION><OPTION 
+              value=kb;zh-cn;326338>簡體中文</OPTION></SELECT></TD>
+          <TD class=spacer>&nbsp;</TD>
+          <TD><INPUT 
+            onmouseover="this.src='/library/images/support/ZH-TW/go_right_02-over.gif';" 
+            onmouseout="this.src='/library/images/support/ZH-TW/go_right_02.gif';" 
+            type=image alt=翻譯文章 src="巢狀的 Repeater.files/go_right_02.gif"><A 
+            id=KBLangListRedirect 
+            href="http://support.microsoft.com/kb/326338/"></A></TD></TR></TBODY></TABLE></DIV></FORM></DIV>
+      <DIV class=wp id=RelatedSupportCenters>
+      <TABLE class=LCT cellSpacing=0>
+        <TBODY>
+        <TR>
+          <TD class=textColumn>
+            <H1><SPAN class=linkCon>相關解決方案中心</SPAN><SPAN 
+            class=linkConTop></SPAN></H1>
+            <UL>
+              <LI><SPAN><A 
+              href="http://support.microsoft.com/?scid=ph;zh-tw;2965">Visual 
+              Basic .NET 2003</A></SPAN>
+              <LI><SPAN><A 
+              href="http://support.microsoft.com/?scid=ph;zh-tw;2964">Visual 
+              Basic .NET 2002</A></SPAN></LI></UL></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=wp id=AdditionalResources>
+      <TABLE class=LCT cellSpacing=0>
+        <TBODY>
+        <TR>
+          <TD class=textColumn>
+            <H1><SPAN class=linkCon>其他支援選項</SPAN><SPAN 
+            class=linkConTop></SPAN></H1>
+            <UL>
+              <LI id=L_52876_tr><SPAN><A id=L_52876 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://support.microsoft.com/contactus/?ws=support">與我們聯繫</A><BR>查詢電話號碼、支援選項、價格、線上說明等資訊</SPAN>
+              <LI id=L_112844_tr><SPAN><A id=L_112844 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://support.microsoft.com/gp/searchkb_index" 
+              target=_blank>知識庫文章導航</A><BR>提供當月最新中文化的知識庫文章，最熱門的Top 50 
+              或是在客戶意見中最想知道的熱門主題。</SPAN>
+              <LI id=L_112845_tr><SPAN><A id=L_112845 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://support.microsoft.com/gp/common_faq/zh-tw" 
+              target=_blank>一般常見問答集</A><BR>提供微軟產品或微軟相關服務的一般常用資訊</SPAN>
+              <LI id=L_52877_tr><SPAN><A id=L_52877 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://support.microsoft.com/gp/kb_keyword/zh-tw" 
+              target=_blank>關鍵字查詢系統</A><BR>利用關鍵字查詢系統查詢知識庫文章中的關鍵字及查詢字。</SPAN>
+              <LI id=L_52878_tr><SPAN><A id=L_52878 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://www.microsoft.com/taiwan/community/default.mspx" 
+              target=_blank>微軟技術社群</A><BR>選擇您感興趣的技術社群來詢問微軟產品的相關技術問題。</SPAN>
+              <LI id=L_112846_tr><SPAN><A id=L_112846 
+              onclick="return MS_HandleClick(this,'29797', true);" 
+              href="http://www.microsoft.com/taiwan/technet/webcast/default.aspx" 
+              target=_blank>TechNet 網上廣播</A><BR>透過即時網路廣播或錄影點播獲得TechNet 
+              所提供的互動式技術講座。</SPAN></LI></UL></TD></TR></TBODY></TABLE></DIV>
+      <DIV class=wp id=SupportTools>
+      <TABLE class=LCT cellSpacing=0>
+        <TBODY>
+        <TR>
+          <TD class=textColumn>
+            <H1><SPAN class=linkCon>頁面工具</SPAN><SPAN 
+            class=linkConTop></SPAN></H1>
+            <UL>
+              <LI id=PrintPage_tr><SPAN><A id=PrintPage title=列印此網頁 
+              onclick="return MS_HandleClick(this,'SupportTools', true);" 
+              href="http://support.microsoft.com/gp/noscript/">列印此網頁</A></SPAN>
+              <LI id=EmailPage_tr><SPAN><A id=EmailPage title=以電子郵件傳送網頁 
+              onclick="return MS_HandleClick(this,'SupportTools', true);" 
+              href="mailto:?body=http://support.microsoft.com/default.aspx/kb/326338/zh-tw">以電子郵件傳送網頁</A></SPAN></LI></UL></TD></TR></TBODY></TABLE></DIV></DIV></TD></TR></TBODY></TABLE></DIV></DIV></DIV></DIV>
+<DIV class=gsfx_brnd_CornerContainer id=gsfx_brnd_BottomCorners>
+<DIV class="gsfx_brnd_TBBorders gsfx_brnd_TransBG" 
+id=gsfx_brnd_BottomBorder></DIV>
+<DIV class=gsfx_brnd_Corner id=gsfx_brnd_LLowerCorner></DIV></DIV>
+<DIV id=gsfx_brnd_WidthFix></DIV>
+<DIV id=gsfx_brnd_FooterContainer>
+<DIV class=gsfx_brnd_NetworkLeft id=gsfx_brnd_SiteFooter>技術支援服務 </DIV>
+<TABLE class=gsfx_brnd_NetworkRight id=gsfx_brnd_NetworkFooter>
+  <TBODY>
+  <TR>
+    <TD id=gsfx_brnd_FooterLinkContainer><!--Table is wrapped in a div tag to facilitate proper alignment and stacking-->
+      <DIV class=gsfx_brnd_FooterLinks id=gsfx_brnd_SiteFooterLinks><!--Table is used here in order to properly order the links for LTR and RTL while maintaining the correct tab order-->
+      <TABLE class=gsfx_brnd_NetworkRight summary="Site Footer Links">
+        <TBODY>
+        <TR>
+          <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+            id=L_157516 
+            href="http://support.microsoft.com/gp/csa"><SPAN>服務合約</SPAN></A></TD></TR></TBODY></TABLE></DIV><!--Table is wrapped in a div tag to facilitate proper alignment and stacking-->
+      <DIV class=gsfx_brnd_FooterLinks id=gsfx_brnd_NetworkFooterLinks><!--Table is used here in order to properly order the links for LTR and RTL while maintaining the correct tab order-->
+      <TABLE class=gsfx_brnd_NetworkRight summary="Network Footer Links">
+        <TBODY>
+        <TR>
+          <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+            id=L_156802 
+            href="http://support.microsoft.com/contactus/?ws=support"><SPAN>連絡我們</SPAN></A></TD>
+          <TD 
+          class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_FooterSeperator">|</TD>
+          <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+            id=L_156803 
+            href="http://www.microsoft.com/taiwan/misc/cpyright.htm"><SPAN>使用規定</SPAN></A></TD>
+          <TD 
+          class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_FooterSeperator">|</TD>
+          <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+            id=L_156804 
+            href="http://www.microsoft.com/library/toolbar/3.0/trademarks/zh-tw.mspx"><SPAN>商標</SPAN></A></TD>
+          <TD 
+          class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_FooterSeperator">|</TD>
+          <TD class="gsfx_brnd_NetworkLinkContainer gsfx_brnd_NetworkLink"><A 
+            id=L_156805 
+            href="http://privacy.microsoft.com/zh-tw/default.aspx"><SPAN>隱私權聲明</SPAN></A></TD></TR></TBODY></TABLE></DIV></TD>
+    <TD id=gsfx_brnd_copyright_container>
+      <DIV id=gsfx_brnd_MSLogoContainer><!--[if lte IE 6]>
+      <DIV id=gsfx_brnd_legacy_MSLogo></DIV><![endif]--><IMG id=gsfx_brnd_MSLogo 
+      alt=Microsoft src="巢狀的 Repeater.files/gsfx_brnd_ms_logo_sml_wht.png"> <IMG 
+      id=gsfx_brnd_MSLogoPrint alt=Microsoft 
+      src="巢狀的 Repeater.files/gsfx_brnd_ms_logo_sml_blk.png"> </DIV><SPAN 
+      id=gsfx_brnd_copyright>©2008 Microsoft</SPAN> 
+</TD></TR></TBODY></TABLE></DIV></DIV></DIV></DIV>
+<STYLE type=text/css>#gsfx_brnd_CenterContent {
+	BACKGROUND: url(/library/images/support/cn/gsfx_brnd_gn_bottom_bgrd.png) repeat-x 50% bottom
+}
+#gsfx_brnd_PageWrapper {
+	BACKGROUND: url(/library/images/support/cn/gsfx_brnd_gn_bottom_bgrd.png) repeat-x 50% bottom
+}
+</STYLE>
+
+<SCRIPT src="巢狀的 Repeater.files/branding.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="巢狀的 Repeater.files/wtInit.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="巢狀的 Repeater.files/wtCore.js" type=text/javascript></SCRIPT>
+<NOSCRIPT><IMG id=DCSIMG height=1 alt="" src="巢狀的 Repeater.files/njs.gif" 
+width=1></NOSCRIPT><IMG id=webmetriximg alt="" 
+src="巢狀的 Repeater.files/onepix.gif"><NOSCRIPT><IMG id=StatsDotNetImgNoScript 
+alt="" src=""></NOSCRIPT><IMG id=StatsDotNetImg alt="" 
+src="巢狀的 Repeater.files/onepix.gif" name=StatsDotNetImg>
+<SCRIPT type=text/javascript>StatsDotNet.disabled=false;StatsDotNet.host='http\x3a\x2f\x2fsupport.microsoft.com\x2fLTS\x2fdefault.aspx';StatsDotNet.ssId='1';StatsDotNet.siteLcId='1028';StatsDotNet.SiteCulture='zh-tw';StatsDotNet.SsVersion='GSS4.6';StatsDotNet.url='\x2fdefault.aspx';StatsDotNet.ContentCulture ='zh-tw';StatsDotNet.contentType='kb';StatsDotNet.contentLn='1028';StatsDotNet.contentId='326338';StatsDotNet.platform='windows nt 5.1';StatsDotNet.eventCollectionId=1;StatsDotNet.siteBrandId='1';StatsDotNet.onUnloadTimeout=300;StatsDotNet.userAgentString='mozilla\x2f4.0 \x28compatible\x3b msie 6.0\x3b windows nt 5.1\x3b foxy\x2f1\x3b .net clr 1.1.4322\x29';StatsDotNet.ContentProperties='6\x3d9\x7c7\x3d4.2\x7c8\x3d1\x7c9\x3dkbAudDeveloper \x7c';</SCRIPT>
+
+<SCRIPT type=text/javascript>function isDomainTracking(){var entry = fetchcookieval('fmshb');if (entry){try{return entry.split(',')[0] == '1' ? true : false;}catch (e){return false;}}return false;};window.setInterval("document.cookie = 'fmshb=' + (isDomainTracking() ? '1' : '0') + ',' + new Date().getTime() + ';path=/'", 1000);</SCRIPT>
+
+<SCRIPT type=text/javascript>var CookieDef = 'ST_GN_ZH-TW';function fmsLastExp(){     var visits = fetchcookieval(CookieDef);     var parts = visits.split('_');     if(null == visits || parts.length != 3 || isNaN(parts[0]))     {         setcookieval(CookieDef, '1_0_0');         return 0;     }     return parseInt(parts[2]);}function fmsSurveyExpired(days){     var MiliDay = 86400000;     var visits = fetchcookieval(CookieDef);     var parts = visits.split('_');     if(null == visits || parts.length != 3 || isNaN(parts[0]))     {         setcookieval(CookieDef, '1_0_0');         return true;     }     var origDate = parseInt(parts[1]);     var curDate = new Date();     return (curDate.getTime()/MiliDay - days) >= origDate;}function activateSiteSurvey(){     if(window.top == window && !isDomainTracking() && enableSiteSurvey && fmsSurveyExpired(fmsLastExp()))     {         document.write('<script language="javascript" src="/library/svy/broker.js"></scr'+'ipt>');     }}</SCRIPT>
+
+<SCRIPT language=javascript>if(surveyTrigger.triggerInit(1)){setTimeout("if(surveyTrigger.triggerInit(2)){surveyTrigger.fireTrigger('/common/survey.aspx?scid=sw;zh-tra;1365&XSL=','gn','gn','gn','zh-tw','http\x253a\x252f\x252fsupport.microsoft.com\x252fdefault.aspx\x252fkb\x252f326338\x252fzh-tw','kb','zh-tw','326338','','','','','','machine','');}", Delay);}else{activateSiteSurvey();}</SCRIPT>
+
+<SCRIPT type=text/javascript>function thisLoad(){KBFeedBackShowSurvey();MS_WebMetrix('http\x3a\x2f\x2fc.microsoft.com\x2ftrans_pixel.asp\x3fTYPE\x3dSSPV\x26SOURCE\x3dSUPPORT\x26GUID\x3d1F4FC18C-F71E-47fb-8FC9-612F8EE59C61\x26URI\x3d\x252fgn\x252fzh-tw\x252fkb_zh-tw_326338\x26R\x3dhttp\x253a\x252f\x252fwww.google.com.tw\x252fsearch\x253fsourceid\x253dnavclient\x2526hl\x253dzh-TW\x2526ie\x253dUTF-8\x2526rlz\x253d1T4AMSA_zh-TWTW277TW277\x2526q\x253d\x25252enet\x252bvb\x252brepeater');StatsDotNet.LogPageOnLoad();}function thisUnload(){}</SCRIPT>
+</BODY></HTML>

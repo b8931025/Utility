@@ -1,0 +1,4 @@
+DataGrid排序之前如果呼叫
+        DataGrid.Dispose()
+        DataGrid.DataBind()
+排序就會失效

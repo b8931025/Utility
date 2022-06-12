@@ -1,0 +1,20 @@
+在ASPX裡的DataGrid 裡設OnItemDataBound要執行的函數OnItemDataBound="FunctionName"
+<asp:datagrid id="dg" Width="100%" Runat="server" OnItemDataBound="FunctionName" AutoGenerateColumns="False">
+</asp:datagrid>
+
+vb裡面定義FunctionName，這個範例用來設定欄位的超連結和Style 
+    Sub FunctionName(ByVal Sender As Object, ByVal e As DataGridItemEventArgs)'必要的引數
+        Try
+        '當傳入引數是DataItem(被bind出來的每一筆資料)
+            If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
+                Dim drv As DataRowView = CType(e.Item.DataItem, DataRowView)
+                Dim sURL As String = ""
+                sURL = "../ENFrmFakeFrame.aspx?FINALPAGE=SUMCASE/SUMCASE0.aspx&CASEID=" & drv("CASEID") & "&DISPLAYMOD=TRUE"
+                e.Item.Cells(0).Attributes("onmousedown") = "window.open('" & sURL & "','彙總報備查詢','height=' + window.screen.height + ', width=' + window.screen.width +'p, top=0, left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=n o, status=no');"
+                e.Item.Cells(0).Attributes("style") = "color:blue;cursor:hand"
+
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub

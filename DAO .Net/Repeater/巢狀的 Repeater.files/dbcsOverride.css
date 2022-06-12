@@ -1,0 +1,111 @@
+#thinColumn .HCon {
+	FONT-SIZE: 70%
+}
+#thinColumn .TCon {
+	FONT-SIZE: 70%
+}
+#thinColumn .searchThin A {
+	FONT-SIZE: 70%
+}
+#thinColumn .wp .list .text {
+	FONT-SIZE: 70%
+}
+#thinColumn .wp .list .text {
+	FONT-SIZE: 70%
+}
+#thinColumn .wp .list .more {
+	FONT-SIZE: 70%
+}
+#thinColumn .wp .list .back {
+	FONT-SIZE: 70%
+}
+.lastReview TD {
+	FONT-SIZE: 70%
+}
+#thinColumn .searchThin SELECT {
+	FONT-SIZE: 75%
+}
+#thinColumn .articleTrans SELECT {
+	FONT-SIZE: 75%
+}
+#thinColumn .searchThin INPUT.text {
+	FONT-SIZE: 75%
+}
+#mainColumn .wp .dllHelpSearch .select SELECT {
+	FONT-SIZE: 75%
+}
+#mainColumn DIV.text INPUT.text {
+	FONT-SIZE: 75%
+}
+#mainColumn .wp .search DIV.select SELECT {
+	FONT-SIZE: 105%
+}
+#mainColumn .wp .search DIV.text INPUT.text {
+	FONT-SIZE: 105%
+}
+#mainColumn .wp .search DIV.select #spidbox {
+	FONT-SIZE: 0.8em
+}
+#mainColumn .wp .search DIV.text #query {
+	FONT-SIZE: 0.8em
+}
+A.custip:hover SPAN {
+	FONT-SIZE: 75%
+}
+.wp .lc DIV.text INPUT.text {
+	FONT-SIZE: 100%! important
+}
+.lcr TABLE TH {
+	FONT-SIZE: 70%
+}
+.lcr TABLE TD {
+	FONT-SIZE: 70%
+}
+.pz DIV TABLE.radios TR TD {
+	FONT-SIZE: 75%
+}
+.pz .wp .savedNewsgroup TABLE TR TD A {
+	FONT-SIZE: 75%
+}
+.kb .keywords .text {
+	FONT-SIZE: 70%
+}
+.kb .list .number {
+	FONT-SIZE: 70%! important
+}
+.kb .list .text {
+	FONT-SIZE: 70%
+}
+.kb .list .text PRE {
+	FONT-SIZE: 105%
+}
+.kb .appliesTo .list TD.text {
+	FONT-SIZE: 70%
+}
+.wp .fms .GHR_QUESTIONTEXT {
+	FONT-SIZE: 80%! important; WHITE-SPACE: nowrap
+}
+.wp .fms TR TD.GHR_LEGENDTEXT {
+	FONT-SIZE: 80%! important
+}
+.wp .fms TR.GHR_LEGENDTEXT TD {
+	FONT-SIZE: 80%
+}
+.wp .fms .ANSWERTEXT {
+	FONT-SIZE: 80%
+}
+.wp .fms .QUESTIONTEXT {
+	FONT-SIZE: 80%
+}
+.wp .fms .NAVBUTTON {
+	FONT-SIZE: 80%
+}
+.QUESTIONCONTAINER {
+	FONT-SIZE: 120%
+}
+.mnpMenuLabel {
+	FONT-WEIGHT: bold! important
+}
+.hotfix .expandedTable {
+	WIDTH: 100%
+}

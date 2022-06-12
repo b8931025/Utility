@@ -1,0 +1,52 @@
+OleDbCommand的使用
+OleDbCommand.ExecuteNonQuery()
+	針對 Connection 執行 SQL 陳述式，並傳回受影響的資料列數。
+	※： 只有在 1.1 版的 .NET Framework 中才可以支援此命名空間、類別或成員。 
+
+OleDbCommand.ExecuteScalar
+	執行查詢，並傳回查詢所傳回的Record第一個DataRow的第一個DataColumn。額外的DataColumn或DataRow會被忽略。
+	
+ Sub UpdateDB()
+        Dim Conn As New OleDbConnection(Application("BotDSN"))
+        Try
+            Conn.Open()
+            Dim Commd As OleDbCommand = Conn.CreateCommand
+            Dim iNICount As Integer = 0
+            Dim iNFCount As Integer = 0
+
+            Dim SSQL As String = "Select Count(*) From FlowIncident Where FVERSION is NULL"
+            Dim SSQL1 As String = "Select Count(*) From FORMINFO Where FVERSION is NULL"
+            Dim USQL As String = "Update FlowIncident Set FVERSION = 1 Where FVERSION is NULL"
+            Dim USQL1 As String = "Update FORMINFO Set FVERSION = 1 Where FVERSION is NULL"
+            Commd.CommandText = SSQL
+            iNICount = Commd.ExecuteScalar
+            Commd.CommandText = SSQL1
+            iNFCount = Commd.ExecuteScalar
+
+            If iNICount > 0 Then
+                Commd.CommandText = USQL
+                Commd.ExecuteNonQuery()
+                Commd.CommandText = "alter table FLOWINCIDENT modify FVERSION not null"
+                Commd.ExecuteNonQuery()
+                Commd.CommandText = "alter table FLOWINCIDENT modify FVERSION default '1'"
+                Commd.ExecuteNonQuery()
+            End If
+
+            If iNFCount > 0 Then
+                Commd.CommandText = USQL1
+                Commd.ExecuteNonQuery()
+                Commd.CommandText = "alter table FORMINFO modify FVERSION default '1'"
+                Commd.ExecuteNonQuery()
+            End If
+
+            Commd.Dispose()
+        Catch objError As Exception
+            errdiscript.innerHTML = "* Error while accessing data.<br/>" & objError.Message & "<br/>" & objError.Source
+        Finally
+            Conn.Dispose()
+            If Not Conn Is Nothing Then
+                Conn.Close()  'jim - 20080331
+                Conn.Dispose()  'jim - 20080331
+            End If
+        End Try
+    End Sub

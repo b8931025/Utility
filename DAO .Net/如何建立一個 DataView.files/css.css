@@ -1,0 +1,132 @@
+BODY {
+	FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+TD {
+	FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+TH {
+	FONT-SIZE: 9pt; COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+BODY {
+	MARGIN: 0px
+}
+.gText {
+	COLOR: #999999
+}
+.ggText {
+	COLOR: #555555
+}
+.gbText {
+	FONT-WEIGHT: bold; COLOR: #999999
+}
+.bText {
+	FONT-WEIGHT: bold
+}
+.wbtext {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; COLOR: #ffffff
+}
+.wText {
+	COLOR: #ffffff; LINE-HEIGHT: 14pt
+}
+.rbText {
+	FONT-WEIGHT: bold; FONT-SIZE: 14pt; COLOR: #ff0000
+}
+.blueText {
+	FONT-SIZE: 10pt; COLOR: #444184
+}
+.color1Text {
+	FONT-SIZE: 10pt; COLOR: #ba760b
+}
+.color2Text {
+	FONT-SIZE: 10pt; COLOR: #516377
+}
+.redText {
+	FONT-SIZE: 10pt; COLOR: #cf492e
+}
+.nbredText {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #cf492e
+}
+.sredText {
+	FONT-SIZE: 8pt; COLOR: #cf492e
+}
+.button {
+	BORDER-RIGHT: 1px solid; BORDER-TOP: #000000 1px solid; FONT-SIZE: 11px; BORDER-LEFT: 1px solid; COLOR: #000000; LINE-HEIGHT: normal; PADDING-TOP: 0px; BORDER-BOTTOM: 1px solid; FONT-STYLE: normal; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; BACKGROUND-COLOR: #ffe3d2
+}
+.text-form_1 {
+	BORDER-RIGHT: #993333 1px solid; BORDER-TOP: #993333 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #993333 1px solid; COLOR: #000000; PADDING-TOP: 3px; BORDER-BOTTOM: #993333 1px solid; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"; BACKGROUND-COLOR: #fffaf0
+}
+.text_list {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 8pt; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+.input {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+.gtable {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid; FONT-FAMILY: "Arial", "Helvetica", "sans-serif"
+}
+A:link {
+	TEXT-DECORATION: none
+}
+A:visited {
+	TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #0033cc; TEXT-DECORATION: underline
+}
+.xuiteLink {
+	POSITION: relative
+}
+.xuiteLink SPAN {
+	BORDER-RIGHT: #6dbcc9 1px solid; BORDER-TOP: #6dbcc9 1px solid; DISPLAY: none; Z-INDEX: 999; BACKGROUND: white; LEFT: 0px; BORDER-LEFT: #6dbcc9 1px solid; BORDER-BOTTOM: #6dbcc9 1px solid; POSITION: absolute; TOP: 1.2em
+}
+.xuiteLink SPAN A {
+	PADDING-RIGHT: 2px; DISPLAY: block; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; WIDTH: 5em; PADDING-TOP: 2px; TEXT-ALIGN: left
+}
+.xuiteLink SPAN A:hover {
+	BACKGROUND: #bbe5f0
+}
+SPAN.xuiteLink:hover SPAN {
+	DISPLAY: block
+}
+.xuiteLink SPAN.block {
+	DISPLAY: block; Z-INDEX: 9999999
+}
+.xuiteLink {
+	
+}
+.reply_info {
+	BORDER-RIGHT: #333333 1px dotted; PADDING-RIGHT: 1.2em; BORDER-TOP: #333333 1px dotted; PADDING-LEFT: 1.2em; PADDING-BOTTOM: 1.2em; MARGIN: 1.2em; BORDER-LEFT: #333333 1px dotted; WIDTH: 70%; PADDING-TOP: 1.2em; BORDER-BOTTOM: #333333 1px dotted
+}
+SPAN.mail {
+	MARGIN-TOP: 15px; FLOAT: right
+}
+SPAN.mail LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/skin/list/email_forward.gif)
+}
+.hotArticleTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/bulletPersonal.gif)
+}
+.hotArticleSide LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+.myChannelTitle LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/bulletPersonal.gif)
+}
+#xuite_blog_feedControl {
+	FONT-SIZE: 8pt; OVERFLOW-X: hidden; OVERFLOW: auto; HEIGHT: 300px
+}
+#xuite_blog_feedControl LI {
+	LIST-STYLE-IMAGE: url(http://s.blog.xuite.net/_image/blogIcon19.gif)
+}
+#xuite_blog_feedControl #feed_summary {
+	PADDING-LEFT: 18px
+}
+#xuite_blog_feedControl #feed_blog_name {
+	PADDING-LEFT: 18px
+}
+.gbookSide {
+	FONT-SIZE: 11pt; OVERFLOW-X: hidden; OVERFLOW: auto; HEIGHT: 300px
+}
+.gbookSide .odd {
+	BACKGROUND: #dfe6ea
+}

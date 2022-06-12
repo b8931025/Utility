@@ -1,0 +1,24 @@
+.gsfx_brnd_TransBG {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_innerback.png', sizingMethod='scale')
+}
+#gsfx_brnd_TopCorners {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_tlcorner.png', sizingMethod='crop')
+}
+#gsfx_brnd_BottomCorners {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_blcorner.png', sizingMethod='crop')
+}
+#gsfx_brnd_LUpperCorner {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_trcorner.png', sizingMethod='crop')
+}
+#gsfx_brnd_LLowerCorner {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_brcorner.png', sizingMethod='crop')
+}
+#gsfx_lnav_LeftNavBottom {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_lnav_bgrd_end.png', sizingMethod='image')
+}
+#gsfx_brnd_LocalLinks .gsfx_brnd_LocalSeperator {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_toolbar_spacer.png', sizingMethod='image')
+}
+#gsfx_brnd_shadow {
+	BACKGROUND: none transparent scroll repeat 0% 0%; FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/library/images/support/cn/gsfx_brnd_toolbar_shadow.png', sizingMethod='scale')
+}

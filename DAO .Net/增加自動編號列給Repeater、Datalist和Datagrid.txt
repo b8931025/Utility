@@ -1,0 +1,84 @@
+給Repeater、Datalist和Datagrid增加自動編號列
+
+一、正序(由小到大)
+
+
+A、AllowPaging=False情況下，使用以下方法就可以實現：
+
+
+<asp:DataGrid id="DataGrid1" runat="server"> 
+    <Columns> 
+     <asp:TemplateColumn> 
+      <ItemTemplate> 
+       <%# Container.ItemIndex + 1%> 
+      </ItemTemplate> 
+     </asp:TemplateColumn> 
+    </Columns> 
+ </asp:DataGrid>
+
+或者
+
+<asp:DataGrid id="DataGrid1" runat="server"> 
+    <Columns> 
+     <asp:TemplateColumn> 
+      <ItemTemplate> 
+       <%# this.DataGrid1.Items.Count + 1%> 
+      </ItemTemplate> 
+     </asp:TemplateColumn> 
+    </Columns> 
+</asp:DataGrid>
+
+也許有些人會覺得很奇怪為什麼Items.Count會這樣，而不是出來全部總合，但如果你瞭解綁定的過程時就容易理解。
+[從上面來看就是在ItemCreated事件中進行綁定所以得到的Items.Count剛好是當前的序號]
+
+B、AllowPaging="True"下，如果DataGrid支持分頁則可以如下：
+<asp:DataGrid id="DataGrid1" runat="server" AllowPaging="True"> 
+    <Columns> 
+     <asp:TemplateColumn> 
+      <ItemTemplate> 
+       <%# this.DataGrid1.CurrentPageIndex * this.DataGrid1.PageSize + Container.ItemIndex + 1%> 
+      </ItemTemplate> 
+     </asp:TemplateColumn> 
+    </Columns> 
+</asp:DataGrid>
+
+二、倒序的方法(由大到小)
+由上面可以知道使用this.DataGrid1.Items.Count - Container.ItemIndex + 1方法是不可能實現的，
+得到值而且全會為1，分頁的情況下更是一樣.所以一開始我們就要取得數據源的行數：
+
+private int rowscount = 0; 
+         protected int RowsCount 
+         { 
+              get{ return rowscount;} 
+              set{ this.rowscount = value; } 
+         } 
+      
+         private void Page_Load(object sender, System.EventArgs e) 
+         { 
+              // 在此處放置用戶代碼以初始化頁面 
+              if(!IsPostBack) 
+                   this.BindData(); 
+         } 
+         private void BindData() 
+         { 
+              SqlConnection cn = new SqlConnection("server=(local);database=NorthWind;uid=sa;pwd="); 
+              string str=@"SELECT Employees.EmployeeID, Orders.EmployeeID 
+                                 FROM Employees INNER JOIN 
+                       Orders ON Employees.EmployeeID = Orders.EmployeeID "; 
+              SqlDataAdapter sqlda = new SqlDataAdapter(str,cn); 
+              DataSet ds = new DataSet(); 
+              sqlda.Fill(ds); 
+              this.RowsCount = ds.Tables[0].Rows.Count; 
+              this.DataGrid1.DataSource = ds; 
+              this.DataGrid1.DataBind(); 
+					}
+					
+<asp:DataGrid id="DataGrid1" runat="server" AllowPaging="True"> 
+                            <Columns> 
+                                   <asp:TemplateColumn> 
+                                          <ItemTemplate> 
+                                                 <%# RowsCount - DataGrid1.CurrentPageIndex * DataGrid1.PageSize - Container.ItemIndex %> 
+                                          </ItemTemplate> 
+                                   </asp:TemplateColumn> 
+                            </Columns> 
+                     </asp:DataGrid>

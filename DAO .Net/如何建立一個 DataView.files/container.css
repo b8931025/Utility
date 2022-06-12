@@ -1,0 +1,120 @@
+.yui-overlay {
+	DISPLAY: block; POSITION: absolute
+}
+.yui-tt {
+	BORDER-RIGHT: #fcc90d 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #fcc90d 1px solid; PADDING-LEFT: 2px; VISIBILITY: hidden; PADDING-BOTTOM: 2px; FONT: 100% sans-serif; BORDER-LEFT: #fcc90d 1px solid; WIDTH: auto; COLOR: #333; PADDING-TOP: 2px; BORDER-BOTTOM: #fcc90d 1px solid; POSITION: absolute; BACKGROUND-COLOR: #fdffb4
+}
+ HTML BODY.masked SELECT {
+	VISIBILITY: hidden
+}
+ HTML DIV.yui-panel-container SELECT {
+	VISIBILITY: inherit
+}
+ HTML DIV.drag SELECT {
+	VISIBILITY: hidden
+}
+ HTML DIV.hide-select SELECT {
+	VISIBILITY: hidden
+}
+.mask {
+	DISPLAY: none; FILTER: alpha(opacity=50); LEFT: 0px; POSITION: absolute; TOP: 0px; BACKGROUND-COLOR: #ccc; moz-opacity: 0.5; opacity: .50
+}
+.hide-scrollbars  {
+	OVERFLOW: hidden
+}
+.hide-scrollbars TEXTAREA {
+	DISPLAY: none; OVERFLOW: hidden
+}
+.hide-scrollbars SELECT {
+	DISPLAY: none; OVERFLOW: hidden
+}
+.show-scrollbars TEXTAREA {
+	OVERFLOW: visible
+}
+.show-scrollbars SELECT {
+	OVERFLOW: visible
+}
+.yui-panel-container {
+	Z-INDEX: 6; VISIBILITY: hidden; OVERFLOW: visible; WIDTH: auto; POSITION: absolute; BACKGROUND-COLOR: transparent
+}
+.focused {
+	
+}
+.matte {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #fff
+}
+.matte .underlay {
+	DISPLAY: none
+}
+.shadow {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: transparent
+}
+.shadow .underlay {
+	FILTER: alpha(opacity=12); LEFT: 3px; VISIBILITY: inherit; WIDTH: 100%; ZOOM: 1; POSITION: absolute; TOP: 3px; HEIGHT: 100%; BACKGROUND-COLOR: #000; moz-opacity: 0.12; opacity: .12
+}
+.yui-panel {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; Z-INDEX: 1; LEFT: 0px; VISIBILITY: hidden; FONT: 1em Arial; OVERFLOW: hidden; BORDER-LEFT: #000 1px solid; BORDER-BOTTOM: #000 1px solid; POSITION: relative; TOP: 0px; BORDER-COLLAPSE: separate; BACKGROUND-COLOR: #fff
+}
+.yui-panel .hd {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 100%; PADDING-BOTTOM: 4px; OVERFLOW: hidden; BORDER-LEFT: #fff 1px solid; COLOR: #fff; LINE-HEIGHT: 100%; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #3d77cb
+}
+.yui-panel .bd {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; OVERFLOW: hidden; PADDING-TOP: 4px
+}
+.yui-panel .bd P {
+	MARGIN: 0px 0px 1em
+}
+.yui-panel .container-close {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; Z-INDEX: 6; RIGHT: 4px; BACKGROUND: url(close12_1.gif) no-repeat; VISIBILITY: inherit; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 12px; CURSOR: pointer; PADDING-TOP: 0px; POSITION: absolute; TOP: 5px; HEIGHT: 12px
+}
+.yui-panel .ft {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; OVERFLOW: hidden; PADDING-TOP: 4px
+}
+.yui-simple-dialog .bd .yui-icon {
+	FLOAT: left; WIDTH: 16px; MARGIN-RIGHT: 10px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 16px
+}
+.yui-simple-dialog .bd SPAN.blckicon {
+	BACKGROUND: url(blck16_1.gif) no-repeat
+}
+.yui-simple-dialog .bd SPAN.alrticon {
+	BACKGROUND: url(alrt16_1.gif) no-repeat
+}
+.yui-simple-dialog .bd SPAN.hlpicon {
+	BACKGROUND: url(hlp16_1.gif) no-repeat
+}
+.yui-simple-dialog .bd SPAN.infoicon {
+	BACKGROUND: url(info16_1.gif) no-repeat
+}
+.yui-simple-dialog .bd SPAN.warnicon {
+	BACKGROUND: url(warn16_1.gif) no-repeat
+}
+.yui-simple-dialog .bd SPAN.tipicon {
+	BACKGROUND: url(tip16_1.gif) no-repeat
+}
+.yui-dialog .ft {
+	PADDING-RIGHT: 5px; PADDING-BOTTOM: 5px; TEXT-ALIGN: right
+}
+.yui-simple-dialog .ft {
+	PADDING-RIGHT: 5px; PADDING-BOTTOM: 5px; TEXT-ALIGN: right
+}
+.yui-dialog FORM {
+	MARGIN: 0px
+}
+.yui-simple-dialog FORM {
+	MARGIN: 0px
+}
+.button-group BUTTON {
+	BORDER-RIGHT: #797979 2px solid; PADDING-RIGHT: 2px; BORDER-TOP: #fff 2px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 2px; FONT: 100 100% verdana; VERTICAL-ALIGN: middle; BORDER-LEFT: #fff 2px solid; CURSOR: hand; COLOR: #333; PADDING-TOP: 2px; BORDER-BOTTOM: #797979 2px solid; BACKGROUND-COLOR: #e4e4e4; TEXT-DECORATION: none
+}
+.button-group BUTTON.default {
+	FONT-WEIGHT: bold
+}
+.button-group BUTTON:hover {
+	BORDER-RIGHT: #90a029 2px solid; BORDER-TOP: #fff 2px solid; BORDER-LEFT: #fff 2px solid; BORDER-BOTTOM: #90a029 2px solid; BACKGROUND-COLOR: #ebf09e
+}
+.button-group BUTTON.hover {
+	BORDER-RIGHT: #90a029 2px solid; BORDER-TOP: #fff 2px solid; BORDER-LEFT: #fff 2px solid; BORDER-BOTTOM: #90a029 2px solid; BACKGROUND-COLOR: #ebf09e
+}
+.button-group BUTTON:active {
+	BORDER-RIGHT: #e4e4e4 2px solid; BORDER-TOP: #333 2px solid; BORDER-LEFT: #333 2px solid; BORDER-BOTTOM: #e4e4e4 2px solid; BACKGROUND-COLOR: #bbb
+}

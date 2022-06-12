@@ -1,0 +1,63 @@
+.ygtvtn {
+	BACKGROUND: url(tn.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvtm {
+	BACKGROUND: url(tm.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtmh {
+	BACKGROUND: url(tmh.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtp {
+	BACKGROUND: url(tp.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvtph {
+	BACKGROUND: url(tph.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvln {
+	BACKGROUND: url(ln.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvlm {
+	BACKGROUND: url(lm.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlmh {
+	BACKGROUND: url(lmh.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlp {
+	BACKGROUND: url(lp.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvlph {
+	BACKGROUND: url(lph.gif) no-repeat 0px 0px; WIDTH: 16px; CURSOR: pointer; HEIGHT: 22px
+}
+.ygtvloading {
+	BACKGROUND: url(loading.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvdepthcell {
+	BACKGROUND: url(vline.gif) no-repeat 0px 0px; WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvblankdepthcell {
+	WIDTH: 16px; HEIGHT: 22px
+}
+.ygtvitem {
+	
+}
+.ygtvchildren {
+	
+}
+ HTML .ygtvchildren {
+	HEIGHT: 2%
+}
+.ygtvlabel {
+	MARGIN-LEFT: 2px; TEXT-DECORATION: none
+}
+.ygtvlabel:link {
+	MARGIN-LEFT: 2px; TEXT-DECORATION: none
+}
+.ygtvlabel:visited {
+	MARGIN-LEFT: 2px; TEXT-DECORATION: none
+}
+.ygtvlabel:hover {
+	MARGIN-LEFT: 2px; TEXT-DECORATION: none
+}
+.ygtvspacer {
+	MARGIN: 2px; WIDTH: 10px; HEIGHT: 10px
+}

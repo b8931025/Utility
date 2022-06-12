@@ -1,0 +1,26 @@
+增加DataRow時，如果用單行寫法，往後如果增加欄位，這種寫法就要改程式
+'======================================判斷收費狀態============================================
+Dim dsParam As New beAOICheckCharge1Q
+dsParam.CHECKCHARGE_Q.AddCHECKCHARGE_QRow("3", Me.txtIpolicy.Text.Trim, 0, "", 0)
+Dim dsResultCharge As beAoiCheckCharge1Result = CType(Me.InvokeBusinessService("PUBService.bsAoiCheckCharge1", dsParam), beAoiCheckCharge1Result)
+
+要改成一欄一行設定的寫法
+ '======================================判斷收費狀態============================================
+Dim dsParam As New beAOICheckCharge1Q
+Dim drChkQ As beAOICheckCharge1Q.CHECKCHARGE_QRow = dsParam.CHECKCHARGE_Q.NewCHECKCHARGE_QRow
+drChkQ.QTYPE = "3"
+drChkQ.IPOLICY = Me.txtIpolicy.Text.Trim
+drChkQ.IPLYSEQ = 0
+drChkQ.IENDORSE = ""
+drChkQ.IEDRSEQ = 0
+dsParam.CHECKCHARGE_Q.AddCHECKCHARGE_QRow(drChkQ)
+Dim dsResultCharge As beAoiCheckCharge1Result = CType(Me.InvokeBusinessService("PUBService.bsAoiCheckCharge1", dsParam), beAoiCheckCharge1Result)
+  
+或者在Enity的vb檔裡面，寫一個符合舊寫法的overrides function
+
+
+  
+用下面查詢字串，可以查出所有單行寫法的程式碼
+[.]Add[A-Za-z0-9_]*Row[(][A-Za-z0-9_"]*[,]+
+[.]AddCHECKCHARGE_QRow[(][A-Za-z0-9_"]*[,]+
+                

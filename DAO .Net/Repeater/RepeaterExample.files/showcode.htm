@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0066)http://www.w3schools.com/aspnet/showcode.asp?source=demo_repeater2 -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=big5">
+<META content="MSHTML 6.00.2900.2523" name=GENERATOR></HEAD>
+<BODY><FONT face="Verdana, Arial, Helvetica" size=2><FONT color=#ff0000>&lt;%@ 
+Import Namespace="System.Data" %&gt;</FONT><BR><BR><FONT 
+color=#0000ff>&lt;script&nbsp; runat="server"&gt;<BR>sub Page_Load<BR>if Not 
+Page.IsPostBack then<BR>&nbsp;&nbsp; dim mycdcatalog=New DataSet<BR>&nbsp;&nbsp; 
+mycdcatalog.ReadXml(MapPath("cdcatalog.xml"))<BR>&nbsp;&nbsp; 
+cdcatalog.DataSource=mycdcatalog<BR>&nbsp;&nbsp; cdcatalog.DataBind()<BR>end 
+if<BR>end 
+sub<BR>&lt;/script&gt;</FONT><BR><BR>&lt;html&gt;<BR>&lt;body&gt;<BR><BR>&lt;form 
+runat="server"&gt;<BR>&lt;asp:Repeater id="cdcatalog" 
+runat="server"&gt;<BR><BR>&lt;HeaderTemplate&gt;<BR>&lt;table border="1" 
+width="100%"&gt;<BR>&lt;tr&gt;<BR>&lt;th&gt;Title&lt;/th&gt;<BR>&lt;th&gt;Artist&lt;/th&gt;<BR>&lt;th&gt;Company&lt;/th&gt;<BR>&lt;th&gt;Price&lt;/th&gt;<BR>&lt;/tr&gt;<BR>&lt;/HeaderTemplate&gt;<BR><BR>&lt;ItemTemplate&gt;<BR>&lt;tr&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("title")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("artist")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("company")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("price")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;/tr&gt;<BR>&lt;/ItemTemplate&gt;<BR><BR>&lt;AlternatingItemTemplate&gt;<BR>&lt;tr 
+bgcolor="#e8e8e8"&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("title")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("artist")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("company")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;td&gt;<FONT 
+color=#ff0000>&lt;%#Container.DataItem("price")%&gt;</FONT>&nbsp;&lt;/td&gt;<BR>&lt;/tr&gt;<BR>&lt;/AlternatingItemTemplate&gt;<BR><BR>&lt;FooterTemplate&gt;<BR>&lt;/table&gt;<BR>&lt;/FooterTemplate&gt;<BR><BR>&lt;/asp:Repeater&gt;<BR>&lt;/form&gt;<BR><BR>&lt;/html&gt;<BR>&lt;/body&gt;<BR></FONT></BODY></HTML>

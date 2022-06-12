@@ -1,0 +1,2140 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0059)http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419 -->
+<HTML><HEAD><TITLE>ADO.NET 2.0 － 如何建立一個 DataView：章立民研究室：Xuite日誌</TITLE><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/jquery-1.1.2.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/previewbubble_jsonp.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/xuitemenu_fix.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/blog.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/b5gb.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/json.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/AC_RunActiveContent.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/yahoo-min.js" type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/event-min.js" type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/utilities.js" type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/button-beta.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/container_01.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS>
+<SCRIPT src="如何建立一個 DataView.files/jquery-colorPicker-1-1-0.pack.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><WPTPASS><LINK title="ICRA labels" 
+href="http://s.blog.xuite.net/_public/js/labels.rdf" type=application/rdf+xml 
+rel=meta></WPTPASS>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><!--hinet所提供的css:Begin --><LINK 
+href="如何建立一個 DataView.files/tree.css" type=text/css rel=stylesheet><LINK 
+href="如何建立一個 DataView.files/jqModal.css" type=text/css rel=stylesheet><LINK 
+href="如何建立一個 DataView.files/css.css" type=text/css rel=StyleSheet><LINK 
+href="如何建立一個 DataView.files/navigationBar.css" type=text/css rel=StyleSheet><!-- <link rel="stylesheet" type="text/css" href="http://s.blog.xuite.net/_public/plugin/yui/fonts/fonts-min.css" /> --><LINK 
+href="如何建立一個 DataView.files/button.css" type=text/css rel=stylesheet><LINK 
+href="如何建立一個 DataView.files/container.css" type=text/css rel=stylesheet><!--hinet所提供的css:End --><LINK 
+href="如何建立一個 DataView.files/blog.css" type=text/css rel=stylesheet><WPTPASS>
+<SCRIPT language=javascript src="如何建立一個 DataView.files/common.js" 
+type=text/javascript></SCRIPT>
+</WPTPASS><LINK title="Xuite Blog / RSS 2.0" 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/rss.xml" 
+type=application/rss+xml rel=alternate><LINK title="Xuite Blog / ATOM 0.3" 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/atom.xml" 
+type=application/atom+xml rel=alternate>
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+     $.ajax({
+     type: "GET",
+     url: '/_theme/TopNavigationBarExp.php?bid=504258&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: get_top_nav
+     });
+ });      
+     function get_top_nav(json){
+     if(json.check != 0){
+     $("ul#suckertree1").html(json);
+     $("div#topmanager").html("<table width='100%' height='30' border='0' cellpadding='0' cellspacing='0'><tr><td width='10'><img src='http://s.blog.xuite.net/_image/f_top_manage_01.gif' width='10' height='30' alt='' /></td><td background='http://s.blog.xuite.net/_image/f_top_manage_02.gif'><table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td width='110'><img src='http://s.blog.xuite.net/_image/f_top_manage_list.gif' alt='日誌列表' name='image1' width='90' height='18' id='image1' onmouseover=\"MM_showHideLayers('Layer1','','show')\" onmouseout=\"MM_showHideLayers('Layer1','','hide')\" /></td><td width='130' valign='bottom'><a href='http://blog.xuite.net/_manager/blog.phtml?bid=504258'><img src='http://s.blog.xuite.net/_image/f_top_manage_enter.gif' alt='進入管理後台' width='110' height='20' border='0' /></a></td><td width='110' valign='bottom'><a href='http://blog.xuite.net/_manager/article_post.phtml?bid=504258'><img src='http://s.blog.xuite.net/_image/f_top_manage_add.gif' alt='發表文章' width='88' height='19' border='0' /></a></td><td width='110' valign='bottom'><a href='http://blog.xuite.net/_manager/blog_theme.phtml?bid=504258'><img src='http://s.blog.xuite.net/_image/f_top_manage_theme.gif' alt='佈景主題' width='88' height='19' border='0' /></a></td><td>&nbsp;</td><td width='15'><a href='#'><img src='http://s.blog.xuite.net/_image/xoomindex_pop_03.gif' alt='關閉' width='15' height='16' border='0' onclick=\"ShowHide('topmanager');MM_showHideLayers('topmanager','','hide')\" /></a></td></tr></table></td><td width='12'><img src='http://s.blog.xuite.net/_image/f_top_manage_03.gif' width='12' height='30' alt='' /></td></tr></table>");
+     $("div#topmanageropen").html("<table width='100%' border='0' cellspacing='0' cellpadding='0' height='6'><tr><td height='6' align='center' valign='top' background='http://s.blog.xuite.net/_image/f_top_manage_open_bg.gif'><a href='#'><img src='http://s.blog.xuite.net/_image/f_top_manage_open.gif' alt='開啟/關閉' width='98' height='6' border='0' OnClick=\"ShowHide('topmanager');MM_showHideLayers('topmanager','','show');\" /></a></td></tr></table>");
+     var xxx = getCookie("_top"); 
+     var yyy = "1";
+
+     if(xxx == null || isNaN(xxx))
+       var xxx = "0";
+
+     if((xxx&yyy) != 0){
+        $("div#topmanager"). css({display:"none"}); 
+     }else{ 
+       $("div#topmanager"). css({display:""});
+     }
+      
+     $("div#topmanageropen").css({display:""});   
+     }
+     } 
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="如何建立一個 DataView.files/mm_menu.js"></SCRIPT>
+
+<META content="MSHTML 6.00.2900.3314" name=GENERATOR></HEAD>
+<BODY><IMG height=0 src="" width=0 border=0><!--<body onLoad="javascript:LoadPage();" ><div id="LoadMessage" style="position:absolute; left:600px; top:10px; background-color:#ff0000; layer-background-color:#ffffff; height:20; width:80;"><table width=100%><tr><td style="color:#ffffff;font-weight:bold">載入中..</td></tr></table></div>-->
+<DIV id=Layer1 onmouseover="MM_showHideLayers('Layer1','','show')" 
+onmouseout="MM_showHideLayers('Layer1','','hide')">
+<DIV class=suckerdiv style="DISPLAY: block; Z-INDEX: 2">
+<UL id=suckertree1></UL></DIV></DIV>
+<DIV id=topmanager style="DISPLAY: none"></DIV>
+<DIV id=topmanageropen style="DISPLAY: none"></DIV>
+<DIV id=container>
+<SCRIPT language=javascript type=text/javascript>
+var xuiteBlogPlugin_bookmark='Y';var xuiteBlogPlugin_article_snapshot='Y';var xuiteBlogPlugin_history_today='N';var xuiteBlogPlugin_random_article='N'; 
+   $(document).ready(function(){
+   	 var link = location.href;
+      $.ajax({
+       type: "GET",
+       url: '/_theme/LoginButtonExp.php?location='+link.replace(/&/g, "%")+'&ga='+(new Date()).getTime(),
+       dataType: 'json',
+       success: getLoginButton
+      });
+ }); 
+ function getLoginButton(json){
+        $("a#my_blog").attr("href",json.my_blog);
+				$("a#my_blog").html("我的日誌");
+        if(json.loginout_text == 'SignIn'){
+         $("a#in_out").attr("href",json.loginout_href);
+         $("a#in_out").html("登 入");
+        }else{
+         $("a#in_out").attr("href",json.loginout_href);
+         $("a#in_out").html("登 出");
+         
+        }		 
+ }
+<!--css array-->
+var objCSS = null;
+var CssAttribute = null;
+var CssNote = null;
+<!--end-->
+ var init_flag = "N";
+ var init2_flag = "N";
+ function showDialog(ruleName){
+    if(ruleName == "container"){
+      $("#dialog1 .hd").html('樣式資訊 - step1. ' + ruleName);
+      var ilink = "'http://blog.xuite.net/_manager/getFile_multi.php?burl=/_manager/blog_file_upload.phtml&size=1&act=add&bid=504258&fieldname=bg_pic'";
+      var content = "";
+      content = content + '<form method="POST" action="" name=ruleName>';
+      content = content + '<div><img src="http://s.blog.xuite.net/_image/css_steptabs_01.gif" width="550" height="35" border="0" usemap="#Map01"/><map name="Map01" id="Map01"><area shape="rect" coords="116,3,222,30" href="javascript:showDialog('+"'banner'"+')" alt="標頭設定" title="標頭設定" /><area shape="rect" coords="223,3,329,30" href="javascript:showDialog('+"'sidebar'"+')" alt="左右欄位設定" title="左右欄位設定" /><area shape="rect" coords="329,3,435,30" href="javascript:showDialog('+"'mid'"+')" alt="中間區塊設定" title="中間區塊設定" /><area shape="rect" coords="435,3,541,30" href="javascript:showDialog('+"'save'"+')" alt="儲存所有設定" title="儲存所有設定" /></map></div>';
+      content = content + '<table BORDER=0 WIDTH=500><tr>';
+      content = content + '<td width="10%"><table BORDER=0><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_s_img_01.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_01_active.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_02.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_03.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_04.gif"/></td></tr></table></td>';
+      
+      bg_color="";
+      if(objCSS["body"]["background"] == undefined){
+        if(objCSS["body"]["background-color"] != undefined){
+          bg_color = objCSS["body"]["background-color"];
+        }else{
+          bg_color = objCSS["#container"]["background-color"];
+          objCSS["body"]["background"] = bg_color;
+          objCSS["#container"]["background-color"] = "";
+        }
+      }else{
+        if(objCSS["body"]["background-color"] != undefined){
+          bg_color = objCSS["body"]["background-color"];
+        }else{
+          tmp = objCSS["body"]["background"].split(" ");
+          for(i=0;i<tmp.length;i++){
+            if(tmp[i].indexOf("#") !== -1){
+              bg_color = tmp[i];
+            }
+          }
+        }  
+      }
+      
+      if(objCSS["#container"]["background-image"] != undefined && objCSS["#container"]["background-image"] != ""){
+        back_img = objCSS["#container"]["background-image"];
+        //objCSS["body"]["background"] = "";
+      }else{
+        if(objCSS["#container"]["background"] != undefined && objCSS["#container"]["background"] != ""){
+          back_img = objCSS["#container"]["background"];
+          objCSS["#container"]["background"] = "";
+        }else{
+          if(objCSS["body"]["background-image"] != undefined){
+            back_img = objCSS["body"]["background-image"];
+            objCSS["body"]["background-image"] = "";
+          }else{
+            back_img = objCSS["body"]["background"];
+            objCSS["body"]["background"] = "";
+          }
+        }
+      }
+     
+      if(back_img != undefined){
+      cc = back_img.split(" ");
+      for(i=0;i<cc.length;i++){
+          if(cc[i].indexOf("repeat") !== -1){
+            bg_repeat = cc[i];
+            objCSS["#container"]["background-repeat"] = bg_repeat;
+            x=i;
+          }else{
+            x=1;
+          }
+      }
+      if(objCSS["body"]["background-attachment"] != undefined && objCSS["body"]["background-attachment"] != ""){
+        objCSS["#container"]["background-attachment"] = objCSS["body"]["background-attachment"];
+        objCSS["body"]["background-attachment"] = "";
+      }else{
+        if(objCSS["body"]["background-attachment"] == undefined){
+          objCSS["body"]["background-attachment"] = "";
+        }
+      }
+    
+      if(cc[x+2] != undefined){
+        if(cc[x+3] != undefined){
+          bg_position = cc[x+2]+" "+cc[x+3];
+          objCSS["#container"]["background-position"] = bg_position;
+        }else{
+          bg_position = cc[x+2];
+          objCSS["#container"]["background-position"] = bg_position;
+        }
+      }
+      }
+      var type = "no-repeat,repeat,repeat-x,repeat-y";
+      var type_arr = type.split(",");
+      var type_name ="不重複,重複,水平重複,垂直重複";
+      var type_name_arr = type_name.split(",");
+      var aaa = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == objCSS["#container"]["background-repeat"]){
+         aaa = aaa +'<option selected value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }else{
+         aaa = aaa +'<option value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }
+      }
+      var type = "none,center,right,left,left top,center top,right top";
+      var type_arr = type.split(",");
+      var type_name = "none,置中,置右,置左,置左上,置中上,置右上";
+      var type_name_arr = type_name.split(",");
+      var bbb = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == objCSS["#container"]["background-position"]){
+         bbb = bbb +'<option selected value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }else{
+         bbb = bbb +'<option value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }
+      }  
+      var type = "none,fixed,scroll";
+      var type_arr = type.split(",");
+      var type_name = "none,不移動,移動";
+      var type_name_arr = type_name.split(",");
+      var ccc = "";
+    
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == objCSS["#container"]["background-attachment"]){
+         ccc = ccc +'<option selected value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }else{
+         ccc = ccc +'<option value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }
+      }  
+      
+      
+      
+      if(back_img == undefined){back_img = "";}else{back_img = dropUrl(back_img);}
+      content = content + '<td width="90%">';
+      content = content + '<p style="border-style:double;border-color:#D3D3D3;border-width:3px;padding:20px;white-space:nowrap";>';
+      content = content + '背景圖片:<input type="text" name="bg_pic" id="bg_pic" value="'+back_img+'"> <input type="button" name="上傳" value="上傳" onClick="showUpload('+ilink+')"><input type="checkbox" name="no_bg_pic" value="none" onclick="checkNoPic('+"'no_bg_pic','bg_pic'"+')">不使用圖片<br><br>';
+      content = content + '圖片屬性:<select name="bg_repeat">'+aaa+'</select> 位置：<select name="bg_position">'+bbb+'</select> 移動：<select name="bg_attachment">'+ccc+'</select><br><br>';
+      if(bg_color == "transparent"){bg_color_check = "checked";}else{bg_color_check="";}
+      content = content + '整頁背景顏色：<input type="text" name="body_bg_color" value="'+bg_color+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+bg_color+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_body_bg_color" value="none" onclick="checkColorTransparent('+"'no_body_bg_color','body_bg_color'"+')" '+bg_color_check+'>透明<br><br>';
+      content = content + '日誌字型連結顏色：<input type="text" name="word_color" value="'+objCSS["A:link"]["color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS["A:link"]["color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';
+      content = content + '日誌字型滑鼠經過顏色：<input type="text" name="word_hover_color" value="'+objCSS["A:hover"]["color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS["A:hover"]["color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';   
+      content = content + '<input type="hidden" name="cssTag" value="'+ruleName+'">';
+      content = content + '</p></td></tr></table></form>';
+      $("#cssDialogContent").html(content);
+      $("#uploadDialogContent").html('<iframe name="uploadiframe" width="500px" height="500px" frameborder="0" src=""></iframe>');
+    }else if(ruleName == "banner"){
+      $("#dialog1 .hd").html('樣式資訊 - step2. ' + ruleName);
+      var content = "";
+      content = content + '<form method="POST" action="" name=ruleName>';
+      content = content + '<div><img src="http://s.blog.xuite.net/_image/css_steptabs_02.gif" width="550" height="35" border="0" usemap="#Map02" /><map name="Map02" id="Map02"><area shape="rect" coords="11,3,116,30" href="javascript:showDialog('+"'container'"+')" alt="版面基本設定" title="版面基本設定"/><area shape="rect" coords="223,3,329,30" href="javascript:showDialog('+"'sidebar'"+')" alt="左右欄位設定" title="左右欄位設定" /><area shape="rect" coords="329,3,435,30" href="javascript:showDialog('+"'mid'"+')" alt="中間區塊設定" title="中間區塊設定" /><area shape="rect" coords="435,3,541,30" href="javascript:showDialog('+"'save'"+')" alt="儲存所有設定" title="儲存所有設定" /></map></div>';
+      content = content + '<table BORDER=0 WIDTH=500><tr>';
+      content = content + '<td width="10%"><table BORDER=0><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_s_img_02.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_01.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_02_active.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_03.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_04.gif"/></td></tr></table></td>';
+      back_img = objCSS["#banner"]["background-image"];
+      var ilink = "'http://blog.xuite.net/_manager/getFile_multi.php?burl=/_manager/blog_file_upload.phtml&size=1&act=add&bid=504258&fieldname=banner_pic'";
+      if(objCSS["#banner"]["background-image"] == undefined){back_img = "";}else{back_img = dropUrl(back_img);}
+      content = content + '<td width="90%">';
+      content = content + '<p style="border-style:double;border-color:#D3D3D3;border-width:3px;padding:20px;white-space:nowrap";>';
+      content = content + '檔頭圖片:<input type="text" name="banner_pic" id="banner_pic" value="'+back_img+'"> <input type="button" name="上傳" value="上傳" onClick="showUpload('+ilink+')"><input type="checkbox" name="no_banner_pic" value="none" onclick="checkNoPic('+"'no_banner_pic','banner_pic'"+')">不使用圖片<br><br>';
+      if(objCSS["#banner"]["background-repeat"] == undefined){
+        repeat_type = "repeat";
+      }else{
+        repeat_type = objCSS["#banner"]["background-repeat"];
+      }
+      var type = "no-repeat,repeat,repeat-x,repeat-y";
+      var type_arr = type.split(",");
+      var type_name ="不重複,重複,水平重複,垂直重複";
+      var type_name_arr = type_name.split(",");
+      var aaa = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == repeat_type){
+         aaa = aaa +'<option selected value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }else{
+         aaa = aaa +'<option value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }
+      }
+      if(objCSS["#banner"]["background-position"] == undefined){
+        position_type = "center";
+      }else{
+        position_type = objCSS["#banner"]["background-position"];
+      }
+      var type = "none,center,right,left,top left,top center,top right";
+      var type_arr = type.split(",");
+      var type_name = "none,置中,置右,置左,置左上,置中上,置右上";
+      var type_name_arr = type_name.split(",");
+      var bbb = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == position_type){
+         bbb = bbb +'<option selected value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }else{
+         bbb = bbb +'<option value="'+type_arr[j]+'">'+type_name_arr[j]+'</option>';
+        }
+      }       
+      content = content + '圖片屬性:<select name="repeat_type">'+aaa+'</select> 位置：<select name="position_type">'+bbb+'</select><br><br>';
+      if(objCSS["#banner"]["background-image"] == undefined){objCSS["#banner"]["background-image"] = ""}
+      content = content + '檔頭高度:<input type="text" name="banner_height" id="banner_height" value="'+objCSS["#banner"]["height"]+'"><br><br>';
+      if(objCSS["#banner"]["background-color"] == undefined){objCSS["#banner"]["background-color"] = ""}
+      if(objCSS["#banner"]["background-color"] == "transparent"){banner_bg_color_check = "checked";}else{banner_bg_color_check="";}
+      content = content + '檔頭背景顏色:<input type="text" name="banner_bg_color" value="'+objCSS["#banner"]["background-color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS["#banner"]["background-color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_banner_bg_color" value="none" onclick="checkColorTransparent('+"'no_banner_bg_color','banner_bg_color'"+')" '+banner_bg_color_check+'>透明<br><br>';
+      if(objCSS[".blogname"]["padding-top"] == undefined){objCSS[".blogname"]["padding-top"] = ""}
+      if(objCSS[".blogname"]["padding-left"] == undefined){objCSS[".blogname"]["padding-left"] = ""}
+      content = content + '日誌名稱位置：上:<input type="text" name="bname_top" id="bname_top" style="width:45px;" value="'+objCSS[".blogname"]["padding-top"]+'">左<input type="text" name="bname_left" id="bname_left" style="width:45px;" value="'+objCSS[".blogname"]["padding-left"]+'"><br><br>';
+      if(objCSS[".description"]["color"] == undefined){objCSS[".description"]["color"] = ""}
+      content = content + '日誌描述顏色：<input type="text" name="bdiscription_color" value="'+objCSS[".description"]["color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS[".description"]["color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';
+      if(objCSS[".description"]["padding-left"] == undefined){objCSS[".description"]["padding-left"] = ""}
+      content = content + '日誌描述位置： 左<input type="text" name="bdiscription_left" id="bdiscription_left" style="width:45px;" value="'+objCSS[".description"]["padding-left"]+'"><br><br>';
+      content = content + '<input type="hidden" name="cssTag"+ value="'+ruleName+'">';
+      content = content + '</p></td></tr></table></form>';
+      $("#cssDialogContent").html(content);
+      $("#uploadDialogContent").html('<iframe name="uploadiframe" width="500px" height="500px" frameborder="0" src=""></iframe>');  
+    }else if(ruleName == "sidebar"){
+      $("#dialog1 .hd").html('樣式資訊 - step3. ' + ruleName);
+      if(objCSS[".sidetitle"]["background"] != undefined && objCSS[".sidetitle"]["background"].indexOf("url") !== -1){
+        objCSS[".sidetitle"]["background-image"] = objCSS[".sidetitle"]["background"];
+        objCSS[".sidetitle"]["background"] = "";
+      }
+      var content = "";
+      content = content + '<form method="POST" action="" name=ruleName>';
+      content = content + '<div><img src="http://s.blog.xuite.net/_image/css_steptabs_03.gif" width="550" height="35" border="0" usemap="#Map03" /><map name="Map03" id="Map03"><area shape="rect" coords="11,3,116,30" href="javascript:showDialog('+"'container'"+')" alt="版面基本設定" title="版面基本設定"/><area shape="rect" coords="116,3,222,30" href="javascript:showDialog('+"'banner'"+')" alt="標頭設定" title="標頭設定" /><area shape="rect" coords="329,3,435,30" href="javascript:showDialog('+"'mid'"+')" alt="中間區塊設定" title="中間區塊設定" /><area shape="rect" coords="435,3,541,30" href="javascript:showDialog('+"'save'"+')" alt="儲存所有設定" title="儲存所有設定" /></map></div>';
+      content = content + '<table BORDER=0 WIDTH=550><tr>';
+      content = content + '<td width="10%"><table BORDER=0><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_s_img_03.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_01.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_02.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_03_active.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_04.gif"/></td></tr></table></td>';
+      back_img = objCSS[".sidetitle"]["background-image"];
+      var ilink = "'http://blog.xuite.net/_manager/getFile_multi.php?burl=/_manager/blog_file_upload.phtml&size=1&act=add&bid=504258&fieldname=sidebar_pic'";
+      if(objCSS[".sidetitle"]["background-image"] == undefined){back_img = "";}else{back_img = dropUrl(back_img);}
+      content = content + '<td width="90%">';
+      content = content + '<p style="border-style:double;border-color:#D3D3D3;border-width:3px;padding:10px;white-space:nowrap";>';
+      content = content +  '左右欄標題圖片:<input type="text" name="sidebar_pic" id="sidebar_pic" value="'+back_img+'"> <input type="button" name="上傳" value="上傳" onClick="showUpload('+ilink+')"><input type="checkbox" name="no_sidebar_pic" value="none" onclick="checkNoPic('+"'no_sidebar_pic','sidebar_pic'"+')">不使用圖片<br><br>';
+      if(objCSS[".sidetitle"]["background-color"] == undefined){objCSS[".sidetitle"]["background-color"] = ""}
+      if(objCSS[".sidetitle"]["background-color"] == "transparent"){sidebar_title_bg_color_check = "checked";}else{sidebar_title_bg_color_check="";}
+      content = content +  '左右欄標題背景顏色：<input type="text" name="sidebar_title_bg_color" value="'+objCSS[".sidetitle"]["background-color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS[".sidetitle"]["background-color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_sidebar_title_bg_color" value="none" onclick="checkColorTransparent('+"'no_sidebar_title_bg_color','sidebar_title_bg_color'"+')" '+sidebar_title_bg_color_check+'>透明<br><br>';
+      if(objCSS[".sidetitle"]["font-size"] == undefined){objCSS[".sidetitle"]["font-size"] = ""}
+      if(objCSS[".sidetitle"]["font-style"] == undefined){
+        font_style = "normal";  
+      }else{
+        font_style = objCSS[".sidetitle"]["font-style"];
+      }
+      var type = "normal,italic";
+      var type_arr = type.split(",");
+      var type_name ="正常,斜體";
+      var type_name_arr = type_name.split(",");
+      var aaa = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == font_style){
+         aaa = aaa +'<option selected value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }else{
+         aaa = aaa +'<option value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }
+      }
+      if(objCSS[".sidetitle"]["font-weight"] == undefined){
+        font_weight = "normal";  
+      }else{
+        font_weight = objCSS[".sidetitle"]["font-weight"];
+      }
+      var type = "normal,bold";
+      var type_arr = type.split(",");
+      var type_name ="正常,粗體";
+      var type_name_arr = type_name.split(",");
+      var bbb = "";
+      for(j=0;j<type_arr.length;j++){
+        if(type_arr[j] == font_weight){
+         bbb = bbb +'<option selected value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }else{
+         bbb = bbb +'<option value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+        }
+      }
+      
+      content = content + '左右欄標題字型大小：<input type="text" name="sidebar_wordsize" id="sidebar_wordsize" style="width:45px;" value="'+objCSS[".sidetitle"]["font-size"]+'"> 字型:<select name="sidebar_fontstyle">'+aaa+'</select> 字體:<select name="sidebar_fontweight">'+bbb+'</select><br><br>';     
+      if(objCSS[".sidetitle"]["color"] == undefined){objCSS[".sidetitle"]["color"] = ""}
+      content = content + '左右欄標題字型顏色：<input type="text" name="sidebar_word_color" value="'+objCSS[".sidetitle"]["color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS[".sidetitle"]["color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';
+      back_img = objCSS[".articleSide li"]["list-style-image"];
+      var ilink2 = "'http://blog.xuite.net/_manager/getFile_multi.php?burl=/_manager/blog_file_upload.phtml&size=1&act=add&bid=504258&fieldname=sidebar_li_pic'";
+      if(objCSS[".articleSide li"]["list-style-image"] == undefined){back_img = ""}else{back_img = dropUrl(back_img)};
+      content = content + '左右欄小圖示:<input type="text" name="sidebar_li_pic" id="sidebar_li_pic" value="'+back_img+'"> <input type="button" name="上傳" value="上傳" onClick="showUpload('+ilink2+')"><input type="checkbox" name="no_sidebar_li_pic" value="none" onclick="checkNoPic('+"'no_sidebar_li_pic','sidebar_li_pic'"+')">不使用圖片<br><br>';
+      if(objCSS[".side"]["background"] == undefined){objCSS[".side"]["background"] = ""}
+      if(objCSS[".side"]["background"] == "transparent"){sidebar_bg_color_check = "checked";}else{sidebar_bg_color_check="";}
+      content = content + '左右欄背景顏色：<input type="text" name="sidebar_bg_color" value="'+objCSS[".side"]["background"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS[".side"]["background"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_sidebar_bg_color" value="none" onclick="checkColorTransparent('+"'no_sidebar_bg_color','sidebar_bg_color'"+')" '+sidebar_bg_color_check+'>透明<br><br>';
+      content = content + '<input type="hidden" name="cssTag" value="'+ruleName+'">';
+      content = content + '</p></td></tr></table></form>';
+      $("#cssDialogContent").html(content);
+      $("#uploadDialogContent").html('<iframe name="uploadiframe" width="500px" height="500px" frameborder="0" src=""></iframe>');     
+    }else if(ruleName == "mid"){
+      $("#dialog1 .hd").html('樣式資訊 - step4. ' + ruleName);
+      if(objCSS['#content']['border'] == null || objCSS['#content']['border'] == undefined){
+        border = objCSS['#mid']['border'];
+      }else{
+        var border = objCSS['#content']['border'];
+      }
+      
+      if(border != undefined && border != null){
+        var bor_tmp = border.split(" ");
+        for(z=0;z<bor_tmp.length;z++){
+          if(bor_tmp[z].indexOf("#") !== -1){
+            var bor_color = bor_tmp[z];
+          }else if(bor_tmp[z].indexOf("px")!== -1){
+            var bor_size = bor_tmp[z];
+          }else{
+            var bor_type = bor_tmp[z];
+          }
+        }
+        var type = "none,solid,dashed,dotted,groove,double";
+        var type_arr = type.split(",");
+        var type_name = "none,直線,直虛線,點虛線,溝線,雙線";
+        var type_name_arr = type_name.split(",");
+        var aaa = "";
+        for(j=0;j<type_arr.length;j++){
+          if(type_arr[j] == bor_type){
+           aaa = aaa +'<option selected value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+          }else{
+           aaa = aaa +'<option value='+type_arr[j]+'>'+type_name_arr[j]+'</option>';
+          }
+        }
+      }else{
+       var bor_color = "null";
+       var bor_size = "0px";
+       aaa = "<option selected>none</option><option>solid</option><option>dashed</option><option>dotted</option><option>groove</option><option>double</option>";
+      }
+      
+      if(objCSS["#mid"]["background"] != undefined && objCSS["#mid"]["background"] != null){
+        objCSS["#content"]["background-color"] = objCSS["#mid"]["background"];
+        objCSS["#mid"]["background"] = "";
+      }else if(objCSS["#mid"]["background-color"] != undefined && objCSS["#mid"]["background-color"] != null){
+        objCSS["#content"]["background-color"] = objCSS["#mid"]["background-color"];
+        objCSS["#mid"]["background-color"] = "";
+      }      
+      var content = "";
+      content = content + '<form method="POST" action="" name=ruleName>';
+      content = content + '<div><img src="http://s.blog.xuite.net/_image/css_steptabs_04.gif" width="550" height="35" border="0" usemap="#Map04" /><map name="Map04" id="Map04"><area shape="rect" coords="11,3,116,30" href="javascript:showDialog('+"'container'"+')" alt="版面基本設定" title="版面基本設定"/><area shape="rect" coords="116,3,222,30" href="javascript:showDialog('+"'banner'"+')" alt="標頭設定" title="標頭設定" /><area shape="rect" coords="223,3,329,30" href="javascript:showDialog('+"'sidebar'"+')" alt="左右欄位設定" title="左右欄位設定" /><area shape="rect" coords="435,3,541,30" href="javascript:showDialog('+"'save'"+')" alt="儲存所有設定" title="儲存所有設定" /></map></div>';
+      content = content + '<table BORDER=0 WIDTH=550><tr>';
+      content = content + '<td width="10%"><table BORDER=0><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_s_img_04.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_01.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_02.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_03.gif"/></td></tr><tr><td align="center"><img src="http://s.blog.xuite.net/_image/css_step_04_active.gif"/></td></tr></table></td>';
+      if(objCSS["#mid"]["background-color"] == undefined){objCSS["#mid"]["background-color"] ="";}
+      content = content + '<td width="90%">';
+      content = content + '<p style="border-style:double;border-color:#D3D3D3;border-width:3px;padding:20px;white-space:nowrap";>';
+      if(objCSS["#content"]["background-color"] == undefined) objCSS["#content"]["background-color"]= "";
+      if(objCSS["#content"]["background-color"] == "transparent"){mid_bg_color_check = "checked";}else{mid_bg_color_check="";}
+      content = content + '背景顏色：<input type="text" name="mid_bg_color" value="'+objCSS["#content"]["background-color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS["#content"]["background-color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_mid_bg_color" value="none" onclick="checkColorTransparent('+"'no_mid_bg_color','mid_bg_color'"+')" '+mid_bg_color_check+'>透明<br><br>';
+      content = content + '邊框顏色：<input type="text" name="mid_border_color" value="'+bor_color+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+bor_color+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';
+      content = content + '邊框格式:粗細<input type="text" name="mid_border" id="mid_border" style="width:45px;" value="'+bor_size+'">&nbsp;';
+      content = content + '格式:<select name="mid_border_type">'+aaa+'</select><br><br>';   
+      back_img = objCSS[".title"]["background-image"];
+       var ilink = "'http://blog.xuite.net/_manager/getFile_multi.php?burl=/_manager/blog_file_upload.phtml&size=1&act=add&bid=504258&fieldname=mid_title_pic'";
+      if(objCSS[".title"]["background-image"] == undefined){
+        if(objCSS[".title"]["background"] != undefined){
+          back_img = dropUrl(objCSS[".title"]["background"]);
+        }else{
+          back_img = "";
+        }  
+      }else{
+        back_img = dropUrl(back_img);
+      }
+      content = content + '標題背景圖片:<input type="text" name="mid_title_pic" id="mid_title_pic" value="'+back_img+'"><input type="button" name="上傳" value="上傳" onClick="showUpload('+ilink+')"><input type="checkbox" name="no_mid_title_pic" value="none" onclick="checkNoPic('+"'no_mid_title_pic','mid_title_pic'"+')">不使用圖片<br><br>';
+      if(objCSS[".title"]["background-color"] == undefined){
+        if(objCSS[".title"]["background"] == undefined || objCSS[".title"]["background"] == null){
+         objCSS[".title"]["background-color"] = ""
+        }else{
+         objCSS[".title"]["background-color"] = getColor(objCSS[".title"]["background"]);
+        }
+      }
+      if(objCSS[".title"]["background-color"] == "transparent"){mid_title_bg_color_check = "checked";}else{mid_title_bg_color_check="";}
+      content = content + '標題背景顏色：<input type="text" name="mid_title_bg_color" value="'+objCSS[".title"]["background-color"]+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+objCSS[".title"]["background-color"]+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><input type="checkbox" name="no_mid_title_bg_color" value="none" onclick="checkColorTransparent('+"'no_mid_title_bg_color','mid_title_bg_color'"+')" '+mid_title_bg_color_check+'>透明<br><br>';
+      if(objCSS["span.titlename"]["font-size"] == undefined){objCSS["span.titlename"]["font-size"] = ""}
+      content = content + '標題字型大小 :<input type="text" name="mid_title_wordsize" id="mid_title_wordsize" style="width:45px;" value="'+objCSS["span.titlename"]["font-size"]+'"><br><br>';     
+      if(objCSS["span.titlename a:link"] == undefined){title_color=objCSS["A:link"]["color"];}else{title_color = objCSS["span.titlename a:link"]["color"]; }
+      content = content + '標題字型顏色：<input type="text" name="mid_title_wordcolor" value="'+title_color+'"/><img src="http://s.blog.xuite.net/_image/color.gif" width="21" height="18" style="background-color:'+title_color+'" onclick="$(this).colorPicker({ setValue:$(this).prev(\'input\') })" align="absmiddle" /><br><br>';
+      content = content + '<input type="hidden" name="cssTag" value="'+ruleName+'">';
+      content = content + '</p></td></tr></table></form>';
+      $("#cssDialogContent").html(content);
+      $("#uploadDialogContent").html('<iframe name="uploadiframe" width="500px" height="500px" frameborder="0" src=""></iframe>');     
+    }else if(ruleName == "save"){
+       var content = "";
+      content = content + '<form method="POST" action="" name=ruleName>';
+      content = content + '<div><img src="http://s.blog.xuite.net/_image/css_steptabs_05.gif" width="550" height="35" border="0" usemap="#Map04" /><map name="Map04" id="Map04"><area shape="rect" coords="11,3,116,30" href="javascript:showDialog('+"'container'"+')" alt="版面基本設定" title="版面基本設定"/><area shape="rect" coords="116,3,222,30" href="javascript:showDialog('+"'banner'"+')" alt="標頭設定" title="標頭設定" /><area shape="rect" coords="223,3,329,30" href="javascript:showDialog('+"'sidebar'"+')" alt="左右欄位設定" title="左右欄位設定" /><area shape="rect" coords="329,3,435,30" href="javascript:showDialog('+"'mid'"+')" alt="中間區塊設定" title="中間區塊設定" /></map></div>';
+      content = content + '<table BORDER=0 WIDTH=550><tr>';
+      content = content + '<td width="20%"></td>';
+      content = content + '<td width="80%">';
+      content = content + '<table BORDER=0 HEIGHT=50><tr><td></td></tr></table>'
+      content = content + '<p style="border-style:double;border-color:#D3D3D3;border-width:3px;padding:20px;white-space:nowrap";>';
+      content = content + '<br><input type="radio" name="option1" value="blog.css">儲存到現在的版型<br>';
+      if(CssNote != null){
+        var value1 = "";
+        var value2 = "";
+        var value3 = "";
+        if(CssNote["blog_tmp1.css"] != undefined) value1 = CssNote["blog_tmp1.css"];
+        if(CssNote["blog_tmp2.css"] != undefined) value2 = CssNote["blog_tmp2.css"];
+        if(CssNote["blog_tmp3.css"] != undefined) value3 = CssNote["blog_tmp3.css"];
+        content = content + '<input type="radio" name="option1" value="blog_tmp1.css" onclick="writeCssDes('+"'blog_tmp1'"+')">暫存區1--'+value1+'<span class="blog_tmp1"></span><br>';
+        content = content + '<input type="radio" name="option1" value="blog_tmp2.css" onclick="writeCssDes('+"'blog_tmp2'"+')">暫存區2--'+value2+'<span class="blog_tmp2"></span><br>';
+        content = content + '<input type="radio" name="option1" value="blog_tmp3.css" onclick="writeCssDes('+"'blog_tmp3'"+')">暫存區3--'+value3+'<span class="blog_tmp3"></span><br>';
+      }else{
+        content = content + '<input type="radio" name="option1" value="blog_tmp1.css" onclick="writeCssDes('+"'blog_tmp1'"+')">暫存區1<span class="blog_tmp1"></span><br>';
+        content = content + '<input type="radio" name="option1" value="blog_tmp2.css" onclick="writeCssDes('+"'blog_tmp2'"+')">暫存區2<span class="blog_tmp2"></span><br>';
+        content = content + '<input type="radio" name="option1" value="blog_tmp3.css" onclick="writeCssDes('+"'blog_tmp3'"+')">暫存區3<span class="blog_tmp3"></span><br>';
+      }
+      content = content + '<input type="hidden" name="cssTag" value="'+ruleName+'">';
+      content = content + '</p></td></tr></table></form>';
+      $("#cssDialogContent").html(content);
+    }  
+    
+    
+    if(init_flag != 'Y'){
+      dialog_init();
+    }
+    if(init2_flag != 'Y'){
+      dialog2_init();
+    }     
+    
+    YAHOO.example.container.dialog1.form = document.ruleName;
+    YAHOO.example.container.dialog1.show();
+ }
+ 
+ function writeCssDes(str1){
+    name = str1+".css";
+    var value = "";
+    if(CssNote != null && CssNote[name] != undefined){
+      value = CssNote[name];
+    }
+   $("."+str1).html("<br><input type='text' name='css_des' value='"+value+"'>");
+ }
+ 
+ function checkNoPic(str1,str2){
+   a=document.getElementsByName(str1);
+   if(a[0].checked){
+     $("#cssDialogContent").find("input").each(function(i) {
+       if($(this).attr("name") == str2){
+         $(this).val("none");
+       }
+     });
+   }
+ }
+ 
+ function checkColorTransparent(str1,str2){
+   a=document.getElementsByName(str1);
+   if(a[0].checked){
+     $("#cssDialogContent").find("input").each(function(i) {
+       if($(this).attr("name") == str2){
+         $(this).val("transparent");
+       }
+     });
+   }else{
+     $("#cssDialogContent").find("input").each(function(i) {
+       if($(this).attr("name") == str2){
+         $(this).val("");
+       }
+     });
+   }
+ }
+ 
+ function dropUrl(Value){
+  start = Value.indexOf("url");
+  end = Value.indexOf(")");
+  if(start !== -1){
+    result = Value.substring(start+4,end);
+  }else{
+    result = "none";
+  }
+  
+  return result;
+ }
+ 
+ function getColor(str){
+  var color = "";
+  var str_arr = str.split(" ");
+  for(i=0;i<str_arr.length;i++){
+    if(str_arr[i].indexOf("#") !== -1){
+      color = str_arr[i];
+    }
+  }
+  return color;
+}
+ 
+ function showUpload(ilink){
+   document.getElementsByName("uploadiframe")["0"].src = ilink;
+   YAHOO.example.container.dialog2.show();
+
+ }
+ 
+ function cssSave(fileName,cssDes){
+     var f=document.save;
+     f.cssArray.value = encodeURIComponent(Object.toJSON(objCSS));
+     if(fileName != undefined){
+       f.fileName.value = fileName;
+       f.cssDes.value = cssDes;
+     }
+     if(cssDes != undefined && cssDes != ""){
+       if(CssNote != null){
+         CssNote[fileName] = cssDes;
+       }else{
+          var b = new Object();
+          b[fileName] = cssDes;
+          CssNote = b;
+       }
+      
+     }
+     if(CssNote != null){
+     f.cssNoteArray.value = encodeURIComponent(Object.toJSON(CssNote));
+     }
+     f.submit();
+ }
+ function setCss(className,styleName,styleValue){
+   var styleSet = null;
+   var cssName = "blog_css"
+   style = document.styleSheets;
+   for(i = 0 ; i < style.length ; i++){
+     if(style[i].title == cssName){
+         styleSet = style[i];
+         break; 
+     } 
+   }
+  
+   var isIE=(navigator.userAgent.toLowerCase().indexOf("msie")!== -1);
+   if(isIE){
+     rules = styleSet.rules;
+   }else{
+     rules = styleSet.cssRules;
+   }
+  
+   if(rules != null){
+   var jj=0;
+   for(j = 0 ; j < rules.length ; j++){
+     className = className.toLowerCase();
+     text = rules[j].selectorText.toLowerCase();
+     if(text.indexOf(className) !== -1){
+       if(styleName.indexOf("-") !== -1){
+         styleName = toUpper(styleName);
+       } 
+       eval("rules[j].style."+styleName+"='"+styleValue+"'");
+       jj++;
+       
+       break;  
+     }
+   }
+   if(jj == 0){    
+     if(isIE){
+       styleSet.addRule(className,styleName+":"+styleValue);
+     }else{
+       styleSet.insertRule(className+"{"+styleName+":"+styleValue+"}",rules.length);
+     }
+   }
+   }
+ }      
+function toUpper(styleName){
+  yy = styleName.split("-");
+  result = yy[0];
+  for(z= 1; z< yy.length ; z++){
+   yy[z] =yy[z].substr(0,1).toUpperCase()+yy[z].substr(1,yy[z].length-1).toLowerCase();
+   result = result + yy[z];
+  }
+  return result;
+}
+
+
+var bb = null;
+function doPreview(name,value,csstag){
+ if(name.indexOf("_pic") !== -1 && value != ""){
+   value = "url("+value+")";
+ }
+ //for special case
+ if(name == "mid_border_color"){
+     bb = value+" ";
+ }else if(name == "mid_border"){
+     bb = bb+value+" ";
+ }else if(name == "mid_border_type"){
+     bb = bb+value;
+     if(objCSS['#mid']['border'] != null && objCSS['#mid']['border'] != undefined){
+       $("#mid").css("border",bb);
+       objCSS['#mid']['border'] = bb;
+     }else{
+       $("#content").css("border",bb);
+       objCSS['#content']['border'] = bb;
+     }
+ }else{
+   //normal case  
+     var i=1;
+     while(CssAttribute[csstag][i] != "" && CssAttribute[csstag][i] != undefined){
+       var oo = CssAttribute[csstag][i];
+       var x =oo.split(",");
+       if(x[0] == name){ 
+           //alert("x1="+x[1]+"x2="+x[2]+"value="+value);
+           if(x[1].indexOf(" ") !== -1 || x[1].indexOf(":") !== -1 || value == "transparent"){
+             //use js function do css change
+             setCss(x[1],x[2],value);
+           }else{
+             //alert("x1="+x[1]+"x2="+x[2]+"value="+value);
+             if(value != "none"){
+               $(x[1]).css(x[2],value);
+             }else{
+               $(x[1]).css(x[2],"");
+             }
+           }  
+            var x1 = x[1];
+            var x2 = x[2];
+           if(objCSS[x1] != null){
+            objCSS[x1][x2] = value;
+           }else{
+            var a = new Object();
+            a[x2] = value;
+            objCSS[x1] = a;
+           }
+
+	   //if body have no bg , set bg in body,not in container
+	              if(name == 'bg_pic'){
+		                   if(objCSS['body']['background-image'] == undefined || objCSS['body']['background-image'] == ""){
+				                  objCSS['body']['background-image'] = objCSS['#container']['background-image'];
+						                 objCSS['#container']['background-image'] = "";
+								              }
+									                 }
+											            if(name == 'bg_repeat'){
+												                 if(objCSS['#container']['background-image'] == "" &&  objCSS['#container']['background-repeat'] != "" ){
+														                objCSS['body']['background-repeat'] = objCSS['#container']['background-repeat'];
+																               objCSS['#container']['background-repeat'] = "";
+																	                    }
+																			               }
+																				                  if(name == 'bg_position'){
+																						               if(objCSS['#container']['background-image'] == "" &&  objCSS['#container']['background-position'] != ""){
+																							                      objCSS['body']['background-position'] = objCSS['#container']['background-position'];
+																									                     objCSS['#container']['background-position'] = "";
+																											                  }
+																													             }
+																														                if(name == 'bg_attachment'){
+																																             if(objCSS['#container']['background-image'] == "" &&  objCSS['#container']['background-attachment'] != ""){
+																																	                    objCSS['body']['background-attachment'] = objCSS['#container']['background-attachment'];
+																																			                   objCSS['#container']['background-attachment'] = "";
+																																					                }
+																																							           }
+       }  
+       i=i+1;
+       x = null;
+     }
+   }
+ }
+
+function bfupload_callback(content) { 
+  var objCSS = content.parseJSON();
+  $("#"+objCSS[0].fieldname).val(objCSS[0].url);  
+  YAHOO.example.container.dialog2.hide();
+}          
+
+YAHOO.namespace("example.container");
+
+function dialog_init() {
+        init_flag = 'Y';
+        // Define various event handlers for Dialog
+        
+        var handleSubmit = function() {
+                NameRule = YAHOO.example.container.dialog1.getData()['cssTag'];
+                if(NameRule != "save"){
+                  $.each( this.getData(), function(i, n){
+                      //alert( "Name: " + i + ", Value: " + n );
+                      doPreview(i,n,NameRule);
+                  });
+                }else{
+                
+                  cssSave(this.getData()['option1'],this.getData()['css_des']);
+                }
+                //YAHOO.example.container.dialog1.hide();
+        };
+        var handleCancel = function() {
+                this.cancel();
+        };
+        var handleSuccess = function(o) {
+                alert('succ');
+                alert( this.getData().toString() );
+        };
+        var handleFailure = function(o) {
+                alert("Submission failed: " + o.status);
+        };
+        
+        
+        // Instantiate the Dialog
+      YAHOO.example.container.dialog1 = new YAHOO.widget.Dialog("dialog1",
+          { width : "600px",
+            height: "480px",
+            fixedcenter : true,
+            visible : false,
+            constraintoviewport : true,
+            buttons : [ { text:"套用", handler:handleSubmit, isDefault:true },{ text:"離開", handler:handleCancel } ]
+           } );
+
+        // Validate the entries in the form to require that both first and last name are entered
+        YAHOO.example.container.dialog1.validate = function() {
+                var data = this.getData();
+                if (data.firstname == "" || data.lastname == "") {
+                        alert("Please enter your first and last names.");
+                        return false;
+                } else {
+                        return true;
+                }
+        };
+ // Wire up the success and failure handlers
+        YAHOO.example.container.dialog1.callback = { success: handleSuccess,failure: handleFailure };
+
+        // Render the Dialog
+        YAHOO.example.container.dialog1.render();
+
+}  
+
+
+
+function dialog2_init() {
+        init2_flag = 'Y'; 
+        // Define various event handlers for Dialog
+        var handleSubmit = function() {
+               //alert(this.getData().toString);         
+                YAHOO.example.container.dialog2.hide();
+        };
+        var handleCancel = function() {
+                this.cancel();
+        };
+        var handleSuccess = function(o) {
+                alert('succ');
+                alert( this.getData().toString() );
+        };
+        var handleFailure = function(o) {
+                alert("Submission failed: " + o.status);
+        };
+        
+        
+        // Instantiate the Dialog
+      YAHOO.example.container.dialog2 = new YAHOO.widget.Dialog("dialog2",
+          { width : "450px",
+            fixedcenter : true,
+            visible : false,
+            constraintoviewport : true,
+            buttons : [ { text:"套 用", handler:handleSubmit, isDefault:true },{ text:"離 開", handler:handleCancel } ]
+           } );
+
+        // Validate the entries in the form to require that both first and last name are entered
+        YAHOO.example.container.dialog2.validate = function() {
+                var data = this.getData();
+                if (data.firstname == "" || data.lastname == "") {
+                        alert("Please enter your first and last names.");
+                        return false;
+                } else {
+                        return true;
+                }
+        };
+ // Wire up the success and failure handlers
+        YAHOO.example.container.dialog2.callback = { success: handleSuccess,failure: handleFailure };
+
+        // Render the Dialog
+        YAHOO.example.container.dialog2.render();
+        
+        
+}
+
+</SCRIPT>
+<!-- 插入Head選單程式:End --><WPTPASS>
+<STYLE>#xuitelogo {
+	BEHAVIOR: url(/png.htc)
+}
+</STYLE>
+</WPTPASS>
+<DIV id=banner>
+<DIV class=menulist>
+<DIV class=menu>
+<DIV align=right><!-- <img src="http://s.blog.xuite.net/_image/beta_label.gif" alt="http://s.blog.xuite.net/_image/beta_label.gif" width="21" height="16" border="0" align="middle">&nbsp;<a href="javascript:;" onClick="javascript:ChangeLang('TraditionalChinese');return false;"><img src="http://s.blog.xuite.net/_image/TraditionalChinese.gif" width="16" height="16" border="0" align="middle"></a><img src="http://s.blog.xuite.net/_image/arrow.gif" width="16" height="16" border="0" align="middle"><a href="javascript:;" onClick="javascript:ChangeLang('SimplifiedChinese');return false;"><img src="http://s.blog.xuite.net/_image/SimplifiedChinese.gif" width="16" height="16" border="0" align="middle"></a> ｜ --><A 
+id=my_blog 
+href="http://blog.xuite.net/_members/login.php?furl=/_manager/index.phtml">我的日誌</A>｜<SPAN 
+class=xuiteLink><A href="javascript:void(0);">工具箱</A><SPAN><!-- <a href="javascript:AddRss();" >&gt; 訂閱</a> --><A 
+onclick="javascript:clickCommend('8631419','article','/alwaysfuturevision/liminzhang/8631419');" 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419#">&gt; 
+推薦</A><A 
+onclick="javascript:clickReport('8631419','article','/alwaysfuturevision/liminzhang/8631419');" 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419#">&gt; 
+檢舉</A></SPAN></SPAN>｜<A id=in_out href="javascript:;">登 入</A> ｜<!-- 插入Xuite下拉選單程式:Begin --><SPAN class=xuiteLink> <A 
+href="http://www.xuite.net/">Xuite</A><SPAN><A 
+href="http://blog.xuite.net/">&gt; 日誌</A><A href="http://photo.xuite.net/">&gt; 
+相簿</A><A href="http://webhd.xuite.net/">&gt; 硬碟</A><A 
+href="http://mail.xuite.net/">&gt; 郵件</A><A href="http://vlog.xuite.net/">&gt; 
+影音</A><A href="http://my.xuite.net/">&gt; My Xuite</A></SPAN></SPAN><!-- 插入Xuite下拉選單程式:End --><!-- 插入繁簡互換:Begin -->｜<SPAN 
+class=xuiteLink> <A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/">繁簡</A><SPAN><A 
+href="javascript:d2d_11D1_b5gb(1)">&gt; 繁體</A><A 
+href="javascript:d2d_11D1_b5gb(2)">&gt; 簡體</A><A 
+href="javascript:d2d_11D1_b5gb(-1)">&gt; 
+回復</A></SPAN></SPAN><!-- 插入繁簡互換:End -->｜ <A 
+href="http://blog.xuite.net/faq.phtml">服務說明</A> ｜ <A 
+href="http://blog.xuite.net/">首 頁</A><BR></DIV></DIV><!-- 插入Body選單:Begin --><!-- Part One: Set up a Div named xuiteMenu --><!-- 插入Body選單:End --><!-- 插入myTools必要的form表單:start -->
+<DIV id=mytoolsForm 
+style="VISIBILITY: hidden; WIDTH: 0px; POSITION: absolute; HEIGHT: 0px">
+<FORM name=Report action=/process_report.php method=post><INPUT type=hidden 
+name=relateID> <INPUT type=hidden name=reportType> <INPUT type=hidden 
+name=content> </FORM>
+<FORM name=Commend action=/process_commend.php method=post><INPUT type=hidden 
+name=relateID> <INPUT type=hidden name=commendType> <INPUT type=hidden 
+name=content> </FORM></DIV>
+<DIV class=logo><A href="http://blog.xuite.net/"><IMG id=xuitelogo 
+src="如何建立一個 DataView.files/logo.png" border=0></A></DIV></DIV>
+<DIV class=blogname><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang">章立民研究室</A><SPAN 
+class=blogemotion><A 
+href="http://blog.xuite.net/blog_type_mood.phtml?mind=3"><IMG height=25 
+src="如何建立一個 DataView.files/mind_b3.gif" width=90 align=middle 
+border=0></A></SPAN><SPAN class=blogfavo><A 
+href="javascript:AddLoveBlog();"><IMG height=19 
+alt=http://s.blog.xuite.net/_image/addFavorite.gif 
+src="如何建立一個 DataView.files/addFavorite.gif" width=82 align=middle 
+border=0></A></SPAN></DIV>
+<DIV class=description>章立民研究室,營養補給站,吃飽了再上<BR>心情放 MSN Space, 技術與程式人生放 Xuite 
+</DIV></DIV>
+<DIV class=css_helper style="DISPLAY: none">
+<FORM name=save action=http://blog.xuite.net/_manager/css_helper_save.php 
+method=post><INPUT type=hidden value=504258 name=bid><INPUT type=hidden 
+name=cssArray><INPUT type=hidden name=fileName><INPUT type=hidden 
+name=cssDes><INPUT type=hidden name=cssNoteArray></FORM></DIV>
+<DIV id=linksLeft>
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+   	 if(getCookie("MemberInformation") != null){ 
+     $.ajax({
+     type: "GET",
+     url: '/_theme/AvatarButtonExp.php?mid=13592822&bid=504258&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getAvatarButton
+     });
+     }
+ });
+    
+    function getAvatarButton(json){
+					if(json.check=='0'){ 
+		      $("div.avatarbutton").html("<a href='/_manager/blog.phtml?bid=504258'><img src='http://s.blog.xuite.net/_image/1230_01.gif' width='70' height='20' border='0' align='middle'></a>");
+          }
+        } 
+        
+ </SCRIPT>
+
+<DIV class=personaltitle>
+<DIV class=pTitle>
+<LI>章立民研究室</LI></DIV></DIV>
+<DIV class=avatar>
+<DIV class=avatarPhoto><IMG height=141 src="如何建立一個 DataView.files/photo.jpg" 
+width=106></DIV>
+<DIV class=avatarDesciption><BR><BR></DIV>
+<DIV class=avatarbutton></DIV>
+<DIV class=personallink>
+<DIV class=plink>
+<LI><A 
+href="http://blog.xuite.net/aboutme.phtml?lid=alwaysfuturevision">關於我</A></LI></DIV>
+<DIV class=pfriend>
+<LI><A onclick="javascript:AddFriend('alwaysfuturevision');return false;" 
+href="javascript:;">加入好友</A></LI></DIV>
+<DIV class=pphoto>
+<LI><A href="http://photo.xuite.net/alwaysfuturevision">我的相簿</A></LI></DIV>
+<DIV class=pvlog>
+<LI><A href="http://vlog.xuite.net/alwaysfuturevision">我的影音</A></LI></DIV>
+<DIV class=pboard>
+<LI><A 
+href="http://gbook.xuite.net/alwaysfuturevision">我的留言板</A></LI></DIV></DIV></DIV>
+<SCRIPT src="如何建立一個 DataView.files/yahoo-min.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="如何建立一個 DataView.files/event-min.js" type=text/javascript></SCRIPT>
+
+<SCRIPT src="如何建立一個 DataView.files/treeview-min.js" 
+type=text/javascript></SCRIPT>
+<LINK href="如何建立一個 DataView.files/tree.css" type=text/css rel=stylesheet>
+<DIV class=sidetitle>
+<DIV class=categoryTitle>
+<LI>文章分類</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=categorySide><A onclick="javascript:label_click('expand')" 
+href="javascript:;">全部展開</A>|<A onclick="javascript:label_click('close')" 
+href="javascript:;">全部收合</A>
+<DIV id=treeDiv1></DIV></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+ 
+function label_click(type){
+
+var xxx = getCookie("_top"); 
+if(xxx == "" || isNaN(xxx))
+ var xxx = "0";
+ var yyy = 2;
+
+if(type == "expand"){
+  if((xxx&yyy) == 0){
+    xxx = parseInt(xxx,10)+2;
+    setCookie("_top",xxx);
+    tree.expandAll(); 
+  }
+}else{
+  if((xxx&yyy) != 0){ 
+    xxx = parseInt(xxx,10)-2;
+    setCookie("_top",xxx);
+    tree.collapseAll(); 
+   } 
+}  
+
+}
+
+
+var tree;  
+(function() {
+function treeInit() {  
+
+
+  var x = getCookie("_top"); 
+
+  if(x == "" || x == "NaN")
+    var x = "0";
+  var y = "2";
+
+ if((x&y) > 0)  
+    var click = "true";
+  else
+    var click = "false";  
+
+  tree = new YAHOO.widget.TreeView("treeDiv1");
+  var root = tree.getRoot();
+           
+  
+                                                                                                                                                                       
+       var myobj = { label: "勘誤表(3)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=481178" }; 
+    var DirNode_1_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "讀者問題與解答(11)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=532743" }; 
+    var DirNode_2_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "新書預告(5)<img border='0' src='http://s.blog.xuite.net/_image/blogIcon18.gif' width='18' height='18' align='absmiddle'>", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=463990" }; 
+    var DirNode_3_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "章立民研究室圖書簡介(5)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=457821" }; 
+    var DirNode_4_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "程式人生(18)<img border='0' src='http://s.blog.xuite.net/_image/blogIcon18.gif' width='18' height='18' align='absmiddle'>", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=457894" }; 
+    var DirNode_5_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "Visual C# 2005(23)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=457592" }; 
+    var DirNode_6_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "Visual Basic 2005(27)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=457591" }; 
+    var DirNode_7_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "SQL Server 2005(28)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=457590" }; 
+    var DirNode_8_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "ADO.NET 2.0(9)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=487124" }; 
+    var DirNode_9_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "ASP.NET AJAX(69)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=513511" }; 
+    var DirNode_10_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "Silverlight(54)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=766777" }; 
+    var DirNode_11_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "Visual Studio 2008(16)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=915197" }; 
+    var DirNode_12_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          var myobj = { label: "未分類(6)", href:"http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&p=1&w=0" }; 
+    var DirNode_13_0 = new YAHOO.widget.TextNode(myobj, root, false);
+          tree.draw();
+  
+}
+
+  treeInit();  
+
+})();
+
+
+
+</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=calendarTitle>
+<LI>日曆</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=calendarSide><INPUT id=tester2 type=hidden name=tester2><INPUT 
+id=tester2_day type=hidden maxLength=2 size=3 name=tester2_day><INPUT 
+id=tester2_month type=hidden maxLength=2 size=3 name=tester2_month><INPUT 
+id=tester2_year type=hidden maxLength=4 size=5 name=tester2_year>
+<DIV id=cal_tester2_display></DIV>
+<DIV class=calendarbutton><A id=calendarbutton 
+href="javascript:articleList();"><IMG height=20 
+src="如何建立一個 DataView.files/blog019.gif" width=63 border=0></A></DIV></DIV></DIV>
+<STYLE>.cal_calendar {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; FONT-SIZE: 5pt; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; FONT-FAMILY: verdana; BORDER-COLLAPSE: collapse
+}
+.cal_header {
+	FONT-WEIGHT: bold
+}
+.cal_day {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 2ex; CURSOR: hand; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse; TEXT-ALIGN: center
+}
+.cal_disabled {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 2ex; COLOR: #999999; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse
+}
+.cal_common {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 3ex; COLOR: black; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse
+}
+.cal_holiday {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 3ex; COLOR: red; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse
+}
+.cal_event {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 0px; BORDER-TOP: medium none; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: medium none; WIDTH: 3ex; CURSOR: hand; COLOR: #ffd700; PADDING-TOP: 0px; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse
+}
+</STYLE>
+
+<SCRIPT src="如何建立一個 DataView.files/calendar_001.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+   	 buildCalendar();
+ });
+    
+        var cal2; 				
+        	function buildCalendar(){
+            cal2 = new Calendar ("cal2", "tester2", new Date(), 504258);
+    				renderCalendar (cal2);
+    			 $.ajax({
+            type: "GET",
+            url: '/_theme/ArticleCalendarExp.php?yyyymm='+CurentTime()+'&bid=504258&ga='+(new Date()).getTime(),
+            dataType: 'json',
+            success: xxx
+          });
+        }
+        function xxx(json){
+					var myWrite = new Array();
+          var i = 0;
+					for( i =0; i < json.length; i++) {
+					    myWrite[i] = new Array(json[i].EDATE,i);				    
+          }
+          cal_tester2_display.align = "center";
+          cal2.eventDates = myWrite;				
+				  cal2.selectEvent = function(eventId) {window.location.href=getUrl()+'?w='+eventId+'&st=d';};
+				  
+					$("a#calendarbutton").attr("href","javascript:articleList();");
+					$("a#calendarbutton").html("<img src='http://s.blog.xuite.net/_image/blog019.gif' width='63' height='20' border='0'>");
+         
+					renderCalendar (cal2);
+        } 
+        
+        function articleList(){
+          $.ajax({
+          type: "GET",
+          url: '/_theme/ArticleListCalendarExp.php?bid=504258&ga='+(new Date()).getTime(),
+          dataType: 'json',
+          success: yyy
+          });
+        }
+        function yyy(json){
+          if(json != '0' && json != ""){
+					var i = 0
+					del = cal_tester2_display.childNodes[0];
+				  cal_tester2_display.removeChild(del);
+					for( i =0; i < json.length; i++) {
+					    li = document.createElement("li");
+					    cal_tester2_display.align = "";
+					    cal_tester2_display.appendChild(li);
+              link = document.createElement("a");
+					    link.href = "/alwaysfuturevision/liminzhang?st=m&w="+json[i].CREATETIME;
+					    link.innerHTML = json[i].CREATETIME+'('+json[i].NUMS+' 篇)';
+					    li.appendChild(link);
+          }
+          }else{
+             alert('目前文章列表沒有文章');
+          }
+          $("a#calendarbutton").attr("href","javascript:buildCalendar();");
+					$("a#calendarbutton").html("<img src='http://s.blog.xuite.net/_image/blog019_1.gif' width='63' height='20' border='0'>");
+        } 
+        function  CurentTime(){  
+          var  now  =  new  Date();  
+          var  y  =  now.getFullYear();  
+          var  m  =  now.getMonth()+1;    
+        return(y+''+m);  } 
+        
+        function getUrl(){
+         var url = location.href;
+         var root = url.split('/');
+         var root_de = root[4].split('?');
+         return (root[0]+"/"+root[1]+"/"+root[2]+"/"+root[3]+"/"+root_de[0]);
+        } 
+       
+    </SCRIPT>
+
+<SCRIPT language=javascript>var searchClickFlag='false';function Trim(TRIM_VALUE){if(TRIM_VALUE.length < 1){return"";}TRIM_VALUE = RTrim(TRIM_VALUE);TRIM_VALUE = LTrim(TRIM_VALUE);if(TRIM_VALUE==""){return "";}else{return TRIM_VALUE;}}function RTrim(VALUE){var w_space = String.fromCharCode(32);var v_length = VALUE.length;var strTemp = "";if(v_length < 0){return"";}var iTemp = v_length -1;while(iTemp > -1){if(VALUE.charAt(iTemp) == w_space){}else{strTemp = VALUE.substring(0,iTemp +1);break;}iTemp = iTemp-1;}return strTemp;}function LTrim(VALUE){var w_space = String.fromCharCode(32);if(v_length < 1){return"";}var v_length = VALUE.length;var strTemp = "";var iTemp = 0;while(iTemp < v_length){if(VALUE.charAt(iTemp) == w_space){}else{strTemp = VALUE.substring(iTemp,v_length);break;}iTemp = iTemp + 1;}return strTemp;}function blog_search_chk(){if(Trim(document.search_form.w.value)==""){alert('請輸入要查詢關鍵字!!');document.search_form.w.focus();return false;}else if(document.search_form.w.value.indexOf('*')!=-1){alert('請輸入要查詢關鍵字!');document.search_form.w.focus();return false;}else if(document.search_form.w.value=="請輸入關鍵字"){alert('請輸入要查詢關鍵字!');document.search_form.w.focus();return false;}else{return true;}}</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=searchTitle>
+<LI>搜尋文章</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=searchSide>
+<DIV class=searchbutton>
+<FORM name=search_form onsubmit="javascript:return blog_search_chk();" 
+action=/alwaysfuturevision/liminzhang method=get>關鍵字 <INPUT class=inputForm 
+onblur="if(this.value==''){this.value='請輸入關鍵字';this.searchClickFlag=false;}" 
+onfocus="this.value='';this.searchClickFlag=true;" size=13 value=請輸入關鍵字 
+name=w><BR><INPUT type=hidden value=list name=re><INPUT type=hidden value=s 
+name=st><INPUT type=image height=20 width=38 
+src="如何建立一個 DataView.files/blog024.gif" border=0 
+name=image></FORM></DIV></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=friendTitle>
+<LI>我的好友</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=LoveFriendSide><SELECT disabled name=myLoveFriendList><OPTION 
+  selected>好友還在尋覓中..</OPTION></SELECT></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=LoveBlogTitle>
+<LI>最愛日誌</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=LoveBlogSide><SELECT disabled name=myLoveBlogList><OPTION 
+  selected>最愛日誌還在尋覓中..</OPTION></SELECT></DIV></DIV></DIV>
+<DIV id=linksRight>
+<DIV class=sidetitle>
+<DIV class=articleTitle>
+<LI>最新文章</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=articleSide>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17228507">好消息</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17198009">今日感言</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17153646">「用實例學ASP.NET 
+3.5／基礎篇（使用VB）」之本書特色與目錄</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17068107">救火隊</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17037909">Visual Basic 
+2008 線上教學課程『如何於 LINQ 查詢中實作分組與彙總』已經上線了</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17037898">Visual Basic 
+2008 線上教學課程『 如何撰寫 LINQ 來查詢檔案系統』已經上線了</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17037887">Visual Basic 
+2008 線上教學課程『 學習撰寫您的第一個 LINQ 查詢』已經上線了</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16995728">是序也不是序</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16992507">「用實例學ASP.NET 
+3.5／基礎篇（使用VB）」一書的後續是什麼???</A>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16981702">使用者俱樂部的想法</A></LI></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=messageTitle>
+<LI>最新回應</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=messageSide>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/17153646#9289797">「用實例學ASP.NET 
+3.5／基礎篇（使用VB）」之本書特色與目錄</A>，by(CJ)於</SPAN><SPAN 
+class=date>2008-05-15</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/14611156#9288037">Silverlight 
+線上教學課程『如何製作互動式動畫』上線了 </A>，by(masterorz)於</SPAN><SPAN 
+class=date>2008-05-15</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/14611156#9283813">Silverlight 
+線上教學課程『如何製作互動式動畫』上線了 </A>，by()於</SPAN><SPAN class=date>2008-05-14</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/14611156#9274900">Silverlight 
+線上教學課程『如何製作互動式動畫』上線了 </A>，by(masterorz)於</SPAN><SPAN 
+class=date>2008-05-13</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/14611156#9271153">Silverlight 
+線上教學課程『如何製作互動式動畫』上線了 </A>，by(justin)於</SPAN><SPAN 
+class=date>2008-05-13</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/14611156#9262159">Silverlight 
+線上教學課程『如何製作互動式動畫』上線了 </A>，by(masterorz)於</SPAN><SPAN 
+class=date>2008-05-12</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16932051#9174658">「用實例學ASP.NET 
+3.5／基礎篇（使用VB）」一書完稿</A>，by(chainchung)於</SPAN><SPAN 
+class=date>2008-05-02</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16932051#9171279">「用實例學ASP.NET 
+3.5／基礎篇（使用VB）」一書完稿</A>，by(jiunn)於</SPAN><SPAN class=date>2008-05-01</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/16851628#9141856">Video 
+Link Test</A>，by(eviler)於</SPAN><SPAN class=date>2008-04-28</SPAN></DIV>
+<DIV>Re:<SPAN class=content><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/9570271#9130093">Visual 
+Basic 2005 - 善用 StringBuilder 提升字串處理效率</A>，by(sh)於</SPAN><SPAN 
+class=date>2008-04-27</SPAN></DIV></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+   $(document).ready(function(){
+   		$.ajax({
+     type: "GET",
+     url: '/_theme/CountSideExp.php?bid=504258&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getCountSide
+    });
+
+ });
+ 
+   function getCountSide(json){
+     $("div#todayHit").html("今日人氣: "+json.now_hit);
+     $("div#totalHit").html("累積人氣: "+json.all_hit);
+   }
+   
+ </SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=countTitle>
+<LI>參觀人氣統計</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=countSide>
+<DIV id=todayHit></DIV>
+<DIV id=totalHit></DIV></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=bloglistTitle>
+<LI>已建立的日誌</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=bloglistSide>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang">章立民研究室</A></LI></DIV></DIV>
+<DIV class=sidetitle>
+<DIV class=albumTitle>
+<LI>已建立的相簿</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=albumSide><A 
+href="http://photo.xuite.net/alwaysfuturevision">我的相簿</A></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+function AddRss_test(blogID,title){
+			window.open('http://xuite.net/api/addrss/index.php?title='+title+'+&feedURL='+blogID,'_blank','height=615,width=520,status=no,toolbar=no,menubar=no,location=no','true');
+}
+</SCRIPT>
+
+<DIV class=sidetitle>
+<DIV class=resourceTitle>
+<LI>日誌使用資源</LI></DIV></DIV>
+<DIV class=side>
+<DIV class=resourceSide><A 
+onclick="javascript:AddFriend('alwaysfuturevision');return false;" 
+href="javascript:;"><IMG height=19 src="如何建立一個 DataView.files/addFriend.gif" 
+width=82 border=0><IMG height=16 src="如何建立一個 DataView.files/beta_label.gif" 
+width=21 border=0></A><BR><A onclick="javascript:AddLoveBlog();return false;" 
+href="javascript:;"><IMG height=19 src="如何建立一個 DataView.files/addFavorite.gif" 
+width=82 border=0><IMG height=16 src="如何建立一個 DataView.files/beta_label.gif" 
+width=21 border=0></A><BR><A 
+onclick="javascript:AddRss_test('http://blog.xuite.net/alwaysfuturevision/liminzhang/rss.xml','%E7%AB%A0%E7%AB%8B%E6%B0%91%E7%A0%94%E7%A9%B6%E5%AE%A4');return false;" 
+href="javascript:;"><IMG height=19 src="如何建立一個 DataView.files/Subscribe.gif" 
+width=82 border=0></A><BR><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/rss.xml" 
+target=_blank><IMG height=15 src="如何建立一個 DataView.files/rss01.gif" width=93 
+vspace=1 border=0></A><BR><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/atom.xml" 
+target=_blank><IMG height=15 src="如何建立一個 DataView.files/atom01.gif" width=93 
+vspace=1 border=0></A><BR><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/message.xml" 
+target=_blank><IMG height=15 src="如何建立一個 DataView.files/atom02.gif" width=93 
+vspace=1 border=0></A><BR><A 
+href="http://blog.xuite.net/faq1.phtml#a9">如何使用RSS</A><BR>Powered by 
+Xuite<BR></DIV></DIV></DIV>
+<DIV id=mid>
+<DIV id=content>
+<SCRIPT language=javascript>
+function Score_Set2(idx){
+	if(idx < 0 || idx > 5)return;
+	var i, line;line='';
+	for(i=1;i <=idx;i++){
+		line+='<img src="http://s.blog.xuite.net/_image/score_02.gif" width="15" height="14" border="0" onMouseOut="javascript:Score_Set2(0);" onClick="javascript:Score_Send2('+i+');">';
+	}
+	for(i=idx+1;i <=5;i++){
+		line+='<img src="http://s.blog.xuite.net/_image/score_021.gif" width="15" height="14" border="0" onMouseOver="javascript:Score_Set2('+i+');">';
+	}
+	document.getElementById('SelectScore2').innerHTML=line;
+	if(idx > 0)
+	{
+		window.status='給 '+idx+' 顆星';
+  }
+  else
+  {
+    window.status='';
+	}
+}
+
+function Score_Send2(score){
+	if( document.cookie.indexOf("otpw") == -1){
+		if(confirm("請先登入Xuite會員")){
+			document.location.href="/_members/login.php?furl="+location.href;
+			return;
+		}else{
+			return;
+		}
+		
+	}
+	if(!confirm('您已將這篇文章評分為 '+score+' 顆星。按一下 [確定] 表示確認。')){return;}
+	document.location.href='/_theme/doRank.php?type=article&relate_id=8631419&stars='+score;
+	
+}	
+
+function setarticleRank(inMen,inStars){
+ var Stars = document.all ? document.all('article_average_stars') : document.getElementById('article_average_stars');
+ Stars.innerHTML = inStars;
+ 
+ var Men = document.all ? document.all('article_men') : document.getElementById('article_men');
+ Men.innerHTML = inMen; 
+}
+
+function wopen(){
+ window.open("http://blog.xuite.net/_theme/item/item_auto_trackback.php?ping=http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419/track","trackBack","location=no,toolbar=no,resizable=yes,scrollbars=yes,width=430,height=400")
+}
+
+
+function copy_clip(meintext)
+{
+ if (window.clipboardData) 
+   {
+   // the IE-manier
+   window.clipboardData.setData("Text", meintext);
+   } 
+}
+
+</SCRIPT>
+
+<DIV class=title><SPAN class=titledate>2006-10-22 17:07</SPAN><SPAN 
+class=titlename> ADO.NET 2.0 － 如何建立一個 DataView</SPAN> </DIV>
+<DIV class=blogrank><SPAN class=counter>
+<DIV id=article_counter>
+<LI>?</LI></DIV></SPAN><SPAN class=category>
+<LI><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang?st=c&amp;w=487124&amp;p=1">ADO.NET 
+2.0</A></SPAN><SPAN class=mail>
+<LI><A 
+onclick="sendMail('%BAK%ADn%3A%AD%C9%A7U%A9%F3DataView%A1A%A7%DA%AD%CC%ABK%AF%E0%B0%F7%B4%C0%C0x%A6s%A9%F3DataTable%A4%A4%AA%BA%B8%EA%AE%C6%AB%D8%A5%DF%A4%A3%A6P%AA%BA%C0%CB%B5%F8%A1C%A4%F1%A4%E8%BB%A1%A1A%B3z%B9LDataView%A1A%B1z%A5i%A5H%A8%CF%A5%CE%A4%A3%A6P%AA%BA%B1%C6%A7%C7%B6%B6%A7%C7%C0%CB%B5%F8DataTable%A4%A4%AA%BA%B8%EA%AE%C6%A1A%A5%E7%A9%CE%ACO%AE%DA%BE%DA%B8%EA%AE%C6%A6C%AA%AC%BAA%A9%CE%BFz%BF%EF%B9B%BA%E2%A6%A1%A8%D3%BFz%BF%EFDataTable%A4%A4%AA%BA%B8%EA%AE%C6%A1C%AD%AB%ADn%AA%BA%ACO%A1A%B7%ED%A7%DA%AD%CC%BB%DD%ADn%B4%C0DataTable%A4%A4%AA%BA%B8%EA%AE%C6%AB%D8%A5%DF%A4%A3%A6P%AA%BA%C0%CB%B5%F8%A6%D3%A5B%BB%DD%ADn%B1N%B3o%A8%C7%B8%EA%AE%C6%C3%B4%B5%B2%A6%DC%AA%ED%B3%E6%A4W%AA%BA%B1%B1%A8%EE%B6%B5%AE%C9%A1A%A7%F3%BB%DD%ADn%A8%CF%A5%CEDataView%A8%D3%A7%B9%A6%A8%A4%A7%A1C%20%28%C4%7E%C4%F2%BE%5C%C5%AA%29....','http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419','Xuite-Blog%A6n%A4%E5%C2%E0%B1H---ADO.NET%202.0%20%A1%D0%20%A6p%A6%F3%AB%D8%A5%DF%A4%40%AD%D3%20DataView','%A7%40%AA%CC%3A%B3%B9%A5%DF%A5%C1%AC%E3%A8s%AB%C7','%A4%E5%B3%B9%3AADO.NET%202.0%20%A1%D0%20%A6p%A6%F3%AB%D8%A5%DF%A4%40%AD%D3%20DataView');" 
+href="javascript:;">好文轉寄 </A></SPAN><SPAN class=rank>平均分數：<SPAN 
+id=article_average_stars>0</SPAN> 顆星&nbsp;&nbsp;&nbsp;&nbsp;投票人數：<SPAN 
+id=article_men>0</SPAN> 人<BR>我要評分：<SPAN id=SelectScore2></SPAN>
+<SCRIPT>if( (typeof xuiteBlogPlugin_bookmark=="undefined") || (xuiteBlogPlugin_bookmark == null) || (xuiteBlogPlugin_bookmark == 'Y')){ document.write('&nbsp;&nbsp;&nbsp;<iframe src="http://funp.com/tools/buttoniframe.php?s=21" height="16" width="66" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe> &nbsp;'); }</SCRIPT>
+</SPAN></LI></DIV>
+<DIV class=blogbody><BR><BR>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US></SPAN><SPAN 
+lang=EN-US>借助於<STRONG>DataView</STRONG>，我們便能夠替儲存於<STRONG>DataTable</STRONG>中的資料建立不同的檢視。比方說，透過<STRONG>DataView</STRONG>，您可以使用不同的排序順序檢視<STRONG>DataTable</STRONG>中的資料，亦或是根據資料列狀態或篩選運算式來篩選<STRONG>DataTable</STRONG>中的資料。重要的是，當我們需要替<STRONG>DataTable</STRONG>中的資料建立不同的檢視而且需要將這些資料繫結至表單上的控制項時，更需要使用<STRONG>DataView</STRONG>來完成之。&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">提供的是一種<B 
+style="mso-bidi-font-weight: normal">動態</B>的資料檢視，也就是說，其內容、排序順序、與成員會反應出來源</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">中的任何變更。顯然</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">與</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataTable.Select</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">方法有很大的不同，</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Select</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">方法會根據特定的篩選運算式或排序順序從資料表中傳回一個</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataRow</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件陣列，而且其成員與排序順序是靜態不變的。正由於</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的動態反應特性，因此非常適合用於資料繫結應用程式。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">提供您單一資料集合的動態檢視，您可以對資料集合套用不同的排序順序和篩選條件，此點與</SPAN><SPAN 
+lang=EN-US>SQL Server</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">資料庫所提供的檢視表（</SPAN><SPAN 
+lang=EN-US>View</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">）有點類似。然而，</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">與資料庫檢視表仍然有相當大的差異，因為</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">無法當成資料表來使用，也無法提供連結資料表的檢視。此外，您不僅不能排除來源資料表中的欄位，也不能額外加入來源資料表中不存在的欄位（例如：運算式欄位）。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">您可以採用兩種方式來建立一個</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">。第一種方式是使用</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式，第二種方式則是建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">之</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DefaultView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性的一個參考。</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">本文將詳細探討如何使用這兩種方式來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US 
+style="mso-bidi-font-family: 新細明體">DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 20pt; FONT-FAMILY: 新細明體; mso-ascii-font-family: ">使用</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US 
+style="FONT-SIZE: 20pt">DataView</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 20pt; FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式</SPAN></B><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式共提供下表所示的三個多載版本。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P>
+<TABLE class=MsoTableGrid 
+style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; BORDER-COLLAPSE: collapse; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt; mso-border-alt: solid windowtext .5pt; mso-yfti-tbllook: 480; mso-border-insideh: .5pt solid windowtext; mso-border-insidev: .5pt solid windowtext" 
+cellSpacing=0 cellPadding=0 border=1>
+  <TBODY>
+  <TR style="mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 1pt solid; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 418.1pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt" 
+    vAlign=top width=697>
+      <P class=MsoNormal style="MARGIN: 0cm 0cm 0pt 7.55pt; TEXT-ALIGN: center" 
+      align=center><B style="mso-bidi-font-weight: normal"><SPAN 
+      lang=EN-US>DataView</SPAN></B><B 
+      style="mso-bidi-font-weight: normal"><SPAN 
+      style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式的多載版本</SPAN><SPAN 
+      lang=EN-US></SPAN></B></P>
+      <P></P></TD></TR>
+  <TR style="mso-yfti-irow: 1">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #ece9d8; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 418.1pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=697>
+      <P class=MsoNormal style="MARGIN: 0cm 0cm 0pt 7.55pt"><SPAN 
+      lang=EN-US>DataView()</SPAN></P></TD></TR>
+  <TR style="mso-yfti-irow: 2">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #ece9d8; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 418.1pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=697>
+      <P class=MsoNormal style="MARGIN: 0cm 0cm 0pt 7.55pt"><SPAN 
+      lang=EN-US>DataView(ByVal <B 
+      style="mso-bidi-font-weight: normal">table</B> As <B 
+      style="mso-bidi-font-weight: normal">DataTable</B>)</SPAN></P></TD></TR>
+  <TR style="mso-yfti-irow: 3; mso-yfti-lastrow: yes">
+    <TD 
+    style="BORDER-RIGHT: windowtext 1pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: #ece9d8; PADDING-LEFT: 5.4pt; PADDING-BOTTOM: 0cm; BORDER-LEFT: windowtext 1pt solid; WIDTH: 418.1pt; PADDING-TOP: 0cm; BORDER-BOTTOM: windowtext 1pt solid; BACKGROUND-COLOR: transparent; mso-border-alt: solid windowtext .5pt; mso-border-top-alt: solid windowtext .5pt" 
+    vAlign=top width=697>
+      <P class=MsoNormal style="MARGIN: 0cm 0cm 0pt 7.55pt"><SPAN 
+      lang=EN-US>DataView(ByVal <B 
+      style="mso-bidi-font-weight: normal">table</B> As <B 
+      style="mso-bidi-font-weight: normal">DataTable</B>, _ <BR><SPAN 
+      style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN>ByVal 
+      <B style="mso-bidi-font-weight: normal">RowFilter</B> As <B 
+      style="mso-bidi-font-weight: normal">String</B>, _ <BR><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;</SPAN>ByVal <B 
+      style="mso-bidi-font-weight: normal">Sort</B> As <B 
+      style="mso-bidi-font-weight: normal">String</B>, _ <BR><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </SPAN><SPAN 
+      style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;</SPAN>ByVal <B 
+      style="mso-bidi-font-weight: normal">RowState</B> As <B 
+      style="mso-bidi-font-weight: normal">DataViewRowState</B>)</SPAN></P></TD></TR></TBODY></TABLE></P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US></SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式的第一個版本表示不使用任何參數來初始化</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">類別的新執行個體。請注意，如果您採用此版本來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">，必須在建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件後先設定</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Table</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性以便決定其來源</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">，然後才能繼續設定其他屬性（</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>RowFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">、</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Sort</SPAN></B><SPAN 
+lang=EN-US>…</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">等等）。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">以下的程式碼示範如何使用第一個版本的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件，以便篩選和排序資料集內之<B 
+style="mso-bidi-font-weight: normal">「章立民工作室」</B>資料表的資料列，並將</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataGridView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項繫結至此</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">。我們發現，</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataGrid</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項只會顯示出女性，並且資料會依姓名的筆畫順序由多至少排列。以下是本範例的程式碼：</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; mso-layout-grid-align: none"><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">SqlDataAdapter1.Fill(Ds</SPAN><SPAN 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">章立民工作室<SPAN 
+lang=EN-US>, <SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">章立民工作室<SPAN lang=EN-US>"</SPAN></SPAN><SPAN 
+lang=EN-US>)<BR><SPAN style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">建立 <SPAN lang=EN-US>DataView </SPAN>物件<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US 
+style="COLOR: blue">Dim</SPAN><SPAN lang=EN-US> dv <SPAN 
+style="COLOR: blue">As</SPAN> DataView = <SPAN style="COLOR: blue">New</SPAN> 
+DataView<BR><BR><SPAN style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">由於採用沒有任何參數的 <SPAN lang=EN-US>DataView </SPAN>建構函式來建立 <SPAN 
+lang=EN-US>DataView </SPAN>物件，<SPAN lang=EN-US><BR>' </SPAN>因此必須先設定 <SPAN 
+lang=EN-US>Table </SPAN>屬性以便決定其來源 <SPAN 
+lang=EN-US>DataTable<BR></SPAN></SPAN><SPAN lang=EN-US>dv.Table = 
+Ds</SPAN>章立民工作室<SPAN lang=EN-US>.</SPAN>章立民工作室<SPAN lang=EN-US><BR><BR><SPAN 
+style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">設定排序順序以便依姓名的筆畫順序由多至少排列<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US>dv.Sort = <SPAN 
+style="COLOR: maroon">"</SPAN></SPAN><SPAN style="COLOR: maroon">姓名 <SPAN 
+lang=EN-US>DESC"<BR><BR></SPAN></SPAN><SPAN lang=EN-US style="COLOR: green">' 
+</SPAN><SPAN style="COLOR: green">設定篩選條件以便只顯示出女性<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US>dv.RowFilter = <SPAN 
+style="COLOR: maroon">"</SPAN></SPAN><SPAN style="COLOR: maroon">性別 <SPAN 
+lang=EN-US>= '</SPAN>女<SPAN lang=EN-US>'"<BR><BR></SPAN></SPAN><SPAN lang=EN-US 
+style="COLOR: green">' </SPAN><SPAN style="COLOR: green">將 <SPAN 
+lang=EN-US>DataGridView </SPAN>控制項繫結至 <SPAN 
+lang=EN-US>DataView<BR></SPAN></SPAN><SPAN lang=EN-US>DataGridView1.DataSource = 
+dv</SPAN></SPAN><SPAN lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式的第二個版本表示使用指定的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">來初始化</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+lang=EN-US>&nbsp;</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">類別的新執行個體。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">以下的程式碼它示範如何使用第二個版本的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件，以便篩選和排序資料集內之<B 
+style="mso-bidi-font-weight: normal">「章立民工作室」</B>資料表的資料列，並將</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataGridView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項繫結至此</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">。我們發現，</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataGridView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項只會顯示出<B 
+style="mso-bidi-font-weight: normal">「資訊部」</B>的員工資料，並且資料會依照目前薪資由高至低排列：</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; mso-layout-grid-align: none"><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">SqlDataAdapter1.Fill(Ds</SPAN><SPAN 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">章立民工作室<SPAN 
+lang=EN-US>, <SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">章立民工作室<SPAN lang=EN-US>"</SPAN></SPAN><SPAN 
+lang=EN-US>)<BR><BR><SPAN style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">建立 <SPAN lang=EN-US>DataView </SPAN>物件<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US 
+style="COLOR: blue">Dim</SPAN><SPAN lang=EN-US> dv <SPAN 
+style="COLOR: blue">As</SPAN> DataView = <SPAN style="COLOR: blue">New</SPAN> 
+DataView(Ds</SPAN>章立民工作室<SPAN lang=EN-US>.</SPAN>章立民工作室<SPAN 
+lang=EN-US>)<BR><BR><SPAN style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">設定排序順序以便依目前薪資由高至低排列<SPAN lang=EN-US><BR></SPAN></SPAN><SPAN 
+lang=EN-US>dv.Sort = <SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">目前薪資 <SPAN lang=EN-US>DESC"<BR><BR></SPAN></SPAN><SPAN 
+lang=EN-US style="COLOR: green">' </SPAN><SPAN 
+style="COLOR: green">設定篩選條件以便只顯示出「資訊部」的員工資料<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US>dv.RowFilter = <SPAN 
+style="COLOR: maroon">"</SPAN></SPAN><SPAN style="COLOR: maroon">部門 <SPAN 
+lang=EN-US>= '</SPAN>資訊部<SPAN lang=EN-US>'"<BR><BR></SPAN></SPAN><SPAN 
+lang=EN-US style="COLOR: green">' </SPAN><SPAN style="COLOR: green">將 <SPAN 
+lang=EN-US>DataGridView </SPAN>控制項繫結至 <SPAN 
+lang=EN-US>DataView<BR></SPAN></SPAN><SPAN lang=EN-US 
+style="COLOR: blue">Me</SPAN><SPAN lang=EN-US>.DataGridView1.DataSource = 
+dv</SPAN></SPAN><SPAN lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式的第三個版本表示使用指定的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">、</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>RowFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">、</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Sort</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">和</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataViewRowState</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">，來初始化</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">類別的新執行個體。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">以下的程式碼它示範如何使用第三個版本的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">建構函式來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件，以便篩選和排序資料集內之<B 
+style="mso-bidi-font-weight: normal">「章立民工作室」</B>資料表的資料列，並將</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataGridView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項繫結至此</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">。我們發現，</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DataGridView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項只會顯示出目前薪資大於</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>49000</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">元的員工資料，並且資料會依照目前薪資由高至低排列：</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; mso-layout-grid-align: none"><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">SqlDataAdapter1.Fill(Ds</SPAN><SPAN 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">章立民工作室<SPAN 
+lang=EN-US>, <SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">章立民工作室<SPAN lang=EN-US>"</SPAN></SPAN><SPAN 
+lang=EN-US>)<BR><BR><SPAN style="COLOR: green">' </SPAN></SPAN><SPAN 
+style="COLOR: green">建立 <SPAN lang=EN-US>DataView </SPAN>物件<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US 
+style="COLOR: blue">Dim</SPAN><SPAN lang=EN-US> dv <SPAN 
+style="COLOR: blue">As</SPAN> DataView = <SPAN style="COLOR: blue">New</SPAN> 
+DataView( _<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>Ds</SPAN>章立民工作室<SPAN lang=EN-US>.</SPAN>章立民工作室<SPAN lang=EN-US>, 
+_<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN><SPAN 
+style="COLOR: maroon">"</SPAN></SPAN><SPAN style="COLOR: maroon">目前薪資<SPAN 
+lang=EN-US>&gt; 49000"</SPAN></SPAN><SPAN lang=EN-US>, _<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">目前薪資 <SPAN lang=EN-US>DESC"</SPAN></SPAN><SPAN 
+lang=EN-US>, _<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>DataViewRowState.CurrentRows)<BR><SPAN style="COLOR: green">' 
+</SPAN></SPAN><SPAN style="COLOR: green">將 <SPAN lang=EN-US>DataGridView 
+</SPAN>控制項繫結至 <SPAN lang=EN-US>DataView</SPAN></SPAN></SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; COLOR: blue; FONT-FAMILY: 細明體; mso-hansi-font-family: ">Me</SPAN><SPAN 
+lang=EN-US 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">.DataGridView1.DataSource 
+= dv</SPAN><SPAN lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">在此要特別提醒大家，當</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">被建立時，以及當</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Sort</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">、</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>RowFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">或</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>RowStateFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性有任何一個被修改時，都會重新建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的索引。此意味著，如果您希望享有最佳的效能，應該在建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">時，直接於建構函式中指定排序順序或篩選條件。如果您於建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">時並未直接於建構函式中指定排序順序或篩選條件，而是於建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件之後再設定其</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>Sort</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">、</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>RowFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">或</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>RowStateFilter</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性，將會導致</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的索引被重新建立，而使得索引至少被建立兩次。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 20pt; FONT-FAMILY: 新細明體; mso-ascii-font-family: ">使用</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US 
+style="FONT-SIZE: 20pt">DataTable</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 20pt; FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US 
+style="FONT-SIZE: 20pt">DefaultView</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+style="FONT-SIZE: 20pt; FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性</SPAN></B><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US 
+style="FONT-SIZE: 20pt"></SPAN></B></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN lang=EN-US></SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DefaultView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性會傳回一個以此</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">作為來源資料表的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">物件，您便讓您去排序、篩選、與搜尋</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">中的資料列。如果您所建立的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">要顯示出</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">中的所有資料列並依照自然順序來排列，則使用</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DefaultView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">將是非常直接且便利的方式。</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal style="MARGIN: 0cm 0cm 0pt"><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">以執行畫面如圖表</SPAN><SPAN 
+lang=EN-US>1</SPAN><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">所示的程式而言，它使用</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataTable</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">的</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN 
+lang=EN-US>DefaultView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">屬性來建立</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">，以便一開始能夠於</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataGrid</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">控制項中顯示出來源資料表的所有資料列，並讓使用者在執行階段透過</SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US>DataView</SPAN></B><SPAN 
+style="FONT-FAMILY: 新細明體; mso-ascii-font-family: ">來動態篩選資料。茲將程式碼列示如下：</SPAN><SPAN 
+lang=EN-US>&nbsp;</SPAN></P>
+<P>
+<P class=MsoNormal 
+style="MARGIN: 0cm 0cm 0pt; mso-layout-grid-align: none"><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; COLOR: green; FONT-FAMILY: 細明體; mso-hansi-font-family: ">' 
+DataView </SPAN><SPAN 
+style="FONT-SIZE: 9pt; COLOR: green; FONT-FAMILY: 細明體; mso-hansi-font-family: ">物件的類別層級宣告<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US 
+style="FONT-SIZE: 9pt; COLOR: blue; FONT-FAMILY: 細明體; mso-hansi-font-family: ">Private</SPAN><SPAN 
+lang=EN-US style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: "> dv 
+<SPAN style="COLOR: blue">As</SPAN> DataView<BR><BR><SPAN 
+style="COLOR: blue">Private</SPAN> <SPAN style="COLOR: blue">Sub</SPAN> 
+DemoForm5_Load(<SPAN style="COLOR: blue">ByVal</SPAN> sender <SPAN 
+style="COLOR: blue">As</SPAN> System.Object, _<BR><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: blue">ByVal</SPAN> e 
+<SPAN style="COLOR: blue">As</SPAN> System.EventArgs) <SPAN 
+style="COLOR: blue">Handles</SPAN> <SPAN 
+style="COLOR: blue">MyBase</SPAN>.Load<BR><SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>FillComboBoxDepartment()<BR><BR><SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>SqlDataAdapter1.Fill(Ds</SPAN><SPAN 
+style="FONT-SIZE: 9pt; FONT-FAMILY: 細明體; mso-hansi-font-family: ">章立民工作室<SPAN 
+lang=EN-US>, <SPAN style="COLOR: maroon">"</SPAN></SPAN><SPAN 
+style="COLOR: maroon">章立民工作室<SPAN lang=EN-US>"</SPAN></SPAN><SPAN 
+lang=EN-US>)<BR><BR><SPAN style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: green">' </SPAN></SPAN><SPAN style="COLOR: green">建立 <SPAN 
+lang=EN-US>DataView<BR></SPAN></SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>dv = Ds</SPAN>章立民工作室<SPAN 
+lang=EN-US>.</SPAN>章立民工作室<SPAN lang=EN-US>.DefaultView<BR></SPAN></B><SPAN 
+lang=EN-US><BR><SPAN style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: green">' </SPAN></SPAN><SPAN style="COLOR: green">顯示 <SPAN 
+lang=EN-US>DataView </SPAN>中的資料列數目<SPAN lang=EN-US><BR></SPAN></SPAN><SPAN 
+lang=EN-US><SPAN style="mso-spacerun: yes">&nbsp; </SPAN>txtRowCount.Text = 
+dv.Count.ToString<BR><BR><SPAN style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: green">' </SPAN></SPAN><SPAN style="COLOR: green">將 <SPAN 
+lang=EN-US>DataGridView </SPAN>控制項繫結至 <SPAN 
+lang=EN-US>DataView<BR></SPAN></SPAN><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: blue">Me</SPAN>.DataGridView1.DataSource = dv<BR><SPAN 
+style="COLOR: blue">End</SPAN> <SPAN 
+style="COLOR: blue">Sub<BR><BR>Private</SPAN> <SPAN 
+style="COLOR: blue">Sub</SPAN> FillComboBoxDepartment()<BR><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: green">' 
+</SPAN></SPAN><SPAN style="COLOR: green">建立資料命令物件<SPAN lang=EN-US>(</SPAN>亦即 
+<SPAN lang=EN-US>SqlCommand </SPAN>物件<SPAN lang=EN-US>)<BR></SPAN></SPAN><SPAN 
+lang=EN-US><SPAN style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: blue">Dim</SPAN> foxCMD <SPAN style="COLOR: blue">As</SPAN> <SPAN 
+style="COLOR: blue">New</SPAN> SqlCommand<BR><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>foxCMD.Connection = 
+SqlConnection1<BR><SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>foxCMD.CommandText = <SPAN style="COLOR: maroon">"SELECT DISTINCT 
+</SPAN></SPAN><SPAN style="COLOR: maroon">部門 <SPAN lang=EN-US>FROM 
+dbo.</SPAN>章立民工作室<SPAN lang=EN-US>"<BR><BR></SPAN></SPAN><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: green">' 
+</SPAN></SPAN><SPAN style="COLOR: green">開啟連接<SPAN 
+lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>SqlConnection1.Open()<BR><BR><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: blue">Using</SPAN> 
+myReader <SPAN style="COLOR: blue">As</SPAN> SqlDataReader = 
+foxCMD.ExecuteReader()<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: blue">If</SPAN> myReader.HasRows <SPAN 
+style="COLOR: blue">Then<BR></SPAN><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN style="COLOR: blue">While</SPAN> myReader.Read()<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN>ComboBoxDepartment.Items.Add(myReader.GetSqlString(0))<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</SPAN><SPAN style="COLOR: blue">End</SPAN> <SPAN 
+style="COLOR: blue">While<BR></SPAN><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </SPAN><SPAN 
+style="COLOR: blue">End</SPAN> <SPAN style="COLOR: blue">If<BR></SPAN><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: blue">End</SPAN> 
+<SPAN style="COLOR: blue">Using<BR></SPAN><SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>ComboBoxDepartment.SelectedIndex = 0<BR><SPAN 
+style="COLOR: blue">End</SPAN> <SPAN 
+style="COLOR: blue">Sub<BR><BR>Private</SPAN> <SPAN 
+style="COLOR: blue">Sub</SPAN> btnFilter_Click(<SPAN 
+style="COLOR: blue">ByVal</SPAN> sender <SPAN style="COLOR: blue">As</SPAN> 
+System.Object, _<BR><SPAN style="mso-spacerun: yes">&nbsp; </SPAN><SPAN 
+style="COLOR: blue">ByVal</SPAN> e <SPAN style="COLOR: blue">As</SPAN> 
+System.EventArgs) <SPAN style="COLOR: blue">Handles</SPAN> btnFilter.Click<BR><B 
+style="mso-bidi-font-weight: normal"><SPAN style="mso-spacerun: yes">&nbsp; 
+</SPAN>dv.RowFilter = <SPAN style="COLOR: maroon">"</SPAN></B></SPAN><B 
+style="mso-bidi-font-weight: normal"><SPAN style="COLOR: maroon">部門<SPAN 
+lang=EN-US>= '"</SPAN></SPAN><SPAN lang=EN-US> &amp; _<BR><SPAN 
+style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; 
+</SPAN>ComboBoxDepartment.SelectedItem.ToString() &amp; <SPAN 
+style="COLOR: maroon">"'"<BR></SPAN></SPAN></B><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN><SPAN style="COLOR: green">' 
+</SPAN></SPAN><SPAN style="COLOR: green">顯示 <SPAN lang=EN-US>DataView 
+</SPAN>中的資料列數目<SPAN lang=EN-US><BR></SPAN></SPAN><SPAN lang=EN-US><SPAN 
+style="mso-spacerun: yes">&nbsp; </SPAN>txtRowCount.Text = 
+dv.Count.ToString<BR><SPAN style="COLOR: blue">End</SPAN> <SPAN 
+style="COLOR: blue">Sub</SPAN></SPAN></SPAN></P>
+<P><IMG src="如何建立一個 DataView.files/6.jpg" border=0></P>
+<P>圖表 1</P><BR><BR>
+<SCRIPT language=javascript>if(getCookie("MemberInformation") != null){$.ajax({type: "GET",url: "/_theme/AuthorButtonExp.php?aid=8631419&bid=504258&mid=13592822&author_id=13592822&ga="+(new Date()).getTime(),async: false,dataType: 'json',success: getButton});}function getButton(json){document.write("<div id='owner_button'>"+json+"</div>");}</SCRIPT>
+
+<SCRIPT language=javascript>if( (typeof xuiteBlogPlugin_history_today=="undefined") || (xuiteBlogPlugin_history_today == null) || (xuiteBlogPlugin_history_today == 'Y')){document.write("歷史上的今天:<div><li><a href=\"/alwaysfuturevision/liminzhang/8630532\">勘誤表 - Visual Basic 2005 檔案 IO 與資料存取秘訣</a>(2006-10-22 16:10:58)</li></div>");}</SCRIPT>
+</DIV>
+<SCRIPT language=javascript>if( (typeof xuiteBlogPlugin_random_article=="undefined") || (xuiteBlogPlugin_random_article == null) || (xuiteBlogPlugin_random_article == 'Y')){$.get("/_theme/ArticleRandomExp.php?bid=504258", function(data){var oriHtml = $(".blogbody").html();$(".blogbody").append(data);});}</SCRIPT>
+
+<DIV class=posted><A 
+href="http://blog.xuite.net/aboutme.phtml?mid=13592822">章立民研究室</A> / <A 
+href="http://blog.xuite.net/">Xuite日誌</A> / <A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419#message">回應(0)</A> 
+/ <A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419#trackback">引用(0)</A> 
+/ <A 
+onclick="sendMail('%BAK%ADn%3A%AD%C9%A7U%A9%F3DataView%A1A%A7%DA%AD%CC%ABK%AF%E0%B0%F7%B4%C0%C0x%A6s%A9%F3DataTable%A4%A4%AA%BA%B8%EA%AE%C6%AB%D8%A5%DF%A4%A3%A6P%AA%BA%C0%CB%B5%F8%A1C%A4%F1%A4%E8%BB%A1%A1A%B3z%B9LDataView%A1A%B1z%A5i%A5H%A8%CF%A5%CE%A4%A3%A6P%AA%BA%B1%C6%A7%C7%B6%B6%A7%C7%C0%CB%B5%F8DataTable%A4%A4%AA%BA%B8%EA%AE%C6%A1A%A5%E7%A9%CE%ACO%AE%DA%BE%DA%B8%EA%AE%C6%A6C%AA%AC%BAA%A9%CE%BFz%BF%EF%B9B%BA%E2%A6%A1%A8%D3%BFz%BF%EFDataTable%A4%A4%AA%BA%B8%EA%AE%C6%A1C%AD%AB%ADn%AA%BA%ACO%A1A%B7%ED%A7%DA%AD%CC%BB%DD%ADn%B4%C0DataTable%A4%A4%AA%BA%B8%EA%AE%C6%AB%D8%A5%DF%A4%A3%A6P%AA%BA%C0%CB%B5%F8%A6%D3%A5B%BB%DD%ADn%B1N%B3o%A8%C7%B8%EA%AE%C6%C3%B4%B5%B2%A6%DC%AA%ED%B3%E6%A4W%AA%BA%B1%B1%A8%EE%B6%B5%AE%C9%A1A%A7%F3%BB%DD%ADn%A8%CF%A5%CEDataView%A8%D3%A7%B9%A6%A8%A4%A7%A1C%20%28%C4%7E%C4%F2%BE%5C%C5%AA%29....','http://blog.xuite.net/alwaysfuturevision/liminzhang/8631419','Xuite-Blog%A6n%A4%E5%C2%E0%B1H---ADO.NET%202.0%20%A1%D0%20%A6p%A6%F3%AB%D8%A5%DF%A4%40%AD%D3%20DataView','%A7%40%AA%CC%3A%B3%B9%A5%DF%A5%C1%AC%E3%A8s%AB%C7','%A4%E5%B3%B9%3AADO.NET%202.0%20%A1%D0%20%A6p%A6%F3%AB%D8%A5%DF%A4%40%AD%D3%20DataView');" 
+href="javascript:;">好文轉寄</A>
+<SCRIPT>if( (typeof xuiteBlogPlugin_bookmark=="undefined") || (xuiteBlogPlugin_bookmark == null) || (xuiteBlogPlugin_bookmark == 'Y')){ document.write('&nbsp;/&nbsp;<iframe src="http://funp.com/tools/buttoniframe.php?s=21" height="16" width="66" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe> &nbsp;'); }</SCRIPT>
+</DIV>
+<DIV class=selectbar><A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8630532">勘誤表 - Visual 
+Ba...</A>|<A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang">日誌首頁</A>|<A 
+href="http://blog.xuite.net/alwaysfuturevision/liminzhang/8655368">ADO.NET 2.0 - 
+如...</A></DIV><A name=trackBack_header></A>
+<DIV class=item_trackBack></DIV><A name=message_header></A>
+<DIV class=comment><SPAN class=commentbutton><A href="javascript:;"><IMG 
+onclick="MM_openBrWindow('/_theme/message/message_post.php?bid=504258&amp;aid=8631419','post_win','width=650,height=600,scrollbars=1')" 
+height=18 src="如何建立一個 DataView.files/blog029_new.gif" width=72 
+border=0></A></SPAN><SPAN class=commenttitle>
+<LI>回應</SPAN></LI></DIV>
+<DIV class=alertLoad 
+style="DISPLAY: none; Z-INDEX: 30; WIDTH: 50px; HEIGHT: 50px"><IMG 
+src="如何建立一個 DataView.files/7.gif"></DIV>
+<DIV class=item_message></DIV>
+<DIV class=jqmWindow id=dialog></DIV>
+<SCRIPT language=javascript>Score_Set2(0);</SCRIPT>
+
+<SCRIPT language=javascript>setarticleRank(0,0)</SCRIPT>
+
+<SCRIPT language=javascript>
+    function doMsgDelete(mid,page){
+      if(confirm("是否確定要刪除")){
+         $("div.jqmWindow").html("<iframe style='display:none;' src='http://blog.xuite.net/_theme/message/message_delete.php?act=delete&mid="+mid+"&page="+page+"'></iframe>"); 
+      }
+    }
+		
+    function doTrackDelete(tid,lid,url,page){
+			if(confirm("是否確定要刪除")){ 
+       $("div.jqmWindow").html("<iframe style='display:none;' src='http://blog.xuite.net/_theme/trackback/track_delete.php?act=delete&tid="+tid+"&lid="+lid+"&url="+url+"&page="+page+"&track_flag=Y'></iframe>"); 
+		  }
+    }
+		
+		function doMsgEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=edit&mid="+mid+"&aid=8631419&bid=504258&page="+page;
+			window.open(l,'post_win','width=625,height=600,scrollbars=1');
+		}
+		
+		function doMsgReplyAdd(rel_id,page){
+			var l="/_theme/message/message_post.php?act=reply&rel_id="+rel_id+"&aid=8631419&bid=504258&page="+page;
+			window.open(l,'post_win','width=625,height=600,scrollbars=1');
+		}
+		
+		function doMsgReplyEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=reply_edit&mid="+mid+"&aid=8631419&bid=504258&page="+page;
+			window.open(l,'post_win','width=625,height=600,scrollbars=1');
+		}
+		
+		function doSummary(arg)
+		{
+       summarySwitch.innerHTML=summaryContent.innerHTML;	
+       summaryContent.innerHTML=summaryDisplay.innerHTML;
+       summaryDisplay.innerHTML=summarySwitch.innerHTML;
+    }
+    
+    function sendMail(content,link,title,author,e_title)
+    {	 
+      window.location.href = "mailto:?subject="+title+"&body=%B3o%ACO%A6n%AAB%A4%CD%C2%E0%B1H%AA%BAXuite%A6n%A4%E5%B3%B9%B3%E1%A1A%A7%D6%C2I%BF%EF%A4U%AD%B1%B3s%B5%B2%A1A%C0%B0%A5L%BCW%A5%5B%A4H%AE%F0%B3%E1%21%21"+escape('\n')+escape('\n')+e_title+escape('\n')+author+escape('\n')+content+escape('\n')+escape('\n')+link;			
+    }
+    
+    
+	</SCRIPT>
+
+<SCRIPT language=javascript>
+ $(document).ready(function(){
+   		$.ajax({
+     type: "GET",
+     url: '/_theme/ArticleDetailCounterExp.php?aid=8631419&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getArticleDetailCounter
+    });
+     
+    var index="";
+    Message(8631419,504258,13592822,13592822,index);  
+    TrackBack('8631419','alwaysfuturevision','liminzhang','13592822','504258','13592822','Y',index);  
+   
+ });
+  
+   function getArticleDetailCounter(json){  
+    $("div#article_counter").html("<li>"+json[0].counter+"</li>");
+    
+   }
+   
+   function TrackBack(aid,b_login,b_url,mid,bid,a_author_id,track_flag,index){
+     $.ajax({
+     type: "GET",
+     url: '/_theme/TrackBackShowExp.php?aid='+aid+'&b_login='+b_login+'&b_url='+b_url+'&mid='+mid+'&bid='+bid+'&a_author_id='+a_author_id+'&track_flag='+track_flag+'&index='+index+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getTrackBackShow
+    });
+   }
+   
+   function Message(aid,bid,uid,a_author_id,index){
+     $("div.item_message").html("");
+     $("div.alertLoad").ajaxStart(function(){
+       $(this).show();
+     });
+     $("div.alertLoad").ajaxStop(function(){
+                $(this).hide();
+                $(this).unbind("ajaxStart");
+     });
+ 
+     $.ajax({
+     type: "GET",
+     url: '/_theme/MessageShowExp.php?aid='+aid+'&uid='+uid+'&bid='+bid+'&a_author_id='+a_author_id+'&index='+index+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getMessageShow
+    });
+   }
+   
+   function getMessageShow(json){
+      $("div.item_message").html(json['message'].content);
+       $("div.alertLoad").hide();
+      if(json['aside'].check != 0){
+        for( i =0; i < json['aside'].length; i++){		
+         $("div#authorname_"+json['aside'][i].id).html("<div class='commenttext'>(這則留言是<font color='#FF9933'>悄悄話</font>)</div>");
+         $("div#commenttext_"+json['aside'][i].id).html(json['aside'][i].content); 
+        }
+      }
+      
+      if(json['button'].check != 0){
+        for( i =0; i < json['button'].length; i++) {
+         if(json['button'][i].level == 'all'){ 
+         /*是回覆*/  
+           if(json['button'][i].relation_id != null && json['button'][i].relation_id != undefined){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+         /*是回應*/
+           }else{
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                 /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }
+                 }   
+           }
+          }else if(json['button'][i].level == 'one'){
+             /*是回覆*/
+             if(json['button'][i].relation_id != null && json['button'][i].relation_id != "undefined"){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+              /*是回應*/
+             }else{ 
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                  /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    } 
+                 }   
+             }
+          }else{
+            $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+          }
+			  }
+			 }
+			 if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#message_header";
+          }else{
+            location.href=ff+"#message_header";
+          }
+
+       }
+       bindBubbles();
+		}
+    
+    function getTrackBackShow(json){
+      $("div.item_trackBack").html(json['trackBack'].content);
+      if(json['button'].check != 0){
+       for( i =0; i < json['button'].length; i++) {
+         $("div#track_button_"+json['button'][i].id).html("<a href='javascript:;' onClick='javascript:doTrackDelete("+json['button'][i].id+",\"alwaysfuturevision\",\"liminzhang\","+json['page'].index+");return false;'><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+       }
+      }
+      if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#trackBack_header";
+          }else{
+            location.href=ff+"#trackBack_header";
+          }
+
+       }
+      
+    }
+       
+</SCRIPT>
+</DIV></DIV>
+<DIV id=footer>
+<CENTER></CENTER>Copyright ©2008 Internet Service by Xuite.<BR><A 
+href="http://www.xuite.net/policy/privacy.htm">隱私保護</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/term.htm">會員條款</A>&nbsp;|&nbsp;<A 
+href="http://blog.xuite.net/hinet_marketing/blog">刊登廣告</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/feedback.htm">意見回饋</A>&nbsp;|&nbsp;<A 
+href="http://www.xuite.net/policy/icra.htm">網站分級</A>&nbsp;&nbsp;&nbsp;</DIV></DIV></BODY></HTML>

@@ -1,0 +1,60 @@
+當要用vb裡的函數去過瀘欄位的輸出，欄要要轉成ItemTemplate，
+可以在VB Studio裡的"屬性產生器"->"資料行"將資料行轉成"樣版資料行"
+
+<asp:datagrid id="dg" Width="100%" Runat="server" OnItemDataBound="dgItemDataBound" AutoGenerateColumns="False">
+									<ItemStyle CssClass="td1"></ItemStyle>
+									<HeaderStyle CssClass="mtr"></HeaderStyle>
+									<Columns>
+										<asp:TemplateColumn HeaderText="案件編號">
+											<ItemTemplate>
+												<asp:Label runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.CASEID") %>'>
+												</asp:Label>
+											</ItemTemplate>
+										</asp:TemplateColumn>
+										<asp:TemplateColumn HeaderText="核定階層">
+											<ItemTemplate>
+												<asp:Label runat="server" Text='<%# getLevelName(Container.DataItem) %>'>
+												</asp:Label>
+											</ItemTemplate>
+										</asp:TemplateColumn>
+										<asp:TemplateColumn HeaderText="報表年月">
+											<ItemTemplate>
+												<asp:Label runat="server" Text='<%# getTWYYMMforDataGrid(Container.DataItem) %>'>
+												</asp:Label>
+											</ItemTemplate>
+										</asp:TemplateColumn>
+									</Columns>
+</asp:datagrid>
+
+VB裡的函數定義
+    Function getTWYYMMforDataGrid(ByVal _Container_DataItem As Object) As String
+        Dim sYYYYMM As String '西元
+        Dim sResult As String '民國
+        If Not (DataBinder.Eval(_Container_DataItem, "YYYYMM")) Is DBNull.Value Then '判斷該欄位是否為空(DBNull)
+            sYYYYMM = DataBinder.Eval(_Container_DataItem, "YYYYMM")
+            If Char.IsDigit(sYYYYMM) Then
+                sResult = CInt(sYYYYMM.Substring(0, 4)) - 1911
+                sResult &= "年"
+                sResult &= CInt(sYYYYMM.Substring(4, 2))
+                sResult &= "月"
+                Return sResult
+            End If
+        End If
+        Return "N/D"
+    End Function
+    
+    Function getLevelName(ByVal _Container_DataItem As Object) As String
+        Dim sLName As String
+        If Not (DataBinder.Eval(_Container_DataItem, "CHKLVID")) Is DBNull.Value Then '判斷該欄位是否為空(DBNull)
+            Select Case DataBinder.Eval(_Container_DataItem, "CHKLVID")
+                Case "1400"
+                    sLName = "副總"
+                Case "1600"
+                    sLName = "總經理"
+                Case "1650"
+                    sLName = "董事長"
+            End Select
+            Return sLName
+        End If
+        Return "N/D"
+    End Function    

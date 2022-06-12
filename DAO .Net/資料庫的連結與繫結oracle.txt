@@ -1,0 +1,35 @@
+Imports System.Data
+Imports System.Data.OleDb	'匯入oracle相關函式
+
+
+example:
+'連線
+'先判斷連線存不存在
+'宣告OleDbConnection
+'OleDbConnection.ConnectionString="Provider=OraOLEDB.Oracle;Password=密碼;User ID=帳號;Data Source=資料庫位址或別名"
+'開啟連線OleDbConnection.Open()
+'宣告OleDbCommand("sql命令") 
+'設定指令OleDbCommand.Connection=OleDbConnection
+
+
+        Dim strConn As String = "Provider=OraOLEDB.Oracle;Password=BOTELOANPG;User ID=BOTELOANPG;Data Source=bot41"
+        Dim cnn As OleDbConnection
+        If IsNothing(cnn) OrElse cnn.State = ConnectionState.Closed Then
+            cnn = New OleDbConnection
+            cnn.ConnectionString = strConn
+            cnn.Open()
+
+
+        End If
+        Dim cmd As OleDbCommand = New OleDbCommand(" select CASEID from FlowStep where status=1 and ( client LIKE '%G%')")
+        cmd.Connection = cnn
+'資料繫結
+'用OleDbCommand.ExecuteReader傳送一個OleDbDataReader 到目地控製項(DataGrid,DataReader,DataRepeater)
+'其中CommandBehavior.CloseConnection是執行完後關閉連線
+'DataGrid1.DataSource指定DataGrid1的來源
+'DataGrid1.DataBind()將reader和datagrid  map在一起
+
+'連線->產生(DataReader,DataSet)->指定到控制項(DataGrid,DataList,Repeater,...)->DataBind(顯示資料)
+        
+	DataGrid1.DataSource = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+        DataGrid1.DataBind()

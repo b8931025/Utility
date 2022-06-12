@@ -1,0 +1,4 @@
+不要用
+            DataTable.Rows.Add( DataRow)
+改用
+            DataTable.Rows.ImportRow( DataRow)

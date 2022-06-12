@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://wuyy.idv.tw/cr/DotNet/DB/DataAdapterPage.htm -->
+<HTML><HEAD><TITLE>資料查詢</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=big5"><LINK 
+href="../../CyberRoom.css" type=text/css rel=stylesheet>
+<STYLE type=text/css>.style1 {
+	COLOR: #ff0000
+}
+.style2 {
+	COLOR: #009900
+}
+.style3 {
+	FONT-SIZE: large
+}
+</STYLE>
+
+<META content="MSHTML 6.00.2900.3314" name=GENERATOR></HEAD>
+<BODY background="">
+<TABLE width=770 align=center bgColor=#ffffff>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=10 width="95%" align=right border=0>
+        <TBODY>
+        <TR>
+          <TD class=ChapTitle width="85%">DataGrid 的分頁設定</TD>
+          <TD width="15%">
+            <DIV align=right><A 
+            href="http://wuyy.idv.tw/cr/DotNet/DB/DBCommand.htm"></A><A 
+            href="http://wuyy.idv.tw/cr/DotNet/DB/index.htm"><IMG height=30 
+            src="DataGrid分頁的上一頁下一頁.files/sign_purple_index.gif" width=30 
+            border=0></A><A 
+            href="http://wuyy.idv.tw/cr/DotNet/DB/DataGrid02.htm"></A></DIV></TD></TR></TBODY></TABLE>
+      <P class=ChapTitle>&nbsp;</P>
+      <P align=center><IMG height=8 src="DataGrid分頁的上一頁下一頁.files/Line05.gif" 
+      width=700></P>
+      <TABLE cellSpacing=0 cellPadding=0 width=670 align=center border=0>
+        <TBODY>
+        <TR>
+          <TD>
+            <P align=left>&nbsp;</P>
+            <P>DataGrid 
+            物件具有分頁功能，使用其顯示資料，可以透過屬性產生器的設定，搭配簡易程式碼，即可達到以前要費心撰寫的分頁功能。</P>
+            <P><BR></P></TD></TR>
+        <TR>
+          <TD class=SubTitle bgColor=#e7e7e7 height=40>分頁設定</TD></TR>
+        <TR>
+          <TD height=40>
+            <CENTER>
+            <P><BR><IMG height=581 src="DataGrid分頁的上一頁下一頁.files/DataGrid01h.gif" 
+            width=591> </P>
+            <P align=center>設定分頁顯示後，編輯畫面即會出現分頁頁數或上下頁的指示。</P>
+            <P align=center><IMG height=113 
+            src="DataGrid分頁的上一頁下一頁.files/DataGrid01h1.gif" width=396></P>
+            <P> </P></CENTER></TD></TR>
+        <TR>
+          <TD class=SubTitle bgColor=#e7e7e7 height=40>新增分頁的副程式並撰寫程式碼</TD></TR>
+        <TR>
+          <TD>
+            <P class=BlueWord align=left><BR>在 .aspx.vb 
+            檔案內，使用下二圖方式，新增分頁設定的副程式。</P>
+            <P class=BlueWord align=center><IMG height=444 
+            src="DataGrid分頁的上一頁下一頁.files/DataGridPage01.gif" width=551> </P>
+            <P class=BlueWord align=center><IMG height=433 
+            src="DataGrid分頁的上一頁下一頁.files/DataGridPage02.gif" width=581></P>
+            <P class=BlueWord align=center>經過上述三步驟後，分頁副程式及引用參數即產生，如下：</P>
+            <DIV class=sqlcode>
+            <P>Private Sub <FONT 
+            color=#ff0000>dgData_PageIndexChanged</FONT>(ByVal source As Object, 
+            ByVal e As System.Web.UI.WebControls.DataGridPageChangedEventArgs) 
+            Handles dgData.PageIndexChanged</P>
+            <P>End Sub</P></DIV>
+            <P class=BlueWord align=center>在此副程式內撰寫如下程式碼</P>
+            <DIV class=programcode>
+            <P>dgData.CurrentPageIndex = 
+            e.NewPageIndex<BR>dgData.DataBind()</P></DIV>
+            <P class=BlueWord align=left>若要將程式合而為一，則在 .aspx 檔案內，需指定分頁時要執行的副程式。於 
+            &lt;asp:DataGrid...&gt; 程式段內，加入 <SPAN 
+            class=highlight>OnPageIndexChanged</SPAN>="<FONT 
+            color=#0000ff>副程式名稱</FONT>"。下列 DataGrid 的設定，會依個人畫面設計的不同而不同。</P>
+            <DIV class=programcode>
+            <P>&lt;asp:DataGrid id="dgData" 
+            runat="server"<BR>AutoGenerateColumns="False" 
+            AllowPaging="True"<BR><STRONG><FONT 
+            color=#ff0000>OnPageIndexChanged</FONT></STRONG>="<FONT 
+            color=#0000ff>dgData_PageIndexChanged</FONT>"&gt; </P></DIV>
+            <P class=BlueWord align=center>&nbsp;</P>
+            <P class=BlueWord align=left>&nbsp;</P></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD></TR>
+        <TR>
+          <TD bgColor=#6c6c6c height=30>
+            <DIV align=center><FONT face="Arial, Helvetica, sans-serif" 
+            color=#ffffff><STRONG>Last Update：May. 18, 2006 Wu 
+            YuYing</STRONG></FONT></DIV></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD></TR></TBODY></TABLE>
+      <P align=center>&nbsp;</P></TD></TR></TBODY></TABLE></BODY></HTML>

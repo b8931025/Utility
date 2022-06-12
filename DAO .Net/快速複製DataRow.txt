@@ -1,0 +1,12 @@
+A Quick Way to Copy DataRow
+Instead of copying DataRow column by column, 
+the following code copies data in one line from the source to the destination row: 
+
+DataTable dtDest = new DataTable();
+dtDest = dsActivity.Tables[0].Clone();
+foreach(DataRow dr in dsSrc.Tables[0].Rows)
+{
+ DataRow newRow = dtDest .NewRow();
+ newRow.ItemArray = dr.ItemArray;
+ dtDest.Rows.Add(newRow);
+}

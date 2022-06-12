@@ -1,0 +1,11 @@
+排除DBNull的的function
+
+    Private Function NullFilter(ByVal obj As Object, ByVal out As Object) As Object
+        If TypeOf obj Is DBNull Then
+            Return out
+        ElseIf TypeOf obj Is String AndAlso CType(obj, String).Trim = "" Then
+            Return out
+        Else
+            Return obj
+        End If
+    End Function '如果是DBNull, 空字串就傳回out

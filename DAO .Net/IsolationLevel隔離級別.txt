@@ -1,0 +1,24 @@
+public static const System.Data.IsolationLevel Chaos
+    System.Data.IsolationLevel 的成員
+摘要: 無法改寫隔離級別更高的事務中的掛起的更改。
+
+public static const System.Data.IsolationLevel ReadCommitted
+    System.Data.IsolationLevel 的成員
+摘要: 在正在讀取數據時保持共享鎖，以避免臟讀，但是在事務結束之前可以更改數據，從而導致不可重複的讀取或幻像數據。
+
+public static const System.Data.IsolationLevel ReadUncommitted
+    System.Data.IsolationLevel 的成員
+摘要: 可以進行臟讀，意思是說，不發布共享鎖，也不接受獨占鎖。
+
+public static const System.Data.IsolationLevel RepeatableRead
+    System.Data.IsolationLevel 的成員
+摘要: 在查詢中使用的所有數據上放置鎖，以防止其他用戶更新這些數據。防止不可重複的讀取，但是仍可以有幻像行。
+
+public static const System.Data.IsolationLevel Serializable
+    System.Data.IsolationLevel 的成員
+摘要: 在System.Data.DataSet 上放置範圍鎖，以防止在事務完成之前由其他用戶更新行或向數據集中插入行。
+
+public static const System.Data.IsolationLevel Unspecified
+    System.Data.IsolationLevel 的成員
+摘要: 正在使用與指定隔離級別不同的隔離級別，但是無法確定該級別。
+ 

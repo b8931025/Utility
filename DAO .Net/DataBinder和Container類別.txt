@@ -1,0 +1,29 @@
+        下面幾種是將資料綁定到模板列中的方法   
+        <%# Container.DataItem("ID")% >   ps:這種效率最快
+        <%# DataBinder.Eval(Container.DataItem, "ID") %>   
+      ※<%# DataBinder.Eval(Container.DataItem, "ID", "{0:#,##0.0}%" ) %> 
+        <%# DataBinder.Eval(Container,DataItem.ID) %>   
+        <%# CType(Container.DataItem,DataRowView)("ID") %>   ps:這種效率比較高
+
+        DataBinder Class是System.Web.UI名稱空間的   
+        Container Class  是System.ComponentModel名稱空間的  
+
+				※Public Shared Function Eval( container As Object, expression As String, format As String ) As String
+				這個函式可以用類似String.Format(obj,format)的方式將要binding的資料格式化，跟String.Format一樣Obj一定要是數字格式
+				但format的表示跟String.Format有點不同，如：
+				<%#DataBinder.Eval(Container.DataItem, "phone", "{0:#,##0}") %>		千分位
+				<%#DataBinder.Eval(Container.DataItem, "phone", "{0:#,##0.0}%") %>		千分位加百分比符號(不乘以100)
+				<%#DataBinder.Eval(Container.DataItem, "phone", "{0:#,##0.0%}") %>		千分位加百分比符號(乘以100)
+				<%#DataBinder.Eval(Container.DataItem, "phone", "#,##0") %>		(錯誤！！)
+
+
+
+DataBinder.Eval(Container.DataItem,"Name")和Container.DataItem("Name")有什麼區別？
+
+DataBinder是System.Web裡面的一個靜態類，它提供了Eval方法用於簡化數據綁定表達式的編寫，
+但是它使用的方式是通過Reflection等開銷比較大的方法來達到易用性，因此其性能並不是最好的。
+而Container則根本不是任何一個靜態的對象或方法，它是ASP.NET頁面編譯器在數據綁定事件處理程
+序內部聲明的局部變量，其類型是可以進行數據綁定的控件的數據容器類型（如在Repeater內部的數
+據綁定容器叫RepeaterItem），在這些容器類中基本都有DataItem屬性，因此你可以寫
+Container.DataItem，這個屬性返回的是你正在被綁定的數據源中的那個數據項。如果你的數據源是
+DataTable，則這個數據項的類型實際是DataRowView。
