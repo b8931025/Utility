@@ -1,0 +1,29 @@
+﻿執行自定function如select dbo.AESEncrypt('jack')，出現該錯誤
+
+訊息 6522，層級 16，狀態 1，行 45
+執行使用者自訂常式或彙總 "AESEncrypt" 時，發生 .NET Framework 錯誤: 
+System.Security.HostProtectionException: 嘗試執行 CLR 主機禁止的作業。
+
+保護的資源 (僅供完全信任情況下使用): All
+要求的資源: MayLeakOnAbort
+
+System.Security.HostProtectionException: 
+   於 System.RuntimeMethodHandle.PerformSecurityCheck(Object obj, RuntimeMethodHandleInternal method, RuntimeType parent, UInt32 invocationFlags)
+   於 System.RuntimeMethodHandle.PerformSecurityCheck(Object obj, IRuntimeMethodInfo method, RuntimeType parent, UInt32 invocationFlags)
+   於 System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   於 System.Security.Cryptography.CryptoConfig.CreateFromName(String name, Object[] args)
+   於 System.Security.Cryptography.Aes.Create(String algorithmName)
+   於 AES_Tool.encodingByKI(String sOrign, String Key, String IV)
+   於 AES_Tool.encoding(String befortCipherText)
+。
+
+
+原因:組件裡面的功能需要較高的安全性
+解決:
+打開完全信任
+ALTER DATABASE EXM_2020 SET TRUSTWORTHY ON;
+
+移除組件後重新建立為UNSAFE
+CREATE ASSEMBLY CryptTool from 'D:\Work\TODO\200114_AES加密\CryptTool\CryptTool\CryptTool\bin\Debug\CryptTool.dll' 
+WITH PERMISSION_SET = UNSAFE    <----SAFE改為UNSAFE
+Go

@@ -1,0 +1,16 @@
+﻿訊息 574，層級 16，狀態 0，行 12
+CONFIG 陳述式不能在使用者交易內部使用。
+
+原因:
+下面的指令exec執行後不能再執行RECONFIGURE，要先commit，再執行RECONFIGURE，才不會有錯誤
+
+EXEC sp_configure 'clr enabled', '1'; 
+GO
+RECONFIGURE;
+GO
+
+解決:
+EXEC sp_configure 'clr enabled', '1'; 
+commit;
+RECONFIGURE;
+GO
