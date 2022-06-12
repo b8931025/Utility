@@ -1,0 +1,16 @@
+﻿  //EntityValidationErrors錯誤
+
+using System.Data.Entity.Validation;
+
+  try {
+      db.SaveChanges();
+  }
+  catch (DbEntityValidationException ex ) {
+      System.Text.StringBuilder sb = new System.Text.StringBuilder();
+      foreach (var evError in ex.EntityValidationErrors) {
+          foreach (var validError in evError.ValidationErrors) {
+              sb.Append(validError.PropertyName).Append(",");
+          }
+      }
+      throw new Exception(sb.ToString().Trim(char.Parse(",")) + "欄位是null");
+  }
