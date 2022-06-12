@@ -1,0 +1,31 @@
+VML標記與通用屬性 
+1:VML標記VML是通過XML標記來描述矢量圖形的，所以必須遵循一定規則，請看下面的幾種標記寫法1:圖形不包含內容，可以直接使用/>號結束
+<HTML xmlns:v><STYLE>v\:*{behavior:url(#default#VML);}</STYLE><BODY>
+<v:oval fillcolor='red' style='width:100;height:150'/>
+
+2:或者使用</名域名:標記名>的形式表示VML圖形描述標記的結束
+<HTML xmlns:v><STYLE>v\:*{behavior:url(#default#VML);}</STYLE><BODY>
+<v:oval fillcolor='red' style='width:100;height:150'></v:oval>
+
+2:VML標記通用屬性說明和HTML標記的通用屬性（如:id、name、class、title、style）等一樣，VML標記也有自己的通用屬性、支持HTML的通用屬性、支持CSS的樣式定義。通過這些屬性，我們可以修飾VML圖形（如線、圓形）的形狀、大小、顏色、內容、邊框，以及定義鼠標樣式、編程用的ID索引、提示標題等等3:VML標記特有的通用屬性（非HTML、CSS所有） - 參考表VML特有通用屬性使用範例：
+<HTML xmlns:v><STYLE>v\:*{behavior:url(#default#VML);}</STYLE><BODY>
+<v:oval strokeweight='5' strokecolor='red' fillcolor=yellow style='width:100;height:150'></v:oval>
+<v:oval stroked=false fillcolor=yellow style='width:100;height:150'/>
+
+
+屬性名 默認值 值類型/範圍 用途 strokeweight 0.75pt=1px number 描述圖形的邊框粗度 strokecolor black color 描述圖形的邊框顏色 stroked true boolean 描述圖形是否使用邊框 fillcolor white color 描述圖形的背景顏色 filled true boolean 描述圖形是否使用背景 print true boolean 描述圖形是否允許被打印機打印 coordsize 1000,1000 Vector2D 暗示圖形與容器空間的大小比例 coordorigin 0 0 Vector2D coordinate at top-left corner of element wrapcoords null string outline to use for tight text wrapping 
+4:VML標記支持的HTML通用屬性 - 參考表HTML通用屬性使用範例：
+<HTML xmlns:v><STYLE>v\:*{behavior:url(#default#VML);}</STYLE><BODY>
+<v:oval href='http://www.microsoft.com' title='提示標題' target='_blank' fillcolor=red style='width:100;height:150'/>
+
+
+屬性名 默認值 值類型/範圍 用途 id null string 定義元素的標識索引(多用於DHTML編程) class null classname 定義元素使用的CSS樣式類 style null CSS string 描述圖形的CSS樣式表 title null string 定義圖形的提示標題(鼠標靠近後的幫助提示) href null string 定義圖形鏈接的URL地址 target _self _self/_blank/_top 定義圖形以何種形式打開鏈接 contentEditable false boolean 描述圖形內容是否允許用戶編輯 dir ltr ltr/rtl 描述圖形內容以哪種方向輸出 disabled false boolean 描述圖形能夠響應用戶事件觸發 
+5:VML標記支持的CSS通用屬性 - 參考表其實，VML元素幾乎支持所有CSS樣式定義，有些HTML元素不支持的像（rotation，旋轉樣式），VML卻支持。由於CSS2樣式屬性太多，這裡不一一寫出了，只提及一些常用、好用的樣式標記。如需要瞭解更多有關CSS的資料，請打開LD5、或下載一本由蘇小雨編著的CSS手冊，內容較專業、全面。CSS通用屬性使用範例：
+<HTML xmlns:v><STYLE>v\:*{behavior:url(#default#VML);}</STYLE><BODY>
+<v:oval fillcolor="rgb(255,0,0)" style='position:absolute;left:50;top:150;width:200;height:100;cursor:crosshair;z-index:5000'/>
+<v:oval fillcolor="#0000ff" style='position:absolute;left:150;top:250;width:200;height:100;cursor:move;rotation:60;z-index:2000'/>
+<v:rect fillcolor="green" style='position:absolute;left:400;top:150;width:200;height:100;cursor:help;rotation:120;zoom:2.5;color:red'>已經被縮放2.5倍</v:rect>
+
+
+屬性名 可用值/可用值範圍 用途 width 0-9999 描述寬度 height 0-9999 描述高度 position static absolute fixed relative 描述如何定位輸出 left 0-9999 描述距離頁面位置左 top 0-9999 描述距離頁面位置上 z-index 0-9999 描述3D位置 cursor auto crosshair hand move help wait text…… 描述鼠標形狀 zoom 0-99 描述縮放比例 clip rect(上 右 下 左) 描述裁剪對像 border 0-99 style color 描述邊框 display block none inline list-item 描述顯示或隱藏 overflow visible auto hidden scroll 描述滾動條 color colorstring 描述文本內容顏色 font-size 0-999 描述文本內容字號 filter xray flipv fliph invert alpha(opacity=num) 描述濾鏡效果 rotation (0-9999)%360 描述旋轉度 flip x y 描述反轉或顛倒圖形 …… …… …… 
+6:要重視通用屬性以上提及的VML通用屬性以及範例，不難發現通用屬性的重要性，通用屬性也是VML元素屬性中最重要的屬性、最容易使用的屬性。不過這裡的「通用」你不要理解為「所有的VML元素都支持」，那是不正確的。像今後我們要學的VML標記line(線)，就不支持fillcolor、filled，因為它是「線短」只有邊框、沒有背景，所以不支持背景描述。「通用」你可以理解為常用的、絕大多數VML圖形均可用的「通用屬性」。
