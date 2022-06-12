@@ -1,0 +1,3 @@
+﻿						WITCrypto lo_Crypto = new WITCrypto();
+						lo_Crypto.HexKey = xxx // user01_pwdsalt
+						password = lo_Crypto.uf_Decrypt(yyy);	// user01_pwdhash

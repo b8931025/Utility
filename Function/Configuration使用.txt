@@ -1,0 +1,53 @@
+﻿  <configSections>
+    <section name="accountMapping" type="PaymentCreditcard2000.AccountMappingSection, PaymentCreditcard2000" />
+  </configSections>
+  <accountMapping>
+    <mappings>
+      <add from="台北" to="高雄"/>
+      <add from="紐約" to="倫敦"/>
+    </mappings>
+  </accountMapping>
+  
+c#  建立類別
+using System.Configuration;
+
+namespace PaymentCreditcard2000
+{
+    public class Mapping : ConfigurationElement
+    {
+        [ConfigurationProperty("from", IsRequired = true)]
+        public string From { get { return base["from"].ToString(); } }
+        [ConfigurationProperty("to", IsRequired = true)]
+        public string To { get { return base["to"].ToString(); } }
+    }
+
+    [ConfigurationCollection(typeof(Mapping))]
+    public class MappingCollection : ConfigurationElementCollection
+    {
+        protected override ConfigurationElement CreateNewElement() { return new Mapping(); }
+        protected override object GetElementKey(ConfigurationElement element) { return (element as Mapping); }
+    }
+
+    public class AccountMappingSection : ConfigurationSection
+    {
+        [ConfigurationProperty("mappings")]
+        public MappingCollection Mappings
+        {
+            get { return ((MappingCollection)(base["mappings"])); }
+            set { base["mappings"] = value; }
+        }
+    }
+}
+  
+  
+C# 取得設定
+using System.Configuration;
+
+AccountMappingSection sec = ConfigurationManager.GetSection("accountMapping") as AccountMappingSection;
+if (sec != null)
+{
+    foreach (Mapping mapping in sec.Mappings)
+    {
+        Console.WriteLine("{0} -> {1}", mapping.From, mapping.To);
+    }
+}

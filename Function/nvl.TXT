@@ -1,0 +1,25 @@
+version 1.5 比1.0省45%時間，少了trim的功能
+    VB
+    Public Shared Function nvl(ByVal input As Object, Optional ByVal sDefault As String = "") As String
+        If IsNothing(input) Then Return sDefault
+        If TypeOf input Is Date Then Return CStr(input)
+        Dim s As String = input.ToString
+        If s.Length = 0 Then Return sDefault
+        Return s 
+    End Function
+    
+		C#
+    public static string nvl(Object input ,String sDefault = "") {
+        string s;
+        if (input == null) return sDefault;
+        if (input.GetType() == typeof(DateTime)) return input.ToString();
+        s = input.ToString();
+        if (s.Length == 0) return sDefault;
+        return s;
+    }    
+
+version 1.0
+    Function nvl(ByVal input As Object, Optional ByVal sDefault As String = "") As String
+        If IsNothing(input) OrElse IsDBNull(input) OrElse CStr(input).Trim = "" Then Return sDefault
+        Return CStr(input)
+    End Function

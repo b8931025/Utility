@@ -1,0 +1,55 @@
+常用函式
+
+加密
+<< EMRMS >>
+EMRMSUtil.DESEncrypt(value,key)
+EMRMSUtil.DESEncryptByType(EMRMSUtil.EDesType.AddrAcc,'xxxx')
+<< WebApp >>
+WITCrypto lo_Crypto = new WITCrypto();
+lo_Crypto.uf_GenerateKey();
+Key = lo_Crypto.HexKey;	 
+ls_PwdHash = lo_Crypto.uf_Encrypt("xxx");	 
+
+解密
+<< EMRMS >>
+EMRMSUtil.DESDecrypt(value,key)
+EMRMSUtil.DESDecryptByType(EMRMSUtil.EDesType.AddrAcc,'xxxx')
+<< WebApp >>
+WITCrypto lo_Crypto = new WITCrypto();
+lo_Crypto.HexKey = "Key";
+ls_SavePwd = lo_Crypto.uf_Decrypt("xxx");
+
+阿拉伯轉大寫中文
+EMRMSUtil.TranN()
+
+轉台灣日期
+Hyweb.M00.EMRMS.Util.TaiwanDateUtil.GetDateString(d, "yyy/MM/dd")
+ps:潤年有bug 2004/2/29 > 093/02/28
+
+alert
+<< EMRMS >>
+ClientScript.RegisterClientScriptBlock(Page.GetType(), "Error", ScriptUtil.Alert("匯入失敗"))
+ClientScript.RegisterStartupScript(Page.GetType(), "Success", ScriptUtil.Alert("資料刪除成功"))
+<< WebApp >>
+uf_Msg("沒有早期證書圖卡");
+
+CRMS.Core.Utils.UtilsLib
+
+Crystal Report for WebApp
+Response.Write(WIT.Cer.WebApp.proj_report.p_crBase_t.uf_LinkToASP("cr_e0701.rpt", "", "", new string[]{ Request["ReturnPageId"] }));
+
+Web.config
+System.Configuration.ConfigurationManager.AppSettings["P_E0701_01_UPDATE"].ToString()
+
+App.config
+System.Configuration.ConfigurationManager.AppSettings["BETWEEN"].ToString()
+
+Crystal Report  D:\Work\考試院專案\K考試院\WIT.Cer.WebApp\WIT.Cer.WebApp\proj_report\cr_a0702_01.rpt
+formula = Cstr(Cdbl(CStr (PrintDate,"yyyy")) - 1911, "00")  + "年"+CStr (PrintDate,"MM" )+ "月"+ CStr (PrintDate,"dd" )+ "日"
+
+<< WebApp >>
+取得Cer.ini參數
+DbMethods.uf_ProfileString(DbMethods.is_INIPath, "Passwd", "WITCheckPwd", "")
+
+<< WebApp >>
+WIT.Cer.WebApp.proj_funct.Funct

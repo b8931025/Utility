@@ -1,0 +1,19 @@
+        /// <summary>
+        /// 取得經過時間 ->h時m分s秒
+        /// </summary>
+        /// <param name="bgn">啟始時間(DateTime)</param>
+        /// <param name="end">結束時間(DateTime)</param>
+        /// <returns>string</returns>
+        public static string spendTime(DateTime bgn, DateTime end) {
+            string result = "";
+            string sH = "時", sM = "分", sS = "秒";
+            TimeSpan ts = new TimeSpan(end.Ticks - bgn.Ticks);
+            int h = (int)ts.TotalHours;
+            int m = (int)ts.TotalMinutes % 60;
+            int s = (int)ts.TotalSeconds % 60;
+            
+            if (h > 0) result += $"{h}{sH}";
+            if (m > 0 || h > 0) result += $"{m}{sM}";
+            if (s > 0 || h > 0 || m > 0) result += $"{s}{sS}";
+            return result;
+        }

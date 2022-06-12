@@ -1,0 +1,34 @@
+﻿Imports IntelliSys.NetExpress.Util.MathUtils.Round()
+
+    '''<summary>四捨五入法，Num 為傳入要四捨五入的值，nLen 為要四捨五入至第幾位。</summary>
+    Public Shared Function Rounds(ByVal Num As Double, ByVal nLen As Integer) As Double
+        '*********************************************************************
+        '修正四捨六入的 Round
+        'Num 為傳入要四捨五入的值
+        'nLen 為要四捨五入至第幾位
+        '例：1.125 要四捨五入至小數 2 位，請傳入 Roundc(1.125,2)，會回傳 1.13
+        '*********************************************************************
+        Dim blnFix As Boolean = False '紀錄是不是負的轉正的
+        Dim dblTmp As Double = 0
+
+        If Num < 0 Then '如果是負的，先轉成正的來四捨五入
+            Num = -Num
+            blnFix = True
+        End If
+
+        Num = Num * 10 ^ nLen + 0.5
+
+        If blnFix Then
+            dblTmp = -Int(Num) / 10 ^ nLen
+        Else
+            dblTmp = Int(Num) / 10 ^ nLen
+        End If
+
+        Return dblTmp
+    End Function
+
+    '''<summary>四捨五入法，Num 為傳入要四捨五入的值，nLen 為要四捨五入至第幾位。</summary>
+    Public Shared Function Rounds(ByVal Num As Decimal, ByVal nLen As Integer) As Decimal
+        Dim dResult As Double = Rounds(CDbl(Num), nLen)
+        Return CType(dResult, Decimal)
+    End Function

@@ -1,0 +1,101 @@
+﻿[VB]
+    ''' <summary>
+    ''' 將Key和Value字串集合組成HashTable
+    ''' </summary>
+    ''' <param name="sGroup">格式=>Key1:Value1,Key2:Value2</param>
+    ''' <param name="splitGroup">分隔符號(組) default ","</param>
+    ''' <param name="splitItem">分隔符號(項) default ":"</param>
+    ''' <returns>Hashtable</returns>
+    Public Shared Function getKeyValueGroup(ByVal sGroup As String, Optional splitGroup As Char = ","c, Optional splitItem As Char = ":"c) As Hashtable
+        Dim ht As New Hashtable
+        If isNull(sGroup) Then Return ht
+        If sGroup.IndexOf(splitItem) = -1 Then Return ht
+
+        For Each sItem As String In sGroup.Split(splitGroup)
+            Dim item As String() = sItem.Split(splitItem)
+            If item.Length <> 2 Then Throw New Exception("格式錯誤")
+            If isNull(item(0)) Then Throw New Exception("key值為空字串")
+            If ht.Contains(item(0)) Then Throw New Exception("重複的key=>" + item(0))
+            ht.Add(item(0), item(1))
+        Next
+
+        Return ht
+    End Function
+
+    ''' <summary>
+    ''' 取得HashTable中的value
+    ''' </summary>
+    ''' <param name="ht">KeyValueGroup</param>
+    ''' <param name="sKey">key值</param>
+    ''' <param name="sDefault">不在KeyValueSet則回傳該預設值</param>
+    ''' <returns>string</returns>
+    Public Shared Function getKeyValue(ByVal ht As Hashtable, ByVal sKey As String, Optional sDefault As String = "") As String
+        If IsNothing(ht) OrElse ht.Count = 0 Then Throw New Exception("KeyValueGroup is null")
+        If Not ht.Contains(sKey) Then Return sDefault
+        Return ht.Item(sKey).ToString
+    End Function
+
+    ''' <summary>
+    ''' 從Key和Value字串集合中取得對應value
+    ''' </summary>
+    ''' <param name="sGroup">格式 => Key1:Value1,Key2:Value2</param>
+    ''' <param name="sKey">key值</param>
+    ''' <param name="sDefault">不在KeyValueSet則回傳該預設值</param>
+    ''' <param name="splitGroup">分隔符號(組) default ","</param>
+    ''' <param name="splitItem">分隔符號(項) default ":"</param>
+    ''' <returns>string</returns>
+    Public Shared Function getKeyValue(ByVal sGroup As String, ByVal sKey As String, Optional sDefault As String = "", Optional splitGroup As Char = ","c, Optional splitItem As Char = ":"c) As String
+        Dim htSet As Hashtable = getKeyValueGroup(sGroup, splitGroup, splitItem)
+        Return getKeyValue(htSet, sKey, sDefault)
+    End Function
+
+[C#]
+        /// <summary>
+        /// 將Key和Value字串集合組成HashTable
+        /// </summary>
+        /// <param name="sGroup">格式 => Key1:Value1,Key2:Value2</param>
+        /// <param name="splitGroup">分隔符號(組) default ","</param>
+        /// <param name="splitItem">分隔符號(項) default ":"</param>
+        /// <returns>Hashtable</returns>
+        public static Hashtable getKeyValueGroup(string sGroup,char splitGroup = ',',char splitItem = ':') {
+            Hashtable ht = new Hashtable();
+            if (isNull(sGroup)) return ht;
+            if (sGroup.IndexOf(splitItem) == -1) return ht;
+
+            foreach (string sItem in sGroup.Split(splitGroup)) {
+                string[] item = sItem.Split(splitItem);
+                if (item.Length != 2) throw new Exception("格式錯誤");
+                if (isNull(item[0])) throw new Exception("key值為空字串");
+                if (ht.Contains(item[0])) throw new Exception("重複的key=>" + item[0]);
+                ht.Add(item[0], item[1]);
+            }
+
+            return ht;
+        }
+
+        /// <summary>
+        /// 取得HashTable中的value
+        /// </summary>
+        /// <param name="ht">KeyValueGroup</param>
+        /// <param name="sKey">key值</param>
+        /// <param name="sDefault">不在KeyValueSet則回傳該預設值</param>
+        /// <returns>string</returns>
+        public static string getKeyValue(Hashtable ht,string sKey,string sDefault = "") {
+            if (ht == null || ht.Count == 0) throw new Exception("KeyValueGroup is null");
+            if (!ht.Contains(sKey)) return sDefault;
+            return ht[sKey].ToString();
+        }
+
+        /// <summary>
+        /// 從Key和Value字串集合中取得對應value
+        /// </summary>
+        /// <param name="sGroup">格式 => Key1:Value1,Key2:Value2</param>
+        /// <param name="sKey">key值</param>
+        /// <param name="sDefault">不在KeyValueSet則回傳該預設值</param>
+        /// <param name="splitGroup">分隔符號(組) default ","</param>
+        /// <param name="splitItem">分隔符號(項) default ":"</param>
+        /// <returns>string</returns>
+        public static string getKeyValue(string sGroup , string sKey , string sDefault , char splitGroup = ',', char splitItem = ':') {
+            Hashtable htSet = getKeyValueGroup(sGroup, splitGroup, splitItem);
+            return getKeyValue(htSet, sKey, sDefault);
+        }

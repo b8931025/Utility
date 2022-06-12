@@ -1,0 +1,46 @@
+﻿		VB
+    '將日期轉成民國，設定格式依然可以用Date.String("yyyy/MM/dd")的格式
+    Public Shared Function GetRocDate(ByVal obj As Object, ByVal Fmt As String) As String
+        If isNull(obj) OrElse Not IsDate(obj) Then Return String.Empty
+        Dim d As Date = CDate(obj)
+        Dim dNew As Date
+        If d.Day = 29 AndAlso d.Month = 2 Then
+            dNew = New Date(d.Year - 1911, d.Month, d.Day - 1)
+            If isNull(Fmt) Then Return Microsoft.VisualBasic.Replace(dNew.ToString, "28", "29")
+            Return Microsoft.VisualBasic.Replace(dNew.ToString(Fmt), "28", "29")
+        Else
+            dNew = New Date(d.Year - 1911, d.Month, d.Day)
+            If isNull(Fmt) Then Return dNew.ToString
+            Return dNew.ToString(Fmt)
+        End If
+    End Function
+    
+    
+    C#
+    /// <summary>
+    /// 將西元年轉民國年，可用DateTime.ToString("yyyy/MM/dd")的Format
+    /// </summary>
+    /// <param name="obj">DateTime Object</param>
+    /// <param name="Fmt">日期格式 ex: yyy/MM/dd 或 MM/dd/yyy</param>
+    /// <returns></returns>
+    public static string GetRocDate(Object obj, String Fmt) {
+        DateTime d, dNew;
+        if (isNull(obj) || !DateTime.TryParse(obj.ToString(),out d)) return "";
+        
+        if (d.Day == 29 && d.Month == 2)
+        {
+            //排除潤年2/29
+            dNew = new DateTime(d.Year - 1911, d.Month, d.Day - 1);
+            if (isNull(Fmt)) return dNew.ToString().Replace("28", "29");
+            return dNew.ToString(Fmt).Replace("28", "29");
+        }
+        else {
+            dNew = new DateTime(d.Year - 1911, d.Month, d.Day);
+            if (isNull(Fmt)) return dNew.ToString();
+            return dNew.ToString(Fmt);
+        }
+    }    
+    
+
+試務    
+Hyweb.M00.EMRMS.Util.GetRocDate    
