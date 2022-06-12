@@ -1,0 +1,62 @@
+//BosBase的使用
+//本範例以table AP_ACALLBAL做範例
+
+//example
+//這兩個一定要Imports
+Imports System.Data.OleDb
+Imports Q.NET.VB
+
+//類別命名規則：TableName
+//AP_ACALLBAL
+Public Class AP_ACALLBAL
+    Inherits BosBase          //繼承BosBase
+    Sub New()
+        MyBase.New()
+        Me.setPrimaryKeys()
+    End Sub
+
+    Sub New(ByVal dbManager As DatabaseManager)
+        MyBase.new("AP_ACALLBAL", dbManager)
+    End Sub
+    
+		#Region "Functions"    
+		  	//這裡就依照自已的需求去設計，例如
+		
+		
+		    ''' -----------------------------------------------------------------------------
+		    ''' <summary>
+		    ''' 根據傳入的參數, 取得借方餘額資料
+		    ''' </summary>
+		    ''' <param name="sYEAR">年份</param>
+		    ''' <param name="sMONTH">月份</param>
+		    ''' <param name="sBRN_NO">分行別</param>
+		    ''' <param name="sCUR_COD">幣別</param>
+		    ''' <param name="sACT_NO">帳號</param>
+		    ''' <returns>Boolean</returns>
+		    ''' <remarks>
+		    ''' </remarks>
+		    ''' <history>
+		    ''' 	[Jovi]	2008/04/30	Created
+		    ''' </history>
+		    
+		    Function LoadByPK(ByVal sYEAR As String, ByVal sMONTH As String, ByVal sBRN_NO As String, ByVal sCUR_COD As String, ByVal sACT_NO As String) As Boolean
+		
+		        Try
+		                Dim paras(4) As System.Data.IDbDataParameter
+		                paras(0) = ProviderFactory.CreateDataParameter("ACB_DAT_YY", sYEAR.Trim)
+		                paras(1) = ProviderFactory.CreateDataParameter("ACB_DAT_MM", sMONTH.Trim)
+		                paras(2) = ProviderFactory.CreateDataParameter("ACB_BRN_NO", sBRN_NO.Trim)
+		                paras(3) = ProviderFactory.CreateDataParameter("ACB_CUR_COD", sCUR_COD.Trim)
+		                paras(4) = ProviderFactory.CreateDataParameter("ACB_ACT_NO", sACT_NO.Trim)
+		
+		                Return MyBase.loadData(paras)
+		        Catch ex As ProviderException
+		            Throw ex
+		        Catch ex As BosException
+		            Throw ex
+		        Catch ex As Exception
+		            Throw ex
+		        End Try
+		    End Function  
+		#End Region    
+End Class    

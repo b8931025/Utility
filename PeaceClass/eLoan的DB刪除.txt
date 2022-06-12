@@ -1,0 +1,47 @@
+    Private Function delData() As Boolean
+
+        If IsNothing(m_databaseManager) Then
+            m_databaseManager = m_databaseManager.getInstance
+        End If
+        Dim sSQL As String = "delete from en_04_rpt_loanbycust where yyyymm='" & m_sYYYMM & "' "
+        Try
+            m_databaseManager.beginTran()
+            'DBUtility\com\ebutil\db\DBObject.vb
+            DBObject.ExecuteNonQuery(m_databaseManager.getTransaction, CommandType.Text, sSQL)
+            m_databaseManager.commit()
+        Catch ex As Exception
+            m_databaseManager.Rollback()
+            Throw ex
+        End Try
+    End Function
+    
+        Sub delData(ByVal sYYYY As String, ByVal sMM As String, ByVal sACT_NO As String, ByVal sDB_BAL As String)
+        Try
+            en04_RPT_SUBJECT.clear()
+            If en04_RPT_SUBJECT.loadByPK(sYYYY, sMM, sACT_NO) Then
+                en04_RPT_SUBJECT.remove()
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    
+    在AP裡面，有些檔案會出現兩個檔案前面有相同名稱，但另外一個有加LIST的檔案
+    AP_ACALLBAL.vb
+    AP_ACALLBALLIST.vb
+    這兩種的區別是
+    AP_ACALLBAL.vb：繼承BosBase，BosBase中的方法，都是一次一筆的產生物件
+    AP_ACALLBALLIST.vb繼承BosList，BosList中的方法，可以一次多筆的產生物件，但是table name的設定還是跟AP_ACALLBAL.vb同一個
+    
+    資料的新增、移除
+    Dim AP_xxx as new AP_xxx(DataBasemanager)
+    if AP_xxx.loadbyPK(byval key1 as String,byval key2 as String,....) then
+    AP_xxx.setAttribute("FIELD_1",key1)
+    AP_xxx.setAttribute("FIELD_2",key2)
+    ...
+    ...
+    AP_xxx.save() '存一筆
+    ' or
+    AP_xxx.remove() '移除一筆
+    end if
+    

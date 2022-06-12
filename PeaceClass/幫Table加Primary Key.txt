@@ -1,0 +1,20 @@
+列如，一個表FX_DISMEMBER沒有設Primary Key
+但是，在單筆的類別中，一定要用下列的方法，去設該Table的PK(就算實際的PK不存在)(Mete無所謂)
+
+才能load資料
+
+    Sub New()
+        MyBase.New()
+        Me.setPrimaryKeys()
+    End Sub
+
+    Sub New(ByVal dbManager As DatabaseManager)
+        MyBase.new("FX_DisMember", dbManager)
+        Me.setPrimaryKeys() ※這裡，一定要用me，不能用MyBase
+    End Sub
+
+		※這一個function
+    Public Shadows Sub setPrimaryKeys()
+        m_arrayPrimaryKeys.Add("DISGROUPID")
+        m_arrayPrimaryKeys.Add("STAFFID")
+    End Sub

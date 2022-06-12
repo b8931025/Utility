@@ -1,0 +1,13 @@
+/en/testflow_01.aspx
+在「請輸入案件編號:」輸入案號
+從「檢視」查看要送回哪一關和處理人員
+
+在「手動送件作業」輸入該關「送件步驟代碼」、「指定收件人」
+「企金授信流程(人工模擬掃描起案, 含基本資料新增)」的「流程名稱」輸入流程名稱
+按「手動送件」
+
+
+直接修改下列Table有效，但會有問題
+select t.*,t.rowid from flowstep t where caseid='040090988000717';
+select t.*,t.rowid from ap_flow_log t where caseid='040090988000717';
+select t.*,t.rowid from ap_flow_log_temp t where caseid='040090988000717';

@@ -1,0 +1,10 @@
+  MyBase.addAttribute(setArrtibute("SubName", System.Data.DbType.String))
+  
+    Private Function setArrtibute(ByVal attrName As String, ByVal dbType As System.data.DbType) As BosAttribute
+        Dim attribute As New BosAttribute
+        Dim attrMeta As New BosAttrMeta
+        attrMeta.setColName(attrName)
+        attrMeta.setDataType(dbType)
+        attribute.setAttrMeta(attrMeta)
+        Return attribute
+    End Function

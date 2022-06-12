@@ -1,0 +1,3 @@
+­×¥¿¸É¥Rªº«ö¶s
+<INPUT type="button" id="modify_button" value="­×¥¿¸É¥R" class="bt" 
+ onclick="open_form('PRFrmComSupF.aspx?caseid=<%= request("caseid")%>&stepid=<%= request("Stepid") %>');">

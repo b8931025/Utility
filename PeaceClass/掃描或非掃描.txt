@@ -1,0 +1,2 @@
+En_CaseMain.CHKFLAGTMP = null ±½´y
+En_CaseMain.CHKFLAGTMP = "x"  ©Î En_CaseMain.CHKFLAGTMP != null «D±½´y

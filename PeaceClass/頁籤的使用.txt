@@ -1,0 +1,93 @@
+頁籤
+DB part
+1.
+在Table EN_LINK_GROUP
+自定一個頁籤的
+flowname,
+groupid,
+stepno(流程代號)
+※flowname,stepno要和Richar討論
+
+ex:一個頁籤如果流程如果要跑四關就
+"FLOWNAME"		,"GROUPID","STEPNO"
+"EN04RPTMONTH","96001"	,"960100"
+"EN04RPTMONTH","96001"	,"960200"
+"EN04RPTMONTH","96001"	,"960300"
+"EN04RPTMONTH","96001"	,"960400"
+
+Flowname流程名稱 <-ENTabDispatch.StartFlowTab(Me.m_databaseManager, Me.m_sFLOWNAME, Me.m_sFWNSTEPNO)
+
+
+2.
+在Table EN_LINK_OTHTAB
+設定頁籤上的連結(文字)
+GroupId<-en_link_group.groupid
+SubgroupNo 自定
+GroupName顯示名稱
+ShowType 設1為彈出視窗，設0用頁籤顯示
+Dgroup設定主頁，同一個Groupid裡面只能有一個設1，如果一個以上設1就會出錯
+ACTIVE是否顯示
+
+"SUBGROUPNO","GROUPNAME"	,"ACTIVE"	,"SHOWTYPE"	,"GROUPID"	,"DGROUP"
+"9601"			,"授信月報表"	,""				,"0"				,"96001"		,"1"
+"9602"			,"簽呈"				,""				,"0"				,"96001"		,"0"
+
+
+3.
+在Table EN_PROG_OTHVER
+設定該連結的url
+subgroupno <- en_link_othtab.subgroupno
+Progname 設定url
+PROGCNAME 頁籤上的顯示
+DPage 設定主頁
+SEQ 設定該頁籤的順序
+Active 設定是否要顯示
+"SUBGROUPNO"	,"PROGNAME"																		,"PROGCNAME"					,"SEQ"	,"ACTIVE"	,"RUNCOMMAND"	,"DPAGE"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH001DRAFT"					,"草稿"								,"1"		,"HIDE"		,""						,"0"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH002PETITION"				,"簽呈"								,"2"		,"HIDE"		,""						,"0"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH003SUBJECTANALYSIS","科目餘額分析"				,"3"		,""				,""						,"0"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH004VIEWTARGET"			,"放款業務概況-對象別","4"		,""				,""						,"0"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH005VIEWTTIMELIMIT"	,"放款業務概況-期限別","5"		,""				,""						,"0"
+"9601"				,"EN/ENRPT/MTH/ENRPTLOANMTH006VIEWINDUSTRY"		,"放款業務概況-行業別","6"		,""				,""						,"0"
+
+
+
+Code part
+12支月報 Inherits ENRptMthBase
+並在aspx include ENPageBase2.inc
+
+Class ENRptMthBase{
+				function :
+ 				Dim myTab As New ENTabDispatch(page)
+        myTab.StartFlowTab(Me.m_databaseManager, Me.m_sFLOWNAME, Me.m_sFWNSTEPNO)
+}
+
+Class ENTabDispatch{
+			StartFlowTab :{
+			※已存在的function
+			※要在Select Case新增FlowName
+			
+			               Case "EN04RPTMONTH"
+                    '授信月報表
+                    myTabBase = New EN96Tab(myPage)
+                    
+                    ※EN96Tab要自已新增
+			}
+}
+
+Class EN96Tab{
+			※參照en/EnComCtr/TabClass/下的類別
+}
+
+HTML part:
+
+		<form id="Form1" method="post" runat="server">
+			<!-- #include file="/EN/EN_inc/ENPageBase2.inc" --> <!--頁簽-->
+			<!-- #include file="/EN/EN_inc/ENTABLEStart.inc"--> <!--顯示上方外框線，最外層table-->
+			<!-- #include file="/EN/EN_inc/ENErrorMsg.inc" --> <1-- 顯示錯誤訊息的地方-->
+			
+			 html,xml,java Script code
+			 
+			<!--#include file="/EN/EN_inc//ENTABLEEnd.inc"--> <!--顯示下方外框線，最外層table 的結尾-->
+			
+		</form>

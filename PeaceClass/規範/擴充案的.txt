@@ -1,0 +1,89 @@
+<檔案命名>   
+[系統名稱簡寫][流程名稱]_[STEP_NO]_[SEQ]_[V版本]
+[系統名稱簡寫][交易名稱]_[SEQ]_[V版本]
+
+<ASPX>
+		<!-- #include virtual="~/EN/EN_inc/ENCSS.inc" --> <!--CSS-->
+		<!-- #include virtual="~/EN/EN_inc/ENJS.inc" --> <!--JS-->	
+		
+		列印專用的CSS    
+		<LINK href='<%=HttpContext.Current.Request.ApplicationPath + "/css/print_LV.css"%>' type="text/css" rel="StyleSheet" media="print">
+
+    
+		<!-- #include virtual="~/inc/SecurityLogger.inc"--><!--安控Logger--> 
+		<!-- #include virtual="~/inc/PageTab.inc"--><!--顯示頁籤內容-->              
+		<!-- #include virtual="~/inc/TableStart.inc" --> <!--顯示上方外框線-->  
+		<!-- #include virtual="~/EN/EN_inc/ENErrorMsg.inc" --> <!--錯誤訊息區-->
+    <!-- #include virtual="~/inc/TableEnd.inc"--> <!--顯示下方外框線-->	
+
+
+<ASPX.VB>
+Option Explicit On 
+Option Strict On
+    Private Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Unload
+        Try
+            UIShareFun.releaseConnection(Me.m_dbManager)
+        Catch ex As Exception
+            UIShareFun.showErrMsg(Me, ex)
+        End Try
+    End Sub 
+
+
+    Try
+        m_dbManager.beginTran()
+
+       'save  or delete data
+       
+        m_dbManager.commit()
+
+        UIShareFun.showErrMsg(Me, "案件取消成功!")  '
+
+        Me.CloseWindow()
+    Catch ex As Exception
+        dbManager.Rollback()
+        UIShareFun.showErrMsg(Me, ex)  '顯示Exception記得Rollback
+    End Try
+
+
+<OP.VB>
+    ''' -----------------------------------------------------------------------------
+    ''' <summary>
+    ''' 根據傳入的"案號"查詢,取得 AP_CONFMAIN 的資料
+    ''' </summary>
+    ''' <param name="sMeetIngSN">會議次別</param>
+    ''' <param name="sMeetIngType">會議類別</param>
+    ''' <param name="meetIngDate">開會日期</param>     
+    ''' <returns>Boolean 是否有取得</returns>
+    ''' <remarks>
+    ''' </remarks> 
+    ''' <history>
+    ''' 	[Name]	2009/09/16	Created
+    ''' </history>
+    Function loadByPk(ByVal sCaseId As String) As Boolean
+        Dim sSql As String = "SELECT * FROM EN_CASEMAIN WHERE CASEID=" & ProviderFactory.PositionPara & "CASEID"
+        Try
+                Dim paras(0) As System.Data.IDbDataParameter
+                paras(0) = ProviderFactory.CreateDataParameter("CASEID", sCaseId)
+                Return MyBase.loadBySQL(sSql, paras)
+        Catch ex As ProviderException
+            Throw ex
+        Catch ex As BosException
+            Throw ex
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function      
+        
+
+                addAttribute(Me.setAttMeta("ColName", System.Data.DbType.String)) '單筆設定欄位 
+                
+            		Me.addAttribute(setArrtibute("Item", DbUtility.getDBType(16))) '多筆設定欄位 
+						    Private Function setArrtibute(ByVal attrName As String, ByVal dbType As System.Data.DbType) As BosAttrMeta
+						        Dim attrMeta As New BosAttrMeta
+						        attrMeta.setColName(attrName)
+						        attrMeta.setDataType(dbType)
+						        Return attrMeta
+						    End Function    
+    
+※注意
+Session 用 UIShareFun	取代

@@ -1,0 +1,78 @@
+<!--
+		<A class=tinactive title=修正補充 
+    href='PRFrmFACom_88.aspx?ptagname=<%= Server.UrlEncode("維護作業")%>&amp;sendback=<%=sendback %>
+    &amp;cflowname=<%=Server.UrlEncode("協議報核")%>&amp;caseid=<%= scaseid%>&amp;purl=PRFrmCaseAgrAp.aspx' >
+		修正補充</A>
+
+		cflowname是修正補充頁面裡的大標題
+		ptagname是修正補充頁籤"隔壁"那個頁籤的title
+		purl是修正補充"隔壁"那個頁籤的連結
+-->
+
+
+			<TABLE cellSpacing="0" cellPadding="0" width="100%" align="center" border="0">
+				<TR>
+					<TD class="mbg" noWrap>
+						<TABLE cellSpacing="0" cellPadding="0" align="left" border="0">
+							<TR>
+								<TD class="mbg" noWrap><IMG height="2" src="../img/1px.gif" width="1" border="0"></TD>
+							</TR>
+							<TR>
+								<TD class="tactive" noWrap>
+									<TABLE cellSpacing="0" cellPadding="0" width="100%" border="0">
+										<TR>
+											<TD class="tactive" noWrap width="100%"><IMG height="2" src="../img/1px.gif" width="1" border="0"></TD>
+											<TD class="tactive" vAlign="top" noWrap rowSpan="2"><IMG height="13" src="../img/round_2.gif" width="12" border="0"></TD>
+										</TR>
+										<TR>
+											<TD class="tactive" noWrap align="center"><IMG height="1" src="../img/1px.gif" width="4" border="0">
+												<!--修改開始--><A class=tactive title=維護作業 href="PRFrmCaseAgrAp.aspx?sendBack=<%=sendBack%>&amp;caseid=<%=caseid%>" >維護作業</A>
+												<!--修改結束--></TD>
+										</TR>
+									</TABLE>
+								</TD>
+							</TR>
+						</TABLE>
+						<!--start tab分隔線-->
+						<TABLE cellSpacing="0" cellPadding="0" align="left" border="0">
+							<TR>
+								<TD noWrap><IMG height="1" src="../img/1px.gif" width="2" border="0">
+								</TD>
+							</TR>
+						</TABLE>
+						<% if("true".equals(sendback)) %>
+						<TABLE cellSpacing="0" cellPadding="0" align="left" border="0">
+							<TBODY>
+								<TR>
+									<TD class="mbg" noWrap><IMG height="2" src="../img/1px.gif" width="1" border="0"></TD>
+								</TR>
+								<TR>
+									<TD class="tinactive" noWrap>
+										<TABLE cellSpacing="0" cellPadding="0" width="100%" border="0">
+											<TBODY>
+												<TR>
+													<TD class="tinactive" noWrap width="100%"><IMG height="2" src="../img/1px.gif" border="0"></TD>
+													<TD class="tinactive" vAlign="top" noWrap rowSpan="2"><IMG height="13" src="../img/round_3.gif" width="12" border="0"></TD>
+												</TR>
+												<TR>
+													<TD class="tinactive" noWrap align="center"><IMG height="1" src="../img/1px.gif" width="4" border="0">
+														<A class=tinactive title=修正補充 href='PRFrmFACom_88.aspx?ptagname=<%= Server.UrlEncode("維護作業")%>&amp;sendback=<%=sendback %>&amp;cflowname=<%=Server.UrlEncode("協議報核")%>&amp;caseid=<%= scaseid%>&amp;purl=PRFrmCaseAgrAp.aspx' >
+															修正補充</A>
+													</TD>
+												</TR>
+											</TBODY>
+										</TABLE>
+									</TD>
+								</TR>
+							</TBODY>
+						</TABLE>
+						<% end if%>
+						<TABLE cellSpacing="0" cellPadding="0" align="left" border="0">
+							<TR>
+								<TD noWrap><IMG height="1" src="../img/1px.gif" width="2" border="0">
+								</TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>

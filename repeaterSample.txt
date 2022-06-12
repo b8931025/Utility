@@ -1,0 +1,41 @@
+<table class="mtr" id="Table1" cellSpacing="1" cellPadding="2" width="100%" border="0">
+				<asp:repeater id="repeater" Runat="server">
+					<HeaderTemplate>
+						<tr>
+							<td class="th1c" style="FONT-WEIGHT: bold">行業別</td>
+							<td class="th1c" style="FONT-WEIGHT: bold">授信比率(A)</td>
+							<td class="th1c" style="FONT-WEIGHT: bold">授信警示比率</td>
+							<td class="th1c" style="FONT-WEIGHT: bold">授信限制比率(B)</td>
+							<td class="th1c" style="FONT-WEIGHT: bold">達風險承擔比率(A/B)</td>
+						</tr>
+					</HeaderTemplate>
+					<ItemTemplate>
+						<tr>
+							<td class='td2' >
+								<%#getRpName(Container.DataItem("BKR_NAME"),Container.DataItem("BKR_DETAIL_MARK"))%>
+							</td>
+							<td class='td2r' style='FONT-WEIGHT: bold'>
+								<%#getStyle(Container.DataItem("BKR_RATE_A"))%>%
+							</td>
+							<td class='td2r' style='FONT-WEIGHT: bold'>
+								<%#getStyle(Container.DataItem("ALERT_RATE"))%>%
+							</td>
+							<td class='td2r' style='FONT-WEIGHT: bold'>
+								<%#getStyle(Container.DataItem("BKR_RATE_B"))%>%
+							</td>
+							<td class='td2r' style='FONT-WEIGHT: bold'>
+								<%#getRPABStyle(Container.DataItem("BKR_NAME"),Container.DataItem("BKR_RATE_AB"))%>%
+							</td>
+						</tr>
+					</ItemTemplate>
+				</asp:repeater>
+				<tr>
+					<td colspan="5"><br>
+						<b>說明:</b><asp:Label id="lbnote" Runat="server"></asp:Label></td>
+				</tr>
+			</table>
+			
+			
+			
+<%=Variable%>
+<%#Function()%>			

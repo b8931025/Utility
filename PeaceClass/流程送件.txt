@@ -1,0 +1,6 @@
+°e¥ó
+            Dim class_ENFlowMap As New Common.ENFlowMap(dbManager)
+            Return class_ENFlowMap.send(MyBase.mCaseId)
+            
+            
+       

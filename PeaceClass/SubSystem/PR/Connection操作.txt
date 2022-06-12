@@ -1,0 +1,32 @@
+¹O¶ÊªºConnection ¾Þ§@
+
+    Private CDA As CommonDA  
+
+'Open    
+     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+       CDA = New CommonDA(Application("BOTDSN"))
+       CDA.GetConn()
+     End Sub
+     
+'Close
+    Private Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Unload
+        CDA.releaseConnection()
+    End Sub  
+    
+    
+Transaction¾Þ§@
+          Private CDA As CommonDA  
+	        Private objTrans As OleDbTransaction
+        Try
+        		CDA = new CommonDA(Application("BOTDSN"))
+            objTrans = CDA.GetConn.BeginTransaction()
+
+						'Coding
+
+            objTrans.Commit()
+        Catch ex As Exception
+            objTrans.Rollback()
+            Throw ex
+        Finally
+        		CDA.releaseConnection()
+        End Try

@@ -1,0 +1,12 @@
+<head>
+<SCRIPT language="JavaScript" src="inc/PRIncWindowsOpen.js" type="text/javascript"></SCRIPT>
+</head>
+
+<body>
+		<Script lang='JavaScript'>open_sform('PRFrmCaseOthUplF.aspx?caseid=070100980019785&brid=010&item=1&title=');</Script>
+</body>
+
+<!--
+title：如果想將檔案上傳的title(檔案上傳)，自定，可以加入title，不加就顯示預設
+item：pr_other_upload.item
+-->

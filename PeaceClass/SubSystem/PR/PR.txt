@@ -1,0 +1,48 @@
+常用帳號：S047274
+
+Utility
+PR_OP.PRUTILITY
+
+逾催總行：152
+
+取得StepID
+Dim e as new Explain(...)
+Dim sStepID as String = e.getStepid(sCaseID)
+
+Request.QueryString
+cid
+IDNO
+cname
+caseid
+stpid
+ACTNO
+flowname
+sendBack
+
+頁籤範例
+PRFrmGrtAcon.aspx
+PRFrmGrtAconTop.aspx
+
+Cname 客戶名稱
+Cid		客戶統編 
+
+
+檔名規則
+[FileName].aspx				-->框架進入頁面
+[FileName]Ap.aspx     -->枉架預設主頁
+[FileName]Top.aspx    -->框架頂端頁面(頁籤)
+[FileName]VS.aspx     -->流程
+[FileName]VG.aspx     -->
+[FileName]VO.aspx     -->
+[FileName]VT.aspx     -->
+[FileName]XX.aspx     -->退關用的導頁
+
+ex:
+PRFrmCaseMov.aspx				-->框架進入頁面
+PRFrmCaseMovAp.aspx     -->枉架預設主頁
+PRFrmCaseMovTop.aspx    -->框架頂端頁面(頁籤)
+PRFrmCaseMovVS.aspx     -->流程
+PRFrmCaseMovVG.aspx     -->
+PRFrmCaseMovVO.aspx     -->
+PRFrmCaseMovVT.aspx     -->
+PRFrmCaseMovXX.aspx     -->退關用的導頁

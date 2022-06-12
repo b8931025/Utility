@@ -1,0 +1,19 @@
+sed 
+sed -e "s/  */\t/g" 將所有連續空白轉成Tab
+sed -e "s/^\t\t*//g" 將行首的連續Tab刪掉
+sed -e "N" -e "s/\n/\t/" 將奇數行併入偶數行
+sed -e "s/%//g" fund.txt >out.txt
+sed -e "s/$/\r/" 將unix格式檔轉成dos格式
+sed -e "s/^/xx /"  在開頭加入xx
+sed -e "s/[ \t][ \t]*/\t/g" 將檔案中，所有連續空白和Tab替換成Tab
+sed -e "s/$/\n/"  在每一行後，加入一個空白行
+
+sed -e "s/http:\/\//\n&/g" url.txt >1
+sed -e "s/[<]/\n&/" 1 > 2
+sed -e "s/[>]/\n&/" 2 > 3
+sed -e "s/ /\n&/" 3 > 4
+sed -e "/^http:/!d" 4 > 5
+
+取得http中的所有.jpg位址
+sed -e "s/http:\/\//\n&/g" url.txt >1
+sed -e "s/\.jpg/&\n/" 1 > 2

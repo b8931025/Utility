@@ -1,0 +1,4 @@
+ '¼f®Ö¶¥¬qªº§PÂ_
+   Dim common as New Common
+   Dim CDA as New CommonDA(Application("BOTDSN"))
+   Dim b as Boolean = common.isVScase(CDA, sCaseID) 

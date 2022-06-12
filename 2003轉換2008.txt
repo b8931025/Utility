@@ -1,0 +1,18 @@
+※轉換專案時，先由Component，一個一個轉，全部轉完，再處理網頁專案
+
+[Component]
+1.將專案目錄下的專案檔*.sln, *.suo, *.vbproj.user刪除，只留*.vbproj
+2.點選*.vbproj開啟2008，讓[Visual Studio 轉換精靈]自動轉換
+3.重建
+
+
+[網頁專案]
+1.在目錄bot按右鍵，在[Web共用]別名設定專案名稱
+2.將欲轉換的檔案check in，所有唯讀檔屬性取消
+3.bot目錄下的專案檔*.sln, *.suo, *.vbproj.user刪除，只留*.vbproj
+4.專案檔*.vbproj改成專案名稱(延用舊案就不用)
+5.點選*.vbproj開啟2008，讓[Visual Studio 轉換精靈]自動轉換
+6.[方案總管]->[轉換Web應用程式]自動建立partial class *.aspx.designer.vb
+7.刪除專案中舊的Component參考，重新加入會用到的Component
+8.在[方案總管]->網頁專案->[屬性]->[Web]->[使用IIS Web 伺服器]修改[專案 URL]，存檔
+9.到[管理]->[IIS]->該專案點右鍵->[內容]->[ASP.NET]->[ASP.NET版本]選 2.0.50727

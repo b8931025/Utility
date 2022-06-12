@@ -1,0 +1,28 @@
+當develop從server(VSS或網路芳鄰)抓下來後，要build在local端，需要依照以下步驟
+1.develop/bot要設"Web 共用"(裝了IIS才會有)  en_dev01 ,ga_dev01兩個項目(這兩個項目是依照方案名稱來取，名稱一定要跟方案名稱一樣)
+2.從SERVER抓下來檔案會變唯讀，需要將所有檔案唯讀取消(其實會有影響的只有.dll,.pdb,.js檔)
+3.所有用到的.js(JavaScript)從server抓下來會變ANSI格式，要轉成UTF-8才能使用(JavaScript都是用UTF-8)
+4.清空Visual Studio之前的暫存
+	C:\Documents and Settings\Administrator\VSWebCache
+	C:\Documents and Settings\Administrator\My Documents\Visual Studio Projects
+5.打開en_dev01或ga_dev01方案，看裡面所有專案的狀況，如果無效，移除重新加入
+6.將每個專案的參考路徑，設為該專案的bin目錄，之前server留下的無效路徑通通移除
+7.設定專案相依性
+
+building...
+從error訊息中看缺少哪些dll
+
+8.加入需要專案參考和dll參考
+如果加入的dll，該dll專案基於方便debug，而匯進該方案，
+要加入該dll的參考就要選擇"專案"的頁籤去加入，而不是選".Net" ->"瀏灠"
+去加入dll，只有該dll的方案沒有被匯入(不常更改的方案)，才可以用".Net"的方式匯入。
+而以"專案"匯入的專案，就不用設"參考路徑"
+
+building...
+
+如果有error，檢查.dll路徑和版本是否正確、依照相依性，從最先參考的專案個別打開，確定專案參考路徑是否為舊路徑、無效路徑和dll是否為最新
+(一次不要同時開兩個Visual Studio專案或方案，如果它們參考同樣的.dll，build時會出現error)
+
+building...
+
+所有相依性中的專案，重building後，再打開方案重build

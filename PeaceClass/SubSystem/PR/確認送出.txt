@@ -1,0 +1,49 @@
+example:
+PRFrmCaseMovAp.aspx.vb
+
+Private Sub btnSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSend.Click
+        Dim objTrans As OleDbTransaction    '事務.
+
+        Try
+            '打開連接,事務開始.
+            g_conn = g_clsCommonDA.GetConn
+            objTrans = g_conn.BeginTransaction
+
+            '調用方法,將勾選的資料存入"移辦通知檔"中.
+            do_Add(objTrans)
+
+            '打開連接,事務開始.
+            g_conn = g_clsCommonDA.GetConn
+            objTrans = g_conn.BeginTransaction
+
+            '如果是退回的案件,再次送入流程.
+            If ("true".Equals(sendBack)) Then
+                Dim sendO As New FlowObject(Application("BotDSN"), "07", flowname, flowname, Session("brid"), Session("userid"), caseid, "", False, "false", "", 0, "0", "", "", "", False)
+                Dim tempCaseid As String = sendO.send()
+                Response.Write(sendO.sendStatus(Request("make"), Request("agree")))
+            Else
+                '新起案件.
+                Dim sendO As New FlowObject(Application("BotDSN"), "07", flowname, flowname, Session("brid"), Session("userid"), caseid, "", False, "false", "", 0, "0", "", "", "", False)
+                Dim tempCaseid As String = sendO.send()
+                Dim iArray As Array = Split(tempCaseid, ",")
+                Dim astring2 As String = iArray(0)  '即是送件後的caseid  
+
+                '給參數賦值.
+                g_strParams = astring2 & g_strChar & caseid.ToString
+                g_clsPRTRANS.updateCaseid(objTrans, g_strParams)
+                '將新的caseid更新到PR_TRANSNOTE表中.
+                Me.g_clsPRTRANSNOTE.updateCaseid(objTrans, g_strParams)
+                '更新掃描檔案號
+                g_clsPRSCAN.updateCaseid(objTrans, g_strParams)
+                Response.Write(sendO.sendStatus())
+            End If
+
+            '如果所有操作正常,將事務提交,否則回滾.
+            objTrans.Commit()
+        Catch ex As Exception
+            objTrans.Rollback()
+            outError.InnerHtml = "* Error while accessing data. " & ex.Message & " " & ex.Source
+        Finally
+            If Not IsNothing(g_conn) Then g_conn.Close()
+        End Try
+    End Sub

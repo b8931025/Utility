@@ -1,0 +1,7 @@
+            fSteps = New FLOWSTEPList(Me.m_DBManager)
+
+            fSteps.loadDAO(Me.m_sCaseID)
+            For i As Integer = 0 To fSteps.size - 1
+                fSteps.item(i).setAttribute("STATUS", "3")
+                fSteps.item(i).save()
+            Next

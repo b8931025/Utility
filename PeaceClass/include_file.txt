@@ -1,0 +1,8 @@
+			<!-- #include file="../../EN_inc/ENPageBase2.inc" --> <!--頁簽-->
+			<!-- #include file="../../EN_inc/ENTABLEStart.inc"--> <!--顯示上方外框線-->
+			<!-- #include file="../../EN_inc/ENErrorMsg.inc" -->
+			
+			
+			content
+			
+			<!--#include file="../../EN_inc/ENTABLEEnd.inc"--> <!--顯示下方外框線-->

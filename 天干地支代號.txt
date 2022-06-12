@@ -1,0 +1,7 @@
+	'[®×¥ó¶µ¦¸¸¹Âà´«¨ç¦¡]
+	Function ChgSerailStr(sData as String) as String
+		Dim sSerailStrg as String = ""
+		Dim iarray() as Object = {"","¥Ò","¤A","¤þ","¤B","¥³","¤v","©°","¨¯","¤Ð","¬Ñ","¤l","¤¡","±G","¥f","¨°","¤x","¤È","¥¼","¥Ó","¨»","¦¦","¥è"}
+		sSerailStrg = iarray(cint(sData))
+		Return sSerailStrg
+	End Function

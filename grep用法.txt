@@ -1,0 +1,26 @@
+[root@www ~]# grep [-acinv] [--color=auto] '搜尋字串' filename
+選項與參數：
+-a ：將 binary 檔案以 text 檔案的方式搜尋資料
+-c ：計算找到 '搜尋字串' 的次數
+-i ：忽略大小寫的不同，所以大小寫視為相同
+-n ：順便輸出行號
+-v ：反向選擇，亦即顯示出沒有 '搜尋字串' 內容的那一行！
+--color=auto ：可以將找到的關鍵字部分加上顏色的顯示喔！
+
+範例一：將 last 當中，有出現 root 的那一行就取出來；
+[root@www ~]# last | grep 'root'
+
+範例二：與範例一相反，只要沒有 root 的就取出！
+[root@www ~]# last | grep -v 'root'
+
+範例三：在 last 的輸出訊息中，只要有 root 就取出，並且僅取第一欄
+[root@www ~]# last | grep 'root' |cut -d ' ' -f1
+# 在取出 root 之後，利用上個指令 cut 的處理，就能夠僅取得第一欄囉！
+
+範例四：取出 /etc/man.config 內含 MANPATH 的那幾行
+[root@www ~]# grep --color=auto 'MANPATH' /etc/man.config
+....(前面省略)....
+MANPATH_MAP     /usr/X11R6/bin          /usr/X11R6/man
+MANPATH_MAP     /usr/bin/X11            /usr/X11R6/man
+MANPATH_MAP     /usr/bin/mh             /usr/share/man
+# 神奇的是，如果加上 --color=auto 的選項，找到的關鍵字部分會用特殊顏色顯示喔！

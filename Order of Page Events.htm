@@ -1,0 +1,1166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Page Events: Order and PostBack: ASP Alliance</title><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><meta name="MS.LOCALE" CONTENT="en-US" /><meta name="Description" content="This article lists the complete lifecycle of ASP.NET Pages, including the postback sequence, and explains which method or event to use in common scenarios." /><meta name="author" content="Paul Wilson" /><meta name="Search.PublishDate" content="17 Oct 2003 03:59:02 -04:00" /><meta name="Search.RevisedDate" content="" /><meta name="keywords" content="Page Events: Order and PostBack" /><meta name="Search.TopicType" content="kbArticle" /><link href="/css/aspalliance.css" type="text/css" rel="stylesheet" /><link rel="alternate" type="application/rss+xml" title="XML" href="http://aspalliance.com/rss.aspx" />
+<script src="http://aspalliance.com/js/common.js" type="text/javascript"></script></head><body>
+<div id="header">
+	<div id="logoleft" onclick="location.href='http://aspalliance.com/'"></div>
+	    <div id="_ctl5_banner" style="float:right">
+	    <script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=8;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span id="_ctl5_Leaderboard1"></span>
+		</div>
+	</div>
+</div><div id="mainContent"><table class="mainTable" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><table border="0" cellpadding="0" cellspacing="0" id="breadCrumbTable" class="breadCrumbTable"><tr><td class="breadCrumbCell" id="breadCrumbCell"><a id="homelink" href="/">ASP.NET Tutorials</a> &raquo; Page Events: Order and PostBack</td><td class="breadCrumbLoginCell">&nbsp;&nbsp;Not Logged In. <a href="/login.aspx">Login</a></td></tr></table></td></tr><tr><td class="leftColumn"><img src="http://aspalliance.com/images/clear.gif" alt="" height="3" width="1" border="0" /><!-- SiteSearch Google -->
+<form method="get" action="http://www.google.com/custom" target="_top" style="margin: 0; padding: 0">
+<table border="0" cellpadding="3" cellspacing="0" class="MenuBox">
+<tr><td nowrap="nowrap" valign="top" align="left" height="32">
+<a href="http://www.google.com/">
+<img src="http://www.google.com/logos/Logo_25wht.gif"
+border="0" alt="Google"></img></a>
+<br/>
+<input type="hidden" name="domains" value="aspalliance.com"></input>
+<input type="text" name="q" size="25" maxlength="255" value="" style="font-size:.9em"></input>
+</td></tr>
+<tr>
+<td>
+<table>
+<tr>
+<td>
+<input type="radio" name="sitesearch" value="aspalliance.com" checked="checked"></input>
+AspAlliance.com
+</td>
+<td>
+<input type="radio" name="sitesearch" value=""></input>
+Web
+</td>
+</tr>
+</table>
+<input type="submit" name="sa" value="Search"></input>
+<input type="hidden" name="client" value="pub-4053580011448835"></input>
+<input type="hidden" name="forid" value="1"></input>
+<input type="hidden" name="channel" value="9561143596"></input>
+<input type="hidden" name="ie" value="windows-1252"></input>
+<input type="hidden" name="oe" value="windows-1252"></input>
+<input type="hidden" name="safe" value="active"></input>
+<input type="hidden" name="cof" value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:CC0000;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;LH:80;LW:173;L:http://aspalliance.com/images/aspalliance_logo_byline_white_173x80.gif;S:http://aspalliance.com/;LP:1;FORID:1;"></input>
+<input type="hidden" name="hl" value="en"></input>
+
+</td></tr></table>
+</form>
+<!-- SiteSearch Google --><span></span><?xml version="1.0" encoding="utf-8"?><table cellpadding="3" cellspacing="0" class="MenuBox"><tr><td valign="top" width="137"><b>AspAlliance</b><br /><a href="/Register.aspx" title="Register to customize your experience.">Register</a><br /><a href="/Profile.aspx" title="Edit your profile.">Edit My Profile</a><br /><a href="/AuthorListing.aspx" title="Our contributing authors.">Author List</a><br /><a href="/writeForUs.aspx" title="Want to write for us?  Just follow our relatively painless submission guidelines.">Write for Us</a><br /><a href="/About.aspx" title="A little information about the AspAlliance.">About AspAlliance</a><br /><a href="/Feedback.aspx" title="Have a suggestion?  Found an error?  Let us know!.">Contact Us</a><br /><a href="/Privacy.aspx" title="We keep your private information private.  Here's the full lawyer version.">Privacy Policy</a><br /><a href="/Link.aspx" title="Support the Asp.Net Community by adding a link to AspAlliance.com">Link To Us</a><br /><a href="http://lakequincy.com/advertisers/publisherinfo/aspalliance.aspx" title="Learn about promotional our opportunities.">Advertise</a><br /><br /><b>Subscribe</b><br /><a href="/subscribe.aspx" title="Free weekly newsletter with news, contests, editorials, events, and new articles">Free Newsletter</a><br /><a href="/newsletter/" title="Archive of past newsletters">Newsletter Archive</a><br /><a href="/rss.aspx" title="Subscribe to our articles using your favorite news aggregator.">RSS Syndication <img src="/images/rss_button.gif" height="14" width="36" alt="" border="0" /></a><br /><br /><b>.NET Tutorials</b><br /><a href="/articles/LearnDotNet.aspx" title=".NET articles, tutorials, examples">Learn .NET</a><br /><a href="/articles/LearnWCF.aspx" title="Windows Communication Framework articles, tutorials, examples">Learn WCF</a><br /><a href="/articles/LearnWPF.aspx" title="Windows Presentation Framework articles, tutorials, examples">Learn WPF</a><br /><a href="/articles/LearnASPNET.aspx" title="ASP.NET articles, tutorials, examples">Learn ASP.NET</a><br /><a href="/articles/LearnAJAX.aspx" title="AJAX and Atlas articles, tutorials, examples">Learn AJAX</a><br /><a href="/articles/LearnSilverlight.aspx" title="AJAX and Atlas articles, tutorials, examples">Learn Silverlight</a><br /><a href="/articles/LearnVisualStudio.aspx" title="Visual Studio articles, tutorials, examples">Learn Visual Studio</a><br /><a href="/articles/LearnADONET.aspx" title="ADO.NET articles, tutorials, examples">Learn ADO.NET</a><br /><a href="/articles/LearnLINQ.aspx" title="LINQ articles, tutorials, examples">Learn LINQ</a><br /><a href="/articles/LearnCSharp.aspx" title="C# (CSharp) articles, tutorials, examples">Learn C# (CSharp)</a><br /><a href="/articles/LearnVBNET.aspx" title="VB.NET (Visual Basic .NET) articles, tutorials, examples">Learn VB.NET</a><br /><a href="/articles/LearnWebServices.aspx" title="Web Services articles, tutorials, examples">Learn Web Services</a><br /><a href="/articles/LearnControls.aspx" title="ASP.NET Control articles, tutorials, examples">Learn Controls</a><br /><a href="/articles/LearnBizTalk.aspx" title="BizTalk articles, tutorials, examples">Learn BizTalk</a><br /><a href="/articles/LearnSharePoint.aspx" title="SharePoint articles, tutorials, examples">Learn SharePoint</a><br /><a href="/articles/LearnMobile.aspx" title="Mobile (SmartPhone, Compact Framework, Mobile Internet Toolkit) articles, tutorials, examples">Learn Mobile</a><br /><a href="/articles/LearnSQL.aspx" title="SQL (and SQL Server) articles, tutorials, examples">Learn SQL</a><br /><a href="/sql-reporting/" title="SQL Server Reporting Services (SSRS) articles, tutorials, examples, forums and more">Learn SQL Reporting</a><br /><a href="/articles/LearnWinForms.aspx" title="Windows Forms articles, tutorials, examples">Learn Windows Forms</a><br /><a href="/articles/LearnXML.aspx" title="XML, XSL, XSLT articles, tutorials, examples">Learn XML</a><br /><a href="/articles/LearnCrystalReports.aspx" title="Crystal Reports articles, tutorials, examples, forums, blogs">Learn Crystal Reports</a><br /><a href="/telerik/" title="Learn about telerik with videos, white papers, reviews, and tutorials">Learn telerik</a><br /><a href="/farpoint/" title="Learn FarPoint Spread for Web Forms with videos, white papers, reviews, and tutorials">Learn FarPoint</a><br /><a href="/devexpress/" title="Learn about DevExpress's suite of user interface tools and IDE enhancements">Learn DevExpress</a><br /><a href="http://authors.aspalliance.com/quickstart/" title="ASP.NET Quickstart Examples">Examples</a><br /><a href="http://asp.net/quickstart/" title="ASP.NET 2.0 Quickstart Examples">ASP.NET 2.0 Examples</a><br /><br /><b>ASP Tutorials</b><br /><a href="/articles/LearnASP.aspx" title="Active Server Pages articles, tutorials, examples">Learn ASP</a><br /><a href="/articles/LearnVBScript.aspx" title="VBScript articles, tutorials, examples">Learn VBScript</a><br /><a href="/articles/LearnJScript.aspx" title="JScript (JavaScript) articles, tutorials, examples">Learn JScript</a><br /><a href="/articles/LearnSQL.aspx" title="SQL (and SQL Server) articles, tutorials, examples">Learn SQL</a><br /><a href="/articles/LearnXML.aspx" title="XML, XSL, XSLT articles, tutorials, examples">Learn XML</a><br /><br /><b>Other Tutorials</b><br /><a href="/articles/LearnJava.aspx" title="Java articles, tutorials, examples">Learn Java</a><br /><a href="/articles/LearnOracle.aspx" title="Oracle articles, tutorials, examples">Learn Oracle</a><br /><a href="/articles/Opinion.aspx" title="Opinion articles, tutorials, examples">Opinion / Editorial</a><br /><a href="/crystal" title="Crystal Reports resources.">Crystal Reports Alliance</a><br /><br /><b>Free Tools</b><br /><a href="/cachemanager/default.aspx" title="Free Cache Manager Add-In.">Cache Manager</a><br /><a href="/simplecms/default.aspx" title="Free SimpleCMS Add-In.">SimpleCMS</a><br /><br /><b>Reviews</b><br /><a href="/reviews/BookReviews.aspx" title="Reviews of various developer oriented books.">Book Reviews</a><br /><a href="/reviews/ProductReviews.aspx" title="Reviews of various software components and products.">Product Reviews</a><br /><a href="/advice/ExpertAdvice.aspx" title="Expert advice articles, tutorials, and examples">Expert Advice</a><br /><br /><b>Books</b><br /><a href="/cookbook/default.aspx" title="Over 200 common ASP.NET problems described and solved by AspAlliance.com authors.">ASP.NET Developer's Cookbook</a><br /><a href="/chapters/" title="Free sample chapters!">Sample Chapters</a><br /><a href="/reviews/BookReviews.aspx" title="Reviews of various developer oriented books.">Book Reviews</a><br /><br /><b>Community</b><br /><a href="/jobs/" title="Developer Jobs on ASPAlliance.com">Developer Jobs</a><br /><a href="http://index.aspalliance.com" title="Find .NET Resources">Resource Directory</a><br /><a href="http://aspadvice.com/lists/category.aspx?c=18" title="AspAdvice.com hosts mailing lists that provide Answers to your ASP Questions.">ASP Email Lists</a><br /><a href="http://aspadvice.com/lists/category.aspx?c=17" title="AspAdvice.com hosts mailing lists that provide Answers to your ASP.NET Questions.">ASP.NET Email Lists</a><br /><a href="http://aspadvice.com/lists/category.aspx?c=30" title="AspAdvice.com hosts mailing lists that provide Answers to your Whidbey Questions.">Whidbey Email Lists</a><br /><a href="http://aspalliance.com/groups/" title="AspAlliance Groups allow quick and easy answers to questions via Usenet.">AspAlliance Groups</a><br /><a href="http://sqladvice.com/" title="SqlAdvice.com hosts mailing lists that provide Answers to your SQL Questions.">SQL Email Lists</a><br /><a href="http://xmladvice.com/" title="XmlAdvice.com hosts mailing lists that provide Answers to your XML Questions.">XML Email Lists</a><br /><a href="http://regexlib.com/" title="Need help with regular expressions?  Consult the Regular Expression Library first.">Regular Expressions</a><br /><a href="http://www.microsoft.com/communities/default.mspx" title="Microsoft Communities">MS Communities</a><br /><a href="http://www.gotdotnet.com/content/codewise/communities.aspx" title="Microsoft CodeWise Communities">CodeWise Communities</a><br /><br /><b>Web Hosting</b><br /><a href="http://index.aspalliance.com/HostingGallery/ASPWebHosting/default.aspx" title="ASP Web Hosting">ASP Hosting</a><br /><a href="http://index.aspalliance.com/HostingGallery/DedicatedServers/default.aspx" title="Dedicated Services">Dedicated Servers</a><br /><a href="http://index.aspalliance.com/HostingGallery/FreeHosting/default.aspx" title="FREE Web Hosting">FREE Hosting</a><br /><a href="http://index.aspalliance.com/HostingGallery/SharedHosting/default.aspx" title="Shared Web Hosting">Shared Hosting</a><br /><a href="http://index.aspalliance.com/HostingGallery/WebFarm/default.aspx" title="Web Farm Hosting">Web Farm Hosting</a><br /><br /></td></tr></table>
+<img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=16;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span></span><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /></td><td class="contentColumn"><table class="contentTable"><tr><td class="contentColumn"><!-- ContentStart --><form name="_ctl1" method="post" action="/articleViewer.aspx?aId=134&amp;pId" language="javascript" onsubmit="javascript:return WebForm_OnSubmit();" id="_ctl1">
+<input type="hidden" name="articleComments_InvisibleCaptcha1_answer" id="articleComments_InvisibleCaptcha1_answer" value="" />
+<input type="hidden" name="articleComments_InvisibleCaptcha1_encrypted" id="articleComments_InvisibleCaptcha1_encrypted" value="N/QtieGScHCL6CWAvhr7pHD02TX6x7IZS32JiYZUjF4=" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNDA5OTU2NjM5DxYGHglhcnRpY2xlSWQChgEeCXZlcnNpb25JZAIBHgZwYWdlSWQCARYCAgEPZBYCAgMPZBYGAgUPDxYCHgdWaXNpYmxlZ2RkAiEPEA8WAh8DaGRkFgBkAi0PZBYEZg8WAh8DZxYCAg8PDxYCHgdEaXNwbGF5CyoqU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5WYWxpZGF0b3JEaXNwbGF5AmRkAgIPDxYCHwNoZGRkbVv316PzZyUiAttMV9zY0FTOD7w=" />
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['_ctl1'];
+if (!theForm) {
+    theForm = document._ctl1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+
+
+<script src="/WebResource.axd?d=-7eGazC6xaqwq5gjNSYpnA2&amp;t=633332917894150940" type="text/javascript"></script>
+
+
+<script src="/WebResource.axd?d=4GvN67mt9o73JHfCElyg9EOELfW0yO3xEJ5dN1J3FAs1&amp;t=633332917894150940" type="text/javascript"></script>
+<script src="/WebResource.axd?d=nE6DkonP89Ky17CQykoHsN9JoUe-KsWD5_JP8qD8imJz39sD81yyrthtqZ969i0lwsCSvz5P44tWjGJ7LLtYMXS07kGNKVqVl2hiJ7dEYSI1&amp;t=633240867407989527" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+// -->
+</script>
+
+	<span id="errorMessage" class="error"></span>
+	
+		<table class="articleViewer">
+			<tr>
+				<td class="articleFooter" colSpan="2">
+					<a id='top'></a>
+					<a id="printView" rel="nofollow" href="/articleViewer.aspx?aId=134&amp;pId=-1" target="_blank"><img src="/images/icons_11x8/icon-print.gif" height="8" width="11" alt="Print This Article" />&nbsp;Print</a>&nbsp;
+					<a id="addFavorite" onclick="javascript:AddToFavorites('Page Events: Order and PostBack','http://aspalliance.com/134');" href="#" style="cursor:hand;"><img src="/images/icons_11x8/icon-favorite.gif" height="8" width="11" alt="Add To Favorites" />&nbsp;Add To Favorites</a>&nbsp;
+	                <script language='javascript'>
+document.write("<a href='http://del.icio.us/post?url="+encodeURIComponent(document.location.href)+ "&title="+encodeURIComponent(document.title)+"'><img src='/images/delicious_10x10.gif' height='10' width='10' alt='Add To Del.icio.us' />Add to Del.icio.us</a>");
+</script>
+<span id="Delicious1"></span>&nbsp;				
+					<a id="emailFriend" onclick="javascript:OpenEmail('Page Events: Order and PostBack');" href="#" style="cursor:hand;"><img src="/images/icons_11x8/icon-envelope.gif" height="8" width="11" alt="Email This Article To A Friend" />&nbsp;Email To Friend</a>&nbsp;
+					<a id="rate" href="/RateArticle.aspx?aId=134" target="_blank"><img src="/images/icons_11x8/icon-rate.gif" height="8" width="11" alt="Rate This Article" />&nbsp;Rate This Article</a>&nbsp;
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="articletitle" colSpan="2">
+					<span id="title">Page Events: Order and PostBack</span><br />
+				</td>
+			</tr>
+		</table>
+	    <table id="pageInformation" width="100%">
+	<tr>
+		<td class="pageInformation">
+	        <span id="pageInfo">page</span>
+	        <span id="pageNumber">1 of </span>
+	        <span id="pageCount">1</span></td>
+	</tr>
+</table>
+
+		<table class="articleViewer" style="top: -21px;">
+			
+				<tr>
+					<td class="abstract" colspan="2">
+					    <span class="subtitle">Published:</span>
+						<span id="DatePublishedLabel">17 Oct 2003</span><br />
+						
+					</td>
+			    </tr>
+			    <tr>
+					<td class="abstract">
+						    <span class="subtitle">Abstract</span>
+						<br />
+						<span id="abstractLabel">This article lists the complete lifecycle of ASP.NET Pages, including the postback sequence, and explains which method or event to use in common scenarios.</span></td>
+					<td class="photo">
+						<a id="authorLink" href="/author.aspx?uId=1746"><img id="photo" src="/images/photos/dc1f1635-9ed5-4e12-b3db-707d51051144_80_80.jpg" border="0" style="border-style:None;" /></a></td>
+				</tr>
+			
+			<tr>
+				<td colSpan="2">
+					by <span id="author" class="author"><a href='http://aspalliance.com/author.aspx?uId=1746'>Paul Wilson</a></span><br />
+					<a id="authorFeedbackHyperLink" href="/feedback.aspx?uId=125202">Feedback</a><br />
+					</td>
+			</tr>
+			<tr>
+				<td class="ratingBar" colspan="2">
+					<span class="rating">Average Rating:</span>&nbsp;This article has not yet been rated.<br />
+					<SPAN style="FONT-WEIGHT: bold; COLOR: #aa0000;">Views (Total / Last 10 Days):</SPAN>
+					<span id="ArticleTotalViewsLabel">141488</span>/
+					<span id="ArticleViewsLabel">1414</span>
+				</td>
+			</tr>
+			<tr>
+				<td colSpan="2">
+				<div style="float:left">
+					
+				</div>
+				<div id="RectangleAd">
+	
+				<div style="float:right">
+				<script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=7;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span id="Rectangle1"></span>
+				</div>
+</div>
+				</td>
+			</tr>
+			<tr>
+				<td colSpan="2" align="center">
+					<hr class="line">
+				</td>
+			</tr>
+			<tr><td colspan="2" class="subtitle"><span id="intellitTxt"><A class='pageTitle' id='#Page1'>Page Events: Order and PostBack</A></span></td></tr><tr><td colspan="2" class="content"><div class="KonaBody"><div align="center">
+<h1>Page Events: Order and PostBack</h1><a href="mailto:Paul@WilsonDotNet.com">Paul Wilson</a> <br /><a href="http://www.wilsondotnet.com/" target="_blank">www.WilsonDotNet.com </a><br /><a href="http://authors.aspalliance.com/PaulWilson/" target="_blank">www.ASPAlliance.com/PaulWilson </a>
+<p><a href="/articleViewer.aspx?aId=133">Previous Article</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://authors.aspalliance.com/PaulWilson/Articles/?id=7">ViewState Details and Parser</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://authors.aspalliance.com/PaulWilson/Articles/?id=7">Next Article</a> </p></div>
+<h2>Initialization</h2>The first method that executes when a page is requested is always the constructor. You can initialize many of the custom properties or objects in the page at this time, although there are a few limitations since the page hasn't fully initialized yet. In particular, you will have to use the HttpContext.Current object to access the Request QueryString, Form, and Cookies collections, along with the Cache object. However, there is no way to access the Session collection within the constructor. 
+<p>The next method that executes is the AddParsedSubObject method, which actually adds all the individual controls that make up a page into the control collection tree. This method is typically overridden by some of the advanced <a href="/articleViewer.aspx?aId=91" target="_blank">page template solutions</a> in order to add the page contents into a particular control in the page template. This method is recursively called on all children controls for each page control, and each of these controls is initialized at this time, starting with the innermost. 
+<p>The next method that executes is the DeterminePostBackMode method of the page class. This method allows you to affect the value of IsPostBack and all the related events, which might be useful if you need to load ViewState from a database for a redirect, since we will see that ViewState is only restored when IsPostBack is actually true. Just return null to force non-PostBack and return Request.Form to force a PostBack. This is not recommended, except in special cases, since it affects other events too. 
+<p>The page's OnInit method is executed next, which is typically the first method used. By the time this occurs, all the controls defined in your page will be initialized, which means that all the original values specified in the aspx page will be applied. However, ViewState and any posted values will not have been applied to controls yet, so anything that changed as a result of the code or user will not yet be restored. This is usually the best place to create, and recreate, any dynamic controls used. 
+<h2>Restore and Load</h2>The next method, LoadPageStateFromPersistenceMedium, only executes for PostBacks. This method is overridden when you have altered how the page's ViewState was saved, later in the SavePageStateToPersistenceMedium, when using Session or Custom Stores. The default implementation assumes ViewState is a Base64 encoded hidden form field, but this can be changed in these two methods using code found in <a href="http://authors.aspalliance.com/PaulWilson/Articles/?id=7" target="_blank">this related article</a>. Note that this method does not actually restore ViewState to the page or its controls. 
+<p>After ViewState is retrieved, the next method, LoadViewState, restores it to the page, and then recursively to each control and their children, but again only on PostBacks. After this executes, each control will now be restored to the state it was last time, but user posted values will still not be applied, since this is not part of ViewState. The best use of this method is to restore any dynamic controls you created in events, based on values you must manually save in ViewState, which is now available to use. 
+<p>The next method, ProcessPostData, only executes for PostBacks, and it is not able to be overridden, since it is a private method implemented by the base page class. This method finally restores the user's posted form values by matching up controls with the names of the values, which means your page will finally be fully restored. The only catch is that dynamic controls must be created prior to this page method. This is also the method that records changes in values for the changed events later. 
+<p>The page's OnLoad method is executed next, which is typically used for most code, since this is the first place in the page lifecycle that all values are restored. Most code checks the value of IsPostBack to avoid unnecessarily resetting state. You may also wish to call Validate and check the value of IsValid in this method. You can also create dynamic controls in this method, and all the control's methods will be executed to catch up, including ViewState, but posted values would not be. 
+<h2>Raised Events</h2>The next method, ProcessPostData, is actually a second pass of the earlier method, which still only executes for PostBacks and is not overridable since private method. This second pass always seems a little odd when you first notice it in the page trace, but it occurs because dynamic controls recreated in OnLoad need their posted values. Any controls that are dynamically created after this method, while having ViewState restored, will not get their posted values nor be able to trigger any changed events. 
+<p>The next method, RaiseChangedEvents, also occurs only for PostBacks, and it too is a private method that is implemented in the base page class that cannot be overridden. This is the time in the page lifecycle that the changed events are actually raised, based on the differences that ProcessPostData noted before and after posted values. You may also want to call Validate and check the value of IsValid, if not already. There is no guarantee about the order that multiple changed events will be raised. 
+<p>The next method, RaisePostBackEvent, also occurs only for PostBacks, and it too is a private method that is implemented in the base page class that cannot be overridden. This is where the event that actually submitted the form, unless using AutoPostBack, is actually raised, typically a button, or a control that uses javascript to submit. If not manually called already, Validate is also called, when using some Validators. Note a <a href="http://groups.google.com/groups?threadm=quFvBITxBHA.2324%40cpmsftngxa07" target="_blank">bug in IE</a> sometimes allows the Enter key to submit without triggering an event. 
+<p>The page's OnPreRender method is executed next, which is typically the last chance to affect the page and its controls before it is rendered to the client's browser. You can also create dynamic controls in this method, and all the control's methods will be executed to catch up, including ViewState, but the earlier private methods will not receive another pass, meaning no posted values are restored and no events. This is a good place to catch a PostBack without an event due to the bug noted in IE. 
+<h2>Save and Render</h2>The next method that executes, regardless whether PostBack or not, is SaveViewState which recursively runs for each control and their children, to create the ViewState. ViewState basically stores any property values that are different from the original values that are defined in the aspx page, whether changed in the code or by the user. Note that control values are saved according to their location in the control tree, so ViewState can get corrupted if dynamic controls are later added in wrong positions. 
+<p>The next method, SavePageStateToPersistenceMedium, actually saves the page ViewState. This method is overridden, along with LoadPageStateFromPersistenceMedium, to save the ViewState either to Session or a Custom Store, instead of using the hidden field. This is useful for low bandwidth cases, and Session is the default for Mobile Pages. See the code found in <a href="http://authors.aspalliance.com/PaulWilson/Articles/?id=7" target="_blank">this related article</a> for details of using these two methods, and note that a bug in ASP.NET requires a __VIEWSTATE field to be sent, even if empty. 
+<p>The page's Render method is executed next, which recursively runs for each control and their children, to actually create and send the resulting html to the browser. This method is used in some page template solutions to add common headers and footers to the page without using server controls, which always have a little extra overhead. Note that changes made here must be pure html, since controls are done at this time. You can capture the html output using StringBuilder, StringWriter, and HtmlTextWriter. 
+<p>The very last method to be executed is OnUnload, which also calls the Dispose method. This method gives you a chance to cleanup any unmanaged resources used in the page, typically things like closing any open files or database connections open earlier. Note that this method runs only after the page has been sent to the client's browser, so it will only affect server objects, and it will not show up in a trace of the page. And that's the page lifecycle -- everything runs all over again with each new request. <a name="Listing1"></a>
+<div align="center">
+<h5>Listing 1: Page Events Summary</h5></div><pre style="FONT-SIZE: 10pt"><table align="center"><tbody><tr><td colspan="3"><hr /></td></tr><tr><td width="300"><b>Method</b></td><td width="100"><b>PostBack</b></td><td width="100"><b>Controls</b></td></tr><tr><td colspan="3"><hr /></td></tr><tr><td>Constructor</td><td>Always</td><td>All</td></tr><tr><td>AddParsedSubObject</td><td>Always</td><td>All</td></tr><tr><td>DeterminePostBackMode</td><td>Always</td><td>Page</td></tr><tr><td>OnInit</td><td>Always</td><td>All</td></tr><tr><td colspan="3"><hr /></td></tr><tr><td>LoadPageStateFromPersistenceMedium</td><td>PostBack</td><td>Page</td></tr><tr><td>LoadViewState</td><td>PostBack</td><td>All</td></tr><tr><td>ProcessPostData1</td><td>PostBack</td><td>Page</td></tr><tr><td>OnLoad</td><td>Always</td><td>All</td></tr><tr><td colspan="3"><hr /></td></tr><tr><td>ProcessPostData2</td><td>PostBack</td><td>Page</td></tr><tr><td>RaiseChangedEvents</td><td>PostBack</td><td>Page</td></tr><tr><td>RaisePostBackEvent</td><td>PostBack</td><td>Page</td></tr><tr><td>OnPreRender</td><td>Always</td><td>All</td></tr><tr><td colspan="3"><hr /></td></tr><tr><td>SaveViewState</td><td>Always</td><td>All</td></tr><tr><td>SavePageStateToPersistenceMedium</td><td>Always</td><td>Page</td></tr><tr><td>Render</td><td>Always</td><td>All</td></tr><tr><td>OnUnload</td><td>Always</td><td>All</td></tr><tr><td colspan="3"><hr /></td></tr></tbody></table>
+</pre>
+<h4>Author Bio</h4>Paul Wilson is a software architect in Atlanta, currently with PRG-Schultz. He specializes in Microsoft technologies, including .NET, C#, ASP, SQL, COM+, and VB. His <a href="http://www.wilsondotnet.com/WebForm/" target="_blank">WilsonWebForm</a> Control allows Multiple Forms and Non-PostBack Forms in ASP.NET. He is a Microsoft MVP in ASP.NET and is also recognized as an <a href="http://www.aspinsiders.com/" target="_blank">ASPInsider</a>. He is a moderator on Microsoft's <a href="http://www.asp.net/Forums" target="_blank">ASP.NET Forums</a>, as well as one of the top posters. He is holds the MCSD, MCAD, MCDBA, and MCSE certifications. Please visit his website, <a href="http://www.wilsondotnet.com/" target="_blank">www.WilsonDotNet.com</a>, or email him at <a href="mailto:Paul@WilsonDotNet.com">Paul@WilsonDotNet.com</a>.</div></td></tr>
+			<tr>
+				<td colSpan="2">
+					<hr class="line">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+                <td width="15%"></td>
+				<td width="70%"><center></center></td>
+				<td width="15%" align="right">
+					</td>
+				</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td colSpan="2">
+					
+	<P></P>
+	<P><STRONG>Article Feedback</STRONG><BR>
+	</P>
+	<div id="articleComments_ValidationSummary1" style="color:Red;display:none;">
+
+</div>
+	<DIV style="BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; WIDTH: 80%; BORDER-BOTTOM: black 1px solid">
+		<TABLE class="pageList" cellSpacing="1" cellPadding="2" width="100%" bgColor="#eeeeee"
+			border="0">
+			<TR>
+				<TH align="right" width="80">
+					Title:</TH>
+				<TD>
+					<input name="articleComments:txtTitle" type="text" maxlength="150" size="45" id="articleComments_txtTitle" /><span controltovalidate="articleComments_txtTitle" errormessage="You must enter a title for your comment." validationGroup="Enter" id="articleComments_RequiredFieldValidator1" evaluationfunction="RequiredFieldValidatorEvaluateIsValid" initialvalue="" style="color:Red;font-weight:bold;visibility:hidden;">*</span></TD>
+			</TR>
+			<TR>
+				<TH align="right" width="80">
+					Name:</TH>
+				<TD>
+					<input name="articleComments:txtName" type="text" maxlength="120" size="45" id="articleComments_txtName" /><span controltovalidate="articleComments_txtName" errormessage="You must enter your name." validationGroup="Enter" id="articleComments_RequiredFieldValidator2" evaluationfunction="RequiredFieldValidatorEvaluateIsValid" initialvalue="" style="color:Red;font-weight:bold;visibility:hidden;">*</span></TD>
+			</TR>
+			<TR>
+				<TH align="right" width="80">
+					Url:</TH>
+				<TD>
+					<input name="articleComments:txtUrl" type="text" maxlength="150" size="45" id="articleComments_txtUrl" /><EM>( 
+						Optional )</EM></TD>
+			</TR>
+			<TR>
+				<TH align="left" colSpan="2">
+					Comment:
+					<span controltovalidate="articleComments_txtComment" errormessage="You must enter a comment." validationGroup="Enter" id="articleComments_RequiredFieldValidator3" evaluationfunction="RequiredFieldValidatorEvaluateIsValid" initialvalue="" style="color:Red;font-weight:bold;visibility:hidden;">*</span></TH></TR>
+			<TR>
+				<TH align="left" colSpan="2">
+					<textarea name="articleComments:txtComment" rows="7" cols="60" id="articleComments_txtComment"></textarea></TH></TR>
+			<TR vAlign="bottom" height="30">
+				<TH align="right" colSpan="2">
+				    <span display="Dynamic" validationGroup="Enter" id="articleComments_InvisibleCaptcha1" style="color:Red;display:none;"></span><span id="articleComments_InvisibleCaptcha1_subtext_captcha">Please add 4 and 8 and type the answer here: <input type="text" name="articleComments_InvisibleCaptcha1_visibleanswer" value="" /></span><input type="submit" name="articleComments:btnEnterComment2" value="Enter Comment" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;articleComments:btnEnterComment2&quot;, &quot;&quot;, true, &quot;Enter&quot;, &quot;&quot;, false, false))" language="javascript" id="articleComments_btnEnterComment2" /></TH></TR>
+		</TABLE>
+	</DIV>
+
+<hr class="line">
+<P><STRONG>User Comments</STRONG><br>
+</P>
+<P align="center">
+	
+	
+			<table cellpadding="2" bgcolor="Black" cellspacing="1" border="0" width="80%">
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Mind Blowing
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					mike hussey
+					<br />
+					<b>Date: </b>
+					4/15/2008 2:54:28 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl1_commentLabel">excellent to read...pls keep some worked exampls....</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good, but something missing
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Tomas
+					<br />
+					<b>Date: </b>
+					4/10/2008 12:27:46 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl2_commentLabel">Good and straightforward written, just missing info about same event ordering between Page / (User)Control. Because Init() event is first called for other controls and at the end for page, but Load() event is called first for page and then for other controls.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Thanks
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Remmod
+					<br />
+					<b>Date: </b>
+					2/18/2008 11:17:23 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl3_commentLabel">Thanks very much</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					PreLoad?
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					E
+					<br />
+					<b>Date: </b>
+					2/11/2008 7:04:33 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl4_commentLabel">Where's the PreLoad event?</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					helpfull
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					bruce
+					<br />
+					<b>Date: </b>
+					12/11/2007 2:11:01 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl5_commentLabel">very helpfull...<br />thanks</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					I have a question
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Denis
+					<br />
+					<b>Date: </b>
+					11/23/2007 5:23:03 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl6_commentLabel">Nice work. I would also like to know if there are any events when the page is left or closed</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Awesome stuff!!!!!!
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Fatima
+					<br />
+					<b>Date: </b>
+					11/14/2007 4:58:39 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl7_commentLabel">Very helpful..thanks:;)</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Great work !!!
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Mohd Imran
+					<br />
+					<b>Date: </b>
+					10/12/2007 7:56:00 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl8_commentLabel">A really nice article for clear understanding of Page Events.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					WOW!
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Tim
+					<br />
+					<b>Date: </b>
+					8/15/2007 5:27:01 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl9_commentLabel">By far this is the best (both simple and complete) resource I have found regarding a aspx page and the events that &quot;fire&quot; as pages are &quot;hit&quot;.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Excellent
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Sasikumar
+					<br />
+					<b>Date: </b>
+					6/27/2007 8:32:28 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl10_commentLabel">The Best one</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Thanks
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					halphe
+					<br />
+					<b>Date: </b>
+					6/13/2007 2:30:29 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl11_commentLabel">Thank you very much.This is a good article for everyone who want to resolve problems.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					harsha
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					vardhan
+					<br />
+					<b>Date: </b>
+					5/28/2007 8:12:43 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl12_commentLabel">it is well</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Soooooooooo Helpful
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Lu
+					<br />
+					<b>Date: </b>
+					5/4/2007 12:21:44 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl13_commentLabel">The best clear simple artical for page life cycle.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Simple & Understandable
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Venkata kiran kumar
+					<br />
+					<b>Date: </b>
+					3/16/2007 2:29:45 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl14_commentLabel">Very Help full ..</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					One of the most understandable write-ups about ASP.NET
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Rick P
+					<br />
+					<b>Date: </b>
+					2/21/2007 6:40:06 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl15_commentLabel">Extremely helpful!</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Excellent
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Manitra
+					<br />
+					<b>Date: </b>
+					1/30/2007 12:26:44 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl16_commentLabel">As you can see, 4 years later, your article is still the best one about the page lifecycle in asp.net. It really helped me to resolved most of the viewstate problems I had.<br /><br />Congratulation.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					HelpFul
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					aVN-Developer
+					<br />
+					<b>Date: </b>
+					12/1/2006 10:59:13 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl17_commentLabel">Thank you</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Best
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Prakash Patel
+					<br />
+					<b>Date: </b>
+					11/21/2006 8:47:43 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl18_commentLabel">Good Article..Provides In depth knowledge.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					very good analysis
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					venki
+					<br />
+					<b>Date: </b>
+					11/20/2006 10:52:56 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl19_commentLabel">very nice, thanks for the good one</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					great
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Ashin
+					<br />
+					<b>Date: </b>
+					9/22/2006 10:07:36 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl20_commentLabel">helped me</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Excellent article
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Hari Pillai
+					<br />
+					<b>Date: </b>
+					6/26/2006 10:31:44 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl21_commentLabel">Thanks for the article. Excellent!!</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good Article - Keep it Up
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Pankaj Sharma
+					<br />
+					<b>Date: </b>
+					5/18/2006 2:42:37 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl22_commentLabel">Provides basic details which really pleased me while reading this article. Author Knows what really a reader should desire about page events. <br /><br />Thanks by heart.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Very Pleased
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Lee
+					<br />
+					<b>Date: </b>
+					5/11/2006 1:18:55 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl23_commentLabel">After looking for a more accurate (complete!!!)description of the event life cycle of the page object this is FLAWLESS! All the other articles I have read fail in that purpose.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good work
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					girishkumar.k
+					<br />
+					<b>Date: </b>
+					3/28/2006 10:59:54 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl24_commentLabel">Great Article,you h ave done great Job.It helps to all .NET<br />Professionals who are in thrust of Knowledge.Try to Give Description for each event.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					post back commands
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					raja mohamed
+					<br />
+					<b>Date: </b>
+					3/22/2006 5:12:20 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl25_commentLabel">I found this article to be very helpful.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Question
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Ryan Kaelin
+					<br />
+					<b>Date: </b>
+					1/18/2006 10:16:53 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl26_commentLabel">Having an issue, and since this is the best resource I've found yet, I thought I'd ask you.<br /><br />I have a page with usercontrols within usercontrols within usercontrols.  At some point in the workflow, the user enters a number into a text box and clicks a button that causes a post back.  <br /><br />I then have to dynamically load that many usercontrols into a panel on that usercontrol.  Fine.  That part works great.  But when I post back to capture the values entered in those dynamically created controls, there are no controls in the panel.Controls collection.<br /><br />After playing around with all the various events, I found if I place a method in the overridden OnInit event, those controls will exist - only after I post back twice.  Once to add the controls to my object's collection curing the Raised Events section, and the second time, the OnInit reads that my object's collection has items in it, and renders the controls.<br /><br />Any idea how to accomplish dynamically added controls at the 'Raised Events' section and have them be available on the NEXT postback?</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Great
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Grant
+					<br />
+					<b>Date: </b>
+					10/11/2005 7:23:04 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl27_commentLabel">Great write up very intuitive</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good article
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Dhana
+					<br />
+					<b>Date: </b>
+					7/12/2005 6:59:56 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl28_commentLabel">it is good article to read especially for those learning ASP.Net technology.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Great article
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Russ
+					<br />
+					<b>Date: </b>
+					5/24/2005 2:16:20 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl29_commentLabel">Very good article.  Clears up probably the biggest unknown in the ASP.NET world.<br /><br />As you say the &quot;second pass of ProcessPostData&quot; occurs to set the posted data of dynamically created controls.  Is there any way to prevent this?  I'm creating a dynamic checkbox in a Page_Load, settings its ID and setting checked=false.  But the ProcessPostData comes along a returns it to its value from the post data!  What are the options?  Creating the control in PreRender instead?</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Powerfull
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Phil
+					<br />
+					<b>Date: </b>
+					4/26/2005 1:52:10 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl30_commentLabel">Short, precise and complete thanx it went straight to my favourates.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Mr
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Stephen Smith
+					<br />
+					<b>Date: </b>
+					4/15/2005 8:44:12 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl31_commentLabel">Good article well written</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					pradeep
+					<br />
+					<b>Date: </b>
+					3/8/2005 7:16:31 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl32_commentLabel">Really Good Gives Indepth Information</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Agreed
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					art
+					<br />
+					<b>Date: </b>
+					2/17/2005 1:17:42 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl33_commentLabel">I would have to agree with the comments posted so far - this is good stuff. Helpful in designing management of dynamic controls. Thanks.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					KiqAss article
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					zep
+					<br />
+					<b>Date: </b>
+					1/25/2005 6:54:58 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl34_commentLabel">Awesome concepts.. Thanks.. This is exactly  what I was looking for...</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Architect/Developer
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Hermann Klinke
+					<br />
+					<b>Date: </b>
+					1/18/2005 1:18:41 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl35_commentLabel">Thank you so much for this great article. This is what I was looking for (as a ASP.NET beginner).</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Quite useful
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Rajorshi
+					<br />
+					<b>Date: </b>
+					1/9/2005 8:38:00 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl36_commentLabel">It's quite a good article. Detailed description of a Page's lifecycle. Nice one! - Cheers.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Good Job
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					brightheroes
+					<br />
+					<b>Date: </b>
+					11/18/2004 3:29:13 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl37_commentLabel">Good Job!</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Very Insightful
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Tod Birdsall
+					<br />
+					<b>Date: </b>
+					11/15/2004 6:01:42 PM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl38_commentLabel">I found this article to be very helpful.<br /><br />Keep up the good work.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#eeeeee">
+				<td>
+					<b>Title: </b>
+					Nice
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					Sunil Phani Manne
+					<br />
+					<b>Date: </b>
+					10/1/2004 7:37:58 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+	<span id="articleComments_rptArticleComments__ctl39_commentLabel">I found it to be very useful.</span></span>
+				</td>
+			</tr>
+		
+			<tr bgcolor="#dddddd">
+				<td>
+					<b>Title: </b>
+					Good
+					&nbsp;&nbsp; 
+					<br />
+					<b>Name: </b>
+					ruchi
+					<br />
+					<b>Date: </b>
+					9/25/2004 2:36:28 AM
+					<br />
+					<b>Comment: </b>
+					<br />
+					<span style="font-family: Verdana; font-size: 9pt;">
+<span id="articleComments_rptArticleComments__ctl40_commentLabel">Good Article..Provides In depth knowledge.</span></span>
+				</td>
+			</tr>
+		
+			</table>
+		</P>
+</td>
+			</tr>
+			<tr>
+				<td colSpan="2">
+					<div id="articleProductSpotlight" class="articleProductSpotlight"><b>Product Spotlight<br />
+						</b><img src="/images/gear_16x16.gif" alt="Product Spotlight" align="top" height="16" width="16" />&nbsp;<script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=2;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span id="ps1"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+				  <center>
+					<script type="text/javascript"><!--
+google_ad_client = "pub-4053580011448835";
+			google_ad_width = 300;
+			google_ad_height = 250;
+			google_ad_format = "300x250_as";
+			google_ad_type = "text_image";
+			google_ad_channel ="2776730118";
+			google_color_border = "CC0000";
+			google_color_bg = "FFFFFF";
+			google_color_link = "660000";
+			google_color_url = "008000";
+			google_color_text = "000000";
+//--></script>
+<script type="text/javascript"
+ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script><span id="Google1"></span></center>
+				</td>
+			</tr>
+		</table>
+	
+
+<script type="text/javascript">
+<!--
+var Page_ValidationSummaries =  new Array(document.getElementById("articleComments_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("articleComments_RequiredFieldValidator1"), document.getElementById("articleComments_RequiredFieldValidator2"), document.getElementById("articleComments_RequiredFieldValidator3"), document.getElementById("articleComments_InvisibleCaptcha1"));
+// -->
+</script>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgKGuK+8DAKuoszeCQKp1YD1BAKWl80jAvvUhvsKAoihtboBhm29DCbocx6ANdtFCs27sjch1wc=" />
+
+<script type="text/javascript">
+<!--
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+// -->
+</script>
+        <script type="text/javascript">
+subtext_invisible_captcha_hideFromJavascriptEnabledBrowsers('articleComments_InvisibleCaptcha1_subtext_captcha');
+</script><script type="text/javascript">
+subtext_invisible_captcha_setAnswer(4, 8, 'articleComments_InvisibleCaptcha1_answer');
+</script></form>
+<!-- ContentEnd --></td><td class="rightColumn"><fieldset><legend><a href="http://lakequincy.com/advertisers/publisherinfo/aspalliance.aspx">Learn More</a></legend>
+</fieldset><br/><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><br/><img src="http://aspalliance.com/images/clear.gif" alt="" height="3" width="100" border="0" /><script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=4;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span></span><br/><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><div style="width:120px;font-size:0.9em;background-color:white;border:solid 1px black;text-align:left;padding-left:2px;padding-bottom:2px"><b><a href="http://index.aspalliance.com/" title="Find .NET Resources!">Latest Resources</a></b><br /><B>&raquo;&nbsp;</B><a href="http://index.aspalliance.com/HostingGallery/ASPWebHosting/Details/678_ASPHostCentral.com.aspx" rel="nofollow">ASPHostCentral.com</a><br /><B>&raquo;&nbsp;</B><a href="http://index.aspalliance.com/HostingGallery/ASPWebHosting/Details/677_Gerodev.aspx" rel="nofollow">Gerodev</a><br /><B>&raquo;&nbsp;</B><a href="http://index.aspalliance.com/ControlGallery/PortalModules/Details/676_Media Player Web Part.aspx" rel="nofollow">Media Player Web Part</a><br /><B>&raquo;&nbsp;</B><a href="http://index.aspalliance.com/ControlGallery/PortalModules/Details/674_Menu Web Part.aspx" rel="nofollow">Menu Web Part</a><br /><B>&raquo;&nbsp;</B><a href="http://index.aspalliance.com/ASPNetSites/Details/673_CodeDigest.aspx" rel="nofollow">CodeDigest</a></div>
+<br/><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=16;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span></span><br/><img src="http://aspalliance.com/images/clear.gif" alt="" height="5" width="100" border="0" /><br /> <div style="border: solid 1px gray; text-align: center; width: 145px; margin: 18px 0px; "><a href="http://lakequincy.com/" target="_blank"><img src="http://aspalliance.com/images/LQM_advertise_here_button.gif" alt="Ads Powered by Lake Quincy Media" width="135" height="90" style="padding: 10px 0px; border-width: 0px;" /></a></div></td></tr></table></td></tr></table></td></tr><tr><td valign="top" colspan="2" align="center" width="100%" class="footerRow"><script type="text/javascript">
+lqm_channel=1;
+lqm_publisher=1;
+lqm_format=1;
+lqm_zone=1;
+</script>
+<script src="http://a.lakequincy.com/s.js" type="text/javascript"></script><span></span><div id="communitybar">Community Advice: <a href="http://aspadvice.com/">ASP</a> | 
+		<a href="http://sqladvice.com/">SQL</a> | 
+		<a href="http://xmladvice.com/">XML</a> | 
+		<a href="http://regexadvice.com/">Regular Expressions</a> | 
+		<a href="http://windowsadvice.com/">Windows</a>
+			</div>
+			<div id="blackangle"></div><span></span><br />
+<script type="text/javascript"> 
+<!-- 
+lqm_channel=1;
+lqm_publisher=1;
+lqm_zone=13;
+lqm_format=17;
+//-->
+</script>
+<script type="text/javascript" src="http://a.lakequincy.com/s.js"></script><br/><span class="footer">&copy;Copyright 1998-2008 ASPAlliance.com &nbsp;|&nbsp; Page Processed at 6/12/2008 9:42:25 PM&nbsp;&nbsp;<a href="http://aspalliance.com/rss.aspx"><img src="http://aspalliance.com/images/rss_button.gif" alt="AspAlliance Recent Articles RSS Feed" height="14" width="36" /></a><br /><a href="/about.aspx">About ASPAlliance</a> | <a href="http://aspalliance.com/groups/">Newsgroups</a> | <a href="http://lakequincy.com/advertisers/publisherinfo/aspalliance.aspx">Advertise</a> | <a href="/AuthorListing.aspx">Authors</a> | <a href="http://aspadvice.com/lists/">Email Lists</a> | <a href="/feedback.aspx">Feedback</a> | <a href="/link.aspx">Link To Us</a> | <a href="/privacy.aspx">Privacy</a> | <a href="http://www.google.com/custom?domains=aspalliance.com&q=&sitesearch=aspalliance.com&sa=Search&client=pub-4053580011448835&forid=1&channel=9561143596&ie=windows-1252&oe=windows-1252&safe=active&cof=GALT%3A%23008000%3BGL%3A1%3BDIV%3A%23336699%3BVLC%3A663399%3BAH%3Acenter%3BBGC%3AFFFFFF%3BLBGC%3ACC0000%3BALC%3A0000FF%3BLC%3A0000FF%3BT%3A000000%3BGFNT%3A0000FF%3BGIMP%3A0000FF%3BLH%3A80%3BLW%3A173%3BL%3Ahttp%3A%2F%2Faspalliance.com%2Fimages%2Faspalliance_logo_byline_white_173x80.gif%3BS%3Ahttp%3A%2F%2Faspalliance.com%2F%3BLP%3A1%3BFORID%3A1%3B&hl=en">Search</a></span><script type="text/javascript">var select = document.getElementById("homelink");if(select!=null){select.innerHTML = "Home";}</script></td></tr></table></div><!-- start Vibrant Media IntelliTXT Tooltip style sheet -->
+<style type="text/css">
+.iTt{
+    FONT-FAMILY:       Verdana, Arial, Helvetica;
+    FONT-SIZE:         11px;
+    FONT-STYLE:        normal;
+    FONT-WEIGHT:       normal;
+    COLOR:             black;
+    BACKGROUND-COLOR:  lightyellow;
+    BORDER:            black 1px solid;
+    PADDING:           2px;
+}
+</style>
+<!-- end Vibrant Media IntelliTXT style sheet -->
+<!-- start Vibrant Media IntelliTXT script section --><script type="text/javascript" src="http://aspalliance.us.intellitxt.com/intellitxt/front.asp?ipid=1652&mk=6&kwpn=2&sn=breadCrumbCell,title"></script>
+<!-- end Vibrant Media IntelliTXT script section --><span></span><script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-470225-1";
+urchinTracker();
+</script><span></span></body></html>

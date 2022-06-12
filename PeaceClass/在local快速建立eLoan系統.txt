@@ -1,0 +1,5 @@
+1.從server抓下整個develop目錄
+2.develop/bot/bin裡的dll檔必需是最新的
+3.除了方案以外，不要加入任何專案
+4.需要的dll檔，都從develop/bot/bin/參考
+5.building

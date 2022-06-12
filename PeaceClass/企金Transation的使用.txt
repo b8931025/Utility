@@ -1,0 +1,13 @@
+        Try
+	if 
+            If Me.m_dbManager.isCloseTransaction Then Me.m_dbManager.beginTran() 'Transation開啟
+
+		'new 企金物件前，該物件如要使用Transation一定要在物件使用前Begin
+            enDicTmpList = New EN_DICTIONTMPLIST(Me.m_dbManager)
+            enDic = New EN_DICTION(Me.m_dbManager)
+
+            If Not IsNothing(Me.m_dbManager) Then Me.m_dbManager.commit() 'Transation確任
+        Catch ex As Exception
+            Me.m_dbManager.Rollback() 'Transation退回
+            Throw ex
+        End Try

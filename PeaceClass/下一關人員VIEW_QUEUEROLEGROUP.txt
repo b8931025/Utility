@@ -1,0 +1,5 @@
+Richar:
+現在沒有群組了，FlowStep.Client='G'或Ap_Flow_Log.Note='G'是正常的
+如果要查下一關送到誰，就用VIEW_QUEUEROLEGROUP去查
+
+select * from VIEW_QUEUEROLEGROUP where caseid='040090988001098';

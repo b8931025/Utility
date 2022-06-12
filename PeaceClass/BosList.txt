@@ -1,0 +1,60 @@
+//BosList的使用
+//本範例以table AP_ACALLBAL做範例
+
+//example
+//這兩個一定要Imports
+Imports System.Data.OleDb
+Imports Q.NET.VB
+
+//類別命名規則：TableName+List
+//AP_ACALLBAL + LIST
+Public Class AP_ACALLBALLIST
+    Inherits BosList					//繼承BosList
+
+    Sub New(ByVal dbManager As DatabaseManager)
+        MyBase.New("AP_ACALLBAL", dbManager)		//設定TableName和DataBaseManager
+    End Sub
+
+		//設定newBos()
+    Overrides Function newBos() As BosBase
+        Dim bos As AP_ACALLBAL = New AP_ACALLBAL
+        If (Me.getArrayPrimaryKeys.Count = 0) Then
+            Me.setPrimaryKeys(bos.getArrayPrimaryKeys())
+        End If
+        Return bos
+    End Function
+
+#Region "Functions"
+	//這裡就依照自已的需求去設計，例如
+	
+    Function getloadByYYYYMM(ByVal sYYYY As String, ByVal sMM As String) As Integer
+        Dim paras(1) As OleDbParameter
+        Try
+            If Utility.isValidateData(sYYYY) AndAlso Utility.isValidateData(sMM) Then
+            paras(0) = New OleDbParameter("ACB_DAT_YY", sYYYY.Trim)
+            paras(1) = New OleDbParameter("ACB_DAT_MM", sMM.Trim)
+                Return MyBase.loadBySQL(paras)
+                //這樣就會傳回SELECT * FROM AP_ACALLBAL ACB_DAT_YY=sYYYY AND ACB_DAT_MM=sMM 可以撈到幾筆資料
+                //並自動在BosList裡面建立該結果的Table
+                //如果對SELECT的語法有特殊要求，可以用MyBase.loadBySQL(SQLCmd,paras)
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function	
+
+#End Region
+
+End Class
+
+
+儲存資料到DB
+            AP_ACALLBALLIST.getCurrentDataSet()
+            //修改、新增該DataSet的資料
+            Me.update(DataTable)
+            //將資料存回DB
+移除資料
+						BosBase.loadByXXX(key1,key2,...)
+						AP_ACALLBALLIST.loadByXXX(key1,key2,...)
+						AP_ACALLBALLIST.getCurrentDataSet()
+						//取得Table之後，用Table.Rows.Count去跑迴圈，一筆一筆的用BosBase.Remove()移除

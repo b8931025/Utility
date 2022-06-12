@@ -1,0 +1,13 @@
+        m_DBManager.beginTran()
+        Try
+                    Dim class_ENFlowMap As New BotEloan.Common.ENFlowMap(m_DBManager)
+                    Dim strGup As String
+                    
+                    class_ENFlowMap.send(Me.m_sCaseID)
+                    strGup = class_ENFlowMap.getGrpUserMsg(Me.m_sCaseID).Replace(vbNewLine, "\n")
+                    UIShareFun.alert("案號:[" & Me.m_sCaseID & "]送出成功。\n" & strGup)
+                    UIShareFun.closeWindow(Me.Page)
+                    m_DBManager.commit()                    
+        Catch ex As Exception
+            m_DBManager.Rollback()
+        End Try

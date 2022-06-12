@@ -1,0 +1,51 @@
+﻿In Aspx
+<%@ Register TagPrefix="uc1" TagName="PageBar" Src="..\EnComCtr\PageBar.ascx" %>
+
+'In fram
+			<table cellpadding="0" cellspacing="0" border="1" class="mtr" width="100%">
+				<tr>
+					<td><uc1:PageBar id="pb1" runat="server"></uc1:PageBar></td> 'PageBar的位置可以自定
+				</tr>
+				<tr>
+					<td>
+					'將DataGrid設定好
+						<asp:datagrid ID="dg" Runat="server" AllowPaging="True" Width="100%" PageSize="20" AllowSorting="true"
+							CellPadding="0" CellSpacing="0" CssClass="mtr" border="1" AutoGenerateColumns="false" HeaderStyle-CssClass="th1c_b">
+							<Columns>
+								<asp:BoundColumn DataField="Name" HeaderText="姓名" SortExpression="Name" ItemStyle-CssClass="td1"></asp:BoundColumn>
+								<asp:BoundColumn DataField="ID" HeaderText="編號" ItemStyle-CssClass="td1"></asp:BoundColumn>
+							</Columns>
+							<PagerStyle Visible="False"></PagerStyle>
+						</asp:datagrid>
+					</td>
+				</tr>
+			</table>			
+
+In vb
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+				'將DataGrid指定給PageBar※PageBar只能使用DataGrid
+        pb1.DG = dg
+
+        Try
+            If Not IsPostBack Then
+                dg.DataSource = getDataTable()  '將資料來源以DataTable的型態，指定給DataGrid
+                dg.DataBind() 'Binding 後，PageBar就會產生
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Sub
+
+
+    Public Sub onSorting(ByVal sender As Object, ByVal e As DataGridSortCommandEventArgs) Handles dg.SortCommand
+        Try
+        		'如果要排序功能，可以在aspx裡的DataGrid加入項目OnSortCommand="onSortXXX" 或 在vb用Handles DataGrid.SortCommand
+        		'執行以下程式碼
+            Dim sOrder As String = ViewState("SortOrder")
+            If IsNothing(sOrder) Then sOrder = "ASC"
+            ViewState("SortOrder") = IIf(sOrder.Trim.ToUpper = "DESC", "ASC", "DESC")
+            pb1.Sorting(e.SortExpression, sOrder)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Sub			

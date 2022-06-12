@@ -1,0 +1,5 @@
+導頁的使用
+使用ENFrmFakeFrame.aspx做外框
+在javaScript使用時，用ENFrmFakeFrame.aspx?FINALPAGE="目地url..."
+如下
+sURL = "'../../ENFrmFakeFrame.aspx?FINALPAGE=ENRPT/MTH/ENRPTLOANMTH003SUBJECTANALYSIS.aspx&CASEID=" & Me.m_sCASEID & "&FLOWNAME=" & Me.m_sFLOWNAME & "&FWNSTEPNO=" & Me.m_sFWNSTEPNO & "&FWNSTEPID=" & Me.m_sFWNSTEPID & "&QMODE=YES&YY=" & sYY & "&MM=" & sMM & "'"

@@ -1,0 +1,12 @@
+建立web專案時，會產生下列檔案
+Web.config
+Global.asax
+
+在 Boteloan裡
+其中global.asx裡會去讀下面4個檔
+
+EN_PROFILE.config
+GA_PROFILE.config
+WebLimit.config
+DBProfile.txt  //database的帳號密碼在這邊設定
+

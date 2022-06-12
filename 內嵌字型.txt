@@ -1,0 +1,3 @@
+itextsharp use embedded font
+iTextSharp.text.pdf.BaseFont.CreateFont
+¤º´O¦r«¬

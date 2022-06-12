@@ -1,0 +1,6 @@
+FormatCoin(obj as Object)as String
+四捨五入到個位數，加千分位
+FormatCoin1(obj as Object)as String
+四捨五入到小數點第二位，加千分位
+FormatCoin2(obj as Object,n as Integer = 2)as String
+四捨五入到小數點第二位，加千分位※ n沒啥用
