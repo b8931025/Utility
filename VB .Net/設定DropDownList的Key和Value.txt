@@ -1,0 +1,9 @@
+1¡^¡G
+       ListItem myListItem = new ListItem("text","value");
+       this.DropDownList1.Items.Add(myListItem);
+2¡^¡G
+       this.DropDownList1.Items.Add("text1");
+       this.DropDownList1.Items.FindByText("text1").Value = "value1"; 
+
+3)  : this.DropDownList1.Items.Add("text1");
+			this.DropDownList1.Items(this.DropDownList1.Items.Count - 1).Value = "value1"

@@ -1,0 +1,82 @@
+EnableViewState在微軟的說明
+MSDN:指示是否在頁請求之間保持視圖狀態。如果要保持視圖狀態，則為 true；否則為 false。默認值為 true。
+以上為官方對 EnableViewState 的解釋，有些難懂，我們以示例的方式解釋，我們創建一個 Web Form，並添加一個 ListBox、一個 Button、一個方法。
+
+程序代碼
+
+<%@ Page Language="C#" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+    void AddItem(object sender, EventArgs e)
+    {
+        list.Items.Add(DateTime.Now.Ticks.ToString());
+    }
+</script>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>EnableViewState 屬性</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+      <asp:ListBox ID="list" runat="server">
+        <asp:ListItem Text="EnableViewState 屬性" Value="1"></asp:ListItem>
+      </asp:ListBox>
+      <asp:Button ID="btn" runat="server" Text="追加一個 Item" OnClick="AddItem" />
+    </div>
+    </form>
+</body>
+</html>
+在瀏覽器中訪問該網頁，得到 HTML 源文件中如下內容：
+
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTIyNTcyODQzNWRkKV9J6dx90HkLpaqCRtS3s4xsNnc=" />
+這個 hidden 框存儲的是各個控件的屬性值與狀態，比如 ListBox 的 Text、Value、Selected 等，這也是為什麼在 ASP.NET 裡，可以在服務器端獲得列表的 Text 值的原因。
+
+開始實驗
+
+現在點擊按鈕，服務器端將執行 AddItem 方法，ListBox 中的內容也隨之增多，查看 HTML 源文件中的「__VIEWSTATE」也隨之增多 。關於 DateTime 請參見 ASP.NET 時間操作。
+
+再次實驗
+
+現在我們修改 ListBox 的 EnableViewState 屬性為 false。
+
+<asp:ListBox ID="list" runat="server" EnableViewState="false">
+再次點擊幾下按鈕，我們可以發現，之前點擊按鈕添加的 Item 都不見了，現在每次點擊按鈕，ListBox 中都只有兩個 Item，一個為靜態指定的，一個是通過 AddItem 方法添加的。這是由於 ListBox 的內容沒有通過「__VIEWSTATE」傳送到服務器端，服務器端不知道 ListBox 之前還動態添加的有內容。
+
+注意觀察，添加的數字並不相同，這說明每次點擊都執行了 AddItem 方法，而不是有些文章所說的，使用 EnableViewState="false" 時方法只執行一次，方法是每次都執行，只是由於沒有獲得之前動態添加（編輯、刪除）後的內容，所以只有最新添加（編輯、刪除）的內容。
+
+總結
+
+EnableViewState 指定是否向服務器端傳送某（些）控件的屬性值、狀態。
+
+EnableViewState 的默認值為 true，設置為 false 可以降低數據傳送量，當然應該在程序邏輯允許設置為 false 的情況下。
+
+EnableViewState 可用於控件，也可用於 @ Page、@ Control、@ Master 指令語法。當控件的 EnableViewState 的設置與指令語法的設置不一致時，取 false 值
+
+---------------------------------------------------
+ASP.NET控制項設定 EnableViewState="True",
+會使得ViewState自動記錄控制項中的資料,
+若要讓控制項每次PostBack 都會重新執行DataBind,
+如GridView 設定 EnableViewState="False"，讓 GridView 每次 PostBack 都會重新再 DataBind 資料
+
+Asp網頁的EnableViewState屬性對網頁性能的影響
+
+ViewState主要是在提交以後回顯用的，它只有在頁面中的數據是提交到本頁時才有用，在這個時候，比如Textbox，你用EnableViewState="false"，後台同樣可以得到數據，但由於你提交到本頁，所以提交以後此Textbox中為空；而如果用EnableViewState="true",則提交以後返回時頁面中Textbox中為你提交以前的數據。
+
+另外，除了頁面Page中的EnableViewState，每個可以提交的控件，Textbox、Dropdownlist都有EnableViewState屬性。實際上，回發的數據並不依賴於ViewState。回發的控件都實現了IPostBackDataHandler接口，該接口的LoadPostData方法中，會對返回的值和ViewState中的值進行判斷，如果改變了的話，調用RaisePostDataChangedEvent方法觸發相應的事件（對於TextBox來說就是TextChanged事件）。
+
+如果你把EnableViewState="False"，LoadPostData方法中返回的值始終會和文本框的默認值比較大小，也就是說，如果你在頁面TextBox中改變值以後，每次你點按鈕提交窗口都會觸發TextBox的TextChanged事件LoadPostData中如果返回的值和ViewState中的值不同的話，將把TextBox的值設置成返回的值這就是你看到的結果 。
+
+在很多情況下，把EnableViewState設為false，可以提高應用程序的性能。特別在等待後台把數據填充到DataGrid的情況下。如果這個時候設為true，那麼cpu的時間都浪費 在序列化數據到 ViewState 中。
+
+ 每個控件（在標記上）：sp:datagrid EnableViewState="false" ?/>
+ 每個頁面（在指令中）： <%@ Page EnableViewState="False" ?%>
+ 每個應用程序（在 web.config 中）： <Pages EnableViewState="false" ?/>
+ 
+ ※注意：下列控制項EnableViewState沒有效果，
+  Textbox     
+  Checkbox   
+  Checkbox   List   
+  RadioButtonList   
+  上面控件的狀態通過IPostBackEventHandler   和   IPostBackDataHandler接口處理，而不是ViewState的機制，
+  所以EnableViewState沒有效果。 

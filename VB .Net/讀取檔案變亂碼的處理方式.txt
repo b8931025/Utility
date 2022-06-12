@@ -1,0 +1,52 @@
+.Net Framework 讀取檔案變亂碼的處理方式 
+引用網站：Neo's Blog
+
+本來會造成亂碼的語法如下:
+
+Dim reader As StreamReader = 
+New StreamReader(FileName)
+
+但是問題來了，System.Text.Encoding 裡面一堆，ASCII、UTF-8 等等的，要選哪個好? 
+
+其實很簡單，用 System.Text.Encoding.Default 告訴 StreamReader 目前作業系統的編碼即可。
+
+[VB .Net] 的寫法
+
+Dim reader As StreamReader = _
+New StreamReader(FileName, System.Text.Encoding.Default)
+
+
+下載檔案時
+
+            hidFP.value = ""          
+            If System.IO.File.Exists(sFilePath) Then
+                m_strmReader = New System.IO.StreamReader(sFilePath, System.Text.Encoding.Default)'讀取檔案時，一定要用System預設的Encoding(不是.Net預設)，這樣才能和所讀取的檔案有一致的編碼
+                'Response.write(m_strmReader.CurrentEncoding().toString())
+                '取得檔名
+                sFileName = sFilePath.Substring((sFilePath.LastIndexOf("\") + 1),(sFilePath.Length - ((sFilePath.LastIndexOf("\") + 1))))
+                sbContent = New System.Text.StringBuilder(m_strmReader.ReadToEnd())
+                m_strmReader.Close()
+
+            page.Response.ClearHeaders()
+            page.Response.Clear()
+            page.Response.Expires = 0
+            page.Response.Buffer = True
+            'page.Response.ContentEncoding = System.Text.Encoding.Default 這一行會影響輸出檔的編碼，如果要設，一定要設成跟System.IO.StreamReader的Encoding一樣
+            page.Response.AddHeader("Accept-Language", "zh-tw") '不影響編碼
+            page.Response.ContentType = "text/plain;charset=big5" '不影響編碼
+            page.Response.AddHeader("content-disposition", "attachment; filename=" & Chr(34) & System.Web.HttpUtility.UrlEncode(sFileName,System.Text.Encoding.UTF8 ) & Chr(34)) '輸出檔名一定要用UTF8(header 是沒有非 ASCII char)，不然檔名會亂碼 
+            page.Response.Write(sbContent.toString)
+            page.Response.End() 
+
+
+            
+謝謝站長的技術分享，解決了小弟一個讀檔的問題。
+因為小弟需要從ANSI文字檔中取得某個起訖位罝的中文字元
+因為文字檔是ANSI格式->中文碼為兩碼 ，.net為
+unicode- 每個字都是一碼，先轉為byte格式，取出ANSI格式之資料(中文字算兩碼) 正確所在，再轉回unicode格式
+
+
+Dim sendBytes As [Byte]() = System.Text.Encoding.Default.GetBytes(line)
+
+Dim strValue As String = System.Text.Encoding.Default.GetChars(sendBytes, startPos, endPos - startPos)
+            

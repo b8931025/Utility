@@ -1,0 +1,6 @@
+﻿    '判斷是否為難字
+    Function isDifficultWord(ByVal s As String) As Boolean
+        Dim bg5 As System.Text.Encoding = System.Text.Encoding.GetEncoding("big5")
+        If s <> bg5.GetString(bg5.GetBytes(s)) Then Return True
+        Return False
+    End Function

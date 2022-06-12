@@ -1,0 +1,71 @@
+   Public Shared Sub sendMHTFile(ByVal MHTString As String, ByVal fileName As String, ByVal page As System.Web.UI.Page)
+        Try
+            page.Response.Clear()
+            page.Response.ClearContent()
+            page.Response.ClearHeaders()
+            page.Response.Charset = "utf-8"
+            page.Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8")
+            page.Response.ContentType = "application/msword"
+            page.Response.AddHeader("Content-Disposition", "attachment;filename=" + fileName + ".mht")
+            page.Response.Write(MHTString)
+            page.Response.Flush()
+        Catch ex As Exception
+        Finally
+            page.Response.Close()
+        End Try
+    End Sub
+
+    'Send a mhtml string as a mhtml Word document to the client
+    Public Shared Sub sendExcelFile(ByVal fileName As String, ByVal page As System.Web.UI.Page)
+        Try
+            page.Response.Clear()
+            page.Response.ClearContent()
+            page.Response.ClearHeaders()
+            page.Response.Buffer = True
+            page.Response.Charset = "utf-8"
+            page.Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8")
+            page.Response.ContentType = "application/ms-excel"
+            page.Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName + ".xls")
+            page.Response.Write(getHtml(page))
+            page.Response.Flush()
+        Catch ex As Exception
+        Finally
+            page.Response.Close()
+        End Try
+    End Sub
+
+    Public Shared Sub sendWodrFile(ByVal fileName As String, ByVal page As System.Web.UI.Page)
+        Try
+            page.Response.Clear()
+            page.Response.ClearContent()
+            page.Response.ClearHeaders()
+            page.Response.Buffer = True
+            page.Response.Charset = "utf-8"
+            page.Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8")
+            page.Response.ContentType = "application/msword"
+            page.Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName + ".doc")
+            page.Response.Write(getHtml(page))
+            page.Response.Flush()
+        Catch ex As Exception
+        Finally
+            page.Response.Close()
+        End Try
+    End Sub
+
+    Public Shared Sub sendPdfFile(ByVal fileName As String, ByVal page As System.Web.UI.Page)
+        Try
+            page.Response.Clear()
+            page.Response.ClearContent()
+            page.Response.ClearHeaders()
+            page.Response.Buffer = True
+            page.Response.Charset = "utf-8"
+            page.Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8")
+            page.Response.ContentType = "application/pdf"
+            page.Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf")
+            page.Response.Write(getHtml(page))
+            page.Response.Flush()
+        Catch ex As Exception
+        Finally
+            page.Response.Close()
+        End Try
+    End Sub

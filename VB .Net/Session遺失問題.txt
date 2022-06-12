@@ -1,0 +1,44 @@
+Session掉了有很多種可能，
+
+不過如果程式裡面有用到javascript進行開窗的動作，
+那就很有可能是因為混著用showModalDialog跟window.open導致session遺失。
+
+簡單來講，就是
+ShowModalDialog之後，不能用window.open來開窗，否則新視窗裡面無法讀取Session。
+
+--------------------------------------------------------------------------------
+簡單的例子，混著用這兩種開窗：
+
+open 代表 window.open 
+modal 代表 window.showModalDialog
+
+
+Y = session 還在 
+N = session 不見了
+
+連續開窗使用方式 Session是否仍然存在 
+open/open/open Y/Y/Y 
+modal/modal/modal Y/Y/Y 
+open/modal/open Y/Y/N 
+modal/open/modal Y/N/N 
+open/modal/modal Y/Y/Y 
+
+解決方法：
+從 HTML 模式或無模式對話框可能沒有打開同一進程中 InternetExplorer 窗口中打開,因此模式窗口中調用 window.open()方法打開具體頁面,可能造成session 丟失.例如:主窗體a.aspx，點擊按鈕時採用window.showModalDialog,打開彈出窗體b.aspx,b.aspx為模式窗體，然後在b.aspx窗體中再用window.open方式打開窗體c.aspx時，session會丟失。
+
+   解決方法:
+      思路: 調用 a.aspx window 的 open 方法打開
+
+      a.aspx 中window.showModalDialog 調用方法傳遞 dialogArguments屬性為 window 對像
+      window.showModalDialog("b.aspx",window,"....") ;
+
+      b.aspx 中
+      var openobj = window;
+if(typeof(window.dialogArguments) == "object")
+{
+    openobj =  window.dialogArguments;
+}
+ openobj.open("c.aspx");
+
+   這樣處理 c.aspx中 Session就不會丟失了             
+

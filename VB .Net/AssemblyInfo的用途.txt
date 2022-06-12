@@ -1,0 +1,37 @@
+'AssemblyInfo.vb主要是設定一個專案輸出檔的dll檔案資訊
+'如：檔案版本、描述、註解、公司名稱..etc.
+'一個專案如果沒有AssemblyInfo，每次compiler，版本號都會是0.0.0.0，
+'而且沒有檔案資訊，這樣對於新舊版本的判斷就會有問題
+
+
+Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' 一般的組件資訊是由下列這組屬性所控制。
+' 變更這些屬性的值即可修改組件的相關資訊。
+
+' 檢閱組件屬性的值
+
+<Assembly: AssemblyTitle("")> 				'描述
+<Assembly: AssemblyDescription("")>   '註解
+<Assembly: AssemblyCompany("")> 			'公司名稱
+<Assembly: AssemblyProduct("")> 			'產品名稱
+<Assembly: AssemblyCopyright("")> 		'著作權
+<Assembly: AssemblyTrademark("")> 		'合法商標
+<Assembly: CLSCompliant(True)> 
+
+'下列 GUID 為專案公開 (Expose) 至 COM 時所要使用的 typelib ID
+<Assembly: Guid("B019448A-F3E5-406A-9F49-35348F675B96")> 
+
+' 組件的版本資訊由下列四個值所組成:
+'
+'      主要版本
+'      次要版本
+'      組建編號
+'      修訂
+'
+' 您可以自行指定所有的值，也可以依照以下的方式，使用 '*' 將修訂和組建編號
+' 指定為預設值:
+
+<Assembly: AssemblyVersion("1.0.*")>  'dll版本號，可以自行自定，也可以使用*去讓系統指定

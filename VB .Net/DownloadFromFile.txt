@@ -1,0 +1,8 @@
+
+            Response.Clear()
+            Response.AppendHeader("Content-Disposition", "attachment; filename=file.doc")
+            Dim file As IO.FileInfo = New IO.FileInfo("C:\encb04\filepro\01.申請書\2[1].授信申請書.doc")
+            Response.AppendHeader("Content-Length", file.Length.ToString())
+            Response.ContentType = "application/octet-stream"
+            Response.WriteFile(file.FullName)
+            Response.End()

@@ -1,0 +1,24 @@
+      無附件的寄法
+        Dim sFrom As String = "b8931025@yahoo.com.tw"
+        Dim sTo As String = "willyhsu@azion.com.tw"
+        Dim sSubject As String = "標題"
+        Dim sContent As String = "信件內容1"  '不可使用語法
+        System.Web.Mail.SmtpMail.SmtpServer = "ms21.hinet.net"
+        System.Web.Mail.SmtpMail.Send(sFrom, sTo, sSubject, sContent)
+        
+      含附件的寄法
+				Dim myMail As New MailMessage()
+				myMail.From = "from@microsoft.com"
+				myMail.To = "to@microsoft.com"
+				myMail.Subject = "UtilMailMessage001"
+				myMail.Priority = MailPriority.Low
+				myMail.BodyFormat = MailFormat.Html
+				myMail.Body = "<html><body>UtilMailMessage001 - success</body></html>"  '可以使用語法
+				
+				'加入附加檔
+		     Dim myAttachment As New MailAttachment("c:\attach\attach1.txt", MailEncoding.Base64)
+		     myMail.Attachments.Add(myAttachment)
+				     
+				SmtpMail.SmtpServer = "MyMailServer"
+				SmtpMail.Send(myMail)
+        

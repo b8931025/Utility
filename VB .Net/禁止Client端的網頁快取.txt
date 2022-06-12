@@ -1,0 +1,19 @@
+禁止Client端的網頁快取
+
+一個網頁如果不想在Client端讀取完後，存到...\Local Settings\Temporary Internet Files(快取)
+或者是想每次都讀取最新的資訊，就要做以下設定
+
+
+in http
+<head>
+		<meta http-equiv="cachecontrol" content="no-cache"><!--不要將page存到快取-->
+		<meta HTTP-EQUIV="Pragma" content="no-cache"><!--禁止IE讀取快取-->
+		<meta http-equiv="Expires" content="-1"><!--每次都讀最新的(其實只設這一個項目也可以)-->
+</head>		
+
+or 
+
+VB in Page_Load
+Response.CacheControl = "no-cache"
+Response.AddHeader("Pragma","no-cache")
+Response.Expires = -1

@@ -1,0 +1,5 @@
+        Dim s(3, 4, 5) As String
+
+        UBound(s, 1) '-->3
+        UBound(s, 2) '-->4
+        UBound(s, 3) '-->5

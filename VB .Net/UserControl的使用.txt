@@ -1,0 +1,20 @@
+假設一個userControl檔，叫TagName1.ascx，其使用方法如下
+
+1.UserControl 直接在aspx使用
+<%@ Register TagPrefix="uc1" TagName="TagName1" Src="..\EnComCtr\TagName1.ascx" %>
+
+<body>
+	.....Codes
+	<uc1:TagName1 id="pb1" runat="server"></uc1:TagName1>
+</body>
+
+	
+2.UserControl動態載入
+
+<body>
+	<asp:Panel id="p1" Runat="server"></asp:Panel>
+</body>	
+
+	In VB 將UserControl New出來，載入Panel
+        Dim UControl As New Page
+        p1.Controls.Add(UControl)	

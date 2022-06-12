@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+	<HEAD>
+		<TITLE>[Exception]System.Web.HttpException應用程式中發生伺服器錯誤</TITLE>
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<STYLE> body {font-family:"Verdana";font-weight:normal;font-size: .7em;color:black;}
+	p {font-family:"Verdana";font-weight:normal;color:black;margin-top: -5px}
+	b {font-family:"Verdana";font-weight:bold;color:black;margin-top: -5px}
+	H1 { font-family:"Verdana";font-weight:normal;font-size:18pt;color:red }
+	H2 { font-family:"Verdana";font-weight:normal;font-size:14pt;color:maroon }
+	pre {font-family:"Lucida Console";font-size: .9em}
+	.marker {font-weight: bold; color: black;text-decoration: none;}
+	.version {color: gray;}
+	.error {margin-bottom: 10px;}
+	.expandable { text-decoration:underline; font-weight:bold; color:navy; cursor:hand; }
+	</STYLE>
+		<META content="MSHTML 6.00.2900.2523" name="GENERATOR">
+	</HEAD>
+	<BODY bgColor="white">
+		當專案丟出下列例外時，是因為Web.config設定不適合所在環境的問題。可以用以下兩種方試解決
+		<br>
+		1.將&nbsp;&nbsp;管理-&gt;服務-&gt;ASP.NET State Service&nbsp;&nbsp;打開
+		<br>
+		2.將mode的StateServer改成InProc&nbsp;&nbsp;
+		<br>
+		&lt;configuration&gt;<br>
+		&lt;system.web&gt;
+		<br>
+		&lt;sessionState&nbsp;mode="<span style="color:red">InProc</span>
+		"&nbsp; 
+		stateConnectionString="tcpip=127.0.0.1:42424"&nbsp;cookieless="false"&nbsp;timeout="600"&nbsp; 
+		/&gt;
+		<br>
+		&lt;/system.web&gt;
+		<br>
+		&lt;/configuration&gt;
+		<SPAN>&nbsp;</P>
+			<H1>'/BotDev' 應用程式中發生伺服器錯誤。
+				<HR width="100%" color="silver" SIZE="1">
+			</H1>
+			<H2><I>無法將工作階段要求送至工作階段狀態伺服器。請確定已經啟動 ASP.NET State Service 
+					且用戶端與伺服器端的通訊埠都相同。如果伺服器是在遠端電腦上，請檢查 
+					HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection 
+					的值，確定它是否接受遠端要求。</I>
+			</H2></SPAN><FONT face="Arial, Helvetica, Geneva, SunSans-Regular, sans-serif "><B>描述:
+			</B>在執行目前 Web 要求的過程中發生未處理的例外情形。請檢閱堆疊追蹤以取得錯誤的詳細資訊，以及在程式碼中產生的位置。
+			<BR>
+			<BR>
+			<B>例外詳細資訊: </B>System.Web.HttpException: 無法將工作階段要求送至工作階段狀態伺服器。請確定已經啟動 ASP.NET 
+			State Service 且用戶端與伺服器端的通訊埠都相同。如果伺服器是在遠端電腦上，請檢查 
+			HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection 
+			的值，確定它是否接受遠端要求。<BR>
+			<BR>
+			<B>原始程式錯誤:</B>
+			<BR>
+			<BR>
+			<TABLE width="100%" bgColor="#ffffcc">
+				<TBODY>
+					<TR>
+						<TD><CODE>在執行目前 Web 要求期間，產生無法處理的例外狀況。如需有關例外狀況來源與位置的資訊，可以使用下列的例外狀況堆疊追蹤取得。</CODE>
+						</TD>
+					</TR>
+				</TBODY></TABLE>
+			<BR>
+			<B>堆疊追蹤:</B>
+			<BR>
+			<BR>
+			<TABLE width="100%" bgColor="#ffffcc">
+				<TBODY>
+					<TR>
+						<TD><CODE><PRE>
+[HttpException (0x8007274d): 無法將工作階段要求送至工作階段狀態伺服器。請確定已經啟動 ASP.NET State Service 且用戶端與伺服器端的通訊埠都相同。如果伺服器是在遠端電腦上，請檢查 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection 的值，確定它是否接受遠端要求。]
+   System.Web.SessionState.OutOfProcStateClientManager.MakeRequest(StateProtocolVerb verb, String id, StateProtocolExclusive exclusiveAccess, Int32 timeout, Int32 lockCookie, Byte[] buf, Int32 cb, Int32 networkTimeout, SessionNDMakeRequestResults&amp; results)
+   System.Web.SessionState.OutOfProcStateClientManager.DoGet(String id, StateProtocolExclusive exclusiveAccess)
+   System.Web.SessionState.OutOfProcStateClientManager.GetExclusive(String id)
+   System.Web.SessionState.StateClientManager.BeginGetExclusiveSync(String id, AsyncCallback cb, Object state)
+   System.Web.SessionState.OutOfProcStateClientManager.System.Web.SessionState.IStateClientManager.BeginGetExclusive(String id, AsyncCallback cb, Object state)
+   System.Web.SessionState.SessionStateModule.GetSessionStateItem()
+   System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   System.Web.AsyncEventExecutionStep.System.Web.HttpApplication+IExecutionStep.Execute()
+   System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)
+</PRE>
+							</CODE>
+						</TD>
+					</TR>
+				</TBODY></TABLE>
+			<BR>
+			<HR width="100%" color="silver" SIZE="1">
+			<B>版本資訊:</B>&nbsp;Microsoft .NET Framework 版本:1.1.4322.2032; ASP.NET 
+			版本:1.1.4322.2032 </FONT><!-- 
+[HttpException]: 無法將工作階段要求送至工作階段狀態伺服器。請確定已經啟動 ASP.NET State Service 且用戶端與伺服器端的通訊埠都相同。如果伺服器是在遠端電腦上，請檢查 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection 的值，確定它是否接受遠端要求。
+   at System.Web.SessionState.OutOfProcStateClientManager.MakeRequest(StateProtocolVerb verb, String id, StateProtocolExclusive exclusiveAccess, Int32 timeout, Int32 lockCookie, Byte[] buf, Int32 cb, Int32 networkTimeout, SessionNDMakeRequestResults& results)
+   at System.Web.SessionState.OutOfProcStateClientManager.DoGet(String id, StateProtocolExclusive exclusiveAccess)
+   at System.Web.SessionState.OutOfProcStateClientManager.GetExclusive(String id)
+   at System.Web.SessionState.StateClientManager.BeginGetExclusiveSync(String id, AsyncCallback cb, Object state)
+   at System.Web.SessionState.OutOfProcStateClientManager.System.Web.SessionState.IStateClientManager.BeginGetExclusive(String id, AsyncCallback cb, Object state)
+   at System.Web.SessionState.SessionStateModule.GetSessionStateItem()
+   at System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   at System.Web.AsyncEventExecutionStep.System.Web.HttpApplication+IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+--></BODY></HTML>

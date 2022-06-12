@@ -1,0 +1,8 @@
+    '¦r¦êÂà16¶i¦ì
+    Public Shared Function StringToHex(ByVal byt() As Byte) As String
+        Dim sOUT As String = ""
+        For Each b As Byte In byt
+            sOUT &= b.ToString("X02")
+        Next
+        Return sOUT
+    End Function

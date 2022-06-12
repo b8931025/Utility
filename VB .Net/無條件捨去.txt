@@ -1,0 +1,10 @@
+    '無條件捨去
+    Private Function RoundDown(ByVal dSrc As Decimal) As Decimal
+        Dim dbl As Double = CDbl(dSrc)
+        If dbl > 0 Then Return CDec(Math.Floor(dbl))
+        Return CDec(Math.Ceiling(dbl))
+    End Function
+    
+    or 
+    
+    Fix(ByVal dSrc As Decimal) As Decimal

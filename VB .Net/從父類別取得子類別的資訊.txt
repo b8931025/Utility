@@ -1,0 +1,8 @@
+ 以下code必需寫在parent class中
+ 
+ 取得Namespace
+ Me.GetType.Namespace
+ 取得子類別檔名(不含副檔名)
+ CType(Me.GetType,System.Type).Name
+ 取得子類別所屬dll檔
+ CType(CType(Me.GetType, System.Type).Module, System.Reflection.Module).Name

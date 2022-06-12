@@ -1,0 +1,5 @@
+﻿  目前的function name
+  Dim sThisFunctionName As String = (New System.Diagnostics.StackFrame).GetMethod().Name
+  上一層呼叫的function name
+  Dim sForwardFunctionName As String = (New System.Diagnostics.StackFrame(1)).GetMethod.Name 
+ 

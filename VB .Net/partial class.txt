@@ -1,0 +1,67 @@
+ .Net 2.0分部類(Partial Classes) 收藏 
+分部類(Partial Classes)
+
+C# 2.0 可以將類、結構或接口的定義拆分到兩個或多個源文件中，在類聲明前添加partial關鍵字即可。
+例如：下面的PartialTest類
+class PartialTest
+{
+string Str_FieldTest;
+int Int_FieldTest;
+public void DoTest()
+{
+Debug.Print("Test");
+}
+}
+可在不同源文件中寫成下面形式：
+一個文件中寫：
+partial class PartialTest
+{
+string Str_FieldTest;
+int Int_FieldTest;
+}
+另一個文件中寫：
+partial class PartialTest
+{
+public void DoTest()
+{
+Debug.Print("Test");
+}
+}
+ 
+什麼情況下使用分部類？
+–        處理大型項目時，使一個類分佈於多個獨立文件中可以讓多位程序員同時對該類進行處理（相當於支持並行處理，很實用）；
+–        使用自動生成的源時，無需重新創建源文件便可將代碼添加到類中。Visual Studio 在創建Windows 窗體、Web 窗體時都使用此方法。你不用編輯Visual Studio 所創建的文件，便可創建使用這些類的代碼。換句話說：系統會自動創建一個文件（一般記錄的是窗體及窗體中的控件的屬性），另一個或幾個文件記錄的是用戶自己編寫的代碼。這兩部分分開可以使結構顯得非常清晰，用戶只需關注自己負責的那部分就行了（需要的話，這兩部分可以互相調用）。等到了編輯運行的時候，系統會自動將這兩部分合成一個文件。
+
+使用Partial需要注意以下一些情況：
+1.      使用partial 關鍵字表明可在命名空間內定義該類、結構或接口的其他部分
+2.      所有部分都必須使用partial 關鍵字
+3.      各個部分必須具有相同的可訪問性，如public、private 等
+4.      如果將任意部分聲明為抽像的，則整個類型都被視為抽像的
+5.      如果將任意部分聲明為密封的，則整個類型都被視為密封的
+6.      如果任意部分聲明繼承基類時，則整個類型都將繼承該類
+7.      各個部分可以指定不同的基接口，最終類型將實現所有分部聲明所列出的全部接口
+8.      在某一分部定義中聲明的任何類、結構或接口成員可供所有其他部分使用
+9．嵌套類型可以是分部的，即使它們所嵌套於的類型本身並不是分部的也如此。如下所示：
+class Container
+{
+   partial class Nested
+  {
+void Test1();
+}
+partial class Nested
+{
+  void Test2();
+}
+}
+
+使用分佈類的一些限制：
+
+1.    要作為同一類型的各個部分的所有分部類型定義都必須使用partial 進行修飾。如下所示：
+public partial class A { }
+public class A { } // Error, must also be marked partial
+2.  partial 修飾符只能出現在緊靠關鍵字class、struct 或interface前面的位置(枚舉或其它類型都不能使用partial)；
+3.  要成為同一類型的各個部分的所有分部類型定義都必須在同一程序集和同一模塊（.exe 或.dll 文件）中進行定義。分部定義不能跨越多個模塊；
+4.  類名和泛型類型參數在所有的分部類型定義中都必須匹配。泛型類型可以是分部的。每個分部聲明都必須以相同的順序使用相同的參數名 
+
+
+本文?自CSDN博客，????明出?：http://blog.csdn.net/fhbcn/archive/2008/03/13/2175938.aspx

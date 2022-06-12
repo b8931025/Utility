@@ -1,0 +1,51 @@
+限制 web.config 的繼承
+
+一個 web.config 繼承的問題
+由於網站中的子應用程式(虛擬目錄)中的 web.config 會繼承根目錄的 web.config
+造成兩個 web.confg 的設定衝突 ... 等狀況，ASP.NET 1.1 與 2.0 混合開發時！
+間接使得子應用程式的系統發生錯誤無法執行。
+
+小弟知道能夠在 web.config 中的 section 項目中設定繼承關係,
+但是必須一個一個去設定，有沒有更簡單的方法,
+能夠直接宣告子應用程式中的 web.config "完全不繼承" 根目錄的 web.config 呢？
+
+答：必須在上一層虛擬目錄(如根目錄)所在的Web.config加上 
+
+如：<location path="." allowOverride="false" inheritInChildApplications="false"> ＜/location>
+
+方法如下：
+
+ 程序代碼
+<location path="." allowOverride="false" inheritInChildApplications="false">
+  <system.web>
+    <pages maintainScrollPositionOnPostBack="true">
+  </system.web >
+＜/location>
+
+如此下一層的虛擬目錄就可以達到你要的需求了。
+
+其他建議：
+
+
+ 引用內容
+不繼承變成每個子目錄可能都要開一個設定，我倒覺得在子目錄用個新的 web.config
+把這個目錄下需要的屬性完全覆寫就好了，畢竟完全不繼承的話，管理上也會比較麻煩。
+
+
+
+ 引用內容
+補充：
+
+即使不是虛擬目錄也可以直接加 web.config 。
+
+比如說 專案1\權限1 區可以不用設定為虛擬目錄，就塞個 web.config 進去指定代理使用者，只要把這行設定進去，含結構的外標籤大概 5 行即可。
+
+比如說 專案1\bug 區還沒完成除錯，可以直接塞個 web.config 進去讓錯誤訊息輸出到遠端讓開發者除錯，但不會影響到其他子目錄或根目錄的輸出。 
+
+專案1 的根目錄就把必要屬性全部覆寫根目錄的屬性也可以。 
+
+不過我沒試過 <add name ...> 這種在 web.config 內加鍵值的覆寫方式，我所有的設定都是抽離 web.config ，另外開個設定檔，這是開發習慣問題，所以我不知道 <add name> 這種會變怎樣就是了。不知道是覆寫還是並存，由標籤 add 來看，應該是並存吧... 
+
+我討厭在 web.config 內加入連線字串或是其他變數，除非上面要求，我碰過 ASP.NET 在 IIS 內註冊發生問題時，web.config / dll / aspx / vb 等可以直接被抓到 client (Win2k/XP)，就像一般的檔案下載，大家都喜歡放在 web.config 這裡面，所以當網站發生問題時，惡意使用者會優先抓 web.config 這種東西 (Win2003 要自己改 MIME 才能輸出這些檔)，來試圖侵入你的資料庫。 
+
+此外，web.config 只要一變動，該應用程式就要重啟，所有使用者都被踢出去，一般僅能用在唯讀屬性上，自己用外部設定檔，就沒這個限制，也不需要同時維護兩邊設定，所以我自己偏好不用這類的功能。

@@ -1,0 +1,33 @@
+    '從指定的index遮蔽字元
+    'iBgn:索引，由0開始，如果是-1，就是從最後面開始
+    'iLen:要遮蔽的長度
+    'cMask:遮蔽的字元，default:'*'
+    Function getMaskStr(ByVal sSrc As String, ByVal iBgn As Integer, ByVal iLen As Integer, Optional ByVal cMask As Char = "*"c) As String
+        If isNull(sSrc) Then Return ""
+        Dim iSrcLen As Integer = sSrc.Length
+        Dim sb As New System.Text.StringBuilder
+
+        If iBgn = -1 Then  '從最後一個，開始遮蔽iLen個字元
+            '如果要遮蔽的字元，大於sSrc的長度，就全部遮蔽
+            If iLen > iSrcLen Then Return "".PadLeft(iSrcLen, cMask)
+            For i As Integer = 0 To sSrc.Length - 1
+                If i < (sSrc.Length - iLen) Then
+                    sb.Append(sSrc.Substring(i, 1))
+                Else
+                    sb.Append(cMask)
+                End If
+            Next
+        Else '從第iBgn個，開始遮蔽iLen個字元
+            '如果起始位置，已經超出了sSrc的長度，就從最後一個字元遮蔽
+            If iBgn > (iSrcLen - 1) Then Return getMaskStr(sSrc, -1, iLen, cMask)
+            For i As Integer = 0 To sSrc.Length - 1
+                If i >= iBgn AndAlso i < (iBgn + iLen) Then
+                    sb.Append(cMask)
+                Else
+                    sb.Append(sSrc.Substring(i, 1))
+                End If
+            Next
+        End If
+
+        Return sb.ToString
+    End Function

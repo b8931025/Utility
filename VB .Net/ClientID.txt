@@ -1,0 +1,29 @@
+ASP.NET的ClientID 就是asp元件從server端產生的html元件id。（ClientID根據Asp Control的ID屬性自動生成。）
+
+例如：
+asp元件，這裡的id是Control ID
+<asp:textbox id="TextBox1" runat="server" text="Sample Text" />
+
+傳到了Client端的html code，這裡的id是Client ID
+<input name="TextBox1" type="text" value="Sample Text" id="TextBox1" />
+
+※Control ID 有時並不等於 Client ID
+※注意form元素僅僅呈現一個ID屬性，沒有name屬性。
+
+於是，你可以在客戶端Script使用這些屬性來操作Asp元件。
+你必須在客戶端腳本中使用一個全限定的引用來尋址控件；如果此控件是form元件的child，你可以這寫：
+
+document.forms[0].TextBox1.value = "New value";
+
+引用一個服務器控件的確切語法依賴於你正在使用什麼控件和它是否是另一個控件的child。
+如果你不確定如何引用它，那麼運行web頁面，查看它的源代碼，以決定控件是如何被呈現的。
+
+雖然我們知道ASP.NET服務器控件的ClientID屬性與最終呈現的HTML控件的id屬性相同，但是它只能在服務器端獲取，方法有兩種：
+
+1.在aspx.vb/aspx.cs文件中，使用ClientID屬即可。
+
+2.在aspx文件中，使用script
+    <script type="text/javascript">
+        var btnInContentPageID = '<%= btnInContentPage.ClientID %>';
+    </script>
+

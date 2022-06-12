@@ -1,0 +1,39 @@
+		//遞迴取得所有目錄
+		private ArrayList DirSearch(string sPath){
+			ArrayList al = new ArrayList();
+			try{
+				if (!System.IO.Directory.Exists(sPath)) return al;
+				al.AddRange(System.IO.Directory.GetDirectories(sPath));
+				foreach(string sD in System.IO.Directory.GetDirectories(sPath)){
+					ArrayList alSub = DirSearch(sD);
+					if (alSub.Count > 0)al.AddRange(alSub.ToArray());
+				}
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+			if ( al.Count > 0 )al.Sort();
+			return al;
+		}
+
+		//遞迴取得所有檔案
+		private ArrayList FileSearch(string sPath,string sFile)
+		{
+			ArrayList al = new ArrayList();
+			try
+			{
+				if (!System.IO.Directory.Exists(sPath)) return al;
+				al.AddRange(System.IO.Directory.GetFiles(sPath,sFile));
+				foreach(string sD in System.IO.Directory.GetDirectories(sPath))
+				{
+					ArrayList alSub = FileSearch(sD,sFile);
+					if (alSub.Count > 0)al.AddRange(alSub.ToArray());
+				}
+			}
+			catch (Exception e) 
+			{
+				throw e;
+			}
+			return al;
+		}

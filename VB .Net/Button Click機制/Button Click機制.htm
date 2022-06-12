@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>在 Page Load 之前得知 Button Click 動作 - ASP.NET 魔法學院- 點部落</TITLE>
+<META http-equiv=content-type content="text/html; charset=UTF-8">
+<META content=jeff name=author>
+<META content="MSHTML 6.00.2900.5726" name=GENERATOR>
+</HEAD>
+<BODY>
+<FORM id=Form1 name=Form1 onsubmit="javascript:return WebForm_OnSubmit();" 
+action=1725.aspx method=post>
+
+
+<DIV><INPUT id=__SCROLLPOSITIONX type=hidden value=0 name=__SCROLLPOSITIONX> 
+<INPUT id=__SCROLLPOSITIONY type=hidden value=0 name=__SCROLLPOSITIONY> <INPUT 
+id=__EVENTVALIDATION type=hidden 
+value=/wEWCwL+raDpAgKBh/7PAQLW0/2WCwKyqIecCQLH9YpTAq+a5rsPAoqv5pwLAq/bzYAMAqX8uYIOAq2amqIKAsnZ7LoEUfPpM2RUK235CTeo8oRyK5LyjaQ= 
+name=__EVENTVALIDATION> </DIV>
+<SCRIPT type=text/javascript>
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('SubtextScriptManager', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls([], [], [], 90);
+//]]>
+</SCRIPT>
+
+
+<DIV id=entrytitle>
+<H4><A id=viewpost_ascx_TitleUrl title="Title of this entry." 
+href="http://www.dotblogs.com.tw/jeff377/archive/2008/03/17/1725.aspx">在 Page 
+Load 之前得知 Button Click 動作</A> </H4></DIV>
+<DIV id=entrybody>
+<P>在 ASP.NET 的運行機制中，Button 的 Click 事件，一定會是 Page Load 事件之後。以下寫個簡單測試範例，在 Page Load 
+事件及 Button Click 事件分別 Response.Write 事件名稱，當按下按鈕時去觀查輸出的結果會發覺 Page Load 事件比 Button 
+Click 事件先執行。</P>
+<P><TEXTAREA class=vb name=code rows=6 cols=80>Partial Class _Default
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Me.Response.Write("Page_Load")
+        Me.Response.Write("&lt;br/&gt;")
+    End Sub
+
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Me.Response.Write("Button1_Click")
+        Me.Response.Write("&lt;br/&gt;")
+    End Sub
+
+End Class
+</TEXTAREA></P>
+<P>執行結果</P>
+<P><IMG 
+src="r_Ex13.1.png"></P>
+<P>至於為什麼會有這樣的結果呢？因為由 PostBack 動作所引發的控制項事件，是在 Page Load 中處理，此時會去檢查 Request.Form 
+的回傳值，再決定要引發的控制項事件。若需要在 Page Load 之前就要知道是那個 Button Click 動作，那就要自行由 Request.Form 
+中去判斷那個按鈕產生的 PostBack 動作。</P>
+<P>一般 PostBack 的都是經由網頁 HTML 原始碼的 __doPostBack 函式處理 (註：Submit Button 並不會呼叫 
+__doPostBack 函式)，__doPostBack 函式有 eventTarget 及 eventArgument 二個引數。其中 
+eventTarget 是產生 PostBack 的控制項，它會將值保留在 __EVENTTARGET 這個 HiddenField 
+中；eventArgument 是事件引數，它會將值保留在 __EVENTARGUMENT 這個 HiddenField 中。</P>
+<P><TEXTAREA class=vb name=code rows=6 cols=80>&lt;input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" /&gt;
+&lt;input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" /&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// --&gt;
+&lt;/script&gt;
+</TEXTAREA></P>
+<P>有上以上的基本認知，接下來就要實作如何在 Page Load 之前得知 Button Click 動作。首先在頁面上放置一個 Button 控制項，並將 
+UseSubmitBehavior 屬性設為 False。</P>
+<P><TEXTAREA class=vb name=code rows=6 cols=80>&lt;asp:Button ID="Button1" runat="server" Text="Button" UseSubmitBehavior="False" /&gt;
+</TEXTAREA></P>
+<P>執行程式，查看 Button 產生的 HTML 碼，可以發現 Button 的 onclick 呼叫 __doPostBack('Button1','') 
+去執行 PostBack 動作，它只能使 eventTarget 引數，而 eventArgument 是傳入空字串。eventTarget 引數值是 
+Client 端 Button 的 id (等於 Button 控制項的 ClientID)。</P>
+<P><TEXTAREA class=vb name=code rows=6 cols=80>&lt;input type="button" name="Button1" value="Button" onclick="javascript:__doPostBack('Button1','')" id="Button1" /&gt;
+</TEXTAREA></P>
+<P>如果在 Page Init 事件就需要知道那個 Button Click 動作，就可以利用 __EVENTTARGET 這個 HiddenField 
+來判斷，若 __EVENTTARGET 等於 Button 的 ClientID 就代表是由那個 Button Click 產生的 PostBack 
+動作。</P>
+<P><TEXTAREA class=vb name=code rows=6 cols=80>Partial Class _Default
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+        '判斷 __EVENTTARGET HiddenField 的值，來判斷是否為 Button Click 產生的 PostBack 動作
+        If Me.Request.Form("__EVENTTARGET") = Button1.ClientID Then
+            Me.Response.Write("Page_Init 的 Button Click")
+            Me.Response.Write("&lt;br/&gt;")
+        End If
+    End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Me.Response.Write("Page_Load")
+        Me.Response.Write("&lt;br/&gt;")
+    End Sub
+
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Me.Response.Write("Button1_Click")
+        Me.Response.Write("&lt;br/&gt;")
+    End Sub
+
+End Class
+</TEXTAREA></P>
+<P>執行程式，當按下按鈕的執行結果如下。</P>
+<P><IMG 
+src="r_Ex13.2.png"></P>
+<DIV class=trackback><LINK 
+href="http://www.dotblogs.com.tw/jeff377/Services/Pingback.aspx" 
+rel=pingback></LINK><!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.dotblogs.com.tw/jeff377/archive/2008/03/17/1725.aspx"
+dc:identifier="http://www.dotblogs.com.tw/jeff377/archive/2008/03/17/1725.aspx"
+dc:title="在 Page Load 之前得知 Button Click 動作"
+trackback:ping="http://www.dotblogs.com.tw/jeff377/services/trackbacks/1725.aspx" />
+</rdf:RDF>
+--></DIV><BR>
+
+</BODY></HTML>

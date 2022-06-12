@@ -1,0 +1,15 @@
+問：各位大大好
+因為某種原因，我的資料庫裡有<BR>這樣的TAG，可是要放到TEXTBOX裡面的時候就會出現
+具有潛在危險 Request.Form 的值已從用戶端 (content="<P>&nbsp;</P> <TABL...") 偵測到。
+描述: 要求驗證偵測到具有潛在危險的用戶端輸入值，對這個要求的處理已經中止。
+這個值可能表示有人嘗試危害應用程式的安全性，例如跨站台的指令碼處理攻擊。
+您可以在 Page 指示詞或 組態區段中設定 validateRequest=false 來停用要求驗證。
+但是我們強列建議您的應用程式應該明確地檢查所有這類的輸入。 
+
+例外詳細資訊: 
+System.Web.HttpRequestValidationException: 
+具有潛在危險 Request.Form 的值已從用戶端 (content="<P>&nbsp;</P> <TABL...") 偵測到。
+請問我要將validateRequest=false 加到WEB.CONFIG裡面的哪裡呢？謝謝 
+
+答：
+<%@ Page language="c#" Codebehind="xxx.aspx.cs" AutoEventWireup="false" Inherits="xxx.xxx" validateRequest="false" %> 

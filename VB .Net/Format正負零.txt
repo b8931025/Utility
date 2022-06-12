@@ -1,0 +1,25 @@
+正值、負值和零，如果要使用不一樣的格式，可以使用分號";"隔開，分別自定出這三種格式: 
+
+一段表示法:套用在所有的值上面
+二段表示法:第一段是正值和零的格式，第二段是負值的格式，四捨五入後等於零的負值不算
+三段表示法:第一段是正值的格式，第二段是負值的格式，第三段是零的格式；第二段可以是空字串，什麼都不用設，這種格式
+會讓所有非零的值，都套用第一段的格式；如果值是非零，但是四捨五入後變零，那就會套用第三段的格式
+
+Dim MyPos As Double = 19.95
+
+Dim MyNeg As Double = -19.95
+
+Dim MyZero As Double = 0
+
+Dim MyString As String = MyPos.ToString("$#,##0.00;($#,##0.00);Zero")
+' In the U.S. English culture, MyString has the value: $19.95.
+
+MyString = MyNeg.ToString("$#,##0.00;($#,##0.00);Zero")
+' In the U.S. English culture, MyString has the value: ($19.95).
+' The minus sign is omitted by default.
+
+MyString = MyZero.ToString("$#,##0.00;($#,##0.00);Zero")
+' In the U.S. English culture, MyString has the value: Zero.
+
+
+

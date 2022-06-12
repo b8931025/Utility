@@ -1,0 +1,24 @@
+
+StrConv(Str,VbStrConv.SimplifiedChinese)將繁體中文字元轉換成簡體中文。
+StrConv(Str,VbStrConv.TraditionalChinese)將簡體中文字元轉換成繁體中文。
+
+VbStrConv.LinguisticCasing  使用語言規則來進行轉換，而非檔案系統 (預設值)。只有 VbStrConv.UpperCase 和 VbStrConv.LowerCase 才有效。
+ 
+VbStrConv.UpperCase  將字串轉換為大寫字元。
+ 
+VbStrConv.LowerCase  將字串轉換為小寫字元。
+ 
+VbStrConv.ProperCase  將字串中每個單字的第一個字母轉換為大寫。
+ 
+VbStrConv.Wide  將字串中的半形字元轉換成全形字元。
+ 
+VbStrConv.Narrow  將字串中的全形字元轉換成半形字元。
+ 
+VbStrConv.Katakana  將字串中的平假名字元轉換成片假名字元。
+ 
+VbStrConv.Hiragana  將字串中的片假名字元轉換成平假名字元。
+ 
+VbStrConv.SimplifiedChinese  將繁體中文字元轉換成簡體中文。
+ 
+VbStrConv.TraditionalChinese  將簡體中文字元轉換成繁體中文。
+ 

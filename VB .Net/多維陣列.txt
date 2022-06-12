@@ -1,0 +1,11 @@
+        Dim MultiArray(7, 7) As String
+        MultiArray(0, 0) = "Vicky"
+
+
+
+        Try
+            For iRow As Integer = 0 To UBound(MultiArray, 1)
+                For iCol As Integer = 0 To UBound(MultiArray, 2)
+                    MultiArray(iRow, iCol) = "Item"
+                Next
+            Next

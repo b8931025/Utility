@@ -1,0 +1,15 @@
+※String.Split如果用2個以上的字元去切割字串
+會有bug，無法正確切割，用Microsoft.VisualBasic.Split可以解決這個問題
+
+            Dim sOrig As String = "1!=2"
+            Response.Write("Microsoft.VisualBasic.Split")
+            Response.Write("<br>")
+            Response.Write(Microsoft.VisualBasic.Split(sOrig, "!=")(0))
+            Response.Write("<br>")
+            Response.Write(Microsoft.VisualBasic.Split(sOrig, "!=")(1))
+            Response.Write("<br>String.Split<br>")
+            Response.Write(sOrig.Split("!=")(0))
+            Response.Write("<br>")
+            Response.Write(sOrig.Split("!=")(1))
+            
+            

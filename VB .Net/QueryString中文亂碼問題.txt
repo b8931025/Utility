@@ -1,0 +1,27 @@
+QueryString中文亂碼問題
+
+目前網頁Response的編碼
+HttpContext.Current.Response.ContentEncoding
+
+以Response編碼格式，去編碼
+HttpUtility.UrlEncode(sValue, HttpContext.Current.Response.ContentEncoding)
+
+
+您試試看用 Server.UrlEncode
+
+  傳遞: 
+	Response.Redirect("show.aspx?id="+ HttpUtility.UrlEncode("中國")); 
+	
+	接收: 
+	String sGet = HttpUtility.UrlDecode(Request.QueryString["id"]); 
+	Response.write(strGetString) 
+	
+	編碼 
+	Server.UrlEncode(string); 
+	解碼 
+	Server.UrlDecode(string); 	
+
+
+在 javascript 用 encodeURI
+
+  

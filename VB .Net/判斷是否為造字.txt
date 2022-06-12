@@ -1,0 +1,18 @@
+    '是否為造字
+    Function isCustomWord(ByVal c As Char) As Boolean
+        Dim bg5 As System.Text.Encoding = System.Text.Encoding.GetEncoding("big5")
+        Dim bytes() As Byte = bg5.GetBytes(c)
+        Dim sHEX As String
+        If bytes.Length < 2 Then Return False
+        For Each b As Byte In bg5.GetBytes(c)
+            sHEX &= Convert.ToString(b, 16).ToLower
+        Next
+        '造字編碼範圍
+        '0x8140-0xA0FE : SKI 8E40~A0FF
+        '0xC6A1-0xC8FE
+        '0xF9D6-0xFEFE : SKI FA40~FEFF
+        If sHEX >= "8140" AndAlso sHEX <= "a0ff" Then Return True
+        If sHEX >= "c6a1" AndAlso sHEX <= "c8fe" Then Return True
+        If sHEX >= "f9d6" AndAlso sHEX <= "fefe" Then Return True
+        Return False
+    End Function

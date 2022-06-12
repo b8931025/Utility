@@ -1,0 +1,19 @@
+嘗試創建WEB項目或打開位於URL"http://localhost/webapplication1"的WEB項目時,WEB服務器報告以下錯誤,."http://1.1 500 server error"   
+  
+ 
+以下摘自Asp.net技術論壇： 
+產生這種錯誤的可能性有很多，其中常見的一種是IIS組件和FrontPage擴展引起的，如果出現這個問題的話，請先重裝IIS組件和FrontPage擴展，然後重啟再試試。 
+還有一種是註冊dll的問題，試試運行Regsvr32 scrrun.dl，不行的話，再運行regsvr32 script.dll，還是不行的話運行aspnet_regiis -i 
+第三種方法是在Visual Studio.Net 的命令行裡輸入以下代碼： 
+iisreset /stop 
+net user ASPNET /delete 
+aspnet_regiis -i 
+iisreset /start 
+第四種：看看你的IIS的默認端口是不是80，如果不是，改過來。 
+第五種：看看你是不是用了代理？如果用了，就去掉。 
+第六種：先看看「事件查看器」，如果「應用程序日誌」出現「未能啟動 aspnet_wp.exe，原因是配置文件的 processModel 節中提供的用戶名和/或密碼無效。」的記錄，就需要配置你的Machine.config中的ProcessModel設置，設Username=「machine」為Username=「System」 
+這個配置文件在\winnt\microsoft.net\framework\[版本]\config\下（具體可以搜索). 
+第七種：重裝機器。 
+
+我通過方法6來解決，然後重啟機器就好了
+

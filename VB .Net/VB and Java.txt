@@ -1,0 +1,32 @@
+Inherits = java的extends
+Imports = java的import
+Shared = static in C++
+Me = java的this
+MyBase = java的super
+me = java 的this
+Public Shared Sub Main() = public static void main(String args[])
+OrElse = java的 ||
+AndAlso = java的 &&
+IIf(expr, truepart, falsepart) = java 的 expr? truepart,falsepart
+WithEvents 在宣告物件變數時，用此修飾子，vb就會對該物件的每一個事件產生事件訊息。這樣才可以讓function去handle
+AddHandler [CONTROLS.EVENT],AddressOf [FUNCTION]
+設定每個控制項的事件發生時，觸發哪個FUNCTION，通常用在動態生成的控制項
+With...End With 簡化重複參考單一物件或結構,EX
+	With MyLabel
+	   .Height = 2000
+	   .Width = 2000
+	   .Text = "This is MyLabel"
+	End With
+
+Friend
+Dim 陳述式中的 Friend 關鍵字將項目宣告為可從相同專案中存取，但無法從專案以外存取。下列程式碼顯示 Friend 宣告範例：
+
+Friend StringForThisProject As String 您只能在模組、命名空間或檔案層次中使用 Friend。
+這表示您可以在原始程式檔或模組、類別或結構中宣告 Friend 項目，但不可以在程序內。
+
+
+default
+
+Shadows
+
+

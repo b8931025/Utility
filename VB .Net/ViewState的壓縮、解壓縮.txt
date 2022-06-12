@@ -1,0 +1,37 @@
+'ViewStateªºÀ£ÁY¡B¸ÑÀ£ÁY
+    Protected Overrides Sub SavePageStateToPersistenceMedium(ByVal viewState As Object)
+        Dim mFormat As LosFormatter = New LosFormatter
+        Dim mWriter As System.IO.StringWriter = New System.IO.StringWriter
+
+        mFormat.Serialize(mWriter, viewState)
+
+        Dim mViewStateStr As String = mWriter.ToString()
+        Dim pBytes() As Byte = System.Convert.FromBase64String(mViewStateStr)
+        If pBytes.Length > 0 Then
+            pBytes = Q.NET.VB.Titan.Utility.Compress(pBytes)
+
+            Dim vStateStr As String = System.Convert.ToBase64String(pBytes)
+            RegisterHiddenField("__VIEWSTATE", vStateStr)
+        End If
+
+    End Sub
+
+    Protected Overrides Function LoadPageStateFromPersistenceMedium() As Object
+
+        Dim vState As String = Me.Request.Form.Get("__VIEWSTATE")
+        If vState.Length > 0 Then
+            Dim s As String = vState.Substring(vState.Length - 1, 1)
+            If s.Equals(",") Then
+                vState = vState.Substring(0, vState.Length - 1)
+            End If
+        End If
+
+        Dim pBytes() As Byte = System.Convert.FromBase64String(vState)
+        If pBytes.Length > 0 Then
+            pBytes = Q.NET.VB.Titan.Utility.DeCompress(pBytes)
+
+            Dim mFormat As LosFormatter = New LosFormatter
+            Return mFormat.Deserialize(System.Convert.ToBase64String(pBytes))
+        End If
+
+    End Function

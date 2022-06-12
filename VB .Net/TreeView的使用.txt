@@ -1,0 +1,26 @@
+TreeView的使用
+
+在.net 1.1中，沒有TreeView元件(.net 2.0才有)
+所以需要安裝Internet Explorer Web Controls  
+
+1.
+下載之後安裝:
+http://www.asp.net/downloads/archived/ie-web-controls/IEWebControls.exe
+
+2.
+執行compiler
+C:\Program Files\IE Web Controls\build.bat
+
+※如果執行之後，沒有產生C:\Program Files\IE Web Controls\build\Microsoft.Web.UI.WebControls.dll
+就將build.bat的
+csc.exe /out:build\Microsoft.Web.UI.WebControls.dll @IEWebControls.rsp 這一行，改成下面這樣
+
+C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\csc.exe /out:build\Microsoft.Web.UI.WebControls.dll @IEWebControls.rsp
+
+3.
+複製C:\Program Files\IE Web Controls\build\Runtime的所有檔到IIS的網頁根目錄：如c:\Inetpub\wwwroot
+
+xcopy /s /i .\build\Runtime c:\Inetpub\wwwroot\webctrl_client\1_0 /y    ※目的目錄一定要webctrl_client\1_0
+
+4.
+在Visual Studio 中加入參考、工具箱就可以使用

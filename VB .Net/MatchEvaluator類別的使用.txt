@@ -1,0 +1,29 @@
+        Dim text As String = "four score and seven years ago"
+        spOut.InnerHtml = "text=[" & text & "]"
+        Dim result As String = Regex.Replace(text, "\w+", AddressOf HeadUp) '將match到的字串丟到HeadUp去處理
+        spOut.InnerHtml &= "<br>result=[" & result & "]"
+        
+    Function HeadUp(ByVal m As Match) As String
+        Dim x As String = m.ToString()
+        If Char.IsLower(x.Chars(0)) Then
+            Return Char.ToUpper(x.Chars(0)) & x.Substring(1, x.Length - 1) '第一個字元大寫
+        End If
+        Return x
+    End Function   
+    
+    另一種寫法     
+    
+        Dim text As String = "four score and seven years ago"
+        spOut.InnerHtml = "text=[" & text & "]"
+        Dim myEvaluator As MatchEvaluator = New MatchEvaluator(AddressOf HeadUp)
+        Dim result As String = Regex.Replace(text, "\w+", myEvaluator) '將match到的字串丟到HeadUp去處理
+        spOut.InnerHtml &= "<br>result=[" & result & "]"
+        
+    Function HeadUp(ByVal m As Match) As String
+        Dim x As String = m.ToString()
+        If Char.IsLower(x.Chars(0)) Then
+            Return Char.ToUpper(x.Chars(0)) & x.Substring(1, x.Length - 1) '第一個字元大寫
+        End If
+        Return x
+    End Function     
+

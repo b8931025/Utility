@@ -1,0 +1,72 @@
+在很多程式裡都有四捨五入Round的功能,但其四捨五入的結果是否真如預期?負數的四捨五入是什麼結果? 以下用JavaScript / .Net / Oracle /MS SQL /Excel  這幾種語言或工具來看看,結果都是出乎預料之外...
+ 
+正數的四捨五入大都多什麼問題,問題在於負數,負數要怎麼四捨五入? 
+ 
+JavaScript
+Math.round(-0.51) = -1
+Math.round(-0.5) = 0 <=竟然沒有進位!
+Math.round(-0.49)=0
+ 
+Math.round(0.51) = 1
+Math.round(0.5) = 1
+Math.round(0.49)=0
+ 
+.Net
+Math.round(-0.51)=-1
+Math.round(-0.5) = 0<=竟然沒有進位!
+Math.round(-0.49)=0
+ 
+Math.round(0.51) = 1
+Math.round(0.5) = 0<=負數沒進位就算了,正數也沒有進位!
+Math.round(0.49)=0
+ 
+Oracle
+Select round(-0.51) from dual =-1
+Select round(-0.5) from dual =-1
+Select round(-0.49) from dual =0
+ 
+Select round(0.51) from dual =1
+Select round(0.5) from dual =1
+Select round(0.49) from dual =0
+ 
+MS Sql
+Select top 1 round(-1.51,0) from testable =-2
+Select top 1 round(-1.5,0) from testable =-2
+Select top 1 round(-1.49,0) from testable =-1
+ 
+Select top 1 round(1.51,0) from testable =2
+Select top 1 round(1.5,0) from testable =2
+Select top 1 round(1.49,0) from testable =1
+註 : 這時有個怪現象,如果用0.X,會出現錯誤訊息.
+錯誤訊息為 : 執行批次時發生錯誤。錯誤訊息為: 算術溢位。
+因此,測試數據為1.51 / 1.5 / 1.49…<=MS SQL拒算0.X的小數字?
+ 
+Excel
+Round(-0.51) = -1
+Round(-0.5) = -1
+Round(-0.49) = 0
+ 
+Round(0.51) = 1
+Round(0.5) = 1
+Round(0.49) = 0
+ 
+ 
+　　看了以上的清單後,或許有些人會覺得,怎麼.Net的結果這麼的奇怪,跟我們所認知的四捨五入不同,其實它沒有錯哦,這些只是誤會,從MSDN裡可以看到一點,它所遵循的是IEEE Standard 754第4節,這種捨入有時稱為捨入至最接近值。如果要捨入值為偶數,則捨去,如果為奇數,則進位,有看沒有懂哦,用下列幾個數字來解說一下.
+ 
+0.5 =0
+*因為要捨入值為偶數0,所以捨去0.5為0
+1.5 = 2
+*因為要捨入值為奇數1,所以進位0.5為2
+2.5 = 2
+*因為要捨入值為偶數2,所以捨去0.5為2
+3.5 = 4
+*因為要捨入值為奇數3,所以進位0.5為4
+ 
+這個就是所謂的四捨六入五成雙(Banker’s Rounding)~
+ 
+那要怎麼做才能達到我們”原本預期”的四捨五入?
+在.Net 2.0以上的Math.round多了一個MidpointRounding的參數可以傳入.
+MidpointRounding.ToEven [Banker’s Rounding]
+MidpointRounding.AwayFromZero [這就是大家小學所熟悉的四捨五入]
+用法 :
+Math.round(0.5,0,MidpointRounding.AwayFromZero) = 1

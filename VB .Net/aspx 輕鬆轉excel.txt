@@ -1,0 +1,26 @@
+<%
+Response.Clear()
+Response.ContentType = "application/vnd.ms-excel"
+Dim excelname As String = "授審小組預製.xls"
+Response.ContentEncoding =   System.Text.Encoding.UTF8() '設定存成UTF8的格式檔
+Response.AddHeader("content-disposition", "attachment; filename=" & System.Web.HttpUtility.UrlEncode(excelname, System.Text.Encoding.UTF8))'檔名用UTF8顯示
+%>	
+
+將這段放在datagrid或table的前面，就可以將datagrid或table的內容另存成excel或以excel顯示
+如果要另存word就把ms-excel改成ms-word，.xls轉成.doc
+
+in vb
+            Response.Clear()
+            Response.ContentType = "application/ms-excel"
+            Dim excelname As String = "file.doc"
+            Response.ContentEncoding = System.Text.Encoding.Default
+            Response.AddHeader("content-disposition", "attachment; filename=cover.xls")
+            
+						'將 DataGrid 寫到Response
+            Dim st As New System.IO.StringWriter
+            Dim htw As New UI.HtmlTextWriter(st)
+            dg.RenderControl(htw)
+            Response.Write(st.ToString())
+            
+            Response.Flush()'回應到Client
+            Response.Close()'關掉回應，不然aspx上的東西會跑到Client端

@@ -1,0 +1,92 @@
+HTTP協議是無狀態的，ASP.NET提供了豐富的手段在頁面之間管理狀態。本文列舉ASP.NET管理狀態的十種途徑。 
+
+ASP.NET中，從System.Web.UI.Page繼承的類裡有以下十種管理頁面狀態的途徑： 
+1. Application:用於存儲所有用戶都可視的信息.所以它存儲的是要讓所有用戶共享的一些信息.如總訪問數等; 
+2. Session:為每個用創建的.用於存儲單個用戶,因為他是相對每個用戶的.所以可能來取得在線人數等.
+3. Request.Cookies:其實它也可以存儲在服務器端,但是大部份我們都把它放在客戶端瀏覽器,大多數,我們用它存儲用戶的個性設制,和登陸信息. 
+4. Request.QueryString:URL 從問號"?"到井號"#"的字串
+5. Form變量和Hidden變量: Request.Params 
+6. Cache對像:是Application的擴展,它由Application的基本的功能,又有自己的新特徵如超時;而Application只有服務器重啟才會消失.cache中還有而面性質的快取.outputCache.此功能可存取得整個頁面的返回信息.不管是誰的訪問,所以為了區分這些信息,它又有Duration和VaryByParam屬性;還有個片斷緩衝,它是用於頁面被調用頁,然用VaryByControl.這幾個讀者可自行找些網上資料看. 
+7. ViewState對像:跟Session的功能很像,但是ViewState只是Session的一個子集.因為它只對單個session用戶的.單個頁面,所以它又叫單個頁的Session;
+8. HttpContext對像: Context.Handler及this.Context.Items 
+9. 靜態對像: 任何static類或static類成員 
+10. Web.config配置節: ConfigurationSettings.AppSettings。 
+
+                          Application Cache  Session Cookie ViewState 
+存儲位置                  服務器      服務器 服務器  客戶端 客戶端 
+是否會被主動丟棄          不會        會     不會    不會   不會 
+與會話相關                否          否     是      是     是 
+是否被序列化              否          否     否      是     是 
+是否發生服務器-客戶端傳輸 否          否     否      是     是（默認情況） 
+是否被加密                否          否     否      是     否（默認情況）
+
+1、ViewState 
+在傳統ASP中，當一個表單被提交的時候所有表單值都被清除。
+假設你提交了一個有很多信息的表單並且服務器返回一個錯誤。
+你不得不返回到表單並更正信息。你點擊返回按鈕，但是發生了什麼……。所有表單值被清除了，你將不得不從頭開始！站點沒有維持你的ViewState。 
+
+在ASP .NET中提交一個表單的時候，表單與所有的表單值一起再現於瀏覽器窗口。怎麼會這樣？
+這是因為ASP .NET維持你的ViewState。ViewState指明頁面被提交到服務器時的狀態。
+該狀態是通過在每個帶有＜form runat="server"＞控件的頁面中安置一個隱含域來定義的。源文件可能看起來像是這樣： 
+
+＜form name="_ctl0" method="post" action="page.aspx" id="_ctl0"＞ 
+＜input type="hidden" name="__VIEWSTATE" 
+value="dDwtNTI0ODU5MDE1Ozs+ZBCF2ryjMpeVgUrY2eTj79HNl4Q=" /＞ 
+.....some code 
+＜/form＞ 
+
+對ASP.NET Web表單維持ViewState是默認設置。 
+如果你想要不維持ViewState，可以在.aspx頁面頂部包含指示：＜%@ Page EnableViewState="false" %＞，或者對任何控件加入屬性：EnableViewState="false"。 
+
+請看下面的.aspx文件。它演示了「老方式「的做法。當你點擊提交按鈕，表單值將會消失： 
+
+＜html＞ 
+＜body＞ 
+＜form action="demo_classicasp.aspx" method="post"＞ 
+Your name: ＜input type="text" name="fname" size="20"＞ 
+＜input type="submit" value="Submit"＞ 
+＜/form＞ 
+＜% 
+dim fname 
+fname=Request.Form("fname") 
+If fname＜＞"" Then 
+Response.Write("Hello " & fname & "!") 
+End If 
+%＞ 
+＜/body＞ 
+＜/html＞ 
+
+這是新的ASP .NET方式。當你點擊提交按鈕的時候，表單值將不消失： 
+
+＜script runat="server"＞ 
+Sub submit(sender As Object, e As EventArgs) 
+lbl1.Text="Hello " & txt1.Text & "!" 
+End Sub 
+＜/script＞ 
+＜html＞ 
+＜body＞ 
+＜form runat="server"＞ 
+Your name: ＜asp:TextBox id="txt1" runat="server" /＞ 
+＜asp:Button OnClick="submit" Text="Submit" runat="server" /＞ 
+＜p＞＜asp:Label id="lbl1" runat="server" /＞＜/p＞ 
+＜/form＞ 
+＜/body＞ 
+＜/html＞ 
+
+（在瀏覽器中選擇查看源文件，會看到ASP .NET已經在表單中添加了一個隱含域來維持ViewState）。 
+
+2、Session 
+如果網站採用Session記錄你的信息，當你不關閉關於這個網站的所有網站，
+再打開的網頁或轉向的網頁都會記錄這個Session值，它是為網頁時參數傳遞或記錄特定值的變量。 
+
+3、Application 
+是網站的全局變量，比如說通過Application可記錄當前連接上來的人數，當前服務器的某種狀態等全局數。
+
+
+範例：
+綜上，我們總結出一些常見而典型的例子：
+電子商務網站的購物車：使用Session，因為購物車信息是會話相關的而且安全性很重要。
+論壇或其它網站的「記住我」功能：使用Cookie，因為這是保存的往往只是一個用戶名，而且當用戶下次登陸時還需要這個用戶名仍然存在。
+站點計數器：如果您不用數據庫的話那就是使用Application了，因為計數器是會話無關的。但是即使在使用數據庫的情況下我也建議你同時使用Application來保存計數值，然後再每隔一段時間保存到數據庫裡去，因為這樣可以減少訪問數據庫的次數以提高性能。
+產品信息：Cache是優先的選擇，因為產品信息通常是與會話無關、修改頻率低且訪問頻率高的數據，使用Cache來保存可以有效地提高網站的性能。
+最後，我們給出一個表格，列出以上幾種數據持久化方式的特性對比，以便您做出決定：

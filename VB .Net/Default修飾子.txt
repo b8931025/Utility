@@ -1,0 +1,20 @@
+Public Class YourName
+    Private m_str As String
+    Default Public Property Name(ByVal str As String) As String
+        Get
+            Return m_str
+        End Get
+        Set(ByVal Value As String)
+            m_str = Value
+        End Set
+    End Property
+End Class
+
+一個類別在宣告屬性時，如果加了Default修飾子，就可以不用該屬性的名稱而直接取用
+Dim WillyName As New YourName
+WillyName = "Willy Hsu"
+Console.Write(WillyName)
+
+如果沒有設Default就要明確的表示，要存取哪個屬性
+WillyName.Name = "Willy Hsu"
+Console.Write(WillyName.Name)

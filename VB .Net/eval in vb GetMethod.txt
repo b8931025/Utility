@@ -1,0 +1,12 @@
+        Dim bos As Object = Q.NET.VB.ClassLoad.ClassforName("EN_OP", "BotEloan.EN_OP", sTableName, Me.m_databaseManager)
+						'EN_CASEDETAILList.FUN(loadFunctionByTabPage)=TRUE 
+            sFiled = Utility.getSubString(sFiled, "(", ")") 'loadFunctionByTabPage
+            Dim method As System.Reflection.MethodInfo = bos.GetType.GetMethod(sFiled)
+            Dim parameters(0) As Object
+            parameters(0) = Me.m_sCaseId
+            Dim bStaus As Boolean = method.Invoke(bos, parameters)
+            Dim bResult As Boolean = CType(sResult, Boolean)
+            If bStaus = bResult Then
+                Return True
+            End If
+        Return False

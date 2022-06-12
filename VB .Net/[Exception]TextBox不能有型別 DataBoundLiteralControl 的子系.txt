@@ -1,0 +1,23 @@
+
+當ItemTemplate中的TextBox如果放入了DataItem
+就會出現Exception ['TextBox' 不能有型別 'DataBoundLiteralControl' 的子系]
+
+<asp:DataGrid ID="dgSqlList" Runat="server" Width="100%" AutoGenerateColumns="False" ShowFooter="False">
+	<Columns>
+		<asp:TemplateColumn> 
+			<ItemTemplate> 
+				<asp:TextBox ID="ddd" Runat="server" >
+				<%#Container.DataItem("RPTSQL")%>  '<------ here
+				</asp:TextBox>
+			</ItemTemplate> 
+		</asp:TemplateColumn> 
+	</Columns>
+</asp:DataGrid>
+
+Solution:
+
+<asp:TextBox ID="ddd" Runat="server" value='<%#Container.DataItem("RPTSQL")%>'></asp:TextBox>
+
+單行TextBox用上面的方法可以解決，但如果多行，server輸出html時會以<textarea/>的格式輸出，所以value屬性
+雖然還是可以接收到DataItem的資料，但textarea不會將value屬性的值顯示出來。
+所以可以直接用<textarea id="ta" runat="server"><%#Container.DataItem("RPTSQL")%></textarea>改寫

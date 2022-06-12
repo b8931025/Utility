@@ -1,0 +1,6 @@
+           
+    Public Shared Function getFileName() As String
+        Dim sUrl As String = HttpContext.Current.Request.Url.AbsolutePath
+        Return Mid(sUrl, sUrl.LastIndexOf("/") + 2)
+    End Function           
+    

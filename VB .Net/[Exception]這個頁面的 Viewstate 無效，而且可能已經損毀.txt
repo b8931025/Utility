@@ -1,0 +1,2 @@
+會發生這種錯誤，通常是HttpContext.Current.RewritePath()把url改掉，從Page A跳到Page B
+造成Page A的ViewState跟Page B的ViewState比對錯誤

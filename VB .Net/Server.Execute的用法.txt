@@ -1,0 +1,12 @@
+            Dim writer As New System.IO.StringWriter
+            Dim sHtml As String
+            writer.WriteLine("<style>.bt,button {display:none;}</style>")
+            Try
+                Server.Execute(UIShareFun.getRootPath & "/" & "Page.aspx", writer)
+            Catch ex As System.Threading.ThreadAbortException
+            Catch ex As Exception
+                Throw
+            End Try
+            sHtml = writer.ToString
+            
+            可以將一個網頁的畫面輸出成html

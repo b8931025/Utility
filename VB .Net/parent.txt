@@ -1,0 +1,18 @@
+ asp .net 中的parent是指往外算第一個遇到「有設runat="server"屬性」的asp控制項，如實際上包住的上一層沒有設runat就會略過
+ 
+ ex:
+			<table runat="server">
+				<tr>
+					<td runat="server">
+						<asp:Button ID="bt1" Runat ="server"></asp:Button>
+					</td>
+				</tr>
+				<tr runat="server">
+					<td runat="server">
+						<asp:Button id="bt2" Runat="server"></asp:Button>
+					</td>					
+				</tr>
+			</table>
+			
+			bt1.parent.parent 是		table
+			bt2.parent.parent 是		tr

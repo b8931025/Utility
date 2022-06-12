@@ -1,0 +1,35 @@
+Response.Redirect
+
+Response.Redirect方法導致瀏覽器鏈接到一個指定的URL。當Response.Redirect()方法被調用時，
+它會創建一個應答，應答頭中指出了狀態代碼302（表示目標已經改變）以及新的目標URL。
+瀏覽器從服務器收到該應答，利用應答頭中的信息發出一個對新URL的請求。 
+這就是說，使用Response.Redirect方法時重定向操作發生在客戶端，總共涉及到兩次與服務器的通信（兩個來回）
+：第一次是對原始頁面的請求，得到一個302應答，第二次是請求302應答中聲明的新頁面，得到重定向之後的頁面。
+
+
+Server.Transfer
+
+Server.Transfer方法把執行流程從當前的ASPX文件轉到同一服務器上的另一個ASPX頁面。調用 Server.Transfer時，
+當前的ASPX頁面終止執行，執行流程轉入另一個ASPX頁面，但新的ASPX頁面仍使用前一ASPX頁面創建的應答流。 
+如果用Server.Transfer方法實現頁面之間的導航，瀏覽器中的URL不會改變，因為重定向完全在服務器端進行，
+瀏覽器根本不知道服務器已經執行了一次頁面變換。默認情況下，Server.Transfer方法不會把表單數據或查詢字
+符串從一個頁面傳遞到另一個頁面，但只要把該方法的第二個參數設置成True，就可以保留第一個頁面的表單數據和查詢字符串。
+ 同時，使用Server.Transfer時應注意一點：目標頁面將使用原始頁面創建的應答流，這導致 ASP.NET的機器驗證檢查
+ （Machine Authentication Check，MAC）認為新頁面的ViewState已被篡改。
+ 因此，如果要保留原始頁面的表單數據和查詢字符串集合，必須把目標頁面Page指令的 EnableViewStateMac屬性設置成False。
+
+1、瀏覽器ASP文件請求->服務器執行->遇到response.redirect語句->服務器發送
+    response.redirect後面的地址給客戶機端的瀏覽器->瀏覽器請求執行新的地址 
+2、瀏覽器ASP文件請求->服務器執行->遇到Server.Transfer語句->服務器轉向新的文件 
+
+切換對像：切換對像： 
+1、Response.Redirect可以切換到任何存在的網頁。 
+2、Server.Transfer只能切換到同目錄或者子目錄的網頁。 
+
+數據保密：數據保密： 
+1、Response.Redirect後地址會變成跳轉後的頁面地址。 
+2、Server.Transfer後地址不變，隱藏了新網頁的地址及附帶在地址後邊的參數值。 具有數據保密功能。 
+
+傳遞的數據量（網址後附帶的參數）：傳遞的數據量（網址後附帶的參數）： 
+1、Response.Redirect能夠傳遞的數據以2KB為限。 
+2、傳遞的數據超過2KB時，務必使用Server.Transfer。 

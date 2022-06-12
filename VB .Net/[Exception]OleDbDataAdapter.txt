@@ -1,0 +1,29 @@
+        Dim conn As OleDbConnection
+        Dim cmd As OleDbCommand
+        Dim adpt As OleDbDataAdapter
+        Dim ds As DataSet
+
+        conn = New OleDbConnection(Application("BotDSN"))
+        cmd = New OleDbCommand
+        ds = New DataSet
+        conn.Open()
+        cmd.Connection = conn
+        cmd.CommandText = " SELECT ECM.CASEID, " & _
+        "        CASE NVL(ECM.CHKFLAG, '0')                              " & _
+        "          WHEN '0' THEN                                         " & _
+        "           '審核中'                                             " & _
+        "          WHEN '1' THEN                                         " & _
+        "           (CASE TO_NUMBER(AUTHDCLVID)                          " & _
+        "          WHEN 600 THEN                                         " & _
+        "           '分行同意'                                           " & _
+        "          ELSE                                                  " & _
+        "           '審核中'                                             " & _
+        "        END) WHEN '6' THEN '總行同意' ELSE '不同意' END RESULT  " & _
+        "   FROM EN_CASEMAIN ECM WHERE ROWNUM < 21                       "          
+        'Fail  當CommandText有Case When敘述，外加一個欄位，就會在下面出現機率性錯誤
+
+        cmd.CommandType = CommandType.Text
+
+        adpt = New OleDbDataAdapter(cmd)
+        adpt.Fill(ds)            '會產生物件參考未實例化錯誤
+        cmd.Parameters.Clear()

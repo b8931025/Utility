@@ -1,0 +1,24 @@
+如何動態變更網頁中 HTML 控制項的 Class 屬性 
+某些 HTML 控制項其實並沒有 WebControls 的對應，例如：
+
+<ul runat="server" id="ul">
+   <li runat="server" id="li1">
+   <li runat="server" id="li2">
+</ul>
+
+雖然把個別控制項加上了 id 和 runat="server" 標記，但我們會在程式中仍然無法直接完全控制這些控制項，
+因為我們找不到對應的伺服器控制項。不過我們可以使用一個通用的 Control 控制項來定位上面範例中的 li 控制項：
+
+Dim li As Control = ul.FindControl("li1")
+
+不過問題來了。你將會發現你無法使用像 li.CssClass = "myClass" 這樣的指令來指定 li1 的 class 屬性。不僅如此，
+Control 控制項也沒有 class 屬性，所以你會發現連動態指定像 li 這種控制項的 class 屬性都辦不到。
+
+在這種情形下，你可以改用 HtmlGenericControl 控制項，再使用 Attributes.Add 方式，如此就可以了，如以下範例：
+
+Dim li As HtmlGenericControl = ul.FindControl("li1")
+If li IsNot Nothing Then li.Attributes.Add("class", "myClass")
+
+
+
+ 

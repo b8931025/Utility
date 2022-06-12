@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML lang=zh-tw xmlns="http://www.w3.org/1999/xhtml"><HEAD profile=http://gmpg.org/xfn/11><TITLE>ASP.NET 如何取得 Request URL 的各個部分</TITLE>
+<META content=v9R+pkz7J3APdDqZgrpWlhURhTklIb1zMMUCTNWwM1k= name=verify-v1><LINK href="C:/DOCUME~1/ADMINI~1.C19/LOCALS~1/Temp/CodeWeb/vb_.net.mdb30_files/../../../themes/TheWillWillWeb/default.css" type=text/css rel=stylesheet><LINK href="C:/DOCUME~1/ADMINI~1.C19/LOCALS~1/Temp/CodeWeb/vb_.net.mdb30_files/../../../themes/TheWillWillWeb/WLWSyntaxHighlighter.css" type=text/css rel=stylesheet><LINK href="http://www.miniasp.com/images/favicon4.ico" type=image/x-icon rel="shortcut icon"><LINK title="The Will Will Web" href="http://blog.miniasp.com/opensearchdescription.xml" type=application/opensearchdescription+xml rel=search>
+<META content=asp.net,url name=keywords>
+<META content="我們在開發網頁應用程式，時常需要去解析網址(Request.Url)的每個片段，進行一些判斷。例如說 &amp;quot;http://localhost:1897/News/Press/Content.aspx/123?id=1#toc&amp;quot;，我們想要取得網址裡第一層目錄的名字(News)用以判斷不同的頁面標題(Page Title)。這裡有個好用的表格，忘記的時候可隨時查表..." name=description><LINK title="如何變更 IIS 中網站的識別元編號" href="/post/2008/12/How-to-change-the-Identifier-for-IIS-Websites.aspx" rel=last><LINK title=我的第一個正式的部落格終於成立 href="/post/2007/10/My-first-offical-blog-launch.aspx" rel=first>
+<META http-equiv=content-type content="text/html; charset=utf-8"><LINK title=RSD href="http://blog.miniasp.com/rsd.axd" type=application/rsd+xml rel=edituri><LINK title="The Will Will Web" href="http://feeds.feedburner.com/TheWillWillWeb" type=application/rss+xml rel=alternate><LINK title=Archive href="/archive.aspx" rel=contents><LINK title="The Will Will Web" href="/" rel=start>
+
+<LINK title="The Will Will Web" href="http://blog.miniasp.com/opensearch.axd" type=application/opensearchdescription+xml rel=search>
+
+</HEAD>
+<BODY>
+<FORM id=aspnetForm name=aspnetForm onsubmit="javascript:return WebForm_OnSubmit();" action=/post/2008/02/How-Do-I-Get-Paths-and-URL-fragments-from-the-HttpRequest-object.aspx method=post>
+<DIV id=header>
+<H2>記載著 Will 在網路世界的學習心得與技術分享 </H2></DIV>
+<DIV id=wrapper>
+<DIV id=content><!-- begin #posts -->
+<DIV id=posts>
+<DIV id=searchonsearch>
+<H3>You searched for 'request.rawurl'</H3>
+<P>Here are some results for the search term on this website</P>
+<OL>
+<LI><A href="/post/2008/02/How-Do-I-Get-Paths-and-URL-fragments-from-the-HttpRequest-object.aspx">ASP.NET 如何取得 Request URL 的各個部分</A></LI></OL></DIV>
+<DIV class="post xfolkentry">
+<DIV class=story>
+<P>我們在開發網頁應用程式，時常需要去解析網址(Request.Url)的每個片段，進行一些判斷。例如說&nbsp;"<A href="http://localhost:1897/News/Press/Content.aspx/123?id=1#toc">http://localhost:1897/News/Press/Content.aspx/123?id=1#toc</A>"，我們想要取得網址裡第一層目錄的名字(News)用以判斷不同的頁面標題(Page Title)。 </P>
+<P>我看很多人都用字串的 IndexOf 方法與 Substring 方法： </P>
+<DIV class=code>
+<P>Request.Url.PathAndQuery.Substring(1, Request.Url.PathAndQuery.IndexOf("/", 1)-1) </P></DIV>
+<P>這實在太埋沒 .NET 的強大設計了，事實上在 Request 物件就已經提供很多方便的屬性(Property)可供取得網址的片段。 </P>底下這張表就是各種跟 Browser Request 的網址相關的屬性與用法：<SPAN></SPAN><SPAN> 
+<P>
+<TABLE cellSpacing=0 cellPadding=3 border=1>
+
+<TR>
+<TD colSpan=2>網址：http://localhost:1897/News/Press/Content.aspx/123?id=1#toc</TD></TR>
+<TR>
+<TD>HttpContext.Current.Request.ApplicationPath</TD>
+<TD><STRONG>http://localhost:1897/News/Press/</STRONG></TD></TR>
+<TR>
+<TD>Request.ApplicationPath</TD>
+<TD><STRONG>/</STRONG></TD></TR>
+<TR>
+<TD>Request.PhysicalPath</TD>
+<TD><STRONG>D:\Projects\Solution\web\News\Press\Content.aspx</STRONG></TD></TR>
+<TR>
+<TD>System.IO.Path.GetDirectoryName(Request.PhysicalPath)</TD>
+<TD><STRONG>D:\Projects\Solution\web\News\Press</STRONG></TD></TR>
+<TR>
+<TD>Request.PhysicalApplicationPath</TD>
+<TD><STRONG>D:\Projects\Solution\web\</STRONG></TD></TR>
+<TR>
+<TD>System.IO.Path.GetFileName(Request.PhysicalPath)</TD>
+<TD><STRONG>Content.aspx</STRONG></TD></TR>
+<TR>
+<TD>Request.CurrentExecutionFilePath</TD>
+<TD><STRONG>/News/Press/Content.aspx</STRONG></TD></TR>
+<TR>
+<TD>Request.FilePath</TD>
+<TD><STRONG>/News/Press/Content.aspx</STRONG></TD></TR>
+<TR>
+<TD>Request.Path</TD>
+<TD><STRONG>/News/Press/Content.aspx/123</STRONG></TD></TR>
+<TR>
+<TD>Request.RawUrl</TD>
+<TD><STRONG>/News/Press/Content.aspx/123?id=1</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.AbsolutePath</TD>
+<TD><STRONG>/News/Press/Content.aspx/123</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.AbsoluteUri</TD>
+<TD><STRONG>http://localhost:1897/News/Press/Content.aspx/123?id=1</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Scheme</TD>
+<TD><STRONG>http</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Host</TD>
+<TD><STRONG>localhost</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Port</TD>
+<TD><STRONG>1897</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Authority</TD>
+<TD><STRONG>localhost:1897</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.LocalPath</TD>
+<TD><STRONG>/News/Press/Content.aspx/123</STRONG></TD></TR>
+<TR>
+<TD>Request.PathInfo</TD>
+<TD><STRONG>/123</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.PathAndQuery</TD>
+<TD><STRONG>/News/Press/Content.aspx/123?id=1</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Query</TD>
+<TD><STRONG>?id=1</STRONG></TD></TR>
+<TR>
+<TD>Request.Url.Fragment</TD>
+<TD>&nbsp;</TD></TR>
+<TR>
+<TD>Request.Url.Segments</TD>
+<TD><STRONG>/</STRONG><BR><STRONG>News/</STRONG><BR><STRONG>Press/</STRONG><BR><STRONG>Content.aspx/</STRONG><BR><STRONG>123</STRONG><BR></TD></TR></TABLE></P></SPAN>
+<P>所以當你看了這張表之後，你還會想用 Request.Url.PathAndQuery.Substring(1, Request.Url.PathAndQuery.IndexOf("/", 1)-1) 這種寫法嗎？ </P>
+<P>用這樣寫 Request.Url.Segments[1].Replace("/", "") 不是又短又直覺嗎？ ^_^ </P>
+<P><STRONG>注意事項</STRONG> </P>
+<UL>
+<LI>
+<DIV>當程式部署(Deploy)到 IIS 6 之後，假設你的網址是 <A href="http://localhost:1897/News/Press/Content.aspx/123"><FONT color=#ff0000>http://localhost:1897/News/Press/Content.aspx/123</FONT></A><FONT color=#ff0000>?</FONT>&nbsp;，IIS 不知為何會將問號 ( ? ) 給刪除掉，以致於 ASP.NET 使用 Request.Url.Query 是空字串！如果你的程式有判斷到這部分時就要特別注意，因為照理說應該會抓到才對！不知道是不是 IIS 6 的 Bug ？ </DIV></LI></UL></DIV></DIV></DIV></DIV></DIV></FORM></BODY></HTML>

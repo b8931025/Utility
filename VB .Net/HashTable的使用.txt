@@ -1,0 +1,33 @@
+將Keys(),Values()轉成ArrayList
+						
+						Dim ht as new Hashtable
+						Dim al as New ArrayList
+						al.AddRange(ht.Keys)
+						
+						OR
+						
+						al.AddRange(ht.Values)
+
+排序
+            Dim ht As New Hashtable
+            ht.Add(obj)...
+            ...
+            
+            Dim al As New ArrayList
+
+            al.AddRange(ht.Keys)
+            al.Sort()
+            For iKey As Integer = 0 To al.Count - 1
+                sp.InnerHtml &= "<br>" & ht.Item(al.Item(iKey)) '安照key的排序將value取出
+            Next
+            
+ 						  
+ 						
+取得Key,Value 	
+
+						Dim ie As IDictionaryEnumerator = ht.Values.GetEnumerator()    
+
+            While ie.MoveNext
+                     ie.Key 
+                     ie.Value 
+            End While					      

@@ -1,0 +1,13 @@
+    'ex. &lt;&gt;&amp; &quot; Тр <>& "
+    Function toSign(ByVal s As String) As String
+        Dim inp As New System.Web.UI.HtmlControls.HtmlGenericControl
+        inp.InnerHtml = s
+        Return inp.InnerText
+    End Function
+
+    'ex. <>& " Тр &lt;&gt;&amp; &quot;
+    Function toXML(ByVal s As String) As String
+        Dim inp As New System.Web.UI.HtmlControls.HtmlGenericControl
+        inp.InnerText = s
+        Return inp.InnerHtml
+    End Function

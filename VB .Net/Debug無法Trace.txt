@@ -1,0 +1,4 @@
+可以按右鍵「移至定義」到原始碼，但是無法按F11去Trace原始碼
+
+resolution:
+移除bot\bin\下當天build的.dll和.pdb檔

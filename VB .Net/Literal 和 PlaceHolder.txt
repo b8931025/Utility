@@ -1,0 +1,29 @@
+PlaceHolder
+PlaceHolder 用來存儲動態添加到網頁的ServerControl的容器。
+PlaceHolder 控件不產生任何可見輸出並且只能用作網頁上其他控件的容器。
+可以使用 Control..::.Controls 集合添加、插入或移除 PlaceHolder 控件中的控件。
+
+Literal
+ASP.NET 將所有不需要服務器端處理的 HTML 元素和可讀文本編譯為該類的實例。
+例如，在開始標記中不包含 runat="server" 屬性/值對的 HTML 元素將被編譯為 LiteralControl 對象。
+LiteralControl 沒有ViewState，因此必須針對每個Request重新建立 LiteralControl 對象的內容。
+
+文本控件的行為與文本容納器一樣，這意味著可以從文本控件提取文本，並通過父服務器控件的 Controls 屬性從父服務器控件的 ControlCollection 集合中移除文本控件。因此，當開發從 LiteralControl 類派生的自定義控件時，確保由控件自己執行任何所需的預處理步驟，而不是使用對 LiteralControl.Render 方法的調用來完成這些操作。通常，都會這樣做以提高 Web 應用程序的響應時間。
+
+可以以編程方式分別使用 ControlCollection.Add 或 ControlCollection.Remove 方法，從頁或服務器控件添加或移除文本控件。
+
+例子：
+void Page_Load(object sender, EventArgs e)
+{
+    Button Button1 = new Button();
+    Button1.Text = "Button 1";
+    PlaceHolder1.Controls.Add(Button1);
+    
+    Literal Literal1 = new Literal();
+    Literal1.Text = "<br>";
+    PlaceHolder1.Controls.Add(Literal1);
+    
+    Button Button2 = new Button();
+    Button2.Text = "Button 2";
+    PlaceHolder1.Controls.Add(Button2);
+}

@@ -1,0 +1,9 @@
+Dim intElement As Integer
+        Dim strResults as String
+ 
+        For intElement = 1 To 3
+            If arrFunc(intElement) Then
+                strResults = Eval("fncProcess" & intElement)
+            End If
+        Next
+    End Sub

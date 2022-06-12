@@ -1,0 +1,61 @@
+'半形轉全形
+Public Function ToWchr(ByRef data As String) As String
+    Dim sb As New StringBuilder
+    Dim ascii As Integer = 0
+
+    For Each c As Char In data.ToCharArray()
+        ascii = Convert.ToInt32(c)
+        If ascii = 32 Then
+            sb.Append(Convert.ToChar(12288))
+        Else
+            sb.Append(Convert.ToChar(ascii + IIf(ascii < 127, 65248, 0)))
+        End If
+    Next
+
+    Return sb.ToString
+End Function
+
+' 全形 轉 半形
+Public Function ToNchr(ByRef data As String) As String
+    Dim sb As New StringBuilder
+    Dim ascii As Integer = 0
+
+    For Each c As Char In data.Replace("〔", "[").Replace("〕", "]").Replace("'", "'").ToCharArray()
+        ascii = Convert.ToInt32(c)
+        If ascii = 12288 Then
+            sb.Append(Convert.ToChar(32))
+        Else
+            If ascii > 65280 And ascii < 65375 Then
+                sb.Append(Convert.ToChar(ascii - 65248))
+            Else
+                sb.Append(Convert.ToChar(ascii))
+            End If
+        End If
+    Next
+
+    Return sb.ToString
+End Function
+
+StrConv(Str,VbStrConv.Wide)將字串中的半形字元轉換成全形字元。  ※遇到難字，會變成問號
+StrConv(Str,VbStrConv.Narrow)將字串中的全形字元轉換成半形字元。※遇到難字，會變成問號
+
+VbStrConv.LinguisticCasing  使用語言規則來進行轉換，而非檔案系統 (預設值)。只有 VbStrConv.UpperCase 和 VbStrConv.LowerCase 才有效。
+ 
+VbStrConv.UpperCase  將字串轉換為大寫字元。
+ 
+VbStrConv.LowerCase  將字串轉換為小寫字元。
+ 
+VbStrConv.ProperCase  將字串中每個單字的第一個字母轉換為大寫。
+ 
+VbStrConv.Wide  將字串中的半形字元轉換成全形字元。
+ 
+VbStrConv.Narrow  將字串中的全形字元轉換成半形字元。
+ 
+VbStrConv.Katakana  將字串中的平假名字元轉換成片假名字元。
+ 
+VbStrConv.Hiragana  將字串中的片假名字元轉換成平假名字元。
+ 
+VbStrConv.SimplifiedChinese  將繁體中文字元轉換成簡體中文。
+ 
+VbStrConv.TraditionalChinese  將簡體中文字元轉換成繁體中文。
+ 

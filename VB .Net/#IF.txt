@@ -1,0 +1,47 @@
+#define DEBUG1  //定義
+#undef DEBUG2   //取消定義
+  
+public class TestDefine  
+{  
+    static void Main()  
+    {  
+				#if (DEBUG1)  //有定義就等於 DEBUG1 = true
+				        Console.WriteLine("這一行會執行");  
+				#endif  
+  
+				#if (DEBUG2)  //沒定義就等於 DEBUG1 = false
+				     Console.WriteLine("這一行不會執行，因為被undef");  
+				#endif  
+    }  
+}  
+
+
+
+#IF 可以讀取vbproj檔中的DefineConstants模組變數
+
+在vb裡
+#If AJAX_FormulaAgent = True Then
+        
+        'some codes
+        
+#End If
+
+在CLMWeb.vbproj
+<Config
+    Name = "Debug"
+    BaseAddress = "285212672"
+    ConfigurationOverrideFile = ""
+    DefineConstants = "SCOTTDbg=True,ISDemoData=True,AJAX_FormulaAgent=True,SYS_RIN = True"  <---定義在這裡
+    DefineDebug = "true"
+    DefineTrace = "true"
+    DebugSymbols = "true"
+    IncrementalBuild = "true"
+    Optimize = "false"
+    OutputPath = "bin\"
+    RegisterForComInterop = "false"
+    RemoveIntegerChecks = "false"
+    TreatWarningsAsErrors = "false"
+    WarningLevel = "1"
+/>
+
+

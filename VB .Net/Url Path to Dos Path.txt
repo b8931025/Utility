@@ -1,0 +1,19 @@
+Url Path to Dos Path   Server.MapPath()
+
+1、Server.MapPath("/") 應用程序根目錄所在的位置 
+如 C:\Inetpub\wwwroot\
+
+2、Server.MapPath("./") 表示所在頁面的目錄
+注：等於Server.MapPath("") 返回
+Server.MapPath("") 所在頁面的物理文件路徑
+
+3、Server.MapPath("../")表示上一層目錄
+
+4、Server.MapPath("~/") 表示當前應用程序的目錄，如果是根目錄，就是根目錄，如果是虛擬目錄，就是虛擬目錄所在的位置 
+                                               如 C:\Inetpub\wwwroot\Example\ 
+                                               
+一般新增aspx檔打"Server.MapPath"是可以作用的 
+但是如果新增放在App_Code裡的Class檔,打"Server.MapPath"是沒有作用的 
+要如何讓Class檔裡有"Server.MapPath"的方法呢.. 
+step1:在Class檔裡要先using System.Web; 
+step2:利用HttpContext.Current.Server.MapPath就可以使用了

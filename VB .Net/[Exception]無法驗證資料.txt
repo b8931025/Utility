@@ -1,0 +1,10 @@
+只要在   
+Web.config中的
+<system.web></system.web>   節點裡加入以下字串即能解決   
+    
+    
+  <pages   enableViewStateMac="false"/>   
+    
+  或是把它放在頁面開頭   
+    
+  <%@   Page   language="c#"   enableViewStateMac="false"   %>   

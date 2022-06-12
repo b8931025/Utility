@@ -1,0 +1,18 @@
+﻿ID是設計的時候所指定的ID。
+
+    ClientID是當這個控件生成到客戶端頁面時候，需要在客戶端訪問時候用的。
+
+    UniqueID是當需要參與服務端回傳的時候用的。
+
+    備註：當控件是子控件的時候（例如在用戶控件中的Button），ClientID在HTML頁面中是作為控件的ID屬性，UniqueID是作為控件的Name屬性，如果不是子控件，那麼ClientID和UniqueID是相同的
+
+    例如：
+
+    MyControl1是一個用戶控件，裡麵包含一個ID為Button1的按鈕，把MyControl1放在一個頁面中運行，下面是其頁面的HTML代碼
+
+    <input type="submit" name="MyControl1:Button1" value="Button" id="MyControl1_Button1" />
+
+    ClientID：MyControl1_Button1
+    UniqueID：MyControl1:Button1
+
+    補充：當要編寫用戶控件中一個控件的客戶端事件代碼時，如果想在用戶控件內編寫必須要獲取該控件的ClientID

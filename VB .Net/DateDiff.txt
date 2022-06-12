@@ -1,0 +1,39 @@
+Try
+        dim dBgn as string = '01.01.2011'
+        ' Today
+        Dim dEnd As Date
+        dEnd = Date.Now
+        ' number of seconds since dBgn
+        Dim seconds As Long
+        seconds = DateDiff("s", dBgn, dEnd)
+        lbl_seconds.Text = seconds.ToString & " Seconds"
+        ' Number of minutes since dBgn
+        Dim Minutes As Long
+        Minutes = DateDiff("n", dBgn, dEnd)
+        lbl_minutes.Text = Minutes.ToString & " Minutes"
+        ' Number of hours since dBgn
+        Dim hours As Long
+        hours = DateDiff("h", dBgn, dEnd)
+        lbl_hours.Text = hours.ToString & " Hours"
+        ' Days
+        Dim days As Long
+        days = DateDiff("d", dBgn, dEnd)
+        lbl_days.Text = days.ToString & " Days"
+        ' weeks
+        Dim weeks As Long
+        weeks = DateDiff("ww", dBgn, dEnd)
+        lbl_weeks.Text = weeks.ToString & " Weeks"
+        'months
+        Dim months As Long
+        months = DateDiff("m", dBgn, dEnd)
+        lbl_months.Text = months.ToString & " Months"
+        ' Years
+        Dim years As Long
+        years = DateDiff("yyyy", dBgn, dEnd)
+        lbl_years.Text = years.ToString & " Years"
+
+
+    Catch ex As Exception
+        dBgn = "01.01.2011"
+        MsgBox("not a valid date given!")
+    End Try

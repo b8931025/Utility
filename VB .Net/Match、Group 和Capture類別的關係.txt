@@ -1,0 +1,78 @@
+Regex : 主要的Class，會依據輸入的pattern找出字串中符合的子字串
+
+Match : Regex找到符合的子字串時就會產生Match物件，要用Regex產生實體。
+
+MatchCollection :
+     Match的集合物件，Regex.Matches()會傳回所有符合pattern
+     的Match並放於MatchCollection中。
+
+Group :
+     Regular Expression語法的sub pattern，也就是用圓括號括起來的部份
+     比如剛剛的pattern改成(?<year>[0-9]{4})\[0-9]{2}\[0-9]{2}
+     year用圓括號括起來的部份就宣告了一個名稱為"year"的group。於是我們可以這樣取出。
+     string sYear = m.Groups["year"].Value;
+
+Capture : 有時候Group在一個Match中，不止抓到一個，這時候可以用capture在取出每一個項目。
+
+MatchEvaluator :
+
+Example:
+        Dim r As Regex = New Regex("(abra(cad)?)+")
+        Dim m As Match = r.Match("abracadabracadabracadabra8abracad")
+        Dim mCount As Integer = 0
+
+        While m.Success
+            mCount += 1
+            spOut.InnerHtml = "Match" & mCount & ":" & m.ToString & "<br>"
+            For i As Integer = 0 To m.Groups.Count - 1
+                spOut.InnerHtml &= "&nbsp;Group " & (i + 1) & ":" & m.Groups(i).ToString & "::Index:&nbsp;&nbsp;&nbsp;&nbsp;" & m.Groups(i).Index & "<br>"
+                For j As Integer = 0 To m.Groups(i).Captures.Count - 1
+                    spOut.InnerHtml &= "&nbsp;&nbsp;&nbsp;Capture" & (j + 1) & ":" & m.Groups(i).Captures(j).ToString & "::Index:&nbsp;&nbsp;&nbsp;&nbsp;" & m.Groups(i).Captures(j).Index & "<br>"
+                Next
+            Next
+            m = m.NextMatch
+            spOut.InnerHtml &= "<br>"
+        End While
+
+Result:  
+Match1:abracadabracadabracadabra
+ Group 1:abracadabracadabracadabra::Index:    0
+   Capture1:abracadabracadabracadabra::Index:    0
+ Group 2:abra::Index:    21
+   Capture1:abracad::Index:    0
+   Capture2:abracad::Index:    7
+   Capture3:abracad::Index:    14
+   Capture4:abra::Index:    21
+ Group 3:cad::Index:    18       'Groups(i).ToString會傳回該Group的CaptureCollection中的最後一筆Capture
+   Capture1:cad::Index:    4
+   Capture2:cad::Index:    11
+   Capture3:cad::Index:    18
+
+Match2:abracad
+ Group 1:abracad::Index:    26
+   Capture1:abracad::Index:    26
+ Group 2:abracad::Index:    26
+   Capture1:abracad::Index:    26
+ Group 3:cad::Index:    30
+   Capture1:cad::Index:    30
+   
+   
+Explain:
+由上面的結果，我們可以知道Match就是在字中符合的結果，abracadabracadabracadabra8abracad 
+				                                             ^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^
+				                                             Match1                    Match2
+而Group則是Regular Expression語法中的sub pattern
+(abra(cad)?)+   :Group 1  整句語法就是Group1
+(abra(cad)?)    :Group 2
+(cad)           :Group 3
+
+而Capture則是一個Group在Match中所符合的最小結果
+比如說：Group 2的語法是(abra(cad)?)，在Match1找到的Capture就是
+   Capture1:abracad::Index:    0
+   Capture2:abracad::Index:    7
+   Capture3:abracad::Index:    14
+   Capture4:abra::Index:    21
+
+      
+    
+

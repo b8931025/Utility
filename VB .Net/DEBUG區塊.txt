@@ -1,0 +1,6 @@
+在Debug區塊中的程式碼，只有debug時才會執行
+如果是release，就會略過
+
+#If DEBUG Then
+
+#End If

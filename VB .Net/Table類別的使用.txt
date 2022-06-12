@@ -1,0 +1,55 @@
+'in ASPX
+	<body MS_POSITIONING="GridLayout">
+		<form id="Form1" method="post" runat="server">
+			<asp:Table ID="tbOutcome" Runat="server"></asp:Table>
+		</form>
+	</body>     
+	
+'in vb  
+'Table 是Interface，無法在在vb中動態產生，一定要先寫在 aspx	   
+        
+        Dim dr As TableRow
+        Dim dc As TableCell
+
+        dr = New TableRow
+        dc = New TableCell
+        dc.Text = "One"
+        dc.ColumnSpan = 2 '跨欄
+        dc.BackColor = Color.PowderBlue
+        dr.Cells.Add(dc)
+        tbOutcome.Rows.Add(dr)
+
+        dr = New TableRow
+        dc = New TableCell
+        dc.Text = "Two"
+        dr.Cells.Add(dc)
+        dc = New TableCell
+        dc.Text = "Two"
+        dr.Cells.Add(dc)
+        dr.HorizontalAlign = HorizontalAlign.Center '置中
+        dr.BackColor = Color.Salmon
+        tbOutcome.Rows.Add(dr)
+
+        dr = New TableRow
+        dc = New TableCell
+        dc.Text = "Three"
+        dc.RowSpan = 2 '跨列
+        dc.HorizontalAlign = HorizontalAlign.Right '置右
+        dr.Cells.Add(dc)
+        dc = New TableCell
+        dc.Text = "Three"
+        dr.Cells.Add(dc)
+        dr.BackColor = Color.SeaGreen
+        tbOutcome.Rows.Add(dr)
+
+        dr = New TableRow
+        dc = New TableCell
+        dc.Text = "Four"
+        dc.BackColor = Color.OrangeRed
+        dr.Cells.Add(dc)
+        tbOutcome.Rows.Add(dr)
+
+        tbOutcome.Width = Unit.Percentage(100)
+        tbOutcome.BorderWidth = Unit.Pixel(1)
+        tbOutcome.BorderStyle = BorderStyle.Solid
+        tbOutcome.GridLines = GridLines.Both

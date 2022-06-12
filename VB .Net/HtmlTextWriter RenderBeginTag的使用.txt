@@ -1,0 +1,45 @@
+            Dim st As New StringWriter
+            Dim htw As New UI.HtmlTextWriter(st)
+            htw.AddAttribute("src", "./../img/edit.gif")
+            htw.AddAttribute("id", "imgEdit")
+            htw.RenderBeginTag(HtmlTextWriterTag.Img)
+            htw.RenderEndTag()
+            output.InnerHtml = st.ToString()  'output img's html code   
+            
+            or
+            
+            'create button's html code
+            Dim bt As New Button
+            bt.Text = "A Button"
+            bt.ID = "btn"
+            bt.CssClass = "bt"
+
+            Dim st As New StringWriter
+            Dim htw As New UI.HtmlTextWriter(st)
+            bt.RenderControl(htw)
+            output.InnerHtml = st.ToString()  'output button's html code     
+            
+            or
+            
+            'create a table
+            Dim table As New Table
+            Dim tr As New TableRow
+            Dim td As New TableCell
+            Dim td2 As New TableCell
+            td.Text = "One"
+            td2.Text = "Two"
+            td.HorizontalAlign = HorizontalAlign.Center
+            td2.HorizontalAlign = HorizontalAlign.Center
+            tr.Cells.Add(td)
+            tr.Cells.Add(td2)
+            table.Rows.Add(tr)
+            table.Width = Unit.Percentage(100)
+            table.BorderWidth = Unit.Pixel(0)
+            table.GridLines = GridLines.Both
+            table.BorderColor = Color.Black
+
+            Dim st As New StringWriter
+            Dim htw As New UI.HtmlTextWriter(st)
+            table.RenderControl(htw)
+            st.ToString() 'output table's html code
+                            

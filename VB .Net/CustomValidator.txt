@@ -1,0 +1,21 @@
+					<asp:textbox id="txtPUBT_PE_MAIN_IPOLICY" runat="server" Width="100%" MaxLength="14"></asp:textbox>
+						<asp:CustomValidator ID="cvIPolicy" Runat="server" ControlToValidate="txtPUBT_PE_MAIN_IPOLICY"
+					    ClientValidationFunction="validIPolicy" ErrorMessage="請輸入正確保單號">*</asp:CustomValidator>			
+			
+			//JavaScript
+			function validIPolicy(sender, args){
+					//檢核內容
+					var text = args.Value;
+					
+					//更改錯誤訊息
+					sender.errormessage = "請輸入14碼保單號";
+					
+					//設定該檢核是否通過
+					args.IsValid = false;
+			}
+			
+			
+
+					sender.controltovalidate="txtPUBT_PE_MAIN_IPOLICY"
+					sender.id="cvIPolicy"				
+					sender.clientvalidationfunction		="validIPolicy"				

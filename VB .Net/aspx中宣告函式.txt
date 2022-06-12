@@ -1,0 +1,51 @@
+﻿<%@ Import namespace="FIREntity.FirFunction" %> ¶פJfunction
+
+  <script language="VB#" runat="server">
+      void EnterBtn_Click(Object Src, EventArgs E) {
+          Message.Text = "Hi " + Name.Text + ", welcome to ASP.NET!";
+      }
+  </script>
+  
+  			<%
+			Dim o as New PUBEntity.CmnFunction
+	     response.write(o.ansiFillStr("１",3,"0") & "|")    <---一定要new出來，即使是Shared
+			%>
+			
+			
+等號<%=  %>用於解析表達式，顯示伺服器端後台的信息。如：
+<div> 
+<h1>Hello World</h1> 
+<p><%= ShowHelloWorld() %></p> 
+</div>
+
+井號<%# %>數據綁定，如：
+<%# DataBinder.(Container.DataItem, "ClassName") %>
+ <asp:DataList ID="dl" runat="server"> 
+<ItemTemplate> <%# DataBinder.(Container.DataItem, "ClassName") %> 
+</ItemTemplate> 
+</asp:DataList>
+小老鼠@<%@ %>表示：引用（page指令 ）。也可用來導入後台命名空間。如：
+<%@ Page Language="C#"   CodeFile="Default.aspx.cs" Inherits="_Default" %>
+<%@ import namespace="system.data">
+
+百分號<% %>在頁面中嵌入伺服器代碼塊。塊中的代碼可以為編程語句，並調用當前頁類中的函數。嵌入代碼塊在頁面呈現時被執行。例如：
+<tr> 
+<td height="20"> 
+<div align="center">类别：</div> 
+</td> 
+<td height="9">&nbsp; 
+<%function();%> 
+</td> 
+</tr>
+
+錢字號<%$ %>用來綁定web.config里的字符串(鍵值對)如:
+<asp:TextBox runat="server" ID="cc" Text="<%$ ConnectionStrings:pubs%>"></asp:TextBox>
+在web.config中：
+<configuration>
+  <system.web>
+    <compilation debug="true" targetFramework="4.0" />
+  </system.web>
+  <connectionStrings>
+    <add name="pubs" connectionString="Server=.;database=pubs;uid=sa;pwd=" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+</configuration>			

@@ -1,0 +1,7 @@
+Dim s As String = "§Úa¢°1"
+
+System.Text.Encoding.Default.GetByteCount(s)-->6 
+System.Text.Encoding.ASCII.GetByteCount(s)-->4
+System.Text.Encoding.UTF8.GetByteCount(s)-->8
+
+

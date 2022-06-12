@@ -1,0 +1,38 @@
+Aspx:
+		<form id="Form1" method="post" runat="server">
+			<asp:TextBox id="CityTextBox" runat="server"></asp:TextBox><br>
+			
+			<asp:RequiredFieldValidator id="CityReqValidator" runat="server" Display="Dynamic" ErrorMessage="<br>Plase enter a city."
+				ControlToValidate="CityTextBox"></asp:RequiredFieldValidator><br>
+			<asp:Button id="CityQueryButton" runat="server" Text="CityQueryButton"></asp:Button>
+		</form>
+
+aspx.vb
+CityReqValidator.Validate()  '在Server執行Validating，檢核失敗就顯示error message
+CityReqValidator.IsValid 		 '檢核是否成功
+
+※如果Button在Validator後面，只要頁面一載入，就會觸發Validating事件；
+不想要一載入頁面就顯示Validating的錯誤訊息，可以把Button放在Validator的前面
+CausesValidation如果設為False，server端的Validating 和 Validated 事件就會被取消
+EnableClientScript是設定是否在Client端執行檢核
+
+EnableClientScript default True
+CausesValidation default True
+
+EnableClientScript = True
+CausesValidation   = True
+按下按鈕，Validating事件在Client端觸發
+
+EnableClientScript = False
+CausesValidation   = False
+Validating事件完全無作用
+
+EnableClientScript = False
+CausesValidation   = True
+按下按鈕，Validating事件在Server端觸發
+
+EnableClientScript = True
+CausesValidation   = False
+按下按鈕，Validating不觸發，只有被Control的對象focus out時，才會觸發
+
+

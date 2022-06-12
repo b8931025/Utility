@@ -1,0 +1,3 @@
+System.Type.GetType("System.String")
+GetType(String)
+這兩種不一樣

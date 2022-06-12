@@ -1,0 +1,14 @@
+根目錄符號"~"的使用限製
+include							OK
+<asp:Image 					OK
+<asp:ImageButton 		OK
+<a runat="server"/> OK
+<a/> 								NO
+css 								NO
+js 									NO
+img 								NO
+input img 					NO
+ShowModalDialog 		NO
+
+伺服器元件才會去解析"~"，如果要讓html元件能解析"~" 就要加入runat="server"
+※include 是一個不用加runat="server"的伺服器元件

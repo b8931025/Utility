@@ -1,0 +1,3 @@
+Dim twCalendar As New System.Globalization.TaiwanCalendar '宣告中華民國日曆物件
+Dim dateTime As New DateTime(Now.Year, Now.Month, Now.Day, New System.Globalization.GregorianCalendar) '宣告目前時間
+Dim iY As Integer = twCalendar.GetYear(dateTime) '以民國的格式取回今年民國幾年

@@ -1,0 +1,20 @@
+            Syntax:
+            IIf(expr, truepart, falsepart)
+            
+            
+            Dim son, mom As String
+            son = "1"
+            mom = "0"
+            Me.tb.Text = CDec(mom) <> 0D
+            Me.tb.Text = IIf(CDec(mom) <> 0D, CDec(son) / CDec(mom), 0)
+            'CDec(mom) <> 0D 等於 false, 但還是有除以零的Runtime error
+            '如果iif改成if else就沒問題
+            
+            Dim Minused as Decimal
+            dMinused = IIf(IsDBNull(rowThisMonth.Item("DATE_12")), 0.0, CDec(rowThisMonth.Item("DATE_12")))
+            'rowThisMonth.Item("DATE_12") 等於 DBNull就會丟出DBNull轉Decimal的Exception的問題
+            '如果iif改成if else就沒問題
+            
+            
+            ※IIF不管expr是true或false，truepart和flasepart都會去執行，執行完之後再回傳其中一個
+            所以如果為了要避免exception or error(如：分母除以零、DBNull的轉換)千萬不可用IIf

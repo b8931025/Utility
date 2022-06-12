@@ -1,0 +1,30 @@
+                                                Response.Write()方法輸出在這裡
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+	<HEAD>
+		<title>Test</title>
+	</HEAD>
+	<body MS_POSITIONING="GridLayout">
+		<form id="Form1" method="post" runat="server">
+			                                          RegisterClientScriptBlock()方法輸出的在這裡
+			                                          
+			                           coding ...... 
+			                           
+			                                          RegisterStartupScript()方法輸出的在這裡
+		</form>
+	</body>
+</HTML>
+ 
+
+
+----------------------
+Page下的已經過期,請使用ClientScriptManager.RegisterClientScriptBlock 方法 (Type, String, String)和
+ClientScriptManager.RegisterStartupScript. 方法
+
+用Response.Write...會將script加在傳回html的最前面(control還沒產生...),
+而RegisterStartupScript是加在</form>之前(control已產生...所以沒問題) 
+
+RegisterClientScriptBlock Script 將會被放在緊挨 </form> 的前面。  
+RegisterStartupScript Script 將會被放在 <form  runat="server"> 後幾個隱藏的 input 控制項的後面。  
+如果你僅僅是註冊一些函數，這兩者的效果是一樣的。  
+但如果你要註冊一些全域的 Script，此時就應該用 RegisterStartupScript 保證 Script 能在前面被執行。

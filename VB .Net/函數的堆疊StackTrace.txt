@@ -1,0 +1,48 @@
+﻿New System.Diagnostics.StackTrace(1, True)  '目前的堆疊
+New System.Diagnostics.StackTrace(ex, true) '該例外經過的堆疊
+
+If stack.ToString.IndexOf("bsFIREPolicy") > -1 Then '判斷目前的程式是否有被bsFIREPolicy呼叫
+    bEPOLICY = True
+Else
+    bEPOLICY = False
+End If
+
+For f As Integer = 0 To stack.FrameCount - 1
+    Dim sf As System.Diagnostics.StackFrame = stack.GetFrame(f)
+    Dim sServiceName As String = sf.GetMethod.ReflectedType.Name '堆壘中的Service名稱 
+Next
+
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.LocalServer.RequestService(IBusinessService, DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.LocalServer.Request(String, DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.RequestLocalService(String, DataSet, IDbTransaction)
+	at FIRService.bsFIR303000Print.DoRequest(DataSet, DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet)
+	at IntelliSys.NetExpress.Service.BaseService.InvokeBusinessService(String, DataSet)
+	at FIRService.bsFIREPolicy.DoRequest(String[], DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseCommonDbAccessService.DoRequest(DataSet, DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet, IDbTransaction)
+	at IntelliSys.NetExpress.Service.Enterprise.BaseDbAccessService.Request(DataSet)
+	at IntelliSys.NetExpress.Server.BSServer.Request(String, DataSet)
+	at IntelliSys.NetExpress.Web.BSAgent.InvokeBusinessService(String, DataSet, CallContextData)
+	at IntelliSys.NetExpress.Web.NEPage.InvokeBusinessService(String, DataSet)
+	at IntelliSys.NetExpress.Web.NEPage.InvokeCommonService(String, String[])
+	at FIRWeb.FIR303000.BaseDoUICommand(Object, CommandEventArgs)
+	at IntelliSys.NetExpress.Web.NEPage.ProcessUICommand(Object, CommandEventArgs)
+	at IntelliSys.NetExpress.Web.SecurePage.ProcessUICommand(Object, CommandEventArgs)
+	at IntelliSys.NetExpress.Web.CommandButton.btnCommand_Command(Object, CommandEventArgs)
+	at System.Web.UI.WebControls.Button.OnCommand(CommandEventArgs)
+	at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String)
+	at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler, String)
+	at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection)
+	at System.Web.UI.Page.ProcessRequestMain()
+	at System.Web.UI.Page.ProcessRequest()
+	at System.Web.UI.Page.ProcessRequest(HttpContext)
+	at System.Web.CallHandlerExecutionStep.System.Web.HttpApplication+IExecutionStep.Execute()
+	at System.Web.HttpApplication.ExecuteStep(IExecutionStep, Boolean&)
+	at System.Web.HttpApplication.ResumeSteps(Exception)
+	at System.Web.HttpApplication.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext, AsyncCallback, Object)
+	at System.Web.HttpRuntime.ProcessRequestInternal(HttpWorkerRequest)
+	at System.Web.HttpRuntime.ProcessRequest(HttpWorkerRequest)
+	at System.Web.Hosting.ISAPIRuntime.ProcessRequest(IntPtr, Int32)

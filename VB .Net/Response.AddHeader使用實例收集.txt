@@ -1,0 +1,28 @@
+Response.AddHeader使用實例收集 
+
+文件下載，指定默認名
+Response.AddHeader("content-type","application/x-msdownload");
+Response.AddHeader("Content-Disposition","attachment;filename=要下載的文件名.rar");
+
+刷新頁面
+Response.AddHeader 「REFRESH」, 」60;URL=newpath/newpage.asp」 
+這等同於客戶機端<META>元素： 
+<META HTTP-EQUIV=」REFRESH」, 「60;URL=newpath/newpage.asp」 
+
+頁面轉向
+Response.Status = 「302 Object Moved」 
+Response.Addheader 「Location」, 「newpath/newpage.asp」 
+這等同於使用Response.Redirect方法： 
+Response.Redirect 「newpath/newpage.asp」 
+
+強制瀏覽器顯示一個用戶名/口令對話框
+Response.Status= 「401 Unauthorized」 
+Response.Addheader 「WWW-Authenticate」, 「BASIC」 
+強制瀏覽器顯示一個用戶名/口令對話框，然後使用BASIC驗證把它們發送回服務器（將在本書後續部分看到驗證方法）。
+
+如何讓網頁不緩衝
+Response.Expires = 0 
+Response.ExpiresAbsolute = Now() - 1 
+Response.Addheader "pragma","no-cache" 
+Response.Addheader "cache-control","private" 
+Response.CacheControl = "no-cache"
