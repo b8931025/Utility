@@ -1,0 +1,12 @@
+黃色:遠端分支
+綠色:local端分支
+紅色:目前工作分支(head)
+只要origin/master有更新，就要pull
+
+marge只是把遠端的資料和local端合併，並不是把遠端的主支和分支合併
+
+01.png
+origin/project/D04508_APP3.0-內容模組開發 有異動
+pull下來之後，有merge只是local端，所以紅色的dev_willy/D04508_APP3-內容模組開發
+和黃色的origin/dev_willy/D04508_APP3-內容模組開發並沒有在同一行
+還要再把紅色的那一行push到遠端，才會同步  02.png

@@ -1,0 +1,9 @@
+commit之後要回復 01.png / 02.png
+
+在origin (server端)選擇 reset 03.png
+
+選 hard 04.png
+
+ok後重新整理 05.png
+
+原本的commit就會消失 06.png 

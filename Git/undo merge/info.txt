@@ -1,0 +1,9 @@
+dev_willy/D04343_shopadmin後台和origin/DEV_SANDBOX合併之後 01.png / 02.png
+
+如果要回復，在原本origin/dev_Willy/D04343_shopadmin選擇reset 03.png
+
+再選hard 04.png
+
+Reset之後會看到之前的merge還在 05.png
+
+按F5重新整理，就會消失了 06.png
