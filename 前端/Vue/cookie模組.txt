@@ -1,0 +1,9 @@
+vue-cookies
+
+設定一個cookie
+this.$cookies.set(keyName, value[, expireTimes[, path[, domain[, secure]]]])   //return this
+
+獲取一個cookie
+this.$cookies.get(keyName)       // return value  
+
+https://www.gushiciku.cn/pl/gSHt/zh-tw

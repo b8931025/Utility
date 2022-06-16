@@ -1,0 +1,37 @@
+methods: {
+	async exportExcel(){
+		let cmd = await this.getCmd()
+		//檢核下載條件
+		if (!cmd) return false
+
+		const self = this
+		await service
+			.exportReport(cmd)
+			.then((response) => {
+				if (response !== '') { //service丟出url
+					let iframe = document.createElement('iframe')
+					iframe.style.display = 'none'
+					iframe.setAttribute('src', response)
+					document.body.appendChild(iframe)
+					self.$message({
+						showClose: true,
+						message: '下載成功',
+						type: 'success',
+					})
+				} else {
+					self.$message({
+						showClose: true,
+						message: '下載失敗',
+						type: 'error',
+					})
+				}
+			})
+			.catch(() => {
+				self.$message({
+					showClose: true,
+					message: '連線失敗',
+					type: 'error',
+				})
+			})
+	},
+}	

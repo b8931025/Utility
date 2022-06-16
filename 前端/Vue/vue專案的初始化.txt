@@ -1,0 +1,6 @@
+打開Visual Code
+指定Vue的專案目錄
+ctrl + j 叫出終端視窗
+npm install
+npm run serve
+

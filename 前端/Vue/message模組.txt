@@ -1,0 +1,34 @@
+example
+
+this.$message({
+	showClose: true,
+	message: '連線失敗',
+	type: 'error',
+})
+
+this.$message(options)
+
+
+參數	說明
+zIndex （新增）	層級
+message	消息文字
+type	主題
+iconClass	自定義圖標的類名，會覆蓋type
+customClass	自定義類名
+duration	顯示時間, 毫秒。設為0 則不會自動關閉
+showClose	是否顯示關閉按鈕
+onClose	關閉時的回調函數, 參數為被關閉的message 實例
+dangerouslyUseHTMLString true/false 使用html標籤，換行會用到
+
+
+let arr = ['測試一', '測試二', '測試三'];
+let str = arr.join(' <br/> ');
+this.$message({
+	dangerouslyUseHTMLString: true,
+	message: str,
+	type: 'warning'
+});
+
+
+
+https://vue-element-multiple.github.io/message/

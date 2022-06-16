@@ -1,0 +1,2 @@
+import moment from "moment";
+moment(new Date('2022/02/28')).format("YYYY-MM-DD")

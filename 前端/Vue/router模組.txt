@@ -1,0 +1,8 @@
+取得url對映router的params
+this.$route.params
+
+取得QueryString
+this.$route.query.id
+
+https://router.vuejs.org/zh/guide/#javascript
+https://www.dotblogs.com.tw/Null/2020/05/12/221249

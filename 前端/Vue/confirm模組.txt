@@ -1,0 +1,15 @@
+UI-element的功能 
+
+this.$confirm('是否要新增下一筆資料？', '儲存成功！', {
+confirmButtonText: '是',
+cancelButtonText: '否',
+type: 'success'
+}).then(() => {
+	//confirm
+	this.handleEditDialog(null)
+}).catch(() => {
+	//cancel
+	this.dialogEditShow = false
+})
+
+https://element.eleme.cn/#/zh-CN/component/message-box
