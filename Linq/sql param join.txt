@@ -1,0 +1,8 @@
+var param = new List<System.Data.SqlClient.SqlParameter>();
+
+List<string> skuList = new List<string>(); //一堆字串清單
+
+//加入sql parameter，這邊要注意param中是否已有東西，如果有就新增一個SqlParameter變數
+skuList.ForEach(item => param.Add(new System.Data.SqlClient.SqlParameter(string.Format("@sku{0:00}", param.Count), item)));
+//把參數用","串在一起
+string sSku = param.Select(x => x.ParameterName).Aggregate((a, b) => $"{a},{b}");
