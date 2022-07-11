@@ -1,0 +1,23 @@
+
+View自訂function
+@functions{
+    public string sayHello() {
+        return "hello mvc";
+    }
+
+    public int compute(int a) {
+        return a + a;
+    }
+}
+
+View
+@compute(2)
+
+View呼叫Controller的function
+Controller
+public string getMessage(string input) {
+	return input;
+}
+
+View
+@Html.Action("getMessage",new { input = "Hello MVC"})

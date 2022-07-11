@@ -1,0 +1,41 @@
+註解
+@* 此行為註解 *@ 
+
+多行語法 ※需注意結尾需加分號「;」否則會出錯。
+@{  Response.Write("Hello  World"); }
+
+函數區塊
+@functions {
+    string imageServerBase = ConfigurationManager.AppSettings["imageServerBase"];
+    public string GetAbsoluteImgUrl(string ImgUrl)
+    {
+        return imageServerBase + ImgUrl;
+    }
+}
+
+取得絕對路徑
+@Url.Content("~/path/file.htm")
+
+取得url
+@Url.Action("ActionName", "ControllerName", new { variable = value })
+@Url.Action("ActionName")     沒有指定controller就是view頁面的所屬controller
+
+執行一個action，取得result (html/json/text)
+@Html.Action("TagsBoardList", new { Tags_ID = Model.ID })
+
+取得超連結標籤
+@Html.ActionLink("LinkName", "ActionName", "ControllerName")   <a href="/ControllerName/ActionName">LinkName</a>
+
+
+@Html.BeginForm("Edit", "Travel", FormMethod.Post)
+@Html.DropDownList
+@Html.CheckBoxList
+@Html.Raw
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@Html.HiddenFor(model => model.Id)
+@Html.EditorFor(model => model.MaxPrice)
+@Html.LabelFor(model => model.Store, htmlAttributes: new { @class = "control-label col-md-2" })
+@Html.Label
+@Html.TextBoxFor(m => m.AdContent)
+@Html.TextBox("MediaName", "", new { @class = "form-control" })
+@Html.RadioButtonList

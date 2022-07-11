@@ -1,0 +1,5 @@
+View
+@Html.Action("Index", "Navbar", new { Area = "" })
+
+Controllers
+return PartialView("_Navbar", data.navbarItems(loginUser).ToList());

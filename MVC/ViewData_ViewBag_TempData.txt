@@ -1,0 +1,6 @@
+ViewData和ViewBag在redirect後就不存在 
+ViewData["key"] = value;
+ViewBag.key = value;
+
+redirect後還存在，但讀取一次後就消失
+TempData 

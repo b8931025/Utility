@@ -1,0 +1,46 @@
+方法一
+$("#divTemplete").load("/MenuTag/GetMenuTemplate/" + data.node.id, function () {
+	$("#divTemplete").show();
+	$('html,body').animate({
+		scrollTop: 0
+	}, 'slow');
+});
+
+public ActionResult GetMenuTemplate(int id)
+{
+	StringBuilder sb = new StringBuilder();
+	//create sb content ...
+	return Content(sb.ToString());//create html
+}
+
+方法二
+$('#comment').empty().load('@Url.Action("Edit")' + "/" + id);
+
+public async Task<ActionResult> Edit(string id)  //非同步
+{
+	//create sb model ...
+	//string id2 = id.TrimEnd('-') + '-';
+	//List<產品資料> products = await db.產品資料.Where(x => x.尺寸 != "合併下標區" && (x.系列編號.Equals(id) || x.系列編號.Equals(id2))).ToListAsync();
+
+	return PartialView("_Edit", model); //create PartialView
+}
+
+方法三(直接載入，不透過javascript)
+<div id="divTagsBoardList">
+	@Html.Action("TagsBoardList", new { Tags_ID = Model.ID })
+</div>
+
+public ActionResult TagsBoardList(int Tags_ID, bool? Review)
+{
+	using (kwEntities db = new kwEntities())
+	{
+		var result = db.TagsBoard.Where(x => x.Tags_ID == Tags_ID && x.Enabled == true).OrderByDescending(x => x.ID).Take(50);
+
+		return View(result.ToList());
+	}
+}
+
+方法四(不透過Controll)
+@Html.RenderPartial("PartialViewName", modelObject)
+@Html.RenderPartial("PartialViewName")
+
