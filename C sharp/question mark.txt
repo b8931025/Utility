@@ -1,0 +1,11 @@
+	List<string> obj = null;
+	string obj2 = null;
+
+	//??
+	string result = obj2 ?? "none";  // result=none
+
+	//?:
+	result = obj2 != null ? "val" : "none"; // result=none
+
+	//?. 或 ?[]
+	result = obj?.Count.ToString(); // result=null

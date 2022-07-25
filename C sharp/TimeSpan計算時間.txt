@@ -1,0 +1,10 @@
+
+DateTime bgn = DateTime.Now;
+DateTime end = DateTime.Now;
+TimeSpan total = end.Subtract(bgn);
+
+var ms = total.TotalMilliseconds;  //毫秒
+var s = total.TotalSeconds;        //秒
+var m = total.TotalMinutes;        //分
+var h = total.TotalHours;          //時
+var d = total.TotalDays;           //日

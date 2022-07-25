@@ -1,0 +1,11 @@
+        等候所有task跑完再回傳view
+		List<Task> tasks = new List<Task>();
+		
+		tasks.Add(Task.Run(() =>
+		{
+			// some code
+		}));
+		
+		Task.WaitAll(tasks.ToArray());
+		
+		return View();
