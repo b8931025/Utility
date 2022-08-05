@@ -1,0 +1,333 @@
+        /// <summary>
+        /// 阿拉伯數字轉大小寫中文
+        /// </summary>
+        /// <param name="dNum">任意數</param>
+        /// <param name="bBig">true:大寫數字 false:小寫數字</param>
+        /// <param name="bOneTen">true:最前面10~19用一十 false:最前面10~19用十 ex:10,0000 true:一十萬 false:十萬</param>
+        /// <returns>中文數字</returns>
+        public static string ConvertCHNum(decimal dNum, bool bBig, bool bOneTen) {
+            if (dNum == 0) return "零";
+            //注意，無法處理小數點前20位數以上的數字
+            //20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 (位數)
+            //3  2  1  0  3  2  1  0  3  2  1  0  3  2  1  0  3  2  1  0  (SU:small unit 小單位)  
+            //千 百 十    千 百 十    千 百 十    千 百 十    千 百 十 個 
+            //京 京 京 京 兆 兆 兆 兆 億 億 億 億 萬 萬 萬 萬             
+            //4  4  4  4  3  3  3  3  2  2  2  2  1  1  1  1  0  0  0  0  (BU:big unit 大單位)
+            string[] chrBU = null;//大單位
+            string[] chrSU = null;//小單位
+            string[] chrNUM = null;//中文數字
+            StringBuilder sOut = new StringBuilder();
+            int iPre = -1;//記錄上一個數字
+            string sNum = null;
+            int iLen = 0;
+            int iSU = 0; //小單位0~9999
+            char[] cSU = null; //小單位0~9999
+            bool bSU = false;
+            bool bBU = false;
+            bool bDot = false;
+            string sDot = "";
+            int iHeadBU = 0;
+            
+            //是否負數
+            if (dNum < 0) {
+                sOut.Append("負");
+                dNum *= -1;
+            }
+           
+            sNum = dNum.ToString();
+
+            //是否有小數點
+            if (sNum.IndexOf(".") > -1) {
+                bDot = true;
+                sDot = sNum.Split('.')[1];
+                sNum = sNum.Split('.')[0];
+            }
+
+            iLen = sNum.Length;
+            iHeadBU = ((iLen - 1) / 4);
+            chrBU =new string[] { "", "萬", "億", "兆", "京"};
+
+            if (bBig)
+            {
+                chrNUM = new string[] { "零", "壹", "貳", "參", "肆", "伍", "陸", "柒", "捌", "玖" };
+                chrSU = new string[] { "", "拾", "佰", "仟" };
+            }
+            else 
+            {
+                chrNUM = new string[] { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+                chrSU = new string[] { "", "十", "百", "千" };
+            }
+
+            //每4位數一個大單位ex:京兆億萬
+            for (int iBU = iHeadBU; iBU >= 0; iBU--)
+            {
+                if (iBU == iHeadBU)
+                {
+                    int iEnd = ((iLen % 4) > 0) ? iLen % 4 : 4 ;
+                    iSU = int.Parse(sNum.Substring(0, iEnd));
+                    cSU = sNum.Substring(0, iEnd).ToCharArray();
+                }
+                else
+                {
+                    iSU = int.Parse(sNum.Substring(iLen - (iBU + 1) * 4, 4));
+                    cSU = sNum.Substring(iLen - (iBU + 1) * 4, 4).ToCharArray();
+                }
+
+                //每一個大單位會有3~0小單位 3:千 2:百 1:十 0:個 範圍0~9999
+                for (int i = cSU.Length - 1; i >= 0; i--)
+                {
+                    //取得單一數字
+                    int iOne = int.Parse(cSU[cSU.Length - 1 - i].ToString());
+
+                    if (iOne > 0) {
+                        //上一個數字是0就補"零"
+                        if (iPre == 0) sOut.Append(chrNUM[0]);
+
+                        //最前面大單位，數字是10~19，單位是十，不加一  ex:11,0000 > 十一萬，而不是一十一萬
+                        if (iBU == iHeadBU && iSU >= 10 && iSU <= 19 && i == 1)
+                        {
+                            if (bOneTen) sOut.Append(chrNUM[iOne]); //bOneTen=true就一律加一
+                            sOut.Append(chrSU[i]) ;
+                        }
+                        else if (i > 0) //千百十
+                        {
+                            sOut.Append(chrNUM[iOne] + chrSU[i]);
+                        }
+                        else //個
+                        {
+                            sOut.Append(chrNUM[iOne]);
+                        }
+                    }
+
+                    //記下數字，下一個迴圈判斷
+                    iPre = iOne;
+                }
+
+                //大單位大於0且該單位數字大於0，就加"京兆億萬"
+                if (iBU > 0 && iSU > 0) sOut.Append(chrBU[iBU]);
+            }
+
+            //將小數點加入
+            if (bDot) 
+            {
+                sOut.Append("點");
+                for (int i = 0; i < sDot.Length ; i++) sOut.Append(chrNUM[int.Parse(sDot.Substring(i, 1))]);
+            }
+
+            return sOut.ToString();            
+        }
+
+        /// <summary>
+        /// 阿拉伯數字轉大小寫中文
+        /// </summary>
+        /// <param name="dNum">任意數</param>
+        /// <param name="bBig">true:大寫數字 false:小寫數字</param>
+        /// <returns></returns>
+        public static string ConvertCHNum(decimal dNum, bool bBig)
+        {
+            return ConvertCHNum(dNum, bBig, false);
+        }
+
+        /// <summary>
+        /// 阿拉伯數字轉小寫中文
+        /// </summary>
+        /// <param name="dNum">任意數</param>
+        /// <returns></returns>
+        public static string ConvertCHNum(decimal dNum) {
+            return ConvertCHNum(dNum, false, false);
+        }
+
+        //測試用
+        public static void validNum(decimal iNum, string sOk,bool bBig,bool bOneTen,System.Text.StringBuilder sb ) {
+            string sOut = ConvertCHNum(iNum, bBig, bOneTen);
+            if (sOut != sOk) {
+                sb.Append(iNum).Append("輸出:").Append(sOut);
+                sb.Append("<>").Append(sOk).Append("\n");
+            }
+        }
+
+        public static string TestChinaNo() {
+            StringBuilder sbOut = new StringBuilder();
+
+            ////小寫中文數字
+            //validNum(decimal.Parse("3.1415926"), "三點一四一五九二六", false, false, sbOut);
+            //validNum(decimal.Parse("-3.1415926"), "負三點一四一五九二六", false, false, sbOut);
+            //validNum(0, "零", false, false, sbOut);
+            //validNum(1, "一", false, false, sbOut);
+            //validNum(2, "二", false, false, sbOut);
+            //validNum(3, "三", false, false, sbOut);
+            //validNum(4, "四", false, false, sbOut);
+            //validNum(5, "五", false, false, sbOut);
+            //validNum(6, "六", false, false, sbOut);
+            //validNum(7, "七", false, false, sbOut);
+            //validNum(8, "八", false, false, sbOut);
+            //validNum(9, "九", false, false, sbOut);
+            //validNum(10, "十", false, false, sbOut);
+            //validNum(11, "十一", false, false, sbOut);
+            //validNum(12, "十二", false, false, sbOut);
+            //validNum(20, "二十", false, false, sbOut);
+            //validNum(21, "二十一", false, false, sbOut);
+            //validNum(99, "九十九", false, false, sbOut);
+            //validNum(100, "一百", false, false, sbOut);
+            //validNum(101, "一百零一", false, false, sbOut);
+            //validNum(110, "一百一十", false, false, sbOut);
+            //validNum(111, "一百一十一", false, false, sbOut);
+            //validNum(120, "一百二十", false, false, sbOut);
+            //validNum(200, "二百", false, false, sbOut);
+            //validNum(201, "二百零一", false, false, sbOut);
+            //validNum(210, "二百一十", false, false, sbOut);
+            //validNum(999, "九百九十九", false, false, sbOut);
+            //validNum(1000, "一千", false, false, sbOut);
+            //validNum(1001, "一千零一", false, false, sbOut);
+            //validNum(1010, "一千零一十", false, false, sbOut);
+            //validNum(1011, "一千零一十一", false, false, sbOut);
+            //validNum(1100, "一千一百", false, false, sbOut);
+            //validNum(1101, "一千一百零一", false, false, sbOut);
+            //validNum(1110, "一千一百一十", false, false, sbOut);
+            //validNum(1111, "一千一百一十一", false, false, sbOut);
+            //validNum(2345, "二千三百四十五", false, false, sbOut);
+            //validNum(6789, "六千七百八十九", false, false, sbOut);
+            //validNum(10000, "一萬", false, false, sbOut);
+            //validNum(10001, "一萬零一", false, false, sbOut);
+            //validNum(10010, "一萬零一十", false, false, sbOut);
+            //validNum(10011, "一萬零一十一", false, false, sbOut);
+            //validNum(10100, "一萬零一百", false, false, sbOut);
+            //validNum(10101, "一萬零一百零一", false, false, sbOut);
+            //validNum(10110, "一萬零一百一十", false, false, sbOut);
+            //validNum(10111, "一萬零一百一十一", false, false, sbOut);
+            //validNum(11000, "一萬一千", false, false, sbOut);
+            //validNum(100000, "十萬", false, false, sbOut);
+            //validNum(1000000, "一百萬", false, false, sbOut);
+            //validNum(98765, "九萬八千七百六十五", false, false, sbOut);
+            //validNum(43210, "四萬三千二百一十", false, false, sbOut);
+            //validNum(13579, "一萬三千五百七十九", false, false, sbOut);
+            //validNum(24680, "二萬四千六百八十", false, false, sbOut);
+            //validNum(491423, "四十九萬一千四百二十三", false, false, sbOut);
+            //validNum(12100300, "一千二百一十萬零三百", false, false, sbOut);
+            //validNum(62304321, "六千二百三十萬零四千三百二十一", false, false, sbOut);
+            //validNum(123456789, "一億二千三百四十五萬六千七百八十九", false, false, sbOut);
+            //validNum(100000000, "一億", false, false, sbOut);
+            //validNum(100000001, "一億零一", false, false, sbOut);
+            //validNum(100001000, "一億零一千", false, false, sbOut);
+            //validNum(100010000, "一億零一萬", false, false, sbOut);
+            //validNum(100100000, "一億零一十萬", false, false, sbOut);
+            //validNum(430005100, "四億三千萬零五千一百", false, false, sbOut);
+            //validNum(5920001245, "五十九億二千萬零一千二百四十五", false, false, sbOut);
+            //validNum(9876543210, "九十八億七千六百五十四萬三千二百一十", false, false, sbOut);
+            //validNum(1000000000000, "一兆", false, false, sbOut);
+            //validNum(1000000000001, "一兆零一", false, false, sbOut);
+            //validNum(1000100010001, "一兆零一億零一萬零一", false, false, sbOut);
+            //validNum(1000000010000, "一兆零一萬", false, false, sbOut);
+            //validNum(1000100000000, "一兆零一億", false, false, sbOut);
+            //validNum(1000000010001, "一兆零一萬零一", false, false, sbOut);
+            //validNum(1000100000001, "一兆零一億零一", false, false, sbOut);
+            //validNum(10000100000001, "十兆零一億零一", false, false, sbOut);
+            //validNum(100000100000001, "一百兆零一億零一", false, false, sbOut);
+            //validNum(1000000100000001, "一千兆零一億零一", false, false, sbOut);
+            //validNum(10000000000000000, "一京", false, false, sbOut);
+            //validNum(10000000100000001, "一京零一億零一", false, false, sbOut);
+            //validNum(10000000010000000, "一京零一千萬", false, false, sbOut);
+            //validNum(10000000000000010, "一京零一十", false, false, sbOut);
+            //validNum(10000000000000001, "一京零一", false, false, sbOut);
+            //validNum(10101010101010101, "一京零一百零一兆零一百零一億零一百零一萬零一百零一", false, false, sbOut);
+            //validNum(88888888888888888, "八京八千八百八十八兆八千八百八十八億八千八百八十八萬八千八百八十八", false, false, sbOut);
+            //validNum(100100100100100100, "十京零一百兆零一千零一億零一十萬零一百", false, false, sbOut);
+
+            ////大寫中文數字
+            //validNum(0, "零", true, false, sbOut);
+            //validNum(1, "壹", true, false, sbOut);
+            //validNum(2, "貳", true, false, sbOut);
+            //validNum(3, "參", true, false, sbOut);
+            //validNum(4, "肆", true, false, sbOut);
+            //validNum(5, "伍", true, false, sbOut);
+            //validNum(6, "陸", true, false, sbOut);
+            //validNum(7, "柒", true, false, sbOut);
+            //validNum(8, "捌", true, false, sbOut);
+            //validNum(9, "玖", true, false, sbOut);
+            //validNum(10, "拾", true, false, sbOut);
+            //validNum(11, "拾壹", true, false, sbOut);
+            //validNum(12, "拾貳", true, false, sbOut);
+            //validNum(20, "貳拾", true, false, sbOut);
+            //validNum(21, "貳拾壹", true, false, sbOut);
+            //validNum(99, "玖拾玖", true, false, sbOut);
+            //validNum(100, "壹佰", true, false, sbOut);
+            //validNum(101, "壹佰零壹", true, false, sbOut);
+            //validNum(110, "壹佰壹拾", true, false, sbOut);
+            //validNum(111, "壹佰壹拾壹", true, false, sbOut);
+            //validNum(120, "壹佰貳拾", true, false, sbOut);
+            //validNum(200, "貳佰", true, false, sbOut);
+            //validNum(201, "貳佰零壹", true, false, sbOut);
+            //validNum(210, "貳佰壹拾", true, false, sbOut);
+            //validNum(999, "玖佰玖拾玖", true, false, sbOut);
+            //validNum(1000, "壹仟", true, false, sbOut);
+            //validNum(1001, "壹仟零壹", true, false, sbOut);
+            //validNum(1010, "壹仟零壹拾", true, false, sbOut);
+            //validNum(1011, "壹仟零壹拾壹", true, false, sbOut);
+            //validNum(1100, "壹仟壹佰", true, false, sbOut);
+            //validNum(1101, "壹仟壹佰零壹", true, false, sbOut);
+            //validNum(1110, "壹仟壹佰壹拾", true, false, sbOut);
+            //validNum(1111, "壹仟壹佰壹拾壹", true, false, sbOut);
+            //validNum(2345, "貳仟參佰肆拾伍", true, false, sbOut);
+            //validNum(6789, "陸仟柒佰捌拾玖", true, false, sbOut);
+            //validNum(10000, "壹萬", true, false, sbOut);
+            //validNum(10001, "壹萬零壹", true, false, sbOut);
+            //validNum(10010, "壹萬零壹拾", true, false, sbOut);
+            //validNum(10011, "壹萬零壹拾壹", true, false, sbOut);
+            //validNum(10100, "壹萬零壹佰", true, false, sbOut);
+            //validNum(10101, "壹萬零壹佰零壹", true, false, sbOut);
+            //validNum(10110, "壹萬零壹佰壹拾", true, false, sbOut);
+            //validNum(10111, "壹萬零壹佰壹拾壹", true, false, sbOut);
+            //validNum(11000, "壹萬壹仟", true, false, sbOut);
+            //validNum(100000, "拾萬", true, false, sbOut);
+            //validNum(1000000, "壹佰萬", true, false, sbOut);
+            //validNum(98765, "玖萬捌仟柒佰陸拾伍", true, false, sbOut);
+            //validNum(43210, "肆萬參仟貳佰壹拾", true, false, sbOut);
+            //validNum(13579, "壹萬參仟伍佰柒拾玖", true, false, sbOut);
+            //validNum(24680, "貳萬肆仟陸佰捌拾", true, false, sbOut);
+            //validNum(491423, "肆拾玖萬壹仟肆佰貳拾參", true, false, sbOut);
+            //validNum(12100300, "壹仟貳佰壹拾萬零參佰", true, false, sbOut);
+            //validNum(62304321, "陸仟貳佰參拾萬零肆仟參佰貳拾壹", true, false, sbOut);
+            //validNum(123456789, "壹億貳仟參佰肆拾伍萬陸仟柒佰捌拾玖", true, false, sbOut);
+            //validNum(100000000, "壹億", true, false, sbOut);
+            //validNum(100000001, "壹億零壹", true, false, sbOut);
+            //validNum(100001000, "壹億零壹仟", true, false, sbOut);
+            //validNum(100010000, "壹億零壹萬", true, false, sbOut);
+            //validNum(100100000, "壹億零壹拾萬", true, false, sbOut);
+            //validNum(430005100, "肆億參仟萬零伍仟壹佰", true, false, sbOut);
+            //validNum(5920001245, "伍拾玖億貳仟萬零壹仟貳佰肆拾伍", true, false, sbOut);
+            //validNum(9876543210, "玖拾捌億柒仟陸佰伍拾肆萬參仟貳佰壹拾", true, false, sbOut);
+            //validNum(1000000000000, "壹兆", true, false, sbOut);
+            //validNum(1000000000001, "壹兆零壹", true, false, sbOut);
+            //validNum(1000100010001, "壹兆零壹億零壹萬零壹", true, false, sbOut);
+            //validNum(1000000010000, "壹兆零壹萬", true, false, sbOut);
+            //validNum(1000100000000, "壹兆零壹億", true, false, sbOut);
+            //validNum(1000000010001, "壹兆零壹萬零壹", true, false, sbOut);
+            //validNum(1000100000001, "壹兆零壹億零壹", true, false, sbOut);
+            //validNum(10000100000001, "拾兆零壹億零壹", true, false, sbOut);
+            //validNum(100000100000001, "壹佰兆零壹億零壹", true, false, sbOut);
+            //validNum(1000000100000001, "壹仟兆零壹億零壹", true, false, sbOut);
+            //validNum(10000000000000000, "壹京", true, false, sbOut);
+            //validNum(10000000100000001, "壹京零壹億零壹", true, false, sbOut);
+            //validNum(10000000010000000, "壹京零壹仟萬", true, false, sbOut);
+            //validNum(10000000000000010, "壹京零壹拾", true, false, sbOut);
+            //validNum(10000000000000001, "壹京零壹", true, false, sbOut);
+            //validNum(10101010101010101, "壹京零壹佰零壹兆零壹佰零壹億零壹佰零壹萬零壹佰零壹", true, false, sbOut);
+            //validNum(88888888888888888, "捌京捌仟捌佰捌拾捌兆捌仟捌佰捌拾捌億捌仟捌佰捌拾捌萬捌仟捌佰捌拾捌", true, false, sbOut);
+            //validNum(100100100100100100, "拾京零壹佰兆零壹仟零壹億零壹拾萬零壹佰", true, false, sbOut);
+
+            //小寫中文數字  "一十"測試
+            //validNum(10, "一十", false, true, sbOut);
+            //validNum(11, "一十一", false, true, sbOut);
+            //validNum(12, "一十二", false, true, sbOut);
+            //validNum(19, "一十九", false, true, sbOut);
+            //validNum(110, "一百一十", false, true, sbOut);
+            //validNum(111, "一百一十一", false, true, sbOut);
+            //validNum(210, "二百一十", false, true, sbOut);
+            //validNum(1010, "一千零一十", false, true, sbOut);
+            //validNum(1011, "一千零一十一", false, true, sbOut);
+            //validNum(1110, "一千一百一十", false, true, sbOut);
+            //validNum(1111, "一千一百一十一", false, true, sbOut);
+            //validNum(100000, "一十萬", false, true, sbOut);
+            //validNum(100100000, "一億零一十萬", false, true, sbOut);
+            return sbOut.ToString();
+        }
