@@ -1,0 +1,13 @@
+v-bind:屬性=“變數”
+v-bind:屬性=“{ code:1,name:"xx"}”  物件變數
+v-bind:屬性=“ ‘字串'+變數”
+v-bind:屬性=“ ‘字串${變數}字串'”
+v-bind:屬性="function(var)"
+v-bind:[動態屬性]="變數"
+
+:placeholder="`請輸入 ${KeyWordTypeName} 搜尋內容`"
+
+:src="'img/'+(item+nameIndex)+'.jpg'"
+
+
+https://vuejs.org/guide/essentials/template-syntax.html
