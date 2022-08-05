@@ -1,0 +1,16 @@
+api string field not null 問題
+
+
+呼叫api時，字串屬性沒有傳入或為null，丟出 "The xxx field is required." 問題，是 .NET 6 預設string不可為null
+
+
+如果要調整成nullable就要改.csproj把enable改成disable
+ 
+   <PropertyGroup>
+        <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  或是針對屬性加?號
+  
+  
+https://docs.microsoft.com/zh-tw/dotnet/csharp/nullable-references#nullable-contexts  
