@@ -1,0 +1,173 @@
+用了Dapper之後通篇還是SqlConnection，真的看不下去了
+一：背景
+1. 講故事
+前幾天看公司一個新項目的底層使用了dapper，大家都知道dapper是一個非常強大的半自動化orm，
+幫程序員解決了繁瑣的mapping問題，用起來非常爽，但我還是遇到了一件非常不爽的事情,如下代碼所示：
+
+    public class UserDAL : BaseDAL
+    {
+        public List<UserModel> GetList()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                var list = conn.Query<UserModel>("select * from users").ToList();
+
+                return list;
+            }
+        }
+
+        public bool Insert()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                var execnum = conn.Execute("insert into xxx ");
+
+                return execnum > 0;
+
+            }
+        }
+
+        public bool Update()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                var execnum = conn.Execute("update xxx ....");
+
+                return execnum > 0;
+            }
+        }
+    }
+
+    public class UserModel {}
+
+掃一下代碼是不是總感覺哪裡不對勁，是的，為了能使用上Dapper的擴展方法，
+這裡面每個方法中都配上了模板化的using (SqlConnection conn = new SqlConnection(ConnectionString))，
+雖然這樣寫邏輯上沒有任何問題，但我有潔癖哈，接下來試著封裝一下，嘿嘿，用更少的代碼做更多的事情。
+
+二：模板化代碼封裝探索
+1. 將模板化的代碼提取到父類中
+仔細看上面的模板代碼你會發現，真正的業務邏輯是寫在 using 中的，而該塊中只需要拿到一個 conn 就可以了，
+其他的統一提取封裝到父類中，這就可以用到 委托函数啦，對不對，用這個思路代碼修改如下：
+
+
+    public class BaseDAL
+    {
+        protected string ConnectionString { get; set; }
+
+        public T Execute<T>(Func<SqlConnection, T> func)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                return func(connection);
+            }
+        }
+    }
+
+有了父類通用的 Execute 方法，接下來子類中就可以直接用它啦，改造如下：
+
+  public class UserDAL : BaseDAL
+    {
+        public List<UserModel> GetList()
+        {
+            return Execute((conn) =>
+            {
+                var list = conn.Query<UserModel>("select * from users").ToList();
+                return list;
+            });
+        }
+
+        public bool Insert()
+        {
+            return Execute((conn) =>
+            {
+                var execnum = conn.Execute("insert into xxx ");
+                return execnum > 0;
+            });
+        }
+
+        public bool Update()
+        {
+            return Execute((conn) =>
+            {
+                var execnum = conn.Execute("update xxx ....");
+                return execnum > 0;
+            });
+        }
+    }
+
+改造之後代碼是不是清晰多了，僅僅這一個通用方法貌似還不行，起碼 ConnectionString 不能框死。
+
+2. 增加ConnectionString 入口參數
+相信有不少朋友的公司是做ToB 的業務，一般是一個商家一個DB的設計思路，這裡就需要在Execute 
+上增加一個ConnectionString 字符串參數，你可以通過重載方法或者可選參數，改造如下：
+
+	public T Execute<T>(Func<SqlConnection, T> func)
+	{
+		return Execute(ConnectionString, func);
+	}
+
+	public T Execute<T>(string connectionString, Func<SqlConnection, T> func)
+	{
+		using (SqlConnection connection = new SqlConnection(connectionString ?? ConnectionString))
+		{
+			return func(connection);
+		}
+	}
+
+
+	public class UserDAL : BaseDAL
+	{
+		public List<UserModel> GetList(string connectionString)
+		{
+			return Execute(connectionString, (conn) =>
+			{
+				var list = conn.Query<UserModel>("select * from users").ToList();
+				return list;
+			});
+		}
+	}
+這樣看起來就舒服多了，不過還有一個問題，我們的程序是給客戶獨立部署的，越簡單越好，否則實施人員會砍人的，
+所以很多用戶操作和api軌跡行為都記錄到了sqlserver中，這裡就有一個 业务表 和一個事务日志表，而且要作為原子化提交，這裡就涉及到了事務操作。
+
+2. 支持事務操作
+因為有同時插入兩張表的業務邏輯，免不了使用transaction，接下來繼續擴展Execute 方法，代碼如下：
+
+
+	public T Execute<T>(Func<SqlConnection, SqlTransaction, T> func)
+	{
+		return Execute(ConnectionString, func);
+	}
+
+	public T Execute<T>(string connectionString, Func<SqlConnection, SqlTransaction, T> func)
+	{
+		using (SqlConnection connection = new SqlConnection(connectionString ?? ConnectionString))
+		{
+			connection.Open();
+			using (var transaction = connection.BeginTransaction())
+			{
+				return func(connection, transaction);
+			}
+		}
+	}
+
+上面的代碼應該很好理解，將 transaction 作為回調函數的參數，業務邏輯部分直接將 transaction 
+塞入到各自的業務代碼中即可，子類可以改造如下：
+
+	public bool Insert()
+	{
+		return Execute((conn, trans) =>
+		{
+			var execnum = conn.Execute("insert into xxx ", transaction: trans);
+			if (execnum == 0) return false;
+	 
+			var execnum2 = conn.Execute("update xxx set xxx", transaction: trans);
+			if (execnum2 > 0) trans.Commit();
+
+			return execnum > 0;
+		});
+	}
+
+這樣 Execute 對transaction 的支持貌似也差不多了,異步版的我就不在此封裝啦。
+
+四： 總結
+文章來源於工作中的點點滴滴，這也是我的即興封裝，大家要是有更好的封裝代碼，歡迎交流，獨樂樂不如眾樂樂，本篇就說到這裡啦，希望對您有幫助。
