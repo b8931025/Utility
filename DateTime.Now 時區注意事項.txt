@@ -1,0 +1,5 @@
+DateTime.Now 時區注意事項
+
+某些雲端主機時區不一樣，用DateTime.Now會和台灣不一樣
+
+所以用 DateTime.UtcNow.AddHours(8) 可以避免這種問題
