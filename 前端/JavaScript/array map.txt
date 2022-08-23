@@ -1,0 +1,3 @@
+    let students = ["Judy","Sushan","Evonne"]
+    let classmates = students.map((val,idx)=>({ no:(idx+1) , name:val }))
+    //output: [{"no":1,"name":"Judy"},{"no":2,"name":"Sushan"},{"no":3,"name":"Evonne"}]

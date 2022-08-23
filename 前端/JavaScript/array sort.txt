@@ -1,0 +1,28 @@
+  //normal array
+  let array1 = ["c","a","t"]
+
+  //Object array
+  let array2 = [{"name": "john","age":18},
+                {"name": "miak","age":20},
+                {"name": "adam","age":30}]
+
+  //一般排序
+  array1.sort()
+
+  //Object排序
+  array2.sort((a,b)=>{
+    if (a.name > b.name) return 1;  //回傳值大於0則b在前
+    if (a.name < b.name) return -1; //回傳值小於0則a在前
+    return 0;
+  })
+  
+  //亂數排序
+  var array3 = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  array3.sort(function(a, b) {
+    return 0.5 - Math.random();
+  });  
+
+  console.log(array1) //output:[ 'a', 'c', 't' ]
+  console.log(array2) //output:[{ name: 'adam', age: 30 }, { name: 'john', age: 18 }, { name: 'miak', age: 20 }]
+  console.log(array3) //output:[7, 4, 8, 1, 2, 5, 6, 3]

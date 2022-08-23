@@ -1,0 +1,17 @@
+  //normal array
+  let array1 = ["c","a","t"]
+
+  //Object array
+  let array2 = [{"name": "john","age":18},
+                {"name": "mike","age":20},
+                {"name": "adam","age":30}]
+  
+  //array index
+  let index1 = array1.indexOf("t")
+
+  //Object index
+  let index2 = array2.map(x=>x.name).indexOf("adam")
+
+
+  console.log(index1) //output: 2
+  console.log(index2) //output: 2
