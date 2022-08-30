@@ -1,13 +1,36 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+如果驗證沒過，會回傳 http 400 bad request
 
 [Required(ErrorMessage = "密碼必輸")]
-
-
 [StringLength(5,ErrorMessage = "不可超過5個字")]    
-
-
 [Range( 0,100,ErrorMessage = "範圍限0到100")]
-
-
 [RegularExpression(@"\d{5}")]
+
+
+[CreditCard]：驗證屬性是否符合信用卡格式。
+[Compare]：驗證模型中的兩個屬性是否相符。
+[EmailAddress]：驗證屬性是否符合電子郵件格式。
+[Phone]：驗證屬性是否符合電話號碼格式。
+[Range]：驗證屬性值是否落在指定的範圍內。
+[RegularExpression]：驗證屬性值是否符合指定的正則運算式。
+[Required]：驗證欄位不是 null。
+[StringLength]：驗證字串屬性值不超過指定的長度限制。
+[Url]：驗證屬性是否具有 URL 格式。
+[Remote]：在伺服器上呼叫動作方法，以驗證用戶端上的輸入。
+
+
+public class DemoUser
+{
+    [Required]
+    [StringLength(6, ErrorMessage = "名字長度必須介於 {2} 到 {1}個字", MinimumLength = 2)]
+    public string Name { get; set; }
+    [Range(5,50)]
+    public int Age { get; set; }
+    [Required(ErrorMessage = "Email 為必填")]
+    [EmailAddress]
+    public string Email { get; set; }
+    public string Password { get; set; }
+    [Compare("Password")]
+    public string ConfirmPassword { get; set; }
+}
