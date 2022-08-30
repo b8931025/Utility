@@ -1,0 +1,12 @@
+FromSqlRaw
+
+FromSqlRaw只能用在DbSet<>上
+var posts = context.Posts.FromSqlRaw("SELECT * FROM dbo.Posts").ToList();
+
+執行預存程序(Stored Procedure)
+var posts = context.Posts.FromSqlRaw("EXECUTE dbo.GetNewsPosts").ToList();
+
+使用參數
+var user = "John";
+var posts = context.Posts.FromSqlRaw("EXECUTE dbo.GetNewsPosts {0}", user).ToList();    //會有SQL injection
+var posts = context.posts.FromSqlInterpolated($"EXECUTE dbo.GetNewsPosts {user}").ToList();  //會自動轉換成DbParameter
