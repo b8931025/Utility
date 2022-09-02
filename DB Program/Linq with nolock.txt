@@ -1,0 +1,6 @@
+	var options = new TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }; //等於nolock
+	using (var scope = new TransactionScope(TransactionScopeOption.Required, options)) {
+	
+		// linq or entity framework query something	 
+
+	}
