@@ -1,0 +1,22 @@
+using System.Transactions
+
+	public static TransactionScope CreateAsyncTransactionScope(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+	{
+		var transactionOptions = new TransactionOptions
+		{
+			IsolationLevel = isolationLevel,
+			Timeout = TransactionManager.MaximumTimeout
+		};
+		return new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+	}
+	
+	using (var tran = CreateAsyncTransactionScope())
+	{
+		using (var conn = new SqlConnection(dbcontext.Database.GetConnectionString()))
+		{
+			conn.Open();
+			
+			//some sql 
+		}
+		tran.Complete();
+	}	
