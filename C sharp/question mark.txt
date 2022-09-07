@@ -1,5 +1,5 @@
 	List<string> obj = null;
-	string obj2 = null;
+	string? obj2 = null;
 
 	//??
 	string result = obj2 ?? "none";  // result=none
@@ -9,3 +9,7 @@
 
 	//?. 或 ?[]
 	result = obj?.Count.ToString(); // result=null
+	
+	
+	//??=
+	obj2 ??= "val"; //if (obj2 is null) obj2 = "val";
