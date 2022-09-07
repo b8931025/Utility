@@ -12,6 +12,7 @@ using System.Transactions
 	
 	using (var tran = CreateAsyncTransactionScope())
 	{
+		//linq可不用 Connection
 		using (var conn = new SqlConnection(dbcontext.Database.GetConnectionString()))
 		{
 			conn.Open();
