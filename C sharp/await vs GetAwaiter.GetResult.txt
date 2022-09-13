@@ -1,0 +1,125 @@
+結論:GetAwaiter().GetResult() 取代 await 會比較好
+GetAwaiter().GetResult()會直接丟出實際發生的Exception不會包在AggregateException 裡面
+await的錯誤有可能會被try catch往外丟，因為是Fire and Forget(射後不理)
+
+namespace AsyncTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Test("Wait()", () =>
+            {
+                RaiseErrorAsync().Wait();
+            });
+            Test("Result", () =>
+            {
+                var s = RaiseErrorAsync().Result;
+            });
+            Test("GetAwaiter().GetResult()", () =>
+            {
+                var s = RaiseErrorAsync().GetAwaiter().GetResult();
+            });
+            Test("Fire and Forget", async () =>
+            {
+                var s = await RaiseErrorAsync();
+            });
+            Console.WriteLine("Done!");
+        }
+
+        static void Test(string testName, Action callback)
+        {
+            Console.WriteLine("=================================");
+            Console.WriteLine($"Test {testName}");
+            Console.WriteLine($"Start {DateTime.Now:mm:ss}");
+            try
+            {
+                callback();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Stop {DateTime.Now:mm:ss}");
+                Console.WriteLine("Error: " + ex.Message);
+                if (ex.InnerException != null)
+                    Console.WriteLine("Inner Error: " + ex.InnerException.Message);
+            }
+        }
+
+        static async Task<string> RaiseErrorAsync()
+        {
+            Thread.Sleep(2000);
+            if (DateTime.Now.CompareTo(new DateTime(2012,12,21)) > 0) 
+                throw new ApplicationException("刻意產生錯誤");
+            return DateTime.Now.ToString();
+        }
+    }
+}
+
+
+實測結果如下：
+=================================
+Test Wait()
+Start 03:28
+Stop 03:30
+Error: One or more errors occurred. (刻意產生錯誤)
+Inner Error: 刻意產生錯誤
+=================================
+Test Result
+Start 03:30
+Stop 03:32
+Error: One or more errors occurred. (刻意產生錯誤)
+Inner Error: 刻意產生錯誤
+=================================
+Test GetAwaiter().GetResult()
+Start 03:32
+Stop 03:34
+Error: 刻意產生錯誤
+=================================
+Test Fire and Forget
+Start 03:34
+Done!
+
+
+修改一下程式，印出 Done! 之後我們再等 5 秒。
+//...以上省略...
+	Console.WriteLine("Done!");
+	Thread.Sleep(5000);
+}
+
+實測結果如下：
+=================================
+Test Wait()
+Start 07:30
+Stop 07:32
+Error: One or more errors occurred. (刻意產生錯誤)
+Inner Error: 刻意產生錯誤
+=================================
+Test Result
+Start 07:32
+Stop 07:34
+Error: One or more errors occurred. (刻意產生錯誤)
+Inner Error: 刻意產生錯誤
+=================================
+Test GetAwaiter().GetResult()
+Start 07:34
+Stop 07:36
+Error: 刻意產生錯誤
+=================================
+Test Fire and Forget
+Start 07:36
+Done!
+Unhandled exception. System.ApplicationException: 刻意產生錯誤
+   at AwaitTest.Program.RaiseErrorAsync() in D:\tmp\AwaitTest\AwaitTest\Program.cs:line 53
+   at AwaitTest.Program.<>c.<<Main>b__0_3>d.MoveNext() in D:\tmp\AwaitTest\AwaitTest\Program.cs:line 24
+--- End of stack trace from previous location ---
+   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__140_1(Object state)
+   at System.Threading.QueueUserWorkItemCallbackDefaultContext.Execute()
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+   
+   
+   
+   
+   
+https://blog.darkthread.net/blog/getawaiter-getresult-vs-result/
+   
