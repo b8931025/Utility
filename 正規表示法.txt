@@ -5,3 +5,35 @@ Unix
 
 反斜線後面所有的字串(檔名)
 \\[.\w]+$
+
+trim right
+[Notepad]
+search:(\t| )+\r\n 
+replace:\r\n
+
+多行空白變一行
+[Notepad]
+search:(\r\n){3,}
+replace:\r\n\r\n
+
+[C#]
+search:(\r\n){3,}
+replace:Environment.NewLine + Environment.NewLine
+
+將比對到的值修改
+[JavaScript] 
+let txt = 'haha 123 33 567 9999'
+let replaceFunc = (match, idx, oldValue) => `[${match}]`;
+let result = txt.replace(/\d{2,}/g,replaceFunc)
+輸出:haha [123] 33 [567] [9999]
+
+[C#]
+string txt = "haha 123 33 567 9999";
+Regex reg = new Regex("\\d{3,4}");
+string newS = reg.Replace(txt, new MatchEvaluator(m => $"[{m.ToString()}]"));
+輸出:haha [123] 33 [567] [9999]
+
+檢查
+數字(含小數點，含負號)
+大小寫
+
