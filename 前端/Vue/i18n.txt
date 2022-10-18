@@ -1,0 +1,21 @@
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
+
+  <h2>{{ t('routes.content.post.index.title') }}</h2>
+
+
+D:\project\Git\OBStyleService_Vue\src\vben-admin-thin\src\locales\lang\zh-TW\routes\content\post.ts
+export default {
+  index: {
+    title: '文章管理',
+  },
+  info: {
+    new: {
+      title: '文章新增',
+      action: '新增文章',
+    },
+    edit: {
+      title: '文章編輯',
+    },
+  },
+};

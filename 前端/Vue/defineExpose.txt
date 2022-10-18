@@ -1,0 +1,33 @@
+defineExpose
+
+這個方法是vue3 3.2+ 版本新增的，
+子组件可以通过 expose 暴露自身的方法和数据。
+父组件通过 ref 获取到子组件并调用其方法或访问数据。
+
+
+# Child code
+<script setup>
+import {ref} from "vue";
+
+function childFn() {
+	console.log('我是子组件');
+}
+
+const msg = 'Hello World';
+const num = ref(0);
+
+defineExpose({ msg, num });
+</script>
+
+# Parent code
+<Index ref="I"></Index>
+
+<script setup>
+import Index from "./index.vue";
+
+const I = ref(null);
+
+function test() {
+	console.log(I.value.msg) // Hello World
+}
+</script>

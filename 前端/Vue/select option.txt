@@ -1,0 +1,22 @@
+	<Select
+	  default-value=""
+	  v-model:value="memberInfo.roleId"
+	  size="small"
+	>
+	  <SelectOption value="">請選擇</SelectOption>
+	  <SelectOption v-for="item in roleList" :key="item.id">{{item.title}}</SelectOption>
+	</Select>
+
+  interface StoreSelectOption {
+    id: string;
+    title: string;
+  }  
+  const roleList = reactive([] as Array<StoreSelectOption>);
+
+//in onMounted
+  const { roles } = await getRoleList();
+  roleList.push(
+	...roles.map((x) => {
+	  return { id: x.id, title: x.name } as StoreSelectOption;
+	}),
+  );  

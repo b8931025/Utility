@@ -1,0 +1,23 @@
+Vue中ref屬性類似於原生中的id，但是兩個還是有嚴格意義上的區別的
+
+ref屬性簡介
+被用來給元素或子組件註冊引用信息（ID的替代者）
+在html上獲取的是DOM元件，在組件上是實例物件(rander後的vue 物件)
+
+用法
+<h1 ref='xxx'> 
+or 
+<School ref='xxx'/>
+
+取值
+ref => this.$refs.xxx
+id => document.getElementById("xxx")
+
+拿到組件實例我們可以直接更改組件的數據，以及觸發組件的方法
+	this.$refs.xxx.num += 1;
+	this.$refs.xxx.Subcomponents();
+
+
+$refs:一個物件，持有註冊過ref 特性的所有DOM 元素和組件實例
+注意：$refs只會在組件渲染完成之後生效，並且它們不是響應式的。
+這只意味著一個直接的子組件封裝的“逃生艙”——你應該避免在模板或計算屬性中訪問$refs

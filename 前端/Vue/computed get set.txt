@@ -1,0 +1,17 @@
+
+
+Vue3.2版後 setup 語法
+// 簡單寫法
+const blockTypeCom = computed(() => {
+    return state.blockType;
+})
+
+// 完整寫法
+const blockTypeCom = computed({
+	get(){
+	  return state.blockType;
+	},
+	set(value){
+	  state.blockType = value;      
+	}
+})

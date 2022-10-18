@@ -1,0 +1,116 @@
+Form需要加入ref / rules / model屬性
+ref就是對這個Form識別代號，相當於html中的id，只是vue都用$refs屬性去保存所有用ref宣告的實例DOM物件
+rules是每個control的validate function
+model是這個form要操作的data model
+
+需要驗證的FormItem需要加入name屬性，rules的name就是和這個FormItem的name產生對映
+
+參考 https://www.antdv.com/components/form-cn#components-form-demo-custom-validation
+
+view
+<Form ref="formRef" :rules="formRules" :model="dataForm" >
+	<FormItem label="館架名稱" labelAlign="left" :labelCol="labelColSetting1" :name="['pageName']">
+	  <Input
+		type="text"
+		v-model:value="dataForm.pageName"
+	  />
+	</FormItem>
+	
+	<FormItem
+	  label="展示時間"
+	  :name="['postDate']"
+	>
+	  <DatePicker.RangePicker
+		style="width: 100%"
+		v-model:value="state.postDateRange"
+		:format="dateTimeFormat"
+		@change="onPostsDateChange"
+		:show-time="{ format: 'hh:mm',minuteStep: 60 }" 
+	  />
+	</FormItem>	
+	
+	<FormItem label="Icon" labelAlign="left" :labelCol="labelColSetting1" :name="['nodeIcon']">
+	  <div class="viewImageBox" v-if="isView">
+		<Image :src="dataForm.imgUrl"> </Image>
+	  </div>
+	  <div v-else>
+		<div class="upload-iconBox">
+		  <Upload
+			name="nodeIcon"
+			list-type="picture-card"
+			class="nodeIcon-uploader upload-custom-fullsize"
+			:multiple="false"
+			:showUploadList="false"
+			:customRequest="handleCustomRequest"
+			:before-upload="handleBeforeUpload"
+			:disabled="dataForm.imgUrl !== ''"
+			style="width: 100px"
+		  >
+			<Image
+			  :src="dataForm.imgUrl"
+			  style="object-fit: contain"
+			  v-if="dataForm.imgUrl"
+			/>
+			<div v-else>
+			  <CloudUploadOutlined :style="{ fontSize: '25px' }" v-if="!imgLoading" />
+			  <LoadingOutlined :style="{ fontSize: '25px' }" v-else />
+			  <div class="ant-upload-text">上傳圖片</div>
+			</div>
+
+			<div class="imageFunctionCover" v-if="dataForm.imgUrl">
+			  <Button class="img-remove" size="small" @click="imgRemove" danger>
+				<template #icon><DeleteOutlined /></template>
+			  </Button>
+			</div>
+		  </Upload>
+		</div>
+	  </div>
+	</FormItem>
+	
+	<Button type="primary" @click="handleSubmit" >新增</Button>
+</Form>
+
+  import { FormInstance } from 'ant-design-vue';
+  import type { Rule } from 'ant-design-vue/es/form';
+  
+  const FormValidate = {
+    vPageName : async (_rule: Rule, value: []) => {
+      if(!dataForm.pageName) {
+        return Promise.reject('請輸入館架名稱');
+      } else {
+        return Promise.resolve();
+      }
+    },
+    vPostDate : async (_rule: Rule, value: []) => {
+      if(!dataForm.postDateBgn || !dataForm.postDateEnd) {
+        return Promise.reject('請輸入展示時間');
+      } else {
+        return Promise.resolve();
+      }
+    },
+    vNodeIcon : async (_rule: Rule, value: []) => {
+      if (!dataForm.imgUrl) {
+        return Promise.reject('請上傳圖片');
+      } else {
+        return Promise.resolve();
+      }
+    },
+  };  
+  const formRef = ref<FormInstance>();
+  const formRules: Record<string, Rule[]> = {
+    pageName: [{ required: true, validator: FormValidate.vPageName, trigger: 'change' }],
+    postDate: [{ required: true, validator: FormValidate.vPostDate, trigger: 'change' }],
+    nodeIcon: [{ required: true, validator: FormValidate.vNodeIcon, trigger: 'change' }],
+  };
+  
+  const handleSubmit = async () => {
+    //驗證
+    formRef.value.validate()
+    .then(async() => {      
+      //更新成功
+
+    })
+    .catch((error) => {
+      //驗證失敗
+    });
+  };  

@@ -1,0 +1,54 @@
+<DatePicker.RangePicker style="width: 100%"
+	v-model:value="postDate.postDateRange"
+	:ranges="postDate.postDateRangesOptions"    << 日期下面的區間選項 ex:本週、本月、過去60天...
+	:format='dateFormat'                        << 日期的顯示格式
+	@change="onPostsDateChange"
+/>
+
+  const onPostsDateChange = (dates: any, dateString: string[]) => {
+    searchForm.postDateBgn = dateString[0];
+    searchForm.postDateEnd = dateString[1];
+  };
+  
+  const dateFormat = "YYYY-MM-DD"
+
+  //預設日期區間
+  const dateBgn_format = moment().subtract(3, 'months').format(dateFormat); //開始日期_預設_3個月前
+  const dateEnd_format = moment().format(dateFormat); //結束日期_預設_今天
+  const searchForm = reactive({
+    postDateBgn: dateBgn_format,
+    postDateEnd: dateEnd_format,
+  });  
+
+  //日期區間選項
+const dateRangesOptions = {
+  本週: [
+	dayjs(moment().startOf('week').format(dateFormat), dateFormat),
+	dayjs(moment().endOf('week').format(dateFormat), dateFormat),
+  ],
+  上週: [
+	dayjs(moment().startOf('week').subtract(1, 'weeks').format(dateFormat), dateFormat),
+	dayjs(moment().endOf('week').subtract(1, 'weeks').format(dateFormat), dateFormat),
+  ],
+  本月: [
+	dayjs(moment().startOf('month').format(dateFormat), dateFormat),
+	dayjs(moment().endOf('month').format(dateFormat), dateFormat),
+  ],
+  上月: [
+	dayjs(moment().startOf('month').subtract(1, 'months').format(dateFormat), dateFormat),
+	dayjs(moment().endOf('month').subtract(1, 'months').format(dateFormat), dateFormat),
+  ],
+};
+const dateRangesDays = [7, 14, 30, 60, 90, 180];
+dateRangesDays.forEach((e) => {
+  const n = `過去${e}天`;
+  dateRangesOptions[n] = [
+	dayjs(moment().subtract(e, 'days').format(dateFormat), dateFormat),
+	dayjs(moment().format(dateFormat), dateFormat),
+  ];
+});
+
+  const postDate = reactive({
+    postDateRange: [dayjs(dateBgn_format, dateFormat), dayjs(dateEnd_format, dateFormat)],
+    postDateRangesOptions: unref(dateRangesOptions),
+  });

@@ -1,0 +1,15 @@
+D:\project\Git\OBStyleService\src\vben-admin-thin\node_modules\@iconify\json\json\  裡面有各式各樣的icon設定
+
+像carbon.json這個檔，打開可以看到author下的url
+https://github.com/carbon-design-system/carbon/tree/main/packages/icons
+這個github的頁面就可以找到icon的清單
+https://carbon-elements.netlify.app/icons/examples/preview/
+
+carbon
+https://carbon-elements.netlify.app/icons/examples/preview/
+
+ep
+https://icon-sets.iconify.design/ep/page-2.html
+
+ic
+https://icon-sets.iconify.design/ic/

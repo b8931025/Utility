@@ -1,0 +1,3 @@
+import { useMessage } from '/@/hooks/web/useMessage';
+const { createMessage } = useMessage();
+createMessage.error('圖片必須是 jpeg png');

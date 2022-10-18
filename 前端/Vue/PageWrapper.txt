@@ -1,0 +1,21 @@
+slot headerContent 設定header
+<template>
+  <PageWrapper>
+    <template #headerContent>
+      <div class="headerContent">
+        <div>
+          <h2>{{ t('routes.content.post.index.title') }}</h2>
+        </div>
+        <div>
+          <Button type="primary" class="ant-btn-addNew" @click="handleAddNew">
+            <template #icon><FileAddOutlined /></template>
+            {{ t('routes.content.post.info.new.action') }}
+          </Button>
+        </div>
+      </div>
+    </template>
+	......
+	
+	
+  </PageWrapper>
+</template>
