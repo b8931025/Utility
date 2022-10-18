@@ -1,0 +1,4 @@
+python -m pip install --upgrade pip  --trusted-host mirrors.aliyun.com
+
+pip install [要安裝的package]  --trusted-host mirrors.aliyun.com
+
