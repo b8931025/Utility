@@ -13,3 +13,7 @@ https://icon-sets.iconify.design/ep/page-2.html
 
 ic
 https://icon-sets.iconify.design/ic/
+
+ph
+https://phosphoricons.com/
+

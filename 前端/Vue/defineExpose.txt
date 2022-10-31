@@ -20,14 +20,14 @@ defineExpose({ msg, num });
 </script>
 
 # Parent code
-<Index ref="I"></Index>
+<Index ref="I"></Index>                          <<-- here
 
 <script setup>
 import Index from "./index.vue";
 
-const I = ref(null);
+const I = ref(null);                             <<-- here
 
 function test() {
-	console.log(I.value.msg) // Hello World
+	console.log(I.value.msg) // Hello World      <<-- here
 }
 </script>
