@@ -103,6 +103,22 @@ view
     nodeIcon: [{ required: true, validator: FormValidate.vNodeIcon, trigger: 'change' }],
   };
   
+  const handleCustomRequest = async (info: UploadChangeParam<UploadFile>) => {
+    imgLoading.value = true;
+
+    setTimeout(() => {
+      dataForm.imgFile = info;
+      getBase64WithFile(unref(info.file as RcFile)).then((res) => {
+        dataForm.imgUrl = res.result;
+        imgLoading.value = false;
+		
+        //圖片上傳成功後，執行onSuccess後才會再驗證formRules        <<注意>>
+		//參考 https://github.com/react-component/upload#customrequest
+        info.onSuccess();
+      });
+    }, 100);
+  };  
+  
   const handleSubmit = async () => {
     //驗證
     formRef.value.validate()
