@@ -3,6 +3,8 @@
 	:ranges="postDate.postDateRangesOptions"    << 日期下面的區間選項 ex:本週、本月、過去60天...
 	:format='dateFormat'                        << 日期的顯示格式
 	@change="onPostsDateChange"
+    :show-time="{ format: 'hh:mm',minuteStep: 60 }"    << 分鐘只顯示00
+
 />
 
   const onPostsDateChange = (dates: any, dateString: string[]) => {

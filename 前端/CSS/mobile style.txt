@@ -1,0 +1,9 @@
+要加這一行，@media才會有作用 
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+
+<style>
+     @media screen and (max-width:900px) {}
+     @media screen and (min-width:900px) and (max-width:1200px) {}
+     @media screen and (min-width:1200px) {}
+</style>
