@@ -1,48 +1,40 @@
 import { formatToDateTime } from '/@/utils/dateJsUtil';
-x.birthday = formatToDateTime(x.birthday, 'YYYY-MM-DD');
-
 import dayjs, { Dayjs } from 'dayjs'; 日期物件 
-import moment from 'moment'; 將日期格式化
-const dateBgn_default = moment().subtract(3, 'months'); //開始日期_預設_3個月前
-const dateEnd_default = moment(); //結束日期_預設_今天
-
+import moment,{ Moment } from 'moment'; 將日期格式化
 const dateFormat = "YYYY-MM-DD"
 
-const dateRangesOptions = {
-  本週: [
-    dayjs(moment().startOf('week').format(dateFormat), dateFormat),
-    dayjs(moment().endOf('week').format(dateFormat), dateFormat),
-  ],
-  上週: [
-    dayjs(moment().startOf('week').subtract(1, 'weeks').format(dateFormat), dateFormat),
-    dayjs(moment().endOf('week').subtract(1, 'weeks').format(dateFormat), dateFormat),
-  ],
-  本月: [
-    dayjs(moment().startOf('month').format(dateFormat), dateFormat),
-    dayjs(moment().endOf('month').format(dateFormat), dateFormat),
-  ],
-  上月: [
-    dayjs(moment().startOf('month').subtract(1, 'months').format(dateFormat), dateFormat),
-    dayjs(moment().endOf('month').subtract(1, 'months').format(dateFormat), dateFormat),
-  ],
-};
+將日期格式化 string,Dayjs,Moment 皆可
+x.birthday = formatToDateTime(x.birthday, 'YYYY-MM-DD');
 
+當下的時間
+let now : Moment = moment()
+string to 物件
+let bday : Moment = moment('1981-10-19 13:30:00')
+物件 to string 
+now.format(dateFormat)
 
 本週第一天
-moment().startOf('week').format(dateFormat)
+moment().startOf('week')
 本週最後一天
-moment().endOf('week').format(dateFormat)
+moment().endOf('week')
 本月第一天
-moment().startOf('month').format(dateFormat)
+moment().startOf('month')
 本月最後一天
-moment().endOf('month').format(dateFormat)
+moment().endOf('month')
+加一天
+moment().add(1,'day')
+減一天
+moment().add(-1,'day')
+moment().subtract(1,'day')
 
 string to 物件
 let t:dayjs.Dayjs = dayjs('2019-01-01 11:11:59');
 物件 to string
 t.format('YYYY-MM-DD hh:mm:ss')
 
+當下的時間
+let now : Dayjs= dayjs()
 加一天
 t = t.add(1, 'days');
-加一秒
-t = t.add(1, "second");
+減一天
+t = t.add(-1, 'days');
