@@ -1,0 +1,20 @@
+--一欄
+from a in tableA
+group a by a.Spec1 into newGroup
+select new { 
+  newGroup.Key,
+  maxWeight = newGroup.Max(x => x.Weight), 
+  minWeight = newGroup.Min(x => x.Weight),
+  count = newGroup.Count(),
+}
+
+--多欄位
+from a in series
+ group a by new { a.SeriesName, a.PromotionDate, a.Brand } into g
+ select new TagsBoardDetailProductPriceData() {
+	SeriesName = g.Key.SeriesName,
+	PromotionDate = g.Key.PromotionDate,
+	Brand = g.Key.Brand,
+	MinPrice = g.Min(x => x.OriginalPrice).ToString(),
+	MaxPrice = g.Max(x => x.OriginalPrice).ToString()
+ }

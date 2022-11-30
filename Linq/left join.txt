@@ -1,0 +1,9 @@
+from a in tableA
+join b in tableB on a.Id equals b.Id
+into tmp from leftJoin in tmp.DefaultIfEmpty()
+select new { 
+  a.Name, 
+  leftJoin?.Id }
+
+
+leftJoin 要對null時做處理，不可直接讀屬性
