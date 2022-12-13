@@ -1,3 +1,5 @@
   import { useRoute } from 'vue-router';
   const route = useRoute();
-  const id = route.query.id;
+  const id = route.query.id;  //https://www.google.com?id=value
+  
+  const id = ref(route.params?.id as string);  //https://www.google.com/id

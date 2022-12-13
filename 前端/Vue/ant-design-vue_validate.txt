@@ -130,3 +130,7 @@ view
       //驗證失敗
     });
   };  
+  
+  
+  //清除錯誤訊息
+  formRef.value?.clearValidate();

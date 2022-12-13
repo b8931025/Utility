@@ -21,3 +21,11 @@ using System.Transactions
 		}
 		tran.Complete();
 	}	
+	
+	//OBStyleService Entity Core
+	using (var trans = _obStyleServiceContext.BeginTransaction) {
+
+
+
+		trans.Commit();
+	}	

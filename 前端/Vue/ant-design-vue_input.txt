@@ -1,0 +1,17 @@
+<Input 
+	v-model:value="searchForm.keyWord"
+	type="text" 
+	:placeholder="`請輸入 ${KeyWordTypeName} 搜尋內容`" 
+	:allowClear="true" 
+/>
+allowClear = 清除功能
+
+
+<InputNumber
+  v-model:value="timesViewVal"
+  :formatter="numberFormatter"
+  :min="0"
+  style="width: 120px; border-left: 0"
+/>
+					
+const numberFormatter = (value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','); //千分位

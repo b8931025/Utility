@@ -1,7 +1,3 @@
-TextBox
-<Input type="text" :placeholder="`請輸入 ${KeyWordTypeName} 搜尋內容`" :allowClear="true" v-model:value="searchForm.keyWord"/>
-allowClear = 清除功能
-
 分隔線
 <Divider></Divider>
 
@@ -54,7 +50,5 @@ const state = reactive({
 <Row :gutter="[8,24]">
 設定row的間距，Row與Row的間距 單位px
 <Row :gutter="30">
-
-
 
 <TypographyTitle :level="4">活動基本資料</TypographyTitle>
