@@ -1,4 +1,4 @@
-開發環境:mvc 5 / entityframework 6 / .net 4.7 / c# 7.3 / sql server 2012 / vue / linq / bootstrap/ autofac
+開發環境:mvc 5 / entityframework 6 / .net 4.7 / c# 7.3 / sql server 2012 / vue / linq / bootstrap/ autofac / Ant Design Vue / vue 3
 開發IDE:visual studio 2019 / visual studio 2022 / visual studio code 
 分頁用:MvcPaging
 硬碟:Crucial CT500P5SSD8 / wdc wd1003fzex-00k3ca0
