@@ -1,0 +1,19 @@
+	//檢查t1區間是否有和t2區間重疊
+	Func<DateTime, DateTime, DateTime, DateTime, bool> timeCover = (t1Bgn, t1End, t2Bgn, t2End) =>
+	{
+		return (t2End > t1Bgn && t2End <= t1End)
+		|| (t2Bgn < t1End && t2Bgn >= t1Bgn)
+		|| (t2Bgn <= t1Bgn && t2End >= t1End);
+	};
+
+	//檢查該時間點是否在時間區間內
+	Func<DateTime, DateTime, DateTime, int> nowIsValid = (now, tBgn, tEnd) =>
+	{
+		//未開始
+		if (now < tBgn) return 1;
+		//進行中
+		if (now >= tBgn && now < tEnd) return 2;
+		//已結束
+		//if (today >= tEnd) 
+		return 3;
+	};

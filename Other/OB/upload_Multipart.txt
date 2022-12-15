@@ -1,0 +1,237 @@
+藉由api上傳檔案時，就要用MultipartContent的方式
+
+==html==
+<label class="control-label">匯入類別：</label>
+<el-radio-group v-model="impType" class="ml-4" @change="handleChange">
+<el-radio label="1" size="large">新品-提品表</el-radio>
+<el-radio label="2" size="large">新品ID與貨號表</el-radio>
+</el-radio-group>
+
+<label class="control-label">匯入清單：</label>
+<input type="file" ref="file" class="form-control" accept=".xlsx"/>               
+<el-button type="primary" @click="handleImport" size="small">上傳</el-button>
+
+==javascript==
+async handleImport() {
+	//重點
+	this.formData = new FormData()
+	this.formData.append('file', this.$refs.file.files[0])
+	this.formData.append('impType', this.impType)
+
+	const self = this
+	await service.importFile(this.formData)
+	.then(async (res) => {
+		this.$refs.file.value = ''
+		if (res.status !== 'success') {
+			alert(res.message)                  
+		} else {
+			alert(res.result)
+		}
+	})
+	.catch((res) => {
+		alert(res)
+	})            
+}
+
+
+==c# 直接用串流(OB專用)==
+[HttpPost]
+public async Task<IHttpActionResult> importFile()
+{
+	ApiResponseModel response = ApiResponseModel.Create();
+
+	try
+	{
+		//檢核是否為MultipartContent
+		if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+		//讀取上傳檔串流
+		var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
+		
+		if (provider.Files.Count == 0) throw new Exception("未上傳檔案");
+		//取得上傳檔
+		using (var stream = await provider.Files[0].ReadAsStreamAsync()) {
+			//匯入類別
+			string impType = provider.FormData["impType"] ?? "";
+			if (impType != "1" && impType != "2") throw new Exception("無匯入類別");
+
+			response.Result = await _shopeeItemService.ImportFile(stream, impType);
+		}
+	}
+	catch (Exception ex)
+	{
+		response.Status = nameof(ApiResponseModel.ResponseState.fail);
+		response.Message = ex.Message;
+	}
+
+	return Json(response);
+}
+
+==c# 存入暫存目錄==
+[HttpPost]
+public async Task<IHttpActionResult> importFile()
+{
+	if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+	MultipartFileData file = null;
+	ApiResponseModel response = ApiResponseModel.Create();
+
+	try
+	{
+		//建立上傳檔暫存目錄
+		var rootDir = HttpContext.Current.Server.MapPath("~/App_Data") + "\\";
+		if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
+
+		//以暫存目錄建立streamProvider
+		var provider = new MultipartFormDataStreamProvider(rootDir);
+		//將上傳檔存入暫存目錄，以guid為檔名
+		await Request.Content.ReadAsMultipartAsync(provider);
+
+		//取得上傳檔
+		List<MultipartFileData> files = provider.FileData.ToList();
+		if (files.Count == 0) throw new Exception("未上傳檔案");
+		file = files.FirstOrDefault();
+
+		// 匯入類別
+		string impType = provider.FormData["impType"] ?? throw new Exception("無匯入類別");
+		if (impType != "1" && impType != "2") throw new Exception("無匯入類別");
+
+		response.Result = await _shopeeItemService.ImportFile(new FileInfo(file.LocalFileName), impType);
+	}
+	catch (Exception ex)
+	{
+		response.Status = nameof(ApiResponseModel.ResponseState.fail);
+		response.Message = ex.Message;
+	}
+	finally
+	{
+		//刪除上傳暫存檔案
+		if (file != null && File.Exists(file.LocalFileName)) File.Delete(file.LocalFileName);
+	}
+
+	return Json(response);
+}
+
+==c# 存入暫存目錄(完整/安全)==
+[HttpPost]
+public async Task<IHttpActionResult> importFile()
+{
+	var response = ApiResponseModel.Create();
+
+	if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+	var rootDir = HttpContext.Current.Server.MapPath("~/App_Data") + "\\";
+	if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
+
+	var provider = new MultipartFormDataStreamProvider(rootDir);
+
+	var processTask = await Request.Content.ReadAsMultipartAsync(provider).ContinueWith(async (t) =>
+	{
+		if (t.IsFaulted || t.IsCanceled)
+		{
+			Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
+		}
+
+		// 匯入類別
+		string impType = provider.FormData["impType"] ?? throw new Exception("無匯入類別");
+		if ( impType != "1" && impType != "2") throw new Exception("無匯入類別");
+
+		// 匯入資料
+		var files = provider.FileData.ToList();
+		if (files.Count == 0) throw new Exception("未上傳檔案");
+
+		var file = files.FirstOrDefault();
+		var uploadFilename = ContentDispositionHeaderValue.Parse(file.Headers.ContentDisposition.ToString()).FileName.Trim('"');
+		var localFullName = file.LocalFileName;
+		var processDir = Path.Combine(rootDir, Guid.NewGuid().ToString(""));
+
+		try
+		{
+			if (!Directory.Exists(processDir)) Directory.CreateDirectory(processDir);
+
+			var processFullName = Path.Combine(processDir, uploadFilename);
+			File.Copy(localFullName, processFullName, true);
+
+			response.Result = await _shopeeItemService.ImportFile(new FileInfo(processFullName), impType);
+		}
+		catch (Exception ex)
+		{
+			response.Status = nameof(ApiResponseModel.ResponseState.fail);
+			response.Message = ex.Message;
+		}
+		finally
+		{
+			//刪除上傳暫存檔案
+			if (File.Exists(localFullName)) File.Delete(localFullName);
+			//刪除工作目錄
+			if (Directory.Exists(processDir)) Directory.Delete(processDir, true);
+		}
+
+		return response;
+	});
+
+	return Json(await processTask);
+}
+
+==c# 存入暫存目錄(HttpPostedFile)==
+[HttpPost]
+public async Task<IHttpActionResult> importFile()
+{
+	ApiResponseModel response = ApiResponseModel.Create();
+	FileInfo fi = null;
+
+	try
+	{
+		// 匯入類別
+		var request = System.Web.HttpContext.Current.Request;
+		string impType = request.Form["impType"] ?? "";
+		if (impType != "1" && impType != "2") throw new Exception("無匯入類別");
+
+		if (request.Files.Count == 0) throw new Exception("未上傳檔案");
+		HttpPostedFile file = request.Files[0];
+
+		//建立上傳檔暫存目錄
+		var rootDir = HttpContext.Current.Server.MapPath("~/App_Data") + "\\";
+		if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
+		fi = new FileInfo(rootDir + Guid.NewGuid().ToString(""));
+		file.SaveAs(fi.FullName);
+
+		response.Result = await _shopeeItemService.ImportFile(fi, impType);
+	}
+	catch (Exception ex)
+	{
+		response.Status = nameof(ApiResponseModel.ResponseState.fail);
+		response.Message = ex.Message;
+	}
+	finally
+	{
+		//刪除上傳暫存檔案
+		if (fi != null && File.Exists(fi.FullName)) File.Delete(fi.FullName);
+	}
+
+	return Json(response);
+}
+
+==c# 直接用串流(HttpPostedFile)==
+[HttpPost]
+public async Task<IHttpActionResult> importFile()
+{
+	ApiResponseModel response = ApiResponseModel.Create();
+
+	try
+	{
+		// 匯入類別
+		var request = System.Web.HttpContext.Current.Request;
+		string impType = request.Form["impType"] ?? "";
+		if (impType != "1" && impType != "2") throw new Exception("無匯入類別");
+		if (request.Files.Count == 0) throw new Exception("未上傳檔案");
+
+		response.Result = await _shopeeItemService.ImportFile(request.Files[0].InputStream, impType);
+	}
+	catch (Exception ex)
+	{
+		response.Status = nameof(ApiResponseModel.ResponseState.fail);
+		response.Message = ex.Message;
+	}
+
+	return Json(response);
+}

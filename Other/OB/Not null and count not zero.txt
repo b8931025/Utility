@@ -1,0 +1,14 @@
+
+	List<string> list = null;
+
+	//?.的用法：如果list是null則結果為null，否則執行後面的function
+	
+	//下面兩句效果一樣
+	if (list?.Count > 0) list.Add("list is available");
+	
+	if (list != null && list.Count > 0) list.Add("list is available");
+
+	//null和任意數比較，一律是false
+	if (null > 0) {
+
+	}

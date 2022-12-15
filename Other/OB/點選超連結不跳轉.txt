@@ -1,0 +1,10 @@
+示例-點選超連結不跳轉
+
+1：<a href=”####”></a>
+2：<a href=”javascript:void(0)”></a>
+3：<a href=”javascript:void(null)”></a>
+4：<a href=”#” onclick=”return false”></a>    ※
+
+連結（href）直接使用javascript:void(0)在IE中可能會引起一些問題，
+比如：造成gif動畫停止播放等，所以，最安全的辦法還是使用“#”。
+為防止點選連結後跳轉到頁首，onclick 事件 return false即可。

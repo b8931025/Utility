@@ -1,0 +1,76 @@
+資料新增
+using (var context = new AdventureWorksEntities())
+ {
+
+  var product = new Product
+  {
+    Name = "Marcus的奇幻旅程",
+    SafetyStockLevel = 100,
+    ReorderPoint = 10,
+    ProductNumber = "08004",
+    SellStartDate = DateTime.Now,
+    ModifiedDate = DateTime.Now
+  };
+
+   var state = context.Entry(product).State.ToString();
+   Console.WriteLine("未加入狀態 : "+ state);             //Detached
+
+   context.Product.Add(product);
+   state = context.Entry(product).State.ToString();
+   Console.WriteLine("已加入狀態 : " +state);             //Added
+
+   context.SaveChanges();
+   state = context.Entry(product).State.ToString();
+   Console.WriteLine("已存檔狀態 : " +state);             //Unchanged
+
+   Console.ReadLine();
+ }
+ 
+ 
+資料修改
+using (var context = new AdventureWorksEntities())
+{
+  var product = context.Product.FirstOrDefault(x => x.ProductID == 1);
+
+  if(product != null)
+  {
+    var state = context.Entry(product).State.ToString();
+
+    Console.WriteLine("未修改狀態 : " + state);            //Unchanged
+
+    product.Name = "Marcus Test";
+    state = context.Entry(product).State.ToString();
+
+    Console.WriteLine("已修改狀態 : " + state);            //Modified
+    context.SaveChanges();
+  }
+
+   Console.ReadLine();
+ }
+ 
+資料刪除(Remove & RemoveRange)
+ using (var context = new AdventureWorksEntities())
+ {
+    var product = context.Product.FirstOrDefault(x => x.ProductID == 1);
+
+    var product2 = context.Product.OrderByDescending(x => x.ProductID).Take(3).ToList();
+
+    if (product != null)
+    {
+      var state = context.Entry(product).State.ToString();
+
+      Console.WriteLine("未修改狀態 : " + state);          //Unchanged
+
+      context.Product.Remove(product);
+
+      state = context.Entry(product).State.ToString();
+
+      Console.WriteLine("移除狀態 : " + state);            //Deleted
+
+      context.Product.RemoveRange(product2);
+
+      context.SaveChanges();
+    }
+
+    Console.ReadLine();
+  }

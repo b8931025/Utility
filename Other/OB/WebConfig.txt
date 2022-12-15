@@ -1,0 +1,1 @@
+var rootUrl = "@(System.Web.Configuration.WebConfigurationManager.AppSettings["KWRootUrl"].ToString())";

@@ -1,0 +1,34 @@
+用法
+model class要指示 map 的 entity
+public class GetMenuResponse : IMapFrom<OB.Domain.Entities.OBStyleEC.Menu>
+
+Menu menu = dbcontext.Menus.find(menuId);
+GetMenuResponse result = _mapper.Map<GetMenuResponse>(menu);
+
+
+====OBStyleService====
+api初始化
+D:\project\Git\OBStyleService_Vue\src\OBStyleService.Api\Startup.cs
+
+擴充類別
+D:\project\Git\OBStyleService_Vue\src\OBStyleService.Application\Extensions\ServiceCollectionExtensions.cs
+
+實作每個有IMapFrom的類別
+D:\project\Git\OBStyleService_Vue\src\OBStyleService.Domain\Mappings\MappingProfile.cs
+
+介面
+D:\project\Git\OBStyleService_Vue\src\OBStyleService.Domain\Mappings\IMapFrom.cs
+
+
+====OB.CMS====
+api初始化
+D:\project\Git\obstylecmsapi\OB.API\Program.cs
+
+.NetCore 有支援DI
+Microsoft.Extensions.DependencyInjection
+
+實作每個有IMapFrom的類別
+D:\project\Git\obstylecmsapi\OB.Contract\DTOs\MappingProfile.cs
+
+介面
+D:\project\Git\obstylecmsapi\OB.Contract\DTOs\IMapFrom.cs

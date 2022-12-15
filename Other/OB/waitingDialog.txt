@@ -1,0 +1,10 @@
+<script type="text/javascript" src="@Url.Content("~/Scripts/waiting.js")"></script>
+
+display 
+waitingDialog.show();//default Loading
+waitingDialog.show('區塊載入中...');
+waitingDialog.show('資料處理中......');
+
+
+hide
+waitingDialog.hide();

@@ -1,0 +1,68 @@
+開發環境:mvc 5 / entityframework 6 / .net 4.7 / c# 7.3 / sql server 2012 / vue / linq / bootstrap/ autofac
+開發IDE:visual studio 2019 / visual studio 2022 / visual studio code 
+分頁用:MvcPaging
+硬碟:Crucial CT500P5SSD8 / wdc wd1003fzex-00k3ca0
+顯卡:NVIDIA GeForce GT630
+CPU:Intel Core i7 10700 2.9GHz 16核
+記憶體:16G
+
+
+OBMS是erp的後台(進銷存系統)
+ShopAdmin(OBWebAdmin)是官網的後台
+OBWeb舊官網(view/api都在一起)
+OBStyleAPI是一頁式和新官網的前台 api
+OBStylecmsapi(OB.CMS)是新官網的後台 api 
+OBStylecms 新官網的後台vue
+OBStyleService 新官網的中台 api
+OBStyleService\src\vben-admin-thin 新官網的中台vue
+
+
+
+<<測試環境>>
+官網
+https://sandbox.obdesign.com.tw/
+官網後台
+http://sandboxshopadmin.obdesign.com.tw/
+ERP後台
+http://sandboxobms.obdesign.com.tw/
+一頁式
+https://sandbox.obdesign.com.tw/ld/events/ops/?acv=test0411-2
+https://sandbox.obdesign.com.tw/ld/events/ops/?acv=Open
+新官網後台 (帳密:obadmin)
+http://sbobstylecms.obdesign.com.tw/
+
+http://sandboxobstyleadmin.obdesign.com.tw/login?redirect=/home
+
+
+<<正式環境>>
+官網
+https://obms.obdesign.com.tw/
+
+圖檔主機
+\\imgupload\Picture
+
+trello / axshare
+vue / cli / router / components
+webpack/bower 管理相依套件工具
+node / npm / axios
+autocomplete
+PartialView
+edmxResourcesToEmbed connect string
+typescript
+pinia defineStore in obstylecms
+
+visual studio code https://www.appcoda.com.tw/visual-studio-code/
+泛型/執行序
+使用 Promis https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Using_promises
+area的用法  https://kevintsengtw.blogspot.com/2013/07/aspnet-mvc-area-backend.html
+
+
+整理正規表示法
+D:\Work\8_doc\Utility\正規表示法.txt
+D:\Work\8_doc\Utility\Other\正規表示法.txt
+D:\Work\8_doc\Utility\常用正規表示式.js
+D:\Work\8_doc\Utility\Regular Expression  in JavaScript.htm
+D:\Work\8_doc\Utility\VB .Net\Match、Group 和Capture類別的關係.txt
+D:\Work\8_doc\Utility\VB .Net\MatchEvaluator類別的使用.txt
+D:\Work\8_doc\Utility\前端\JavaScript\Regex by replace.txt
+D:\Work\8_doc\Utility\前端\JavaScript\Regex Checker.html

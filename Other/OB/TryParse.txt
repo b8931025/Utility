@@ -1,0 +1,1 @@
+Func<string,bool> isNumeric = (x) => int.TryParse(x, out var xx);

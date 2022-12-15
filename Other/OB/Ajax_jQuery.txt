@@ -1,0 +1,53 @@
+方法一
+function GetBoardTime() {
+	$.ajax({
+		type: "POST",
+		url: "@Url.Action("GetBoardTime")",
+		async: false,
+		data: { TagID: $("#hiddenTagID").val() },
+		success: function (data) {
+			$("#cbIsOnlyShoppingCheck").prop("checked", false);
+			$("#HiddenStartTime").val(data.HiddenStartTime);
+		}
+	});
+}
+
+
+方法二   用Dictionary
+function CheckIncludeAndExclude(from , to ) {
+	waitingDialog.show('資料處理中......');
+		$.ajax({
+			type: "POST",
+			url: "@Url.Action("CheckIncludeAndExclude")",
+			async: false,
+			data: { fromData: from.val(), toData: to.val()},
+			success: function (data) {
+				if (data.err != undefined) {
+					alert(data.err);                              // data.err = data.Add("result", "輸出結果");
+					return false;
+				}
+				to.val(data.result);                              // data.result = data.Add("err", ex.Message);
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert('儲存失敗，請洽資訊人員!!');
+				waitingDialog.hide();
+			}
+		});
+	}
+});
+
+
+[HttpPost]
+public JsonResult CheckIncludeAndExclude(string fromData , string toData) {
+	Dictionary<string, string> data = new Dictionary<string, string>();
+	try
+	{
+		data.Add("result", "輸出結果");
+	}
+	catch (Exception ex)
+	{
+		data.Add("err", ex.Message); //錯誤訊息
+	}
+
+	return Json(data);
+}

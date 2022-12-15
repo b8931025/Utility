@@ -1,0 +1,13 @@
+https://autofac.readthedocs.io/en/latest/integration/webapi.html#example
+
+IT邦幫忙
+https://ithelp.ithome.com.tw/articles/10156684
+
+暗黑
+https://blog.darkthread.net/blog/autofac-notes-1/
+
+
+autofac
+D:\project\Git\OBMS\src\OBMS.Web\Global.asax.cs
+D:\project\Git\OBMS\src\OBMS.Web\App_Start\AutofacBootstrapper.cs
+D:\project\Git\OBMS\src\OBMS.Infrastructure\DependecyResolution\ServicesModule.cs

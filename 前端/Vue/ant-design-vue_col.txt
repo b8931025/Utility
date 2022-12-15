@@ -1,0 +1,8 @@
+<Col :md="colSetting1.md" :lg="colSetting1.lg" :xl="colSetting1.xl" :xxl="colSetting1.xxl">
+
+const colSetting1 = { 
+	md: { span: 24, offset:0 }, 
+	lg: { span: 24, offset:0 }, 
+	xl: { span: 24, offset:0 }, 
+	xxl: { span: 24, offset:0 } 
+};
