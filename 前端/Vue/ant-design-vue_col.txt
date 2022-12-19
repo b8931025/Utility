@@ -1,6 +1,6 @@
-<Col :md="colSetting1.md" :lg="colSetting1.lg" :xl="colSetting1.xl" :xxl="colSetting1.xxl">
+<Col :md="colSize1.md" :lg="colSize1.lg" :xl="colSize1.xl" :xxl="colSize1.xxl">
 
-const colSetting1 = { 
+const colSize1 = { 
 	md: { span: 24, offset:0 }, 
 	lg: { span: 24, offset:0 }, 
 	xl: { span: 24, offset:0 }, 
