@@ -1,0 +1,8 @@
+在table binding時，要把資料丟給每一行的事件，像是click或change，可以用匿名函式的設計，把資料傳給函式
+
+@change="(checked,e)=>{handleSwitch(checked,e,item)}"       <<--匿名函式
+
+//啟用切換
+const handleSwitch = (checked: any, e: Event, item:any)=>{
+  console.log(item.id);  //取得資料
+}
