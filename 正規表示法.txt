@@ -16,6 +16,10 @@ replace:\r\n
 search:(\r\n){3,}
 replace:\r\n\r\n
 
+日期格式改變 yyyy-mm-dd > yyyy/mm/dd
+search:(\d{4})-(\d{1,2})-(\d{1,2})
+replace:$1/$2/$3
+
 [C#]
 search:(\r\n){3,}
 replace:Environment.NewLine + Environment.NewLine
