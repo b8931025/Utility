@@ -20,6 +20,18 @@ replace:\r\n\r\n
 search:(\d{4})-(\d{1,2})-(\d{1,2})
 replace:$1/$2/$3
 
+把每一行的字串，加上超連結
+search:(.+)
+replace:<a href="$1">$1</a>
+
+將超連結url取出
+<A  HREF="apple.com.tw">apple.com.tw</a>     --> apple.com.tw
+<a href="banana.gov.jp" >banana.gov.jp</a>   --> banana.gov.jp
+<a href="candy.idv.hk"  >candy.idv.hk</a>    --> candy.idv.hk 
+
+search:<a +href="(.+)" *>.+</a>
+replace:$1
+
 [C#]
 search:(\r\n){3,}
 replace:Environment.NewLine + Environment.NewLine
