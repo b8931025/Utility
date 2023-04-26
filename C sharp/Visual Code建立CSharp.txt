@@ -1,0 +1,5 @@
+開啟visual code  
+建立資料夾
+安裝C#外掛
+在終端機輸入:dotnet new console ，建立console專案
+在終端機輸入:dotnet run，編譯
