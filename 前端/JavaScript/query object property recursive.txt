@@ -1,0 +1,20 @@
+	/**
+	 * 遞回找出屬性值，undefined表示沒找到
+	 * return {"prop":value} or undefined
+	 */
+	function getProp(obj, propName){
+		//找到該屬性就回傳
+		let qryProp = Object.keys(obj).filter(x=>x==propName);
+		//屬性值有可能是undefined，所以用物件儲存，代表有找到
+		if (qryProp != "") return {"prop":obj[qryProp]};
+
+		//這層找不到，就挑出所有物件，往下一層找
+		let qryObjProps = Object.keys(obj).filter(x=> typeof(obj[x]) === "object");
+		
+		let result = undefined;
+		for(let i = 0;i < qryObjProps.length; i++){
+			result = getProp(obj[qryObjProps[i]],propName);
+			//找到該屬性就回傳
+			if (result !== undefined) return result;
+		}
+	}
