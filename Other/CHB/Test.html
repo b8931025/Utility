@@ -1,0 +1,285 @@
+<html>
+    <head>
+        <title>JSTest</title>
+    </head>
+    <script lang="JavaScript">
+        function onBtn1Click() {
+            try{
+                jsonObj = getJSON();
+                let search = document.querySelector('#txtInput').value;
+                document.querySelector('#txtOutput').value = "";
+
+                let val = getProp(jsonObj, search);
+                if(val === undefined) {
+                    showMsg('找不到屬性['+ search +']');
+                    return;
+                }
+
+                if(typeof(val.prop)==="object"){
+                    showMsg(JSON.stringify(val.prop))
+                }else{
+                    showMsg(val.prop);
+                }
+            }catch(e){
+                showMsg('錯誤:' + e.message);
+            }
+        }
+
+        function showMsg(msg){
+            let old = document.querySelector('#txtOutput').value;
+            if (old != "") old = old + '\n';
+            document.querySelector('#txtOutput').value = old + msg;
+        }
+
+        /**
+         * 遞回找出屬性值，undefined表示沒找到
+         * return {"prop":value} or undefined
+         */
+        function getProp(obj, propName){
+            //找到該屬性就回傳
+            let qryProp = Object.keys(obj).filter(x=>x==propName);
+            //屬性值有可能是undefined，所以用物件儲存，代表有找到
+            if (qryProp != "") return {"prop":obj[qryProp]};
+
+            //這層找不到，就挑出所有物件，往下一層找
+            let qryObjProps = Object.keys(obj).filter(x=> typeof(obj[x]) === "object");
+            
+            let result = undefined;
+            for(let i = 0;i < qryObjProps.length; i++){
+                result = getProp(obj[qryObjProps[i]],propName);
+                //找到該屬性就回傳
+                if (result !== undefined) return result;
+            }
+        }
+
+        function getJSON(){
+            return  {
+                        "channel": "01",
+                        "txid": "F4811",
+                        "ver": "20.1203.01",
+                        "ip": "10.100.17.94",
+                        "uid": "f8fba077-47ce-4c10-bf7a-3f97e917b73b",
+                        "datetime": "2023/04/21 14:49:47.792",
+                        "timFormat": "F4811",
+                        "timver": "20.1203.01",
+                        "tim": {
+                            "header": {
+                            "TRANCD": "FU",
+                            "KINBR": "5050",
+                            "WSNO": "4195",
+                            "WSSEQ": "001",
+                            "CONTINUE": "1",
+                            "RESULT": " ",
+                            "LENGTH": "0000",
+                            "ONOFF": "1",
+                            "SBTMOD": "0",
+                            "TRAIN": "0",
+                            "DEPT": "0",
+                            "EJF": "0",
+                            "SUPNO": "00000",
+                            "NESQ": "00000000",
+                            "OSEQ": "00000000",
+                            "DATE": "01120330",
+                            "TIME": "14134298",
+                            "ECWSNO": "0000",
+                            "SUPWSNO": "0000",
+                            "REASON": "0000",
+                            "FILLER": "000",
+                            "NEWWSNO": "0000",
+                            "OLDWSNO": "0000",
+                            "OLDBRNO": "0000",
+                            "REASON0": "0000",
+                            "REASON1": "0000",
+                            "REASON2": "0000",
+                            "REASON3": "0000",
+                            "REASON4": "0000",
+                            "REASON5": "0000",
+                            "REASON6": "0000",
+                            "REASON7": "0000",
+                            "REASON8": "0000",
+                            "SUPNO1": "000",
+                            "MSGID": "00000",
+                            "NEXTTXFG": "0",
+                            "SUPNAME": "            ",
+                            "SUPFG1": "0",
+                            "FILLER2": "    "
+                            },
+                            "basic": {
+                            "label": {
+                                "KINBR": "5050",
+                                "TRMSEQ": "4195",
+                                "TXTNO": "00000000",
+                                "TTSKID": "FU",
+                                "TRMTYPE": "00",
+                                "TXCD": "F4811",
+                                "DSCPT": "     ",
+                                "MRKEY": "5050A123456789      ",
+                                "HCODE": "0",
+                                "CRDB": "0",
+                                "NBCD": "0",
+                                "TLRNO": "20109",
+                                "SUPNO": "",
+                                "TRNMOD": "0",
+                                "SBTMOD": "0",
+                                "CURCD": "00",
+                                "TXTAMT": "00000000000000",
+                                "EMPNOT": "124862",
+                                "EMPNOS": "      ",
+                                "TOTAFG": "0",
+                                "SEQFG": "0",
+                                "AUTOFG": "0",
+                                "RESULT": "T",
+                                "FORCE": "0",
+                                "PSUEDO": "0",
+                                "PURE": "0",
+                                "DOCFG": " ",
+                                "ACFLG": " ",
+                                "WARNFG": "0",
+                                "HFLAG": "1",
+                                "MCSCNT": "0000",
+                                "MRLDRY": "0",
+                                "HSUPFG": "0",
+                                "FLR10": "          ",
+                                "FILR2": "  ",
+                                "FILR10": "          "
+                            },
+                            "common": {
+                                "TBSDY": "20230330",
+                                "ECKIN": "5050",
+                                "ECTRM": "0000",
+                                "ECTNO": "00000000",
+                                "RELNO": "                ",
+                                "RETURN": "0",
+                                "TOTSEQ": "0000",
+                                "OBUFG": "0",
+                                "RBRNO": "5050",
+                                "SECNO": "00",
+                                "CIFKEY": "A123456789",
+                                "CIFERR": " ",
+                                "ACTFG": "0",
+                                "RELCD": "0",
+                                "TRCNT": "000000",
+                                "CMPNO": "    ",
+                                "MTTPSEQ": "00",
+                                "BRELCD": "0",
+                                "BCURCD": "00",
+                                "FBRNO": "5050",
+                                "HSUPNO": "00000",
+                                "HEMPNO": "      ",
+                                "FLR85": "                                                                                     ",
+                                "AFILR2": "                                                                                     "
+                            }
+                            },
+                            "text": {
+                            "FUNCD": "1",
+                            "CIFKEY": "A123456789",
+                            "CIFERR": " ",
+                            "CNAME": "\u0004ＴＥＳＴ　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\u0007",
+                            "TWD": "Y",
+                            "TRA": "Y",
+                            "FCUR": "Y",
+                            "OPEN": "Y",
+                            "IPEN": "Y",
+                            "FAXAREA1": " 02",
+                            "FAXNO1": "123456  ",
+                            "FAXAREA2": " 02",
+                            "FAXNO2": "22334455",
+                            "PASSWD": "                                ",
+                            "USERID": "USERA                           ",
+                            "CRBRNO": "0000",
+                            "CRDAY": "        ",
+                            "CEMPNO": "      ",
+                            "LTXDAY": "        ",
+                            "LBRNO": "    ",
+                            "LEMPNO": "      ",
+                            "PRIVE1": "1",
+                            "BRNO1": "5050",
+                            "APNO1": "11",
+                            "SRNO1": "51322",
+                            "CHKDG1": "8",
+                            "SQNO11": "00",
+                            "SQNO21": "  ",
+                            "CURCD1": "00",
+                            "CURNM1": "TWD",
+                            "YES1": "0",
+                            "AMT1": "00000000100000",
+                            "PRIVE2": "0",
+                            "BRNO2": "0000",
+                            "APNO2": "00",
+                            "SRNO2": "00000",
+                            "CHKDG2": "0",
+                            "SQNO12": "00",
+                            "SQNO22": "  ",
+                            "CURCD2": "00",
+                            "CURNM2": "   ",
+                            "YES2": "0",
+                            "AMT2": "00000000000000",
+                            "PRIVE3": "0",
+                            "BRNO3": "0000",
+                            "APNO3": "00",
+                            "SRNO3": "00000",
+                            "CHKDG3": "0",
+                            "SQNO13": "00",
+                            "SQNO23": "  ",
+                            "CURCD3": "00",
+                            "CURNM3": "   ",
+                            "YES3": "0",
+                            "AMT3": "00000000000000",
+                            "PRIVE4": "0",
+                            "BRNO4": "0000",
+                            "APNO4": "00",
+                            "SRNO4": "00000",
+                            "CHKDG4": "0",
+                            "SQNO14": "00",
+                            "SQNO24": "  ",
+                            "CURCD4": "00",
+                            "CURNM4": "   ",
+                            "YES4": "0",
+                            "AMT4": "00000000000000",
+                            "PRIVE5": "0",
+                            "BRNO5": "0000",
+                            "APNO5": "00",
+                            "SRNO5": "00000",
+                            "CHKDG5": "0",
+                            "SQNO15": "00",
+                            "SQNO25": "  ",
+                            "CURCD5": "00",
+                            "CURNM5": "   ",
+                            "YES5": "0",
+                            "AMT5": "00000000000000",
+                            "EBRNO": "0000",
+                            "EAPNO": "00",
+                            "ESRNO": "00000",
+                            "ECHKDG": "0",
+                            "ESQNO1": "00",
+                            "ESQNO2": "  ",
+                            "PBRNO": "0000",
+                            "CUSRNO": "      ",
+                            "OTWD": "Y",
+                            "OTRA": "Y",
+                            "OFCUR": "Y",
+                            "OOPEN": "Y",
+                            "OIPEN": "Y",
+                            "PAPER": "0",
+                            "PRTFG": " ",
+                            "IBRNO": "5050",
+                            "ERRCODE": "     ",
+                            "ERRTEXT": "                                                            ",
+                            "END": "$"
+                            }
+                        }
+            } ;
+        }
+    </script>
+    <style type="text/css">
+        #txtInput , #txtOutput {
+            width: 100%;
+            height: 150px;
+        }
+    </style>
+    <body>
+        <input id="btn1" type="button" value="轉換" onclick="onBtn1Click();"/>
+        <h3>JSON Data</h3><textarea id="txtInput" ></textarea>
+        <h3>電文</h3><textarea id="txtOutput"></textarea>
+    </body>
+</html>
