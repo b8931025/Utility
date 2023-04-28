@@ -15,6 +15,7 @@
                     return;
                 }
 
+                showMsg("position:" + val.position.join(" > "));
                 if(typeof(val.prop)==="object"){
                     showMsg(JSON.stringify(val.prop))
                 }else{
@@ -33,13 +34,18 @@
 
         /**
          * 遞回找出屬性值，undefined表示沒找到
-         * return {"prop":value} or undefined
+         * return :
+         *      {"prop":value,"position":[]} > ok
+         *      undefined > not found
          */
-        function getProp(obj, propName){
+         function getProp(obj, propName){
             //找到該屬性就回傳
             let qryProp = Object.keys(obj).filter(x=>x==propName);
             //屬性值有可能是undefined，所以用物件儲存，代表有找到
-            if (qryProp != "") return {"prop":obj[qryProp]};
+            if (qryProp != "") return {
+                "prop":obj[qryProp], 
+                "position":[propName]
+            };
 
             //這層找不到，就挑出所有物件，往下一層找
             let qryObjProps = Object.keys(obj).filter(x=> typeof(obj[x]) === "object");
@@ -48,7 +54,11 @@
             for(let i = 0;i < qryObjProps.length; i++){
                 result = getProp(obj[qryObjProps[i]],propName);
                 //找到該屬性就回傳
-                if (result !== undefined) return result;
+                if (result !== undefined) {
+                    //紀錄位置
+                    result.position.unshift(qryObjProps[i]);
+                    return result;
+                }
             }
         }
 

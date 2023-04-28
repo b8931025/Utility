@@ -1,0 +1,3 @@
+white-space:pre             連續空格不合併，不換行
+white-space:pre-wrap        連續空格不合併，可換行
+white-space:nowrap          連續空格合併，可換行
