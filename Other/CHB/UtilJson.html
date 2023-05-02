@@ -13,9 +13,9 @@
 
             try{
                 jsonObj = JSON.parse(inputValue);
-                header = getProp(jsonObj,'header');
-                label = getProp(jsonObj,'label');
-                text = getProp(jsonObj,'text');
+                header = getProps(jsonObj,'header');
+                label = getProps(jsonObj,'label');
+                text = getProps(jsonObj,'text');
                 /*
                 tim > header
                     > basic > label
@@ -26,13 +26,13 @@
                     > text
                 */
                 if (jsonObj['tim'] === undefined && jsonObj['tom'] === undefined)  throw new Error('tim'); 
-                if (header === undefined)  throw new Error('header'); 
-                if (text === undefined)  throw new Error('text'); 
-                if (label === undefined)  throw new Error('label'); 
+                if (header.length === 0)  throw new Error('header'); 
+                if (text.length === 0)  throw new Error('text'); 
+                if (label.length === 0)  throw new Error('label'); 
 
-                header = header.prop;
-                text = text.prop;
-                label = label.prop;
+                header = header[0].value;
+                text = text[0].value;
+                label = label[0].value;
             }catch(e){
                 alert('Json data格式錯誤,' + e.message);
                 return;
@@ -51,34 +51,54 @@
 
 
         /**
-         * 遞回找出屬性值，undefined表示沒找到
+         * 遞回找出屬性值
+         * parameter:
+         *      obj: Object
+         *      propName: 屬性名稱
          * return :
-         *      {"prop":value,"position":[]} > ok
-         *      undefined > not found
+         *      undefined:找不到
+         *      result[]:
+         *          result.value:屬性值
+         *          result.position[]:屬性位置
          */
-         function getProp(obj, propName){
-            //找到該屬性就回傳
-            let qryProp = Object.keys(obj).filter(x=>x==propName);
-            //屬性值有可能是undefined，所以用物件儲存，代表有找到
-            if (qryProp != "") return {
-                "prop":obj[qryProp], 
-                "position":[propName]
-            };
+         function getProps(obj, propName){
+            let pList = [];
+            let position = [];
 
-            //這層找不到，就挑出所有物件，往下一層找
-            let qryObjProps = Object.keys(obj).filter(x=> typeof(obj[x]) === "object");
-            
-            let result = undefined;
-            for(let i = 0;i < qryObjProps.length; i++){
-                result = getProp(obj[qryObjProps[i]],propName);
-                //找到該屬性就回傳
-                if (result !== undefined) {
-                    //紀錄位置
-                    result.position.unshift(qryObjProps[i]);
-                    return result;
+            let traversal = (_obj , _propName, _parent)=>{
+                //取出所有屬性
+                let prps = Object.keys(_obj);
+                //取出datatype為物件的的屬性
+                let opjs = prps.filter(x=> typeof(_obj[x]) === "object");
+                let mapOK = prps.filter(x=>x==_propName);
+                //紀錄路徑
+                if (_parent === null || _parent === "" || _parent === undefined) {
+                    position.push("<<root>>");
+                }else{
+                    position.push(_parent);
+                }
+                //找到的值
+                if (mapOK.length > 0) {
+                    pList.push({
+                        "value":_obj[_propName], 
+                        "position":Object.assign([], position)
+                    });
+                }
+                //沒有下一層就離開
+                if (opjs.length === 0) {
+                    position.pop();
+                    return;
+                }
+
+                for(let i = 0;i < opjs.length; i++){
+                    let nodeName = opjs[i];
+                    traversal(_obj[nodeName], propName, nodeName);
                 }
             }
-        }       
+
+            traversal(obj, propName);
+            return pList;
+        }
     </script>
     <style type="text/css">
         #txtInput , #txtOutput {

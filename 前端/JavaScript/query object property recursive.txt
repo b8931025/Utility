@@ -5,6 +5,41 @@
          *      propName: 屬性名稱
          * return :
          *      undefined:找不到
+         *      {"prop":value,"position":[]}:
+         *          prop:屬性值
+         *          position:屬性位置
+         */
+         function getProp(obj, propName){
+            //找到該屬性就回傳
+            let qryProp = Object.keys(obj).filter(x=>x==propName);
+            //屬性值有可能是undefined，所以用物件儲存，代表有找到
+            if (qryProp != "") return {
+                "prop":obj[qryProp], 
+                "position":[propName]
+            };
+
+            //這層找不到，就挑出所有物件，往下一層找
+            let qryObjProps = Object.keys(obj).filter(x=> typeof(obj[x]) === "object");
+            
+            let result = undefined;
+            for(let i = 0;i < qryObjProps.length; i++){
+                result = getProp(obj[qryObjProps[i]],propName);
+                //找到該屬性就回傳
+                if (result !== undefined) {
+                    //紀錄位置
+                    result.position.unshift(qryObjProps[i]);
+                    return result;
+                }
+            }
+        }   
+		
+        /**
+         * 遞回找出所有屬性值
+         * parameter:
+         *      obj: Object
+         *      propName: 屬性名稱
+         * return :
+         *      undefined:找不到
          *      result[]:
          *          result.value:屬性值
          *          result.position[]:屬性位置
@@ -46,4 +81,4 @@
 
             traversal(obj, propName);
             return pList;
-        }  
+        }  		
