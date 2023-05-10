@@ -1,0 +1,25 @@
+問題:
+SqlServer安裝或連線失敗，在error log中看到下面錯誤
+There have been 256 misaligned log IOs which required falling back to synchronous IO.
+
+問題原因:
+Windows 11安裝在SSD上，磁區大小超過4096造成
+
+在命令列執行
+fsutil fsinfo c:
+
+如果PhysicalBytesPerSectorForAtomicity和PhysicalBytesPerSectorForPerformance有一個大於4096，就會造成SqlServer無法連線或無法安裝
+
+
+解決:
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device" -Name "ForcedPhysicalSectorSizeInBytes" -PropertyType MultiString -Force -Value "* 4095"
+
+Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device" -Name   "ForcedPhysicalSectorSizeInBytes"
+
+重新開機後即可解決，如果還是不行，就把之前新增的schema刪掉
+Sqllocaldb delete mssqllocaldb
+Sqllocaldb create mssqllocaldb -s
+
+
+來源:
+https://blog.nimblepros.com/blogs/sql-server-windows-11-fiasco/

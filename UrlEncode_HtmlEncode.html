@@ -1,0 +1,239 @@
+<html>
+    <head>
+        <tite>編碼</tite>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script lang="JavaScript">            
+            $(document).ready(function(){
+                let htmlSymbols = ["&nbsp;",
+                                "&lt;",
+                                "&gt;",
+                                "&amp;",
+                                "&quot;",
+                                "&apos;",
+                                "&cent;",
+                                "&pound;",
+                                "&yen;",
+                                "&euro;",
+                                "&copy;",
+                                "&reg;",
+                                "&larr;",
+                                "&uarr;",
+                                "&rarr;",
+                                "&darr;",
+                            ];
+
+                let urlEncodes =  ["%08", "%09", "%0A", "%0D", "%20", "%21", "%22", "%23", "%24", "%25", "%26", "%27", "%28", "%29", "%2A", "%2B", "%2C", "%2D", "%2E", "%2F", "%30", "%31", "%32", "%33", "%34", "%35", "%36", "%37", "%38", "%39", "%3A", "%3B", "%3C", "%3D", "%3E", "%3F", "%40", "%41", "%42", "%43", "%44", "%45", "%46", "%47", "%48", "%49", "%4A", "%4B", "%4C", "%4D", "%4E", "%4F", "%50", "%51", "%52", "%53", "%54", "%55", "%56", "%57", "%58", "%59", "%5A", "%5B", "%5C", "%5D", "%5E", "%5F", "%60", "%61", "%62", "%63", "%64", "%65", "%66", "%67", "%68", "%69", "%6A", "%6B", "%6C", "%6D", "%6E", "%6F", "%70", "%71", "%72", "%73", "%74", "%75", "%76", "%77", "%78", "%79", "%7A", "%7B", "%7C", "%7D", "%7E", "%A2", "%A3", "%A5", "%A6", "%A7", "%AB", "%AC", "%AD", "%B0", "%B1", "%B2", "%B4", "%B5", "%BB", "%BC", "%BD", "%BF", "%C0", "%C1", "%C2", "%C3", "%C4", "%C5", "%C6", "%C7", "%C8", "%C9", "%CA", "%CB", "%CC", "%CD", "%CE", "%CF", "%D0", "%D1", "%D2", "%D3", "%D4", "%D5", "%D6", "%D8", "%D9", "%DA", "%DB", "%DC", "%DD", "%DE", "%DF", "%E0", "%E1", "%E2", "%E3", "%E4", "%E5", "%E6", "%E7", "%E8", "%E9", "%EA", "%EB", "%EC", "%ED", "%EE", "%EF", "%F0", "%F1", "%F2", "%F3", "%F4", "%F5", "%F6", "%F7", "%F8", "%F9", "%FA", "%FB", "%FC", "%FD", "%FE", "%FF"];
+                
+                let renderFunc = function(id,list){
+                    let l1 = document.querySelector("#" + id);
+                    for(let i = 0;i < list.length;i++){
+                        let val = list[i];
+                        let isUri = val.substring(0,1) === "%";
+
+                        let pack = document.createElement('div');
+                        pack.className = "pack";
+
+                        let decode = document.createElement('div');
+                        decode.className = "unit";
+                        if (isUri){
+                            decode.innerHTML = decodeURI(val);
+                        }else{
+                            decode.innerHTML = val;
+                        }
+                        pack.appendChild(decode);
+
+                        let code = document.createElement('div');
+                        code.className = "unit";
+                        code.innerHTML = val.replace('&','&amp;');
+                        pack.appendChild(code);
+                        l1.appendChild(pack);
+                    }
+                }
+
+                renderFunc("list1",htmlSymbols);
+                renderFunc("list2",urlEncodes);
+
+            });
+        </script>
+        <style type="text/css">
+            #main {
+                width: 100%;
+                background-color: gray;
+            }
+    
+            #list1, #list2, #list3 {
+                display: flex;
+                flex-direction: row;
+                justify-content: left;
+                flex-wrap: wrap;
+            }
+
+            .pack{
+                margin: 5px;
+                display: flex;
+                justify-content: left;
+                flex-direction: row;
+                width: 120px;
+                height: 30px;
+            }
+    
+            .unit {
+                width: 60px;
+                text-align: center;
+                padding-top: 4px;
+                border: 1px black solid;
+            }
+
+            table {
+                width: 500px;
+                border-spacing: 0px;
+            }
+
+            td {
+                border: 0.5px black solid;
+                padding: 0px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="main">
+            <h3>Html entity symbols 參考:https://www.toptal.com/designers/htmlarrows/symbols/</h3>
+            <div id="list1"></div>
+
+            <br/>
+            <h3>Url encode 參考:https://www.w3schools.com/tags/ref_urlencode.ASP</h3>
+            <div id="list2"></div>
+            
+            <br/>
+            <h3>Javascript unicode 參考:https://www.w3docs.com/tools/html-encoder/</h3>
+            <div id="list3">
+                <table>
+                    <tr><td></td><td>&amp;#x0000;</td><td>\u0000</td><td>Null Character</td></tr>
+                    <tr><td></td><td>&amp;#x0001;</td><td>\u0001</td><td>Start Of Heading</td></tr>
+                    <tr><td></td><td>&amp;#x0002;</td><td>\u0002</td><td>Start Of Text</td></tr>
+                    <tr><td></td><td>&amp;#x0003;</td><td>\u0003</td><td>End-of-text Character</td></tr>
+                    <tr><td></td><td>&amp;#x0004;</td><td>\u0004</td><td>End-of-transmission Character</td></tr>
+                    <tr><td></td><td>&amp;#x0005;</td><td>\u0005</td><td>Enquiry Character</td></tr>
+                    <tr><td></td><td>&amp;#x0006;</td><td>\u0006</td><td>Acknowledge Character</td></tr>
+                    <tr><td></td><td>&amp;#x0007;</td><td>\u0007</td><td>Bell Character</td></tr>
+                    <tr><td></td><td>&amp;#x0008;</td><td>\u0008</td><td>Backspace</td></tr>
+                    <tr><td></td><td>&amp;#x0009;</td><td>\u0009</td><td>Horizontal Tab</td></tr>
+                    <tr><td></td><td>&amp;#x000A;</td><td>\u000A</td><td>Line Feed</td></tr>
+                    <tr><td></td><td>&amp;#x000B;</td><td>\u000B</td><td>Vertical Tab</td></tr>
+                    <tr><td></td><td>&amp;#x000C;</td><td>\u000C</td><td>Form Feed</td></tr>
+                    <tr><td></td><td>&amp;#x000D;</td><td>\u000D</td><td>Carriage Return</td></tr>
+                    <tr><td></td><td>&amp;#x000E;</td><td>\u000E</td><td>Shift Out</td></tr>
+                    <tr><td></td><td>&amp;#x000F;</td><td>\u000F</td><td>Shift In</td></tr>
+                    <tr><td></td><td>&amp;#x0010;</td><td>\u0010</td><td>Data Link Escape</td></tr>
+                    <tr><td></td><td>&amp;#x0011;</td><td>\u0011</td><td>Device Control 1</td></tr>
+                    <tr><td></td><td>&amp;#x0012;</td><td>\u0012</td><td>Device Control 2</td></tr>
+                    <tr><td></td><td>&amp;#x0013;</td><td>\u0013</td><td>Device Control 3</td></tr>
+                    <tr><td></td><td>&amp;#x0014;</td><td>\u0014</td><td>Device Control 4</td></tr>
+                    <tr><td></td><td>&amp;#x0015;</td><td>\u0015</td><td>Negative-acknowledge Character</td></tr>
+                    <tr><td></td><td>&amp;#x0016;</td><td>\u0016</td><td>Synchronous Idle</td></tr>
+                    <tr><td></td><td>&amp;#x0017;</td><td>\u0017</td><td>End Of Transmission Block</td></tr>
+                    <tr><td></td><td>&amp;#x0018;</td><td>\u0018</td><td>Cancel Character</td></tr>
+                    <tr><td></td><td>&amp;#x0019;</td><td>\u0019</td><td>End Of Medium</td></tr>
+                    <tr><td></td><td>&amp;#x001A;</td><td>\u001A</td><td>Substitute Character</td></tr>
+                    <tr><td></td><td>&amp;#x001B;</td><td>\u001B</td><td>Escape Character</td></tr>
+                    <tr><td></td><td>&amp;#x001C;</td><td>\u001C</td><td>File Separator</td></tr>
+                    <tr><td></td><td>&amp;#x001D;</td><td>\u001D</td><td>Group Separator</td></tr>
+                    <tr><td></td><td>&amp;#x001E;</td><td>\u001E</td><td>Record Separator</td></tr>
+                    <tr><td></td><td>&amp;#x001F;</td><td>\u001F</td><td>Unit Separator</td></tr>
+                    <tr><td></td><td>&amp;#x0020;</td><td>\u0020</td><td>Space</td></tr>
+                    <tr><td>!</td><td>&amp;#x0021;</td><td>\u0021</td><td>Exclamation Mark</td></tr>
+                    <tr><td>"</td><td>&amp;#x0022;</td><td>\u0022</td><td>Quotation Mark</td></tr>
+                    <tr><td>#</td><td>&amp;#x0023;</td><td>\u0023</td><td>Hash Tag</td></tr>
+                    <tr><td>$</td><td>&amp;#x0024;</td><td>\u0024</td><td>Dollar Sign</td></tr>
+                    <tr><td>%</td><td>&amp;#x0025;</td><td>\u0025</td><td>Percent Sign</td></tr>
+                    <tr><td>&</td><td>&amp;#x0026;</td><td>\u0026</td><td>Ampersand</td></tr>
+                    <tr><td>'</td><td>&amp;#x0027;</td><td>\u0027</td><td>Apostrophe</td></tr>
+                    <tr><td>(</td><td>&amp;#x0028;</td><td>\u0028</td><td>Left Parenthesis</td></tr>
+                    <tr><td>)</td><td>&amp;#x0029;</td><td>\u0029</td><td>Right Parenthesis</td></tr>
+                    <tr><td>*</td><td>&amp;#x002A;</td><td>\u002A</td><td>Asterisk</td></tr>
+                    <tr><td>+</td><td>&amp;#x002B;</td><td>\u002B</td><td>Plus Sign</td></tr>
+                    <tr><td>,</td><td>&amp;#x002C;</td><td>\u002C</td><td>Comma</td></tr>
+                    <tr><td>-</td><td>&amp;#x002D;</td><td>\u002D</td><td>Hyphen-minus</td></tr>
+                    <tr><td>.</td><td>&amp;#x002E;</td><td>\u002E</td><td>Full Stop</td></tr>
+                    <tr><td>/</td><td>&amp;#x002F;</td><td>\u002F</td><td>Slash (solidus)</td></tr>
+                    <tr><td>0</td><td>&amp;#x0030;</td><td>\u0030</td><td>Digit Zero</td></tr>
+                    <tr><td>1</td><td>&amp;#x0031;</td><td>\u0031</td><td>Digit One</td></tr>
+                    <tr><td>2</td><td>&amp;#x0032;</td><td>\u0032</td><td>Digit Two</td></tr>
+                    <tr><td>3</td><td>&amp;#x0033;</td><td>\u0033</td><td>Digit Three</td></tr>
+                    <tr><td>4</td><td>&amp;#x0034;</td><td>\u0034</td><td>Digit Four</td></tr>
+                    <tr><td>5</td><td>&amp;#x0035;</td><td>\u0035</td><td>Digit Five</td></tr>
+                    <tr><td>6</td><td>&amp;#x0036;</td><td>\u0036</td><td>Digit Six</td></tr>
+                    <tr><td>7</td><td>&amp;#x0037;</td><td>\u0037</td><td>Digit Seven</td></tr>
+                    <tr><td>8</td><td>&amp;#x0038;</td><td>\u0038</td><td>Digit Eight</td></tr>
+                    <tr><td>9</td><td>&amp;#x0039;</td><td>\u0039</td><td>Digit Nine</td></tr>
+                    <tr><td>:</td><td>&amp;#x003A;</td><td>\u003A</td><td>Colon</td></tr>
+                    <tr><td>;</td><td>&amp;#x003B;</td><td>\u003B</td><td>Semicolon</td></tr>
+                    <tr><td><</td><td>&amp;#x003C;</td><td>\u003C</td><td>Less-than Sign</td></tr>
+                    <tr><td>=</td><td>&amp;#x003D;</td><td>\u003D</td><td>Equal Sign</td></tr>
+                    <tr><td>></td><td>&amp;#x003E;</td><td>\u003E</td><td>Greater-than Sign</td></tr>
+                    <tr><td>?</td><td>&amp;#x003F;</td><td>\u003F</td><td>Question Mark</td></tr>
+                    <tr><td>@</td><td>&amp;#x0040;</td><td>\u0040</td><td>At Sign</td></tr>
+                    <tr><td>A</td><td>&amp;#x0041;</td><td>\u0041</td><td>Latin Capital Letter A</td></tr>
+                    <tr><td>B</td><td>&amp;#x0042;</td><td>\u0042</td><td>Latin Capital Letter B</td></tr>
+                    <tr><td>C</td><td>&amp;#x0043;</td><td>\u0043</td><td>Latin Capital Letter C</td></tr>
+                    <tr><td>D</td><td>&amp;#x0044;</td><td>\u0044</td><td>Latin Capital Letter D</td></tr>
+                    <tr><td>E</td><td>&amp;#x0045;</td><td>\u0045</td><td>Latin Capital Letter E</td></tr>
+                    <tr><td>F</td><td>&amp;#x0046;</td><td>\u0046</td><td>Latin Capital Letter F</td></tr>
+                    <tr><td>G</td><td>&amp;#x0047;</td><td>\u0047</td><td>Latin Capital Letter G</td></tr>
+                    <tr><td>H</td><td>&amp;#x0048;</td><td>\u0048</td><td>Latin Capital Letter H</td></tr>
+                    <tr><td>I</td><td>&amp;#x0049;</td><td>\u0049</td><td>Latin Capital Letter I</td></tr>
+                    <tr><td>J</td><td>&amp;#x004A;</td><td>\u004A</td><td>Latin Capital Letter J</td></tr>
+                    <tr><td>K</td><td>&amp;#x004B;</td><td>\u004B</td><td>Latin Capital Letter K</td></tr>
+                    <tr><td>L</td><td>&amp;#x004C;</td><td>\u004C</td><td>Latin Capital Letter L</td></tr>
+                    <tr><td>M</td><td>&amp;#x004D;</td><td>\u004D</td><td>Latin Capital Letter M</td></tr>
+                    <tr><td>N</td><td>&amp;#x004E;</td><td>\u004E</td><td>Latin Capital Letter N</td></tr>
+                    <tr><td>O</td><td>&amp;#x004F;</td><td>\u004F</td><td>Latin Capital Letter O</td></tr>
+                    <tr><td>P</td><td>&amp;#x0050;</td><td>\u0050</td><td>Latin Capital Letter P</td></tr>
+                    <tr><td>Q</td><td>&amp;#x0051;</td><td>\u0051</td><td>Latin Capital Letter Q</td></tr>
+                    <tr><td>R</td><td>&amp;#x0052;</td><td>\u0052</td><td>Latin Capital Letter R</td></tr>
+                    <tr><td>S</td><td>&amp;#x0053;</td><td>\u0053</td><td>Latin Capital Letter S</td></tr>
+                    <tr><td>T</td><td>&amp;#x0054;</td><td>\u0054</td><td>Latin Capital Letter T</td></tr>
+                    <tr><td>U</td><td>&amp;#x0055;</td><td>\u0055</td><td>Latin Capital Letter U</td></tr>
+                    <tr><td>V</td><td>&amp;#x0056;</td><td>\u0056</td><td>Latin Capital Letter V</td></tr>
+                    <tr><td>W</td><td>&amp;#x0057;</td><td>\u0057</td><td>Latin Capital Letter W</td></tr>
+                    <tr><td>X</td><td>&amp;#x0058;</td><td>\u0058</td><td>Latin Capital Letter X</td></tr>
+                    <tr><td>Y</td><td>&amp;#x0059;</td><td>\u0059</td><td>Latin Capital Letter Y</td></tr>
+                    <tr><td>Z</td><td>&amp;#x005A;</td><td>\u005A</td><td>Latin Capital Letter Z</td></tr>
+                    <tr><td>[</td><td>&amp;#x005B;</td><td>\u005B</td><td>Left Square Bracket</td></tr>
+                    <tr><td>\</td><td>&amp;#x005C;</td><td>\u005C</td><td>Backslash</td></tr>
+                    <tr><td>]</td><td>&amp;#x005D;</td><td>\u005D</td><td>Right Square Bracket</td></tr>
+                    <tr><td>^</td><td>&amp;#x005E;</td><td>\u005E</td><td>Circumflex Accent</td></tr>
+                    <tr><td>_</td><td>&amp;#x005F;</td><td>\u005F</td><td>Low Line</td></tr>
+                    <tr><td>`</td><td>&amp;#x0060;</td><td>\u0060</td><td>Grave Accent</td></tr>
+                    <tr><td>a</td><td>&amp;#x0061;</td><td>\u0061</td><td>Latin Small Letter A</td></tr>
+                    <tr><td>b</td><td>&amp;#x0062;</td><td>\u0062</td><td>Latin Small Letter B</td></tr>
+                    <tr><td>c</td><td>&amp;#x0063;</td><td>\u0063</td><td>Latin Small Letter C</td></tr>
+                    <tr><td>d</td><td>&amp;#x0064;</td><td>\u0064</td><td>Latin Small Letter D</td></tr>
+                    <tr><td>e</td><td>&amp;#x0065;</td><td>\u0065</td><td>Latin Small Letter E</td></tr>
+                    <tr><td>f</td><td>&amp;#x0066;</td><td>\u0066</td><td>Latin Small Letter F</td></tr>
+                    <tr><td>g</td><td>&amp;#x0067;</td><td>\u0067</td><td>Latin Small Letter G</td></tr>
+                    <tr><td>h</td><td>&amp;#x0068;</td><td>\u0068</td><td>Latin Small Letter H</td></tr>
+                    <tr><td>i</td><td>&amp;#x0069;</td><td>\u0069</td><td>Latin Small Letter I</td></tr>
+                    <tr><td>j</td><td>&amp;#x006A;</td><td>\u006A</td><td>Latin Small Letter J</td></tr>
+                    <tr><td>k</td><td>&amp;#x006B;</td><td>\u006B</td><td>Latin Small Letter K</td></tr>
+                    <tr><td>l</td><td>&amp;#x006C;</td><td>\u006C</td><td>Latin Small Letter L</td></tr>
+                    <tr><td>m</td><td>&amp;#x006D;</td><td>\u006D</td><td>Latin Small Letter M</td></tr>
+                    <tr><td>n</td><td>&amp;#x006E;</td><td>\u006E</td><td>Latin Small Letter N</td></tr>
+                    <tr><td>o</td><td>&amp;#x006F;</td><td>\u006F</td><td>Latin Small Letter O</td></tr>
+                    <tr><td>p</td><td>&amp;#x0070;</td><td>\u0070</td><td>Latin Small Letter P</td></tr>
+                    <tr><td>q</td><td>&amp;#x0071;</td><td>\u0071</td><td>Latin Small Letter Q</td></tr>
+                    <tr><td>r</td><td>&amp;#x0072;</td><td>\u0072</td><td>Latin Small Letter R</td></tr>
+                    <tr><td>s</td><td>&amp;#x0073;</td><td>\u0073</td><td>Latin Small Letter S</td></tr>
+                    <tr><td>t</td><td>&amp;#x0074;</td><td>\u0074</td><td>Latin Small Letter T</td></tr>
+                    <tr><td>u</td><td>&amp;#x0075;</td><td>\u0075</td><td>Latin Small Letter U</td></tr>
+                    <tr><td>v</td><td>&amp;#x0076;</td><td>\u0076</td><td>Latin Small Letter V</td></tr>
+                    <tr><td>w</td><td>&amp;#x0077;</td><td>\u0077</td><td>Latin Small Letter W</td></tr>
+                    <tr><td>x</td><td>&amp;#x0078;</td><td>\u0078</td><td>Latin Small Letter X</td></tr>
+                    <tr><td>y</td><td>&amp;#x0079;</td><td>\u0079</td><td>Latin Small Letter Y</td></tr>
+                    <tr><td>z</td><td>&amp;#x007A;</td><td>\u007A</td><td>Latin Small Letter Z</td></tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
