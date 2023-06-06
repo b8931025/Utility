@@ -40,12 +40,16 @@
 
             result += '<<header>>\n';
             for (let x in header) result += header[x];
+            colorLongTxt(header,"header","mainFrame1");
 
             result += '\n\n<<label>>\n'; 
             for (let x in label) result += label[x];
+            colorLongTxt(label,"label","mainFrame2");
 
             result += '\n\n<<text>>\n'; 
             for (let x in text) result += text[x];
+            colorLongTxt(text,"text","mainFrame3");
+
             document.querySelector('#txtOutput').value = result;
         }
 
@@ -99,6 +103,20 @@
             traversal(obj, propName);
             return pList;
         }
+
+        function colorLongTxt(obj,objName,frame){
+            let cols = Object.keys(obj);
+            document.querySelector("#" + frame).innerHTML = objName + ":<br/>";
+
+            for(let i = 0 ; i < cols.length ; i++){
+                let d = document.createElement('div');
+                let modifyValue = obj[cols[i]].replace(/ /g,"&nbsp;")
+                d.innerHTML = modifyValue;
+                d.title = cols[i];
+                d.className = "divUnit div" + (i % 2);
+                document.querySelector("#" + frame).appendChild(d);       
+            }
+        }
     </script>
     <style type="text/css">
         #txtInput , #txtOutput {
@@ -108,10 +126,40 @@
             height: 150px;
             resize: none;
         }
+
+        .divUnit {
+            margin: 0px;
+            display: inline-block;
+        }
+
+        .div0{
+            color:brown;
+            background-color:darkgrey;
+        }
+
+        .div1{
+            color:black;
+            background-color:darkgoldenrod;
+        }
+
+        .divFrame{
+            display:flex;
+            flex-direction: row;
+            justify-content: left;
+        }
     </style>
     <body>
         <input id="btn1" type="button" value="轉換" onclick="onBtn1Click();"/>
         <h3>JSON Data</h3><textarea id="txtInput" ></textarea>
         <h3>電文</h3><textarea id="txtOutput"></textarea>
+
+        <br/>
+        <div class="divFrame" id="mainFrame1"></div>
+        <br/>
+        <div class="divFrame" id="mainFrame2"></div>
+        <br/>
+        <div class="divFrame" id="mainFrame3"></div>
+        
+
     </body>
 </html>
