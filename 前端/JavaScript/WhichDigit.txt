@@ -1,0 +1,17 @@
+		//#第幾位數
+		//取得整數第N位的數字 ex: whichDigit(12345,2)=>4
+		const whichDigit = (n:number,wDigit:number)=>{
+			if (wDigit <= 0) throw Error('wDigit can not to be small then zero');
+			if (n == 0 && wDigit != 1) throw Error('wDigit is too long');
+			if (n == 0) return 0;
+
+			let len = Math.floor(Math.log10(n)) + 1; //取得幾位數
+			if (wDigit > len) throw Error('wDigit is too long');
+
+			let modBy = Math.pow(10, wDigit);
+			let dividBy = Math.pow(10, wDigit - 1);
+			let result = n % modBy; // 12345 -> 45
+			result = result / dividBy; //45 -> 4.5
+			result = Math.floor(result); //4.5 -> 4
+			return result;
+		}
