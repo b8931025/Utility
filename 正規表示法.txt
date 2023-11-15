@@ -49,6 +49,11 @@ Regex reg = new Regex("\\d{3,4}");
 string newS = reg.Replace(txt, new MatchEvaluator(m => $"[{m.ToString()}]"));
 块:haha [123] 33 [567] [9999]
 
+[JavaScript]
+ゑ癸簙
+/\p{sc=Han}/u.test('狶')   ===> true
+'狶a此bれ'.match(/\p{sc=Han}/gu)  ===> ["狶","此","れ"]
+
 浪琩
 计(计翴璽腹)
 糶
