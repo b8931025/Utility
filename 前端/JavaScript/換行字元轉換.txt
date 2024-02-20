@@ -1,0 +1,6 @@
+        let s = '一行\r\n二行\n三行\r四行\n\r五行\n六行\r七行';
+        //處理錯誤的換行字元
+        s = s.replace(/\n\r/gu,'\r\n').replace(/([^\r])\n/gu,'$1\r\n').replace(/\r([^\n])/gu,'\r\n$1'); 
+
+        console.log('='.repeat(50) + '>test', s.match(/\r\n/gu).length);
+        console.log('='.repeat(50) + '>result', s);

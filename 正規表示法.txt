@@ -50,9 +50,16 @@ string newS = reg.Replace(txt, new MatchEvaluator(m => $"[{m.ToString()}]"));
 輸出:haha [123] 33 [567] [9999]
 
 [JavaScript]
-比對漢字
+比對漢字  u:Unicode g:Global
 /\p{sc=Han}/u.test('林')   ===> true
 '林a森b木'.match(/\p{sc=Han}/gu)  ===> ["林","森","木"]
+
+[JavaScript]
+let s = '一行\r\n二行\n三行\r四行\n\r五行\n六行\r七行';
+//處理錯誤的換行字元
+s = s.replace(/\n\r/gu,'\r\n').replace(/([^\r])\n/gu,'$1\r\n').replace(/\r([^\n])/gu,'\r\n$1'); 
+console.log('='.repeat(50) + '>test', s.match(/\r\n/gu).length);
+console.log('='.repeat(50) + '>result', s);
 
 檢查
 數字(含小數點，含負號)
